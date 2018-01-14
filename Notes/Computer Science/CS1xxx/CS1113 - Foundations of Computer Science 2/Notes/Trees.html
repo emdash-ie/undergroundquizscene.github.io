@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Trees</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="trees" class="level1">
+<h1>Trees</h1>
+<hr />
+<p>Drawn with the root at the top and the leaves at the bottom.</p>
+<section id="uses" class="level4">
+<h4>Uses</h4>
+<ul>
+<li>filesystems on computers (with exceptions like sharing a single file across multiple folders)</li>
+<li>organisational structures (e.g. in UCC)</li>
+<li>mobile phone network backhaul</li>
+<li>phylogenetic trees</li>
+<li>decision trees (e.g. in business)</li>
+<li>computer science algorithms and data structures</li>
+<li>mobile ad hoc network broadcast trees</li>
+<li>propositional logic syntax trees</li>
+<li>analysing structure of natural language sentences</li>
+</ul>
+</section>
+<section id="cycles" class="level2">
+<h2>Cycles</h2>
+<p>A <strong>cycle</strong> is a circuit with the following properties:</p>
+<ul>
+<li>it contains at least one edge</li>
+<li>no edge is visited twice</li>
+<li>no vertex is visited twice except the start/finish vertex</li>
+</ul>
+</section>
+<section id="trees-1" class="level2">
+<h2>Trees</h2>
+<p>A <strong>tree</strong> is a connected undirected simple graph with no cycles.</p>
+<section id="rooted-trees" class="level3">
+<h3>Rooted Trees</h3>
+<p>A <strong>rooted</strong> tree is a tree in which one of the vertices is designated the <strong>root</strong>, and all edges are then directed away from that root.</p>
+<section id="describing-vertices-in-rooted-trees" class="level4">
+<h4>Describing vertices in rooted trees</h4>
+<ul>
+<li>Parent:<br />
+If there is a directed edge from x to y, then x is the <strong>parent</strong> of y and y is a <strong>child</strong> of x.</li>
+<li>Sibling:<br />
+If two vertices y and w have the same parent, then they are <strong>siblings</strong> of each other.</li>
+<li>Leaf:<br />
+A vertex with no children is a <strong>leaf</strong>. A vertex with children is an <strong>internal vertex</strong>.</li>
+<li>Ancestors:<br />
+The <strong>ancestors</strong> of a vertex v are all vertices in the path from v to the root except for v itself.</li>
+</ul>
+</section>
+<section id="properties" class="level4">
+<h4>Properties:</h4>
+<ul>
+<li>Adding an edge anywhere to a tree creates a cycle.</li>
+<li>Removing an edge makes it a disconnected graph.</li>
+<li>Every rooted tree has at least one leaf.</li>
+<li>Every tree has (n - 1) edges where n is the number of nodes(?)</li>
+</ul>
+</section>
+</section>
+<section id="spanning-trees" class="level3">
+<h3>Spanning Trees</h3>
+<p>A <strong>spanning tree</strong> of a graph G=(V,E) is a sub-graph of G that contains every vertex in V.</p>
+<p>A simple graph is <strong>connected</strong> if and only if it has a spanning tree.</p>
+<section id="minimal-spanning-trees" class="level4">
+<h4>Minimal Spanning Trees</h4>
+<p>Consider a simple connected graph with weights on its edges. Different spanning trees will use different edges, and so the costs will be diferent. A Minimal Spanning Tree has the lowest cost.</p>
+</section>
+<section id="informal-algorithm" class="level4">
+<h4>Informal Algorithm</h4>
+<p>Pick a vertex. Pick the cheapest edge that links to a vertex we haven’t picked yet. Continue until you have the full tree.</p>
+</section>
+<section id="prims-algorithm" class="level4">
+<h4>Prim’s Algorithm</h4>
+<p>Input: connected undirected graph G = (V, E) with edge weights and n vertices Output: a spanning tree T = (V, F) for G</p>
+<pre><code>1. T := {v}, where v is any vertex in V
+2. F := {}
+3. for each i from 2 to n
+4.      e := {w, y}, an edge with minimum weight in E such that w is in T and y is not in T
+5.      F := F U {e}
+6.      T := [incomplete]</code></pre>
+</section>
+<section id="balancing-trees" class="level4">
+<h4>Balancing Trees</h4>
+<p>A tree is more balanced if it’s more even from left to right (this is good for guaranteeing search times etc.)</p>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

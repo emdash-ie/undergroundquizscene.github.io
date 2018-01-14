@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 4</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="joins-cont." class="level1">
+<h1>Joins (cont.)</h1>
+<p>Using joins to find the name of all employees working in the same department as Joyce English:</p>
+<pre class="sourceCode sql" id="cb1"><code class="sourceCode sql"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">SELECT</span> RE.Fname, RE.Lname</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE LE, EMPLOYEE RE</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">WHERE</span> LE.Dno = RE.Dno</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">    <span class="kw">AND</span> LE.Ssn != RE.Ssn</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">    <span class="kw">AND</span> LE.Fname = <span class="st">&#39;Joyce&#39;</span></div>
+<div class="sourceLine" id="cb1-6" data-line-number="6">    <span class="kw">AND</span> LE.Lname = <span class="st">&#39;English&#39;</span>;</div></code></pre>
+<p>Find the name of employees working in the same department as Joyce English who earn more than her:</p>
+<pre class="sourceCode sql" id="cb2"><code class="sourceCode sql"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">SELECT</span> RE.Fname, RE.Lname</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE LE, EMPLOYEE RE</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">WHERE</span> LE.Dno = RE.Dno</div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">    <span class="kw">AND</span> LE.Ssn != RE.Ssn</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">AND</span> LE.Fname = <span class="st">&#39;Joyce&#39;</span></div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">    <span class="kw">AND</span> LE.Lname = <span class="st">&#39;English&#39;</span></div>
+<div class="sourceLine" id="cb2-7" data-line-number="7">    <span class="kw">AND</span> LE.Salary &lt; RE.Salary;</div></code></pre>
+<ul>
+<li>Note that now the Ssn condition is unnecessary, because one row can’t have two salary values, so the salary condition excludes all rows with the same person on each side.</li>
+</ul>
+<section id="left-outer-join" class="level2">
+<h2>Left Outer Join</h2>
+<p>Any normally unmatched row from the left table will automatically match a null row appended to the right.</p>
+<p>E.g. find the name of every Texas-based employee, together with the name &amp; relationship of any dependents they might have:</p>
+<pre class="sourceCode sql" id="cb3"><code class="sourceCode sql"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">SELECT</span> Fname, Lname, Dependent_Name, Relationship</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE <span class="kw">LEFT</span> <span class="kw">JOIN</span> DEPENDENT</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">WHERE</span> Ssn = Essn</div>
+<div class="sourceLine" id="cb3-4" data-line-number="4">    <span class="kw">AND</span> Address <span class="kw">LIKE</span> <span class="st">&#39;%TX&#39;</span>;</div></code></pre>
+<ul>
+<li>For most implementations besides MySQL, you can use the following notation instead of <code>LEFT JOIN</code>:</li>
+</ul>
+<pre class="sourceCode sql" id="cb4"><code class="sourceCode sql"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">SELECT</span> […]</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE, DEPENDENT+</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">WHERE</span> […]</div></code></pre>
+</section>
+</section>
+<section id="synchronised-subqueries" class="level1">
+<h1>Synchronised Subqueries</h1>
+<p>Also called:</p>
+<ul>
+<li>Correlated subqueries</li>
+<li>Subequeries with interblock reference</li>
+</ul>
+<p>The inner block refers to a column in its parent block. (You can only refer up one level.)</p>
+<p>They evaluate more like joins than subqueries.</p>
+<p>MySQL syntax:</p>
+<pre class="sourceCode sql" id="cb5"><code class="sourceCode sql"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">SELECT</span> Fname, Lname</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE E</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">WHERE</span> <span class="st">&#39;Research&#39;</span> <span class="kw">IN</span></div>
+<div class="sourceLine" id="cb5-4" data-line-number="4">    (<span class="kw">SELECT</span> Dname</div>
+<div class="sourceLine" id="cb5-5" data-line-number="5">     <span class="kw">FROM</span> DEPARTMENT</div>
+<div class="sourceLine" id="cb5-6" data-line-number="6">     <span class="kw">WHERE</span> Dnumber = E.Dno)</div></code></pre>
+<ul>
+<li>For other implementations, you don’t need to use an alias with employee.
+<ul>
+<li>You can just write <code>…WHERE Dnumber = Dno</code>.</li>
+</ul></li>
+<li>Note using <code>=</code> instead of <code>IN</code> will work because you can be sure that you won’t get two results from the subquery</li>
+</ul>
+<p>The order of evaluation is changed. The query evaluates top-down:</p>
+<ol type="1">
+<li>Look at the first row of the <code>EMPLOYEE</code> table.
+<ol type="1">
+<li>Evaluate the interblock reference</li>
+<li>Evaluate the subquery</li>
+<li>Include or don’t include the row</li>
+</ol></li>
+<li>Look at the second row of the <code>EMPLOYEE</code> table.
+<ol type="1">
+<li>Evaluate the interblock reference</li>
+<li>Evaluate the subquery</li>
+<li>Include or don’t include the row […]</li>
+</ol></li>
+</ol>
+<p>The subquery is run once for each row, which is potentially very inefficient.</p>
+<p>Regular subqueries are much more efficient, and joins are probably more efficient as well.</p>
+<p>Here’re examples where you might have to use synchronised subqueries:</p>
+<ul>
+<li>Find the name and id of all departments employing people from Houston:</li>
+</ul>
+<pre class="sourceCode sql" id="cb6"><code class="sourceCode sql"><div class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">SELECT</span> Dnumber, Dname</div>
+<div class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">FROM</span> DEPARTMENT D</div>
+<div class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">WHERE</span> <span class="kw">EXISTS</span></div>
+<div class="sourceLine" id="cb6-4" data-line-number="4">    (<span class="kw">SELECT</span> *</div>
+<div class="sourceLine" id="cb6-5" data-line-number="5">     <span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb6-6" data-line-number="6">     <span class="kw">WHERE</span> Address <span class="kw">LIKE</span> <span class="st">&#39;%Houston%&#39;</span></div>
+<div class="sourceLine" id="cb6-7" data-line-number="7">         <span class="kw">AND</span> Dno = D.Dnumber);</div></code></pre>
+<ul>
+<li>Find the name and id of all departments employing no-one from Houston:</li>
+</ul>
+<pre class="sourceCode sql" id="cb7"><code class="sourceCode sql"><div class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">SELECT</span> Dnumber, Dname</div>
+<div class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">FROM</span> DEPARTMENT D</div>
+<div class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">WHERE</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span></div>
+<div class="sourceLine" id="cb7-4" data-line-number="4">    (<span class="kw">SELECT</span> *</div>
+<div class="sourceLine" id="cb7-5" data-line-number="5">     <span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb7-6" data-line-number="6">     <span class="kw">WHERE</span> Address <span class="kw">LIKE</span> <span class="st">&#39;%Houston%&#39;</span></div>
+<div class="sourceLine" id="cb7-7" data-line-number="7">         <span class="kw">AND</span> Dno = D.Dnumber);</div></code></pre>
+</section>
+<section id="inserting-data" class="level1">
+<h1>Inserting Data</h1>
+<p>By default new rows are entered at the bottom of the table.</p>
+<ul>
+<li>In general you can only add data to one table at a time</li>
+</ul>
+<pre class="sourceCode sql" id="cb8"><code class="sourceCode sql"><div class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">INSERT</span> <span class="kw">INTO</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">VALUES</span> (<span class="st">&#39;Joan&#39;</span>, <span class="st">&#39;J&#39;</span>, <span class="st">&#39;McGregor&#39;</span>, […]);</div></code></pre>
+<p>You can populate tables from other tables:</p>
+<pre class="sourceCode sql" id="cb9"><code class="sourceCode sql"><div class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">INSERT</span> <span class="kw">INTO</span> HOUSTON_STAFF</div>
+<div class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">SELECT</span> Ssn, Dno, Salary</div>
+<div class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb9-4" data-line-number="4"><span class="kw">WHERE</span> Address <span class="kw">LIKE</span> <span class="st">&#39;%Houston%&#39;</span>;</div></code></pre>
+</section>
+<section id="modifying-data" class="level1">
+<h1>Modifying Data</h1>
+<p>You can only modify data in one table at a time.</p>
+<p>Address</p>
+<pre class="sourceCode sql" id="cb10"><code class="sourceCode sql"><div class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">UPDATE</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">SET</span> Address = <span class="st">&#39;18 Maple, Austin, TX&#39;</span>,</div>
+<div class="sourceLine" id="cb10-3" data-line-number="3">    Salary = <span class="dv">50000</span></div>
+<div class="sourceLine" id="cb10-4" data-line-number="4"><span class="kw">WHERE</span> Ssn = <span class="st">&#39;123457689&#39;</span>;</div></code></pre>
+<p>Give all employees of department 5 a 20% raise:</p>
+<pre class="sourceCode sql" id="cb11"><code class="sourceCode sql"><div class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">UPDATE</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">SET</span> Salary = Salary * <span class="fl">1.2</span></div>
+<div class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">WHERE</span> Dno = <span class="dv">5</span>;</div></code></pre>
+<p>You can use subqueries (and joins, in MYSQL) to build the condition, but you can only ever update in one row.</p>
+</section>
+<section id="deleting-data" class="level1">
+<h1>Deleting Data</h1>
+<p>You can only delete data from one table at a time.</p>
+<pre class="sourceCode sql" id="cb12"><code class="sourceCode sql"><div class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw">DELETE</span></div>
+<div class="sourceLine" id="cb12-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">WHERE</span> Fname=<span class="st">&#39;Jennifer&#39;</span></div>
+<div class="sourceLine" id="cb12-4" data-line-number="4">    <span class="kw">AND</span> Lname=<span class="st">&#39;Wallace&#39;</span>;</div></code></pre>
+</section>
+<section id="verification" class="level1">
+<h1>Verification</h1>
+<p>When you get input to a table, you should verify the format and also any references to other tables (e.g. referencing a department that doesn’t exist).</p>
+<p>This prevents your table from getting very messy.</p>
+<p>In practice, a lot of database administrators will restrict insert permissions to a small number of people, and will only allow insertion through a program that verifies the input.</p>
+<p>The same things apply to deletion of rows.</p>
+<p>Three options:</p>
+<ul>
+<li>Do nothing (allow people to screw up the database)</li>
+<li>Specify rules that the DBMS might apply to modification commands
+<ul>
+<li>This slows down insertions, modifications, and deletes</li>
+</ul></li>
+<li>Perform data modification under program control</li>
+</ul>
+</section>
+</body>
+</html>

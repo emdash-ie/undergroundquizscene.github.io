@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Types</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Java makes sure the right types are passed to functions – if you pass the wrong type, the code won’t run.</p>
+<p>When declaring variables, you have to provide the name and the type:</p>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="dt">int</span> favouriteNumber = <span class="dv">4</span>;</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">// you can leave out the value and specify it later:</span></div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"><span class="dt">int</span> undecidedValue;</div></code></pre>
+<ul>
+<li><p>variables have a type, which determines the values they can hold</p>
+<ul>
+<li>when an object reference’s type is <code>Object</code>, it can hold any object reference</li>
+</ul></li>
+<li><p>any object reference variable can be assigned the value <code>null</code>, which corresponds to nothing</p></li>
+</ul>
+</section>
+<section id="primitive-types" class="level1">
+<h1>Primitive Types</h1>
+<p>Primitive types correspond to byte patterns – they are not objects. Names of primitive types are in lowercase.</p>
+<ul>
+<li>whole numbers:
+<ul>
+<li><code>byte</code></li>
+<li><code>short</code></li>
+<li><code>int</code>
+<ul>
+<li>this is the standard choice</li>
+</ul></li>
+<li><code>long</code></li>
+</ul></li>
+<li>floating point numbers:
+<ul>
+<li><code>float</code></li>
+<li><code>double</code>
+<ul>
+<li>this is the standard choice</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>The <code>int</code> and <code>long</code> types are 2’s complement integers.</p>
+</section>
+<section id="object-types" class="level1">
+<h1>Object Types</h1>
+<p>Types starting with uppercase letters are object reference types. Object variables have objects.</p>
+<p>You can use capitalised versions of primitive types as wrapper classes for primitive type values:</p>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="bu">Integer</span> number = <span class="kw">new</span> <span class="bu">Integer</span>(<span class="dv">1</span>);</div></code></pre>
+<p>In general the primitives are best, as they incur less overhead, though you do get some additional methods from the wrapper classes.</p>
+<section id="wrapper-classes" class="level2">
+<h2>Wrapper Classes</h2>
+<p>Java has a wrapper class for each primitive type. These wrapper classes have getter functions to access the primitive value:</p>
+<pre class="sourceCode java" id="cb3"><code class="sourceCode java"><div class="sourceLine" id="cb3-1" data-line-number="1">    <span class="dt">final</span> <span class="bu">Integer</span> iObject = <span class="kw">new</span> <span class="bu">Integer</span>(<span class="dv">42</span>);</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2">    <span class="dt">final</span> <span class="dt">int</span> val = iObject.<span class="fu">intValue</span>();</div></code></pre>
+<ul>
+<li>primitive <code>bool</code> variables have values of <code>true</code> and <code>false</code></li>
+<li>The object wrapper for that has values of <code>True</code> and <code>False</code></li>
+</ul>
+</section>
+<section id="autoboxing-unboxing" class="level2">
+<h2>Autoboxing &amp; Unboxing</h2>
+<p>Writing code to convert to and from wrapper classes is tedious, and increases the code size.</p>
+<p>Java automates some conversions.</p>
+<section id="autoboxing" class="level3">
+<h3>Autoboxing</h3>
+<p>If you use a primitive type when Java expects an object, Java will autobox it to the corresponding wrapper class. For example, an <code>int</code> becomes an <code>Integer</code>.</p>
+</section>
+<section id="unboxing" class="level3">
+<h3>Unboxing</h3>
+<p>Unboxing is the opposite process, and happens when you use one of these objects where Java expects a primitive type.</p>
+</section>
+<section id="caching" class="level3">
+<h3>Caching</h3>
+<p>When autoboxing and unboxing, Java will cache a limited number (e.g. from -128 to 127 for Integers) of wrapper class values. In the following code, <code>firstNumber</code> and <code>secondNumber</code> point to the same object:</p>
+<pre class="sourceCode java" id="cb4"><code class="sourceCode java"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="bu">Integer</span> firstNumber = <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="bu">Integer</span> secondNumber = <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb4-4" data-line-number="4"><span class="co">// prints &#39;true&#39; because both numbers have the same value</span></div>
+<div class="sourceLine" id="cb4-5" data-line-number="5"><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(firstNumber.<span class="fu">equals</span>(secondNumber));</div>
+<div class="sourceLine" id="cb4-6" data-line-number="6"></div>
+<div class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">// prints &#39;true&#39; because firstNumber and secondNumber point to the same object</span></div>
+<div class="sourceLine" id="cb4-8" data-line-number="8"><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(firstNumber == secondNumber);</div></code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

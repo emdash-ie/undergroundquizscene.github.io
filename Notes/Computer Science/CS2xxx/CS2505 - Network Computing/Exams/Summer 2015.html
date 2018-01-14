@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Summer 2015</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="question-1-general-networking-concepts" class="level1">
+<h1>Question 1: General Networking Concepts</h1>
+<section id="a-true-or-false" class="level2">
+<h2>(a) True or False</h2>
+<section id="bittorrent-is-a-pure-peer-to-peer-system." class="level3">
+<h3>BitTorrent is a <em>pure</em> peer-to-peer system.</h3>
+<ul>
+<li><p>Depends on the tracker</p></li>
+<li><p>If a centralised tracker is used, each peer registers with that tracker to get a list of peers to connect to, so it’s not purely peer-to-peer.</p></li>
+<li><p>On the other hand, if a distributed tracker is used, then the tracker is spread across the peers, and it is a pure peer-to-peer system.</p></li>
+</ul>
+</section>
+<section id="kbs-is-a-lower-data-rate-than-1-gbs." class="level3">
+<h3>10000 Kb/s is a lower data rate than 1 Gb/s.</h3>
+<ul>
+<li><p>True</p></li>
+<li><p>1 Gb/s = 1000 Mb/s, 10000 Kb/s = 10 Mb/s</p></li>
+<li><p>10 Mb/s &lt; 1000 Mb/s</p></li>
+</ul>
+</section>
+<section id="cloud-computing-servers-are-considered-to-be-part-of-the-network-edge-rather-than-the-network-core." class="level3">
+<h3>Cloud computing servers are considered to be part of the network edge rather than the network core.</h3>
+<ul>
+<li><p>True</p></li>
+<li><p>The network core is just switches and routers.</p></li>
+</ul>
+</section>
+<section id="udp-uses-a-checksum-for-demultiplexing-a-datagram-to-the-correct-socket." class="level3">
+<h3>UDP uses a checksum for demultiplexing a datagram to the correct socket.</h3>
+<ul>
+<li><p>False</p></li>
+<li><p>Checksum is used for verifying messages haven’t been corrupted.</p></li>
+</ul>
+</section>
+<section id="dns-is-an-application-layer-protocol." class="level3">
+<h3>DNS is an application-layer protocol.</h3>
+<ul>
+<li>True</li>
+</ul>
+</section>
+</section>
+<section id="b-expand-the-following-acronyms-dht-rtt-nak-http-cdn." class="level2">
+<h2>(b) Expand the following acronyms: DHT, RTT, NAK, HTTP, CDN.</h2>
+<ul>
+<li><p>DHT = Distributed Hash Table</p></li>
+<li><p>RTT = Round Trip Time</p></li>
+<li><p>NAK = Negative Acknowledgement</p></li>
+<li><p>HTTP = Hypertext Transfer Protocol</p></li>
+<li><p>CDN = Content Distribution Network</p></li>
+</ul>
+</section>
+</section>
+<section id="question-2-networking-fundamentals" class="level1">
+<h1>Question 2: Networking Fundamentals</h1>
+<section id="a-concerning-encapsulation" class="level2">
+<h2>(a) Concerning encapsulation:</h2>
+<section id="i-why-is-it-considered-good-practice-to-minimise-the-size-of-packet-headers" class="level3">
+<h3>(i) Why is it considered good practice to minimise the size of packet headers?</h3>
+<ul>
+<li>Packet headers are added at each architecture layer, and are added to every packet. As they’re not part of the content, if they’re large they can hugely decrease throughput.</li>
+</ul>
+</section>
+<section id="ii-draw-a-diagram-showing-the-encapsulation-of-a-http-message-as-it-passes-through-a-network-link." class="level3">
+<h3>(ii) Draw a diagram showing the encapsulation of a HTTP message as it passes through a network link.</h3>
+<ul>
+<li>Some variant of the encapsulation diagram (Images/Encapsulation Diagram.png):</li>
+</ul>
+<figure>
+<img src="Images/Encapsulation%20Diagram.png" alt="Encapsulation diagram" /><figcaption>Encapsulation diagram</figcaption>
+</figure>
+</section>
+</section>
+<section id="b" class="level2">
+<h2>(b)</h2>
+<ul>
+<li><p>propagation delay and transmission delay</p></li>
+<li><p>transmission delay is L / R</p></li>
+<li><p>propagation delay is D / S</p></li>
+</ul>
+<p>Total time is <code>L/R + D/S</code></p>
+</section>
+<section id="c" class="level2">
+<h2>(c)</h2>
+<section id="i" class="level3">
+<h3>(i)</h3>
+<p>2 Mbps for 1/20th of a second = 0.1 Mbps</p>
+</section>
+<section id="ii" class="level3">
+<h3>(ii)</h3>
+<p>2 Mbps if it’s the only computer currently active (it gets the full link)</p>
+</section>
+</section>
+</section>
+<section id="question-3-application-layer" class="level1">
+<h1>Question 3: Application Layer</h1>
+<section id="a-http-caching-proxies" class="level2">
+<h2>(a) HTTP Caching Proxies</h2>
+<section id="iii" class="level3">
+<h3>(iii)</h3>
+<ul>
+<li><p>caching stops content providers from getting information about how you’re using their page</p></li>
+<li><p>also means they can’t serve personalised ads</p></li>
+<li><p>can’t provide any customised experience through a cache (e.g. a login system)</p></li>
+</ul>
+</section>
+</section>
+<section id="b-video-streaming" class="level2">
+<h2>(b) Video Streaming</h2>
+<section id="i-playout-buffer" class="level3">
+<h3>(i) Playout Buffer</h3>
+<ul>
+<li><p>Since network delays are variable, some video chunks may not arrive in time</p></li>
+<li><p>Rather than have the video pause at those moments, using a buffer means the next few chunks are always available.</p>
+<ul>
+<li><p>if a chunk is delayed, the buffer will deplete</p></li>
+<li><p>ideally the buffer is big enough that the chunk will arrive before the buffer runs out completely, meaning there’s no interruption to the video</p></li>
+</ul></li>
+<li><p>the buffer is filled to a certain point at the beginning, will fill when some chunks arrive earlier than expected</p></li>
+</ul>
+</section>
+<section id="ii-dash" class="level3">
+<h3>(ii) DASH</h3>
+<ol type="1">
+<li><p>When to fetch the chunk</p>
+<ul>
+<li>need to make sure the buffer doesn’t empty but also that it doesn’t overflow</li>
+</ul></li>
+<li><p>What quality chunk to fetch</p>
+<ul>
+<li>want the highest quality that’s possible while guaranteeing uninterrupted playback at the client</li>
+</ul></li>
+<li><p>Which server to fetch the chunk from</p>
+<ul>
+<li>may choose low latency server or high bandwidth</li>
+</ul></li>
+</ol>
+</section>
+</section>
+</section>
+<section id="question-4-transport-layer" class="level1">
+<h1>Question 4: Transport Layer</h1>
+<section id="a" class="level2">
+<h2>(a)</h2>
+<section id="i-1" class="level3">
+<h3>(i)</h3>
+<ul>
+<li>rdt 2.0 FSM diagram</li>
+</ul>
+</section>
+<section id="ii-1" class="level3">
+<h3>(ii)</h3>
+<ul>
+<li><p>if the sender receives a corrupt ACK/NAK, then it resends the current packet</p>
+<ul>
+<li>e.g. use a checksum to detect the corrupted ACK/NAK</li>
+</ul></li>
+<li><p>there are now sequence numbers with the packets – either 0 or 1</p></li>
+<li><p>if the receiver receives a duplicate packet (same sequence number), it discards it and sends an ACK</p></li>
+</ul>
+</section>
+</section>
+<section id="b-tcp-header" class="level2">
+<h2>(b) TCP Header</h2>
+<section id="i-2" class="level3">
+<h3>(i)</h3>
+<p>2<sup>15</sup> bytes</p>
+</section>
+<section id="ii-2" class="level3">
+<h3>(ii)</h3>
+<p>To a random value.</p>
+</section>
+<section id="iii-1" class="level3">
+<h3>(iii)</h3>
+<p>No, they use separate sequence numbers.</p>
+</section>
+<section id="iv" class="level3">
+<h3>(iv)</h3>
+<p>It’s the sequence number of the next expected byte.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

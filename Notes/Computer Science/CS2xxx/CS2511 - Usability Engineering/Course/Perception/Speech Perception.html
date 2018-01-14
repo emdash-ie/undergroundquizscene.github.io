@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Speech Perception</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="speech-perception" class="level1">
+<h1>Speech Perception</h1>
+<p>Attempts to use speech in computer applications cause slow and inefficient communication.</p>
+<p>But studies show human can communicate very efficiently using speech.</p>
+<p>This is because human speakers are very careful when choosing:</p>
+<ul>
+<li>what to say at each point in an exchange
+<ul>
+<li>bear in mind what has already been said</li>
+<li>also their impressions of the listener</li>
+</ul></li>
+<li>how to say it
+<ul>
+<li>format speech so that important information is highlighted, making it easier for the listener to identify</li>
+</ul></li>
+</ul>
+<p>Speech is a co-operative activity, in which the speaker seeks to identify and meet the communication needs of the listener, and the listener provides feedback to the speaker to aid in this process.</p>
+<p>It’s important to understand how human speech communication works if we are to develop better speech-based computer interfaces. Speech communication also provides a useful model for other forms of human-computer interaction in the era of ubiquitous computers.</p>
+</section>
+<section id="models-of-speech-perception" class="level1">
+<h1>Models of Speech Perception</h1>
+<p>More recent models assume a top-down approach:</p>
+<ul>
+<li>search speech stream and locate key-words</li>
+<li>identify the meaning of the key-words, then guess at the meaning</li>
+<li>if unsuccessful, analyse more words until the meaning has been extracted</li>
+</ul>
+<p>Note:</p>
+<ul>
+<li>top-down models suggest we perceive speech in much the same we read text</li>
+<li>both types of model assume that speech is held in a temporary store during processing</li>
+<li>modern models fit well with the concept of humans as lazy processors</li>
+</ul>
+<section id="speech-content" class="level2">
+<h2>Speech Content</h2>
+<p>When speaking, human beings:</p>
+<ul>
+<li>assess what is relevant to the listener at the current point</li>
+<li>construct a phrase containing this information, taking care to:
+<ul>
+<li>exclude information that is already known to the listeners or that they can infer</li>
+<li>use as few words as possible without sacrificing clarity</li>
+</ul></li>
+<li>present the phrase with appropriate prosody
+<ul>
+<li>prosody is pitch, volume, pauses, gestures, etc.</li>
+</ul></li>
+</ul>
+<p>In deciding what is relevant, an important factor is the distinction between new information and given information.</p>
+<section id="new-information-given-information" class="level3">
+<h3>New Information &amp; Given Information</h3>
+<ul>
+<li>a typical spoken phrase is constructed around one word</li>
+<li>this word is deemed by the speaker to contain new information not previously known to the listener or inferable from the context</li>
+<li>most of the remaining words either:
+<ul>
+<li>complete the grammatical structure</li>
+<li>or provide redundancy by presenting information already known to the listener or inferable from the context</li>
+</ul></li>
+<li>such words are said to contain given information</li>
+</ul>
+</section>
+<section id="content-words-and-function-words" class="level3">
+<h3>Content Words and Function Words</h3>
+<p>Some of the words within a phrase are essential, for example verbs and nouns. The phrase cannot be understood if they are omitted or mis-heard. These are <em>content words</em>.</p>
+<p>Other words are not essential. The phrase can be understood even if they are omitted or mis-heard.</p>
+</section>
+</section>
+<section id="speech-delivery" class="level2">
+<h2>Speech Delivery</h2>
+<p>When speaking, we provide prosodic cues to help our listeners parse the speech stream. Appropriate prosody helps the listener identify key-words (new information and content words).</p>
+<section id="intonation" class="level3">
+<h3>Intonation</h3>
+<ul>
+<li>The pitch rises at the start of each phrase and falls at the end.</li>
+<li>Where several phrases follow in succession, each has a lower average pitch than its predecessor</li>
+<li>Within each phrase, a sharp change in pitch marks the position of the new information.</li>
+</ul>
+</section>
+<section id="rhythm" class="level3">
+<h3>Rhythm</h3>
+<ul>
+<li>Stressed syllables of key words (new information, content words) are spoken at regular intervals and may also be marked by an increase in volume</li>
+<li>pauses are placed between words where necessary to support the rhythm</li>
+<li>longer pauses are placed between phrases</li>
+</ul>
+</section>
+<section id="non-speech-cues" class="level3">
+<h3>Non-Speech Cues</h3>
+<p>Used to highlight the position of important information within the speech stream.</p>
+<ul>
+<li>gesture</li>
+<li>facial expression</li>
+</ul>
+</section>
+</section>
+<section id="collaboration-clarification-and-repair" class="level2">
+<h2>Collaboration, Clarification and Repair</h2>
+<p>Note we’re just talking about speech that’s focused on effective communication, e.g. 911 calls.</p>
+<p>Successful speech communication relies on the maintenance of a shared context between speaker and listener(s).</p>
+<p>As an exchange proceeds information is shared, and each participant relies on this shared context when formulating contributions.</p>
+<p>In addition, each participant learns more about the other.</p>
+<p>In general HCI using speech has been context-free.</p>
+<p>Having a shared context makes it easier to decide how much background knowledge needs to be communicated and what can be excluded in order to keep utterances brief.</p>
+<section id="shared-context" class="level3">
+<h3>Shared Context</h3>
+<ul>
+<li>history of conversation</li>
+<li>impression of participants
+<ul>
+<li>knowledge</li>
+<li>analytical skills</li>
+<li>memory</li>
+<li>expectations / boundaries
+<ul>
+<li>cultural</li>
+<li>religious</li>
+<li>other</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>In an effort to communicated efficiently, we often place too much reliance on this shared context – we provide incomplete information and hope that listeners will fill in the missing information by reference to the context.</p>
+<p>This doesn’t always work, with the result that communication breaks down.</p>
+<p>Clarification and repair is important – it’s part of what allows speech to be so effective. Forms a rapid feedback loop. This is often absent when speaking with machines.</p>
+<p>If listeners do not understand something, this soon becomes clear to the speaker – lack of understanding may be signalled by various means:</p>
+<ul>
+<li>facial expression</li>
+<li>explicit request for clarification</li>
+</ul>
+<p>When this happens the speaker usually responds by re-phrasing or providing more context.</p>
+</section>
+</section>
+</section>
+<section id="designing-speech-based-interfaces" class="level1">
+<h1>Designing Speech-based Interfaces</h1>
+<p>Speech can be used for input (speech recognition) and for output (speech synthesis).</p>
+<p>Some systems use speech for both input and output (e.g. voicemail (?)) while others use speech only for output (e.g. SatNav), and a few use speech input in conjunction with visual output.</p>
+<p>Speech-based interfaces are being used in an ever-wider range of applications, but while the necessary technology is available, there are generally very few guidelines. […]</p>
+<section id="speech-recognition" class="level2">
+<h2>Speech Recognition</h2>
+<ul>
+<li>Recent systems (e.g. Siri) use a brute force match against a large database of stored phrases to determine the meaning of the input utterance.</li>
+</ul>
+<p>Speech recognition involves two steps:</p>
+<ul>
+<li>word recognition</li>
+<li>construction of meaning</li>
+</ul>
+<p>Most of the problems with word recognition have been solved. However, recovering the meaning from a sequence of words is far more difficult. Many problems need to be overcome before computers can handle unprompted speech input (speech that has been stripped down).</p>
+<p>Prompted speech is achieved by giving questions in a particular format – most people will respond in the same/expected format.</p>
+<p>Even when the individual words are correctly recognised, speech is more difficult to analyse than written language. Converting speech into text and then using these doesn’t work though.</p>
+<p>Where you can train a system (e.g. Dragon Dictate), word recognition can be especially good.</p>
+<p>There are number of reasons written language is easier than speech:</p>
+<ul>
+<li>speech has no punctuation – parsing cues are provided through a mixture of pausing, intonation and stress in ways that are complex and not fully understood
+<ul>
+<li>they also vary from person to person</li>
+</ul></li>
+<li>fragmentary phrases are common
+<ul>
+<li>we often don’t finish sentences because we can see that the sentence has been understood</li>
+</ul></li>
+<li>repetition and re-phrases are common
+<ul>
+<li>partway through a sentence we may think of a better way to phrase it and start again</li>
+<li>this is easy for humans to understand but difficult for machines to understand</li>
+</ul></li>
+<li>speech relies heavily on non-grammatical sentence forms (minor sentences)
+<ul>
+<li>a lot of words are stripped out</li>
+</ul></li>
+</ul>
+<p>A major (or regular) sentence has the full grammatical form appropriate to its type, e.g. a statement with formal declarative structure.</p>
+<p>A minor (or irregular) sentence has an incomplete or abnormal grammatical structure.</p>
+<p>Speech makes extensive use of anaphora – e.g. using he/she/him/her/they/them rather than referring to a person or object by name.</p>
+<p>Efficient speech communication relies heavily on other communication channels – gesture, facial expression, etc.</p>
+<p>Ambiguous words, phrases, etc. are often used in order to achieve brevity, with the correct interpretation being signalled through prosody.</p>
+<p>The speech context is dynamic, changing as the exchange progresses. Modelling this context is extremely difficult.</p>
+<p>Until quite recently, speech recognition has been mainly used in applications involving:</p>
+<ul>
+<li>speech to text transcription, where recovery of meaning is not necessary</li>
+<li>tightly-constrained problem domains, where vocabulary can be limited and every word given a fixed meaning</li>
+</ul>
+<p>Recently, the ability to rapidly search large databases of tagged speech samples has enabled more potential applications.</p>
+</section>
+<section id="speech-synthesis" class="level2">
+<h2>Speech Synthesis</h2>
+<p>The design of speech output can be separated into two stages:</p>
+<ol type="1">
+<li>Deciding what should be said and when</li>
+<li>Choosing appropriate prosody for each utterance</li>
+</ol>
+<p>Some frameworks exist to assist in the design of dialogues, but much work still needs to be done.</p>
+<p>Considerable work has been done on creating rules to generate valid prosody, but for best results the output must be hand-tuned.</p>
+<p>To tell where the intonation needs to go, the context is required to spot the keywords in the sentence.</p>
+<p>Current TTS (text to speech) systems generate high-quality synthetic speech, but studies show people still have more difficulty using synthetic speech than natural speech:</p>
+<ul>
+<li>people usually understand it as well as natural speech</li>
+<li>but understanding requires more effort than natural speech</li>
+</ul>
+<p>The comprehensibility of speech can be assessed using a technique devised by Luce (1982):</p>
+<ul>
+<li>Subjects are presented with a passage of speech and asked to recall the way in which it is spoken.</li>
+<li>The more difficult the speech is to understand, the more subjects will recall of the syntax and surface structure</li>
+</ul>
+<p>This suggest that people have to perform more analysis to extract meaning from poor-quality speech.</p>
+<p>Here’s another approach:</p>
+<p>Comprehension of spoken tracts were compared under four conditions:</p>
+<ul>
+<li>natural speech, meaningful content</li>
+<li>natural speech, meaningless content</li>
+<li>synthetic speech, meaningful content</li>
+<li>synthetic speech, meaningless content</li>
+</ul>
+<p>They found:</p>
+<ul>
+<li>subjects understood meaningful content</li>
+<li>word-recognition was better for meaningless content with natural speech</li>
+</ul>
+<p>This all suggests that listeners rely more heavily on context when trying to understand synthetic speech.</p>
+<p>A simplified version of the second approach, measuring word-recognition rates for standard passages of meaningless text is widely used for […]</p>
+<p>Studies show that the gap between natural and synthetic speech has narrowed, but synthetic speech remains far more difficult to understand than natural speech.</p>
+<p>This is probably because most synthetic speech lacks adequate/appropriate prosody and other cues.</p>
+<p>Generally they struggle with new words.</p>
+</section>
+<section id="applications" class="level2">
+<h2>Applications</h2>
+<p>A number of standards exist that allow speech synthesis and recognition to be used on webpages:</p>
+<ul>
+<li>voiceXML</li>
+<li>XHTML + voice</li>
+<li>SALT (Speech and Language Tags)</li>
+</ul>
+<p>Most browsers currently require plug-ins to handle speech, but a few have built-in support (e.g. Opera), and others will soon follow.</p>
+<section id="aircraft-maintenance" class="level3">
+<h3>Aircraft Maintenance</h3>
+<p>Interesting because it’s a safety-critical domain. Also a lot of components have to be replace very frequently – there’s maintenance every time a plane lands.</p>
+<p>Several proprietary systems are in use which allow engineers to inspect aircraft and record their comments (“this needs to be replaced, this will soon”, etc) through speech, thus leaving their hands free for the task.</p>
+<p>The spoken comments are then automatically converted into maintenance schedules, lists of parts to order, etc.</p>
+<p>This system is reliable because the vocabulary is precisely defined. Engineers are trained to use only the words in the vocabulary, and to use them only as defined by the system.</p>
+<p>The system is <em>completely</em> reliable.</p>
+</section>
+<section id="voice-mail-systems" class="level3">
+<h3>Voice Mail Systems</h3>
+<p>These also rely on a defined vocabulary.</p>
+<p>They normally recognise numbers, along with a set of defined words related to the domain. For example, a company might allow users to locate the nearest branch office by entering the name of a town or city.</p>
+</section>
+</section>
+</section>
+<section id="applications-using-speech-cont." class="level1">
+<h1>Applications Using Speech (cont.)</h1>
+<p>Screenreaders for blind and visually-impaired users.</p>
+<p>Screenreaders convert the visual information on a screen into text, which is then converted into speech (or in some cases, Braille).</p>
+<p>Typical features include:</p>
+<ul>
+<li>keyboard shortcuts for operations normally performed using the mouse</li>
+<li>all text made available through speech/Braille</li>
+<li>standard icons described using text</li>
+<li>use of scripts to customise applications
+<ul>
+<li>scripts difficult to write for an individual user, usually organisations make scripts available for a wide range of popular programs</li>
+</ul></li>
+<li>assignment of voices according to role/purpose
+<ul>
+<li>e.g. a male voice for commands, a female voice for content</li>
+</ul></li>
+<li>control of voice-selection, speech speed, prosody (by rule), etc.</li>
+</ul>
+<p>One of the major challenges in the design of speech systems is to provide an overview that approximates a visual glance.</p>
+<p>A glance allows sighted users to determine:</p>
+<ul>
+<li>how much information is present on a screen</li>
+<li>how it is organised</li>
+<li>whether/which parts are worth exploring further</li>
+<li>an appropriate strategy for exploring the information</li>
+</ul>
+<p>Accessing information without the benefit of a glance is much more difficult and tiring.</p>
+<p>Some experimental systems provide automatically-generated summaries of data. Others use spatial sound, etc, to convey metadata.</p>
+<p>Another approach is to provide tools that re-order the data in various ways so as to allow the user to gain an overview of the dataset. For example, when a table is used, the information contained in the table structure needs to be conveyed.</p>
+</section>
+</body>
+</html>

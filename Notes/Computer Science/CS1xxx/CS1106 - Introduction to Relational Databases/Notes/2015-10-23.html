@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-10-23</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="subqueries" class="level1">
+<h1>Subqueries</h1>
+<ul>
+<li><p>Often an alternative to joins</p></li>
+<li><p>May be more intuitive or clearer</p></li>
+</ul>
+<section id="set-operations" class="level2">
+<h2>Set operations</h2>
+<section id="intersection" class="level3">
+<h3>Intersection</h3>
+<p>Let’s use this to find the films with both Humphrey Bogart and Katharin Hepburn:</p>
+<blockquote>
+<p>(</p>
+<p>SELECT movieid<br />
+FROM actors<br />
+JOIN castings<br />
+ON actor.id = castings.actorid<br />
+WHERE actor.name = ‘Humphrey Bogart’</p>
+<p>)<br />
+INTERSECT<br />
+(</p>
+<p>…<br />
+WHERE actor.name = ‘Katharine Hepburn’</p>
+<p>);</p>
+</blockquote>
+<p>However, INTERSECTION is not supported by MySQL.</p>
+</section>
+<section id="union" class="level3">
+<h3>Union</h3>
+<p>UNION <em>is</em> supported by MySQL.</p>
+<p>Let’s list the ids of all actors whose name is ‘Jack’ or who have at least ten films to their credit:</p>
+<blockquote>
+<p>( /*ids of actors named Jack*/<br />
+(<br />
+UNION<br />
+( /*ids of actors with at least ten films*/<br />
+);</p>
+</blockquote>
+<p>For UNION, the subquery results must have the same number of columns and column types. The columns must also have the same names.</p>
+<p>SQL normally allows duplicates, but UNION suppresses them by default. This makes sense with sets.</p>
+<p>If you need duplicates, you can use UNION ALL.</p>
+</section>
+</section>
+<section id="what-film-has-greatest-score" class="level2">
+<h2>What film has greatest score?</h2>
+<blockquote>
+<p>SELECT title, score<br />
+FROM movies<br />
+WHERE score =<br />
+( SELECT MAX(score)</p>
+<p>FROM movies</p>
+<p>);</p>
+</blockquote>
+<p>The inner subquery will return the max score (wrapped in a 1x1 table), and the outer query uses this value in its WHERE clause.</p>
+</section>
+<section id="which-actors-appeared-in-the-godfather" class="level2">
+<h2>Which actors appeared in “The Godfather”?</h2>
+<blockquote>
+<p>SELECT actorid<br />
+FROM castings<br />
+WHERE movieid =<br />
+( SELECT id</p>
+<p>FROM movies<br />
+WHERE title = ‘Godfather, The’</p>
+<p>);</p>
+</blockquote>
+<p>Note that if there’s more than one movie with that name, we’ll be comparing a value (movieid) with a list, which won’t make sense with ‘=’.</p>
+<p>We can use IN instead, as described below.</p>
+</section>
+<section id="conditions-involving-relations" class="level2">
+<h2>Conditions Involving Relations</h2>
+<p>Tables with a single column are known as unary relations, essentially lists.</p>
+<p>SQL provides some Boolean functions that operate on these:</p>
+<ul>
+<li><p>EXISTS R: true if R is not empty</p></li>
+<li><p>s IN R: true if s is one of the values in R</p></li>
+<li><p>s NOT IN R: opposite to above</p></li>
+<li><p>s &gt; ALL R: true if s is greater than each and every value in R</p></li>
+<li><p>s &gt; ANY R: true if s is greater than any one value in R</p></li>
+<li><p>These two above can use any comparative operator.</p></li>
+</ul>
+</section>
+<section id="subqueries-returning-multi-column-tables" class="level2">
+<h2>Subqueries returning multi-column tables</h2>
+<p>We can use subqueries instead of table names in FROM clauses.</p>
+<p>In this case you must give the subquery an alias, so that you can refer to it in the SELECT and WHERE clauses.</p>
+<section id="whats-the-greatest-number-of-films-made-by-any-actor" class="level3">
+<h3>What’s the greatest number of films made by any actor?</h3>
+<blockquote>
+<p>SELECT MAX(num_films)<br />
+FROM<br />
+( SELECT actorid, COUNT(movieid) AS ‘num_films’<br />
+FROM castings<br />
+GROUP BY actorid<br />
+) AS film_counts;</p>
+</blockquote>
+<p>Note the subquery returns a two-column, multi-row table (actors and the number of their films there are).</p>
+</section>
+</section>
+</section>
+</body>
+</html>

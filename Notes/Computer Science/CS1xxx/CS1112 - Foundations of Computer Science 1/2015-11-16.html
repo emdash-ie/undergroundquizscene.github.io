@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-11-16</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="bad-arguments-translation-from-english-and-other-issues" class="level1">
+<h1>Bad Arguments: Translation from English and Other Issues</h1>
+<section id="specifying-systems" class="level2">
+<h2>Specifying systems</h2>
+<p>Specifying the behaviour of complex systems is a fundamental skill for computer science professionals.</p>
+<ul>
+<li><p>Specifying access to computer systems</p></li>
+<li><p>Specify desired behaviour for a software module</p></li>
+<li><p>Specifying a protocol for two programs to communicate</p></li>
+</ul>
+<p>Logic is the main technique for capturing and analysing these specifications.</p>
+<p>If we can get these specifications written in a logical form, we can properly analyse and test them.</p>
+</section>
+<section id="translating-from-english-to-conditional-statements" class="level2">
+<h2>Translating from English to conditional statements</h2>
+<p>We may translate sentences of the following type using p→q:</p>
+<ul>
+<li><p>if p then q</p></li>
+<li><p>p implies q</p></li>
+<li><p>p only if q (?)</p></li>
+<li><p>p is sufficient for q</p></li>
+<li><p>q follows from p</p></li>
+<li><p>q whenever p</p></li>
+<li><p>q when p</p></li>
+<li><p>q is necessary for p</p></li>
+</ul>
+</section>
+<section id="problems-with-translating-from-english" class="level2">
+<h2>Problems with translating from English</h2>
+<p>The language is not precise, it contains ambiguities.</p>
+<p>We must ensure when translating that we capture the intent of the original sentence.</p>
+<p>Three main problems:</p>
+<ul>
+<li><p>unclear precedence and association</p></li>
+<li><p>inclusive vs. exclusive OR</p></li>
+<li><p>conditional sentences</p></li>
+</ul>
+</section>
+<section id="the-contrapositive" class="level2">
+<h2>The contrapositive</h2>
+<p>¬q → ¬p is the contrapositive of p→q.</p>
+<p>They have the same truth table, and so are logically equivalent.</p>
+<p>A conditional statement is true if and only if its contrapositive is true.</p>
+</section>
+<section id="the-converse" class="level2">
+<h2>The converse</h2>
+<p>q→p is the converse of p→q.</p>
+<p>These two are not logically equivalent, as their truth tables differ.</p>
+</section>
+<section id="the-inverse" class="level2">
+<h2>The inverse</h2>
+<p>¬p → ¬q is the inverse of p → q.</p>
+<p>These are not logically equivalent, as their truth tables differ.</p>
+</section>
+<section id="conditional-statements-and-equivalents" class="level2">
+<h2>Conditional statements and equivalents</h2>
+<p>p→q is equivalent to:</p>
+<ul>
+<li><p>the contrapositive</p></li>
+<li><p>¬p ∨ q</p></li>
+</ul>
+<p>but is not equivalent to:</p>
+<ul>
+<li><p>the inverse</p></li>
+<li><p>the converse</p></li>
+</ul>
+<section id="example-if-i-am-in-cork-then-i-am-in-ireland." class="level3">
+<h3>Example: If I am in Cork then I am in Ireland.</h3>
+<p>p = I am in Cork</p>
+<p>q = I am in Ireland</p>
+<p>F “If I am in Ireland, then I am in Cork”</p>
+<p>T “Either I am not in Cork or I am in Ireland” (weird)</p>
+<p>F “If I am not in Cork, then I am not in Ireland”</p>
+<p>T “If I am not in Ireland, then I am not in Cork”</p>
+</section>
+</section>
+<section id="logical-fallacies" class="level2">
+<h2>Logical fallacies</h2>
+<p>A logical fallacy is a bad argument—a sequence of statements that do not guarantee that the conclusion is true whenever the premises are true.</p>
+<p>It is important to spot these in order to be a better computer scientist.</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>RAID Management</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="problem" class="level1">
+<h1>Problem</h1>
+<ul>
+<li>Avoid losing files/data due to disk failures.</li>
+</ul>
+<p>Solution: replicate files and store them on different disks</p>
+<p>Example: SME with a local network. Transparently, when a file is stored, 2 or 3 copies are created and stored on randomly selected disks. Only the main copy is visible. This is a software solution.</p>
+<ul>
+<li><p>you also need a coherency preservation protocol</p>
+<ul>
+<li>to synchronise changes in the working copy to other copies</li>
+</ul></li>
+</ul>
+</section>
+<section id="new-context" class="level1">
+<h1>New Context</h1>
+<p>Disks of extremely large capacity are now available.</p>
+<p>Also many companies have decided to move their data from their own storage to big datacentres.</p>
+<p>New requirements:</p>
+<ul>
+<li><p>reliability</p>
+<ul>
+<li>Datacentres also replicate files in other datacentres on other continents (in case of earthquake, etc.)</li>
+</ul></li>
+<li><p>fast access to data</p></li>
+<li><p>fault tolerance</p>
+<ul>
+<li>can’t bring error probability to 0, so need to deal well with them</li>
+</ul></li>
+<li><p>scalability</p>
+<ul>
+<li>especially the I/O channels to the disks</li>
+</ul></li>
+<li><p>ease of management</p></li>
+<li><p>transparent administration</p></li>
+<li><p>secure access to data</p></li>
+</ul>
+</section>
+<section id="raid-concept" class="level1">
+<h1>RAID Concept</h1>
+<ul>
+<li>solves some of these issues but not all of them</li>
+</ul>
+<p>The concept of RAID was introduced about three decades ago – taxonomy was first established by Patterson in 1988.</p>
+<p>Provides improved reliability by redundancy.</p>
+<ul>
+<li><p>increases mean time to failure</p></li>
+<li><p>frequently combined with NVRAM to improve write performance</p>
+<ul>
+<li>memory hierarchy</li>
+</ul></li>
+</ul>
+<p>Can have size different levels/configurations of RAID.</p>
+<p>Frequently, a small number of hot-spare disks are left unallocated, automatically replacing a failed disk and having data rebuilt onto them.</p>
+<section id="faster-access-time-by-parallelism" class="level2">
+<h2>Faster Access Time by Parallelism</h2>
+<ul>
+<li>can allow parallel access to data</li>
+</ul>
+<p>Data striping:</p>
+<ul>
+<li><p>splitting the bits of each byte across multiple disks – bit-level striping. With 8 disks, bit <code>i</code> will be stored on disk <code>i</code>. As a result, the “sector capacity” increases 8 times, the same for the access rate.</p>
+<ul>
+<li>allows the 8 bits of a byte to be accessed at the same time</li>
+</ul></li>
+<li><p>This can be generalised to include a number of disks that is either a multiple of or divides into 8. For example, for two disks, every second bit goes to the second disk.</p></li>
+</ul>
+<p>Another popular solution is to split data at the block level rather than at the bit level. In block-level striping, blocks of a file are striped across multiple disks: with n disks, block <code>i</code> goes to disk <code>(i mod n) + 1</code>.</p>
+<ul>
+<li><p>the performance is better because there’s less overhead</p></li>
+<li><p>not sure why</p></li>
+</ul>
+</section>
+</section>
+<section id="raid-levels" class="level1">
+<h1>RAID Levels</h1>
+<p>Mirroring (duplication of all data) provides reliability but is expensive. On the other hand, striping provides high data-transfer rates but not reliability.</p>
+<p>Different models that combine reliability and low cost were proposed.</p>
+<section id="raid-level-0" class="level2">
+<h2>RAID Level 0</h2>
+<p>Striping at the level of blocks but without any redundancy.</p>
+<p>Benefits:</p>
+<ul>
+<li><p>best performance is achieved when data is striped across multiple controllers with only one drive per controller</p>
+<ul>
+<li><p>in hardware</p></li>
+<li><p>each disk has a separate I/O channel (this is expensive)</p></li>
+</ul></li>
+<li><p>very simple design, easy to implement</p></li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li><p>not a true RAID because it is not fault-tolerant – the failure of one drive will result in all data in an array being lost</p>
+<ul>
+<li>major disadvantage</li>
+</ul></li>
+</ul>
+</section>
+<section id="raid-level-1" class="level2">
+<h2>RAID Level 1</h2>
+<p>Disk mirroring – copying one disk on another.</p>
+<p>Benefits:</p>
+<ul>
+<li><p>one write or two reads possible per mirrored pair.</p></li>
+<li><p>twice the read transaction rate of single disks, same write transaction rate as single disks</p></li>
+<li><p>100% redundancy of data means no rebuild is necessary in case of a disk failure, just a copy to the replacement disk. Under certain circumstances, RAID1 can sustain multiple simultaneous drive failures</p></li>
+<li><p>transfer rate per block is equal to that of a single disk</p></li>
+<li><p>simplest RAID storage subsystem design</p></li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li><p>Highest disk overhead of all RAID types (100%) – inefficient</p>
+<ul>
+<li>because of coherence maintaining protocol</li>
+</ul></li>
+<li><p>typically the RAID function is done by system software, loading the CPU/server and possibly degrading throughput at high activity levels. Hardware implementation is strongly recommended.</p></li>
+</ul>
+<p>## RAID Level 2</p>
+<p>Use an error-correcting code (ECC), with RAID 0. One disk stores the 1st bit of all bytes, another disk the 2nd, etc.</p>
+<p>Three disks store the error-correcting bits. On read, the ECC verifies correct data or corrects single disk errors.</p>
+<p>Benefits:</p>
+<ul>
+<li><p>on-the-fly data error correction</p></li>
+<li><p>extremely high data transfer rates possible</p></li>
+<li><p>the higher the data transfer rate required, the better the ratio data disks / ECC disks</p>
+<ul>
+<li>high cost</li>
+</ul></li>
+<li><p>relatively simple controller design compared to RAID levels 3, 4, and 5</p></li>
+</ul>
+<p>Disadvantages:</p>
+<ul>
+<li>very high ratio of ECC disks to data disks with smaller word sizes</li>
+</ul>
+<p>[…]</p>
+<ul>
+<li>theoretical</li>
+</ul>
+</section>
+<section id="raid-level-3" class="level2">
+<h2>RAID Level 3</h2>
+<p>bit-interleaved parity organisation – improves on level 2 by using only one disk for parity</p>
+</section>
+<section id="raid-level-4" class="level2">
+<h2>RAID Level 4</h2>
+<p>block-interleaved parity organisation</p>
+<p>[…]</p>
+<p>## RAID Level 5</p>
+<p>block-interleave distributed parity, spreads data an parity among all disks</p>
+</section>
+<section id="raid-level-6" class="level2">
+<h2>RAID Level 6</h2>
+<p>block-leve striping with double distributed parity. Double parity provides fault tolerance up to two failed drives.</p>
+</section>
+<section id="raid-0-1" class="level2">
+<h2>RAID (0 + 1)</h2>
+<p>First data is striped, then those disks are mirrored.</p>
+</section>
+<section id="raid-1-0" class="level2">
+<h2>RAID (1 + 0)</h2>
+<p>First data is mirrored, and then striped.</p>
+</section>
+</section>
+<section id="selection-of-raid-level" class="level1">
+<h1>Selection of RAID Level</h1>
+<ul>
+<li><p>RAID 0</p>
+<ul>
+<li>high-performance applications where data loss is not critical</li>
+</ul></li>
+<li><p>RAID 1</p>
+<ul>
+<li><p>high reliability with fast recovery</p></li>
+<li><p>high cost</p></li>
+</ul></li>
+<li><p>RAID 1+0/0+1</p>
+<ul>
+<li>both performance and reliability are important, e.g. in small databases</li>
+</ul></li>
+<li><p>RAID 5</p>
+<ul>
+<li>preferred for storing large volumes of data</li>
+</ul></li>
+<li><p>RAID 6</p>
+<ul>
+<li>not supported currently by many RAID implementations</li>
+</ul></li>
+</ul>
+</section>
+<section id="implementation-of-raid" class="level1">
+<h1>Implementation of RAID</h1>
+<ul>
+<li><p>in the kernel, e.g. RAID 0, 1, or 0+1</p>
+<ul>
+<li><p>software is most flexible but brings additional load on the CPU</p></li>
+<li><p>works well with a dedicated CPU</p></li>
+</ul></li>
+<li><p>in the host-bus adapter hardware</p>
+<ul>
+<li>this isn’t flexible</li>
+</ul></li>
+<li><p>in the hardware of the storage array. The OS needs to implement the file system on each of the volumes</p></li>
+<li><p>in the storage area network layer by disk virtualisation</p>
+<ul>
+<li><p>can correspond to remote storage</p></li>
+<li><p>can be similar to cloud storage</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="linux-raid-support" class="level1">
+<h1>Linux RAID Support</h1>
+<ul>
+<li><p>2.6 kernel supports md (multiple devices): arrays can be built on top of entire disks or on partitions</p></li>
+<li><p>mdadm is now the standard RAID management tool and should be found in any modern distribution. (http://linux.die.net/man/8/mdadm)</p></li>
+<li><p>mdadm has 7 major modes of operation – normal operation […]</p></li>
+</ul>
+<p>[…]</p>
+</section>
+<section id="questions" class="level1">
+<h1>Questions</h1>
+<p>Could RAID 1 achieve better performance of read requests than RAID 0? How?</p>
+<p>Consider a RAID 5 architecture with five disks – the fifth stores the parity block. How many blocks are accessed in order to perform the following?</p>
+<ul>
+<li><p>a write of one data block</p></li>
+<li><p>a write of seven continuous blocks of data</p></li>
+</ul>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<ul>
+<li>old idea, but very important to modern datacentres</li>
+</ul>
+</section>
+</body>
+</html>

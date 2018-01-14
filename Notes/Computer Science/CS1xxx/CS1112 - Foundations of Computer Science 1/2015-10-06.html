@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-10-06</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="test" class="level1">
+<h1>Test</h1>
+<p>In-class test this time next week.</p>
+<p>There’ll be an invigilator, and the lecturer will also be here for the first half/the beginning. We can ask questions if we have any about the test paper. We will have to spread out as much as possible.</p>
+<p>The test is worth 10% of the module result.</p>
+<p>Today’s and yesterday’s lecture material will not be on the test, so he won’t make the notes available on the website until after the test.</p>
+</section>
+<section id="order-relations" class="level1">
+<h1>Order Relations</h1>
+<p>Say we need a website to display recommended holidays (based on your input of the type of holiday you’re looking for). These holidays need to be ordered, starting with the ones most likely to appeal to you.</p>
+<p>We need an <em>ordering.</em></p>
+<section id="order" class="level2">
+<h2>Order</h2>
+<p>A homogeneous relation R is an <em>order</em> relation only if:</p>
+<ul>
+<li><p>R is anti-symmetric</p></li>
+<li><p>R is transitive</p></li>
+</ul>
+<p>This is based on the relation “&lt;” on numbers.</p>
+<p>For any numbers x, y, and z:</p>
+<ul>
+<li><p>anti-symmetric: if x&lt;y and x≠y, then y is not &lt; x.</p></li>
+<li><p>transitive: if x&lt;y and y&lt;z, then x&lt;z</p></li>
+</ul>
+</section>
+<section id="example-the-subset-relation" class="level2">
+<h2>Example: the “subset” relation</h2>
+<p>Let X, Y and Z be sets defined over some universal set U.</p>
+<ul>
+<li><p>anti-symmetric: X⊆Y and X≠Y, then Y⊄X</p></li>
+<li><p>transitive: X⊆Y and Y⊆Z, then X⊆Z</p></li>
+</ul>
+</section>
+<section id="strict-order" class="level2">
+<h2>Strict order</h2>
+<p>An order R is a <em>strict order</em> only if R is also anti-reflexive.</p>
+<p>I.e. x is not less than x, so &lt; is a strict order. ≤ is not.</p>
+</section>
+<section id="total-order" class="level2">
+<h2>Total order</h2>
+<p>An order R is a <em>total order</em> only if for any a and b in A, either aRb or bRa or a=b.</p>
+<p>So every pair of elements is ordered with respect to one another.</p>
+<p>&lt;,≤, etc. are all total orders.</p>
+</section>
+<section id="partial-order" class="level2">
+<h2>Partial order</h2>
+<p>An order R is a partial order if it is not total.</p>
+<p>In other words, there can be two elements in the set that are not ordered with respect to each other.</p>
+<p>Example: ⊆ on sets:</p>
+<blockquote>
+<p>Take U = {a,b,c,d}</p>
+<p>with S<sub>1</sub> = {a,b,c} and S<sub>2</sub> = {b,c,d}</p>
+<p>S<sub>1</sub>⊄S<sub>2</sub> and S<sub>2</sub>⊄S<sub>1</sub> and S<sub>1</sub> ≠ S<sub>2</sub>.</p>
+</blockquote>
+</section>
+</section>
+<section id="hasse-diagrams" class="level1">
+<h1>Hasse Diagrams</h1>
+<p>We can use the concept of the transitive closure to simplify the representation of partial orders on a set.</p>
+<p>The <em>Hasse diagram</em> is a directed graph which shows the minimal subset of pairs for which the transitive closure gives the original relation.</p>
+<p>Formally, a covers b only if aRb and there is no element c such that aRc and cRb.</p>
+<p>A Hasse diagram links every pair (a,b) such that a covers b.</p>
+<p>If you compute the transitive closure of a Hasse diagram, you get the full relation. You’re taking out redundant pairs that you can infer from knowing that the relation is transitive.</p>
+<p>We won’t need to know how to find a Hasse diagram, but just what it is and where you would use it.</p>
+<section id="where-would-you-use-a-hasse-diagram" class="level2">
+<h2>Where would you use a Hasse diagram?</h2>
+<ul>
+<li><p>To simplify writing down relations.</p></li>
+<li><p>Precedence graphs/schedules - Hasse diagrams make it easy to obtain a schedule (e.g. was building a house so masonry, carpentry, etc.)</p></li>
+</ul>
+</section>
+</section>
+</body>
+</html>

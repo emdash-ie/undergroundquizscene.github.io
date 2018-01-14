@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-10-14</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="two-table-queries" class="level1">
+<h1>Two-Table Queries</h1>
+<p>Because SQL doesn’t support sequences or arrays, we use a second table linked to the first to pull this off.</p>
+<section id="favourite-foods-example" class="level2">
+<h2>Favourite foods example</h2>
+<p>Use a table “persons” for the usual information, and then a second table “foods” (or whatever) where there are two columns: person_id and food, where each entry represents a favourite food for someone.</p>
+<p>Then we have multiple entries for each person to capture the various favourite foods of each person.</p>
+<section id="queries-requiring-info-from-both-tables" class="level3">
+<h3>Queries requiring info from both tables</h3>
+<p>E.g. list the favourite foods of the person named Aoife Ahern or list all the persons who like pizza and beer.</p>
+<p>For both of these queries, you need to access info from both tables. In the first you need to get the id for Aoife Ahern from the first table.</p>
+</section>
+</section>
+<section id="cross-product" class="level2">
+<h2>Cross product</h2>
+<p>Is a way of taking two sets and combining them. Is the set of all ordered combinations of attributes from the sets.</p>
+<p>See CS1112 for more info.</p>
+</section>
+<section id="cross-product-in-sql" class="level2">
+<h2>Cross product in SQL</h2>
+<p>Can use CROSS JOIN to form the cross product.</p>
+<blockquote>
+<p>SELECT *<br />
+FROM persons CROSS JOIN favorite_foods</p>
+</blockquote>
+<p>The number of rows in the result will be the product of the numbers of rows in both tables—this will be enormous! Every row from the first table will be matched with every row from the second table.</p>
+<p>The number of columns in the result will be the sum of the numbers of columns in the two tables.</p>
+<p>Most rows in the cross join are meaningless, i.e. the ones with one person’s information combined with another person’s food preference.</p>
+<p>On the other hand, the ones where the person is the same in both sections are useful. These columns will have the same person_id in two places, which allows us to identify these rows, and which is what makes them useful.</p>
+<p>Now we want to filter out the useless info.</p>
+</section>
+<section id="joins-in-sql" class="level2">
+<h2>Joins in SQL</h2>
+<blockquote>
+<p>SELECT *<br />
+FROM persons JOIN favourite_foods<br />
+ON persons.person_id = favourite_foods.person_id;</p>
+</blockquote>
+<p>So this gives us a subset of the cross product of the two tables which includes only the rows where the person_id values (one from each table) match up.</p>
+<p>Note the join is no longer called CROSS JOIN.</p>
+<p>Note the “persons.” prefix refers to things in the persons table. You can use it in a single-table context and it still works.</p>
+<p>You can use WHERE instead of ON, but we’re using ON here because it’s more efficient (it works in a slightly different way, throwing away junk info earlier).</p>
+</section>
+<section id="we-can-think-of-this-in-two-ways" class="level2">
+<h2>We can think of this in two ways</h2>
+<p>Either you think of combining the tables and then eliminating the junk rows, as we described it before,<br />
+Or you can think of it combining only the rows which have the same person_id value.</p>
+<p>How it works under the hood may be very different in order to improve efficiency, but this is how we conceptualise it.</p>
+</section>
+<section id="an-example" class="level2">
+<h2>An example</h2>
+<p>List all the students who like pizza:</p>
+<blockquote>
+<p>SELECT *<br />
+FROM persons JOIN favourite_foods<br />
+ON persons.person_id = favourite_foods.person_id<br />
+WHERE food = ‘Pizza’;</p>
+</blockquote>
+<p>There are a couple of ways we could rephrase this. We could replace the ON condition with a combined WHERE:</p>
+<blockquote>
+<p>…<br />
+WHERE persons.person_id = favourite_foods.person_id AND food = ‘Pizza’;</p>
+</blockquote>
+</section>
+<section id="a-tidier-version" class="level2">
+<h2>A tidier version</h2>
+<blockquote>
+<p>SELECT first_name, last_name, ‘likes’, food<br />
+FROM<br />
+persons AS p<br />
+JOIN favourite_foods AS f<br />
+ON p.person_id = f.person_id<br />
+WHERE food = ‘pizza’;</p>
+</blockquote>
+<p>The third column will contain the fixed string ‘likes’ in every row.</p>
+<p>We also re-label persons as p and favourite_foods as f to make selection easier with p.person_id and f.person_id.<br />
+This improves readability because we can use “p” for the rest of the query instead of “persons”.</p>
+</section>
+<section id="example-2" class="level2">
+<h2>Example 2</h2>
+<p>List all pairs of students who hail from the same county (not all those from one specific county.</p>
+<p>We use just the persons table but join it with itself.</p>
+<blockquote>
+<p>SELECT</p>
+<p>p1.first_name, p1.last_name, ‘and’,<br />
+p2.first_name, p2.last_name, ‘both come from’,<br />
+p1.county</p>
+<p>FROM</p>
+<p>persons AS p1<br />
+JOIN persons AS p2<br />
+ON p1.county = p2.county;</p>
+</blockquote>
+<p>There are a couple of problems here:</p>
+<ul>
+<li><p>We get duplicates (Aoife-Barry and Barry-Aoife)</p></li>
+<li><p>We get self-pairs (Aoife-Aoife)</p></li>
+</ul>
+<p>Can refine it:</p>
+<blockquote>
+<p>SELECT</p>
+<p>p1.first_name, p1.last_name, ‘and’,<br />
+p2.first_name, p2.last_name, ‘both come from’,<br />
+p1.county</p>
+<p>FROM</p>
+<p>persons AS p1<br />
+JOIN persons AS p2<br />
+ON p1.county = p2.county</p>
+<p>AND p1.person_id &lt; p2.person_id;</p>
+</blockquote>
+<p>The &lt; condition removes duplicates <em>and</em> self-pairs.</p>
+</section>
+</section>
+</body>
+</html>

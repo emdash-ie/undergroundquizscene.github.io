@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Review</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<ul>
+<li><p>for every problem, we can have many approaches for solving it</p></li>
+<li><p>e.g. thread vs. process vs. activity</p></li>
+<li><p>need to analyse and compare approaches, see the benefits and disadvantages of each</p></li>
+</ul>
+</section>
+<section id="os-architecture-models-concepts" class="level1">
+<h1>OS Architecture, Models, Concepts</h1>
+<ul>
+<li><p>Computing resources, multiplication, virtualisation</p>
+<ul>
+<li><p>virtualisation is very important</p>
+<ul>
+<li><p>associated with many areas of computer science, especially IoT</p></li>
+<li><p>saw it with virtual file system in Linux, which was to accommodate different file systems</p></li>
+<li><p>also the virtual machine in/with Android</p></li>
+</ul></li>
+<li><p>multiplication</p>
+<ul>
+<li><p>now we have multiple physical copies of the same resource</p>
+<ul>
+<li><p>e.g. many CPUs instead of just one</p></li>
+<li><p>have to deal with scheduling and load-balancing with many cores</p></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li><p>Layer architecture, services</p>
+<ul>
+<li><p>most OSes now built on concept of a service – OS provides a set of services to users and their applications</p>
+<ul>
+<li>flexibility, openness, ease of management, updating</li>
+</ul></li>
+</ul></li>
+<li><p>Models: hierarchical, service-based, component-based</p>
+<ul>
+<li>e.g. TinyOS, where software is a combination of components</li>
+</ul></li>
+<li><p>Process, task, activities</p>
+<ul>
+<li><p>similar but managed differently by the OS</p>
+<ul>
+<li>all about computation in the program</li>
+</ul></li>
+<li><p>processes are quite complex because of admin info</p></li>
+<li><p>tasks (remember TinyOS) are different to processes – no admin info</p>
+<ul>
+<li><p>sequence of instructions that is brought to the queue, ready to be executed</p></li>
+<li><p>round-robin scheduling</p></li>
+<li><p>lack of admin info possible because tasks are fully known beforehand</p></li>
+<li><p>TinyOS v2 more complex, allows for priorities, etc.</p></li>
+</ul></li>
+<li><p>activity</p>
+<ul>
+<li><p>Android</p></li>
+<li><p>mobile, highly interactive OS</p></li>
+<li><p>can go from one activity to another across processes</p></li>
+<li><p>important difference is user is interacting with an activity – visible phase</p></li>
+<li><p>hosted within processes</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="process-management" class="level1">
+<h1>Process Management</h1>
+<ul>
+<li><p>process definition, structure, lifecycle, states</p></li>
+<li><p>creation of child processes</p>
+<ul>
+<li>fork, vfork, clone – very important to know the difference between fork and vfork</li>
+</ul></li>
+<li><p>threads</p></li>
+<li><p>process management in Linux</p></li>
+<li><p>process creation in Linux</p></li>
+</ul>
+</section>
+<section id="scheduling" class="level1">
+<h1>Scheduling</h1>
+<ul>
+<li><p>purpose of scheduling</p>
+<ul>
+<li>deciding which process takes control of the system for the next time slice</li>
+</ul></li>
+<li><p>FIFO, shortest-time first</p></li>
+<li><p>priority-based, multilevel feedback queues (parameters adjusting at run-time)</p></li>
+<li><p>two-level scheduling</p></li>
+<li><p>real-time scheduling</p></li>
+<li><p>group and domain scheduling</p>
+<ul>
+<li><p>many-core systems</p></li>
+<li><p>simple approaches, e.g. one core for OS and one for user</p></li>
+<li><p>complex approaches, e.g. consider all processes and schedule according to group or domain</p></li>
+<li><p>group is about affinity of processes (e.g. sharing data, IPC)</p></li>
+<li><p>domain is about hardware resources (characteristics of cores and cache memory are very important)</p>
+<ul>
+<li>assume all packages/cores are the same</li>
+</ul></li>
+<li><p>there are systems where packages are different</p>
+<ul>
+<li>can be optimised for specific types of process (e.g. numerical analysis, image processing)</li>
+</ul></li>
+</ul></li>
+<li><p>load balancing</p>
+<ul>
+<li><p>important in many-core systems as well as scheduling</p></li>
+<li><p>partly about energy efficiency</p></li>
+</ul></li>
+<li><p>Linux scheduling</p></li>
+</ul>
+</section>
+<section id="memory-management" class="level1">
+<h1>Memory Management</h1>
+<ul>
+<li><p>address translation</p></li>
+<li><p>virtual memory (pages, page table)</p>
+<ul>
+<li><p>using virtualisation here</p></li>
+<li><p>expand memory across the storage, using e.g. pages</p></li>
+<li><p>process has variable number of pages allocated to it</p></li>
+<li><p>pages have flags indicating how they were used (present, modified, etc.)</p></li>
+<li><p>now implemented in hardware (CPU), rather than in the OS</p>
+<ul>
+<li>address translation, page management</li>
+</ul></li>
+</ul></li>
+<li><p>free space, fragmentation</p>
+<ul>
+<li>strategies try to reduce fragmentation as much as possible</li>
+</ul></li>
+<li><p>memory allocation algorithms, over-allocation/swapping</p></li>
+<li><p>replacement algorithms</p>
+<ul>
+<li>if everything is allocate, what is a good candidate for replacement?</li>
+</ul></li>
+<li><p>Windows NT page working set</p>
+<ul>
+<li><p>memory is full – if a process needs a new page, an existing page needs to be replaced</p></li>
+<li><p>either local choice – replacement done with a page in use by that process</p></li>
+<li><p>or global choice – replacement done with a page chosen from all processes</p></li>
+</ul></li>
+<li><p>Linux memory management</p></li>
+</ul>
+</section>
+<section id="io-management" class="level1">
+<h1>I/O Management</h1>
+<ul>
+<li><p>different from memory because different devices are very different from each other</p>
+<ul>
+<li>generally grouped into character devices or block devices</li>
+</ul></li>
+<li><p>I/O subsystem</p></li>
+<li><p>drivers’ interaction and families</p>
+<ul>
+<li><p>families is a recent development</p></li>
+<li><p>generic family which characterises all devices of the same type, even if performance is different</p>
+<ul>
+<li>similar to virtualisation</li>
+</ul></li>
+</ul></li>
+<li><p>device driver structure</p></li>
+<li><p>representation of devices in Unix</p></li>
+<li><p>I/O devices in Linux</p></li>
+<li><p>I/O schedulers</p>
+<ul>
+<li><p>[…]</p></li>
+<li><p>different deadlines for read and write</p></li>
+</ul></li>
+<li><p>sensors</p>
+<ul>
+<li><p>especially for mobile devices</p></li>
+<li><p>how sensors return data – continuously, on demand, event-triggered</p></li>
+<li><p>allow context-aware applications</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="the-filesystem" class="level1">
+<h1>The Filesystem</h1>
+<ul>
+<li><p>not much here has changed recently</p>
+<ul>
+<li>though look at how this can be ported to clouds – research topic at the moment</li>
+</ul></li>
+<li><p>file concept, structure, operations</p></li>
+<li><p>filesystem services, metadata, management</p></li>
+<li><p>directories</p></li>
+<li><p>storage management</p></li>
+<li><p>linux virtual filesystem – interesting to study more</p>
+<ul>
+<li><p>structure</p></li>
+<li><p>main components</p></li>
+<li><p>superblock</p></li>
+<li><p>inode</p></li>
+</ul></li>
+<li><p>EXT3, disk scheduling</p></li>
+<li><p>Block, character devices</p></li>
+<li><p>RAID management – also interesting to study</p></li>
+</ul>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<ul>
+<li><p>didn’t focus only on one OS, tried to bring in aspects of several</p>
+<ul>
+<li><p>not just general purpose OSes</p></li>
+<li><p>sensor OSes are important now/soon</p></li>
+<li><p>also mobile OSes</p></li>
+<li><p>can look at the differences between them</p>
+<ul>
+<li><p>note: look at difference between activity and process</p></li>
+<li><p>ask why things are different</p></li>
+</ul></li>
+</ul></li>
+<li><p>good to evaluate different approaches, not just one</p></li>
+<li><p>best way is to take the simplest approach</p>
+<ul>
+<li><p>people don’t adopt sophisticated solutions, complex algorithms</p></li>
+<li><p>complex solutions are prone to errors</p></li>
+</ul></li>
+<li><p>potential of mobile devices not fully exploited</p>
+<ul>
+<li><p>applications and even OS don’t provide means to fully exploit resources</p></li>
+<li><p>a lot to do here, worth considering as a future career</p></li>
+</ul></li>
+</ul>
+<p>Sample questions will be posted tomorrow, we’ll talk about the exam on Wednesday.</p>
+</section>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Language Fundamentals</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="java-basics" class="level1">
+<h1>Java Basics</h1>
+<ul>
+<li><p>comment lines with <code>//</code></p>
+<ul>
+<li>comment blocks with <code>/*</code> to start and <code>*/</code> to end</li>
+</ul></li>
+<li><p>have to write return type of methods</p></li>
+<li><p>use <code>{}</code> to mark blocks</p></li>
+<li><p><code>void</code> can only be used as a return type, not as the type of a variable</p></li>
+<li><p>don’t forget semi-colons</p></li>
+<li><p>braces not needed for <code>if</code> or <code>else</code> blocks if there’s only one statement in the block</p>
+<ul>
+<li>though it’s clearer to use braces</li>
+</ul></li>
+<li><p>don’t need to use <code>this.</code> for instance attributes when there’s no ambiguity</p>
+<ul>
+<li>if the name clashes with a parameter, we’ll need to</li>
+</ul></li>
+</ul>
+</section>
+<section id="from-the-command-line" class="level1">
+<h1>From the Command Line</h1>
+<ul>
+<li><p>use the command <code>javac filename.java</code> (in bash) to compile a java file – produces a file <code>filename.class</code></p></li>
+<li><p>run a class with the command <code>java filename</code></p></li>
+</ul>
+</section>
+<section id="style" class="level1">
+<h1>Style</h1>
+<ul>
+<li><p>line length should be below 76 characters</p>
+<ul>
+<li>line continuations should be indented</li>
+</ul></li>
+<li><p>class constants should be named in UPPER_SNAKE_CASE</p>
+<ul>
+<li>class constants are attributes which are <code>private</code>, <code>final</code>, and <code>static</code></li>
+</ul></li>
+<li><p>class names should be nouns, in UpperCamelCase</p></li>
+<li><p>attributes and methods should be in lowerCamelCase</p></li>
+<li><p>use spaces for indentation (not tabs)</p></li>
+<li><p>should have one exit point from a function</p>
+<ul>
+<li><p>so one return statement</p></li>
+<li><p>create a variable called result and give it different values in different branches of the function, but return it at the end</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="main-method" class="level1">
+<h1>Main Method</h1>
+<p>Main method of a class will be run when the class is run. It must have this structure:</p>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    <span class="co">//code</span></div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">}</div></code></pre>
+<p>Typically this is put inside its own <code>Main</code> class:</p>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Main {</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">      <span class="co">// code goes here</span></div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">    }</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">}</div></code></pre>
+</section>
+<section id="printing" class="level1">
+<h1>Printing</h1>
+<p>Can print using these methods:</p>
+<pre class="sourceCode java" id="cb3"><code class="sourceCode java"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Hello&quot;</span>);</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">print</span>(<span class="st">&quot;Hello&quot;</span>);</div></code></pre>
+<ul>
+<li><code>println()</code> will print a whole line</li>
+<li><code>print()</code> will only print what it’s given</li>
+</ul>
+<p>You can also print to error in the same way, which can be useful for showing things during writing/debugging but not during normal operation:</p>
+<pre class="sourceCode java" id="cb4"><code class="sourceCode java"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="bu">System</span>.<span class="fu">err</span>.<span class="fu">println</span>(<span class="st">&quot;Hello&quot;</span>);</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="bu">System</span>.<span class="fu">err</span>.<span class="fu">print</span>(<span class="st">&quot;Hello&quot;</span>);</div></code></pre>
+</section>
+<section id="public-vs.-private" class="level1">
+<h1><code>public</code> vs. <code>private</code></h1>
+<ul>
+<li><p>public classes, methods, and attributes can be accessed from any class</p></li>
+<li><p>private methods, attributes, and inner classes can only be accessed by other members of their own class</p>
+<ul>
+<li>usually don’t use private classes at the top level</li>
+</ul></li>
+<li><p>all attributes should be private (encapsulation)</p></li>
+</ul>
+</section>
+<section id="final" class="level1">
+<h1><code>final</code></h1>
+<ul>
+<li>a final class can’t be subclassed</li>
+<li>a final method can’t be overridden</li>
+<li>a final variable can’t be changed
+<ul>
+<li>though if it is an object reference, the object can still be changed though the reference can’t (this includes arrays)</li>
+</ul></li>
+</ul>
+</section>
+<section id="static" class="level1">
+<h1><code>static</code></h1>
+<ul>
+<li><p>marks methods and attributes as class methods and class attributes</p></li>
+<li><p>class attributes only exist in one place, and each instance of a class accesses the same value</p>
+<ul>
+<li>unlike instance attributes, where each instance has its own copy of the value</li>
+</ul></li>
+</ul>
+</section>
+<section id="javadoc" class="level1">
+<h1>Javadoc</h1>
+<p>Javadoc is a type of comment used for documentation – similar to docstrings in python. It’s placed before the thing it’s associated with:</p>
+<pre class="sourceCode java" id="cb5"><code class="sourceCode java"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">/**</span></div>
+<div class="sourceLine" id="cb5-2" data-line-number="2"> <span class="co">*</span> Represents a short note<span class="co">.</span></div>
+<div class="sourceLine" id="cb5-3" data-line-number="3"> <span class="co">*</span></div>
+<div class="sourceLine" id="cb5-4" data-line-number="4"> <span class="co">*</span> <span class="kw">@author </span>Noel Bourke</div>
+<div class="sourceLine" id="cb5-5" data-line-number="5"> <span class="co">*/</span></div>
+<div class="sourceLine" id="cb5-6" data-line-number="6"><span class="kw">public</span> <span class="kw">class</span> Note {</div>
+<div class="sourceLine" id="cb5-7" data-line-number="7">    <span class="co">// implementation</span></div>
+<div class="sourceLine" id="cb5-8" data-line-number="8">}</div></code></pre>
+<ul>
+<li>generally (Google style guide) you comment all public classes and all public members of those classes</li>
+<li>there are special tags <code>@author</code>, <code>@param</code>, <code>@return</code>, and more – all used as author above</li>
+</ul>
+</section>
+<section id="formal-parameters-vs.actual-parameters" class="level1">
+<h1>Formal Parameters vs. Actual Parameters</h1>
+<ul>
+<li><p>formal parameters are the parameters inside a method definition</p></li>
+<li><p>actual parameters are the values passed to the method in a method call</p></li>
+</ul>
+</section>
+<section id="call-by-value-mechanism" class="level1">
+<h1>Call-by-Value Mechanism</h1>
+<p>To call a method with n parameters:</p>
+<ul>
+<li><p>define n fresh scratch variables (usually on the stack)</p></li>
+<li><p>evaluate the actual parameters from left to right</p>
+<ul>
+<li>order is important because the expressions in the parameter list may have side-effects, e.g. <code>blah(var++, var--)</code></li>
+</ul></li>
+<li><p>the results are assigned to the corresponding scratch variables</p></li>
+<li><p>evaluate the method body using the temporary scratch variables as the formal parameters</p></li>
+<li><p>upon return:</p>
+<ul>
+<li><p>if there’s a result, substitute it for the method call</p></li>
+<li><p>remove the scratch variables from the stack</p>
+<ul>
+<li>local variables defined inside a block will also be removed</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</body>
+</html>

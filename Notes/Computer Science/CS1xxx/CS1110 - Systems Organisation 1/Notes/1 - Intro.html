@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>1 - Intro</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="overview" class="level1">
+<h1>Overview:</h1>
+<ul>
+<li>representing information with numbers</li>
+<li>number bases</li>
+<li>Boolean logic/algebra</li>
+<li>digital design</li>
+<li>combinatorial circuit design</li>
+<li>sequential circuit design [maybe]</li>
+<li>various hardware components (e.g. memory, disk, I/O) [maybe]</li>
+<li>hardware organisation</li>
+</ul>
+</section>
+<section id="core-concept" class="level1">
+<h1>Core Concept:</h1>
+<p>All information can be modelled by numbers, together with some appropriate conventions.</p>
+<p>examples:</p>
+<ul>
+<li>each letter in the alphabet and extended characters can be assigned a number.</li>
+<li>music such as audio files in an mp3 file where the numbers correspond to voltage values. You can sample an audio wave and then reproduce it. You can process the numbers before reproduction.</li>
+<li>visual information can be represented by dots on a screen, those dots can be represented by numbers. For example: x-position; y-position; colour.</li>
+</ul>
+</section>
+<section id="which-numbers" class="level1">
+<h1>Which numbers?</h1>
+<p>More accurately, which number base?</p>
+<p>In our everyday life we use base 10.</p>
+<p>In this system there are ten symbols: 0; 1; 2; 3; 4; 5; 6; 7; 8; 9. When counting we use what’s called a Positional Counting System.</p>
+<table style="width:61%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>…</th>
+<th>100s</th>
+<th>10s</th>
+<th>units</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>…</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>0</td>
+<td>0</td>
+<td>9</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>0</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>0</td>
+<td>9</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>In this system, when you run out of symbols, you reuse them in the next column.</p>
+<p>The units column changes every 100 times, the 10s column every 101 times, and so on.</p>
+<p>Base 10 is ‘natural’ for humans. Is it natural for a machine? If a machine uses base 10, it has to manipulate 10 different ‘symbols’, which is a lot. Requires complex stuff.</p>
+<p>Today’s machines use base 2 (binary). We can use any two symbols, so 0 and 1 are used because they’re familiar/easy.</p>
+<table style="width:76%;">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>…</th>
+<th>100s</th>
+<th>10s</th>
+<th>units</th>
+<th>base-10</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>…</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>…</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+</tbody>
+</table>
+<p>Numbers produced using any positional counting system can be directly compared, because they use the same system. for example, you can also count in base 3.</p>
+<p>But the symbols (0, 1, …) only mean something in the context of the base they’re in.</p>
+</section>
+<section id="why-do-todays-machines-use-base-2" class="level1">
+<h1>Why do today’s machines use base 2?</h1>
+<p>It comes out of the technology. It’s easy to make switches. A switch is a component with two states – on and off. In this context, those switches are transistors.</p>
+<p>Why don’t we use base 2 for everything? We (humans) tend to like to use many different symbols to represent things, such as sounds, images, the alphabet. We are good at recognising visual images, sounds, etc. Computers don’t have this ability, so we need to take everything that we normally use and represent it with numbers instead, using certain conventions. Then the computer can process that information. By doing this we lose some information. We are limited in the number of digits a computer can hold/represent. Accuracy in lost in translating things for a computer.</p>
+<p>So base 2 is a natural base for machines, because switches are easy.</p>
+<p>Computers typically work with voltage levels. When a transistor is in the “off-state”, its output is 0V, and when it is in the “on-state” the output is 5V.</p>
+<p>We represent On with the binary value 1. We represent Off with the binary value 0.</p>
+</section>
+<section id="this-is-our-first-level-of-abstraction." class="level1">
+<h1>This is our first level of abstraction.</h1>
+<p>Now instead of talking in terms of voltages, we can talk in terms of binary values. Then we can start manipulating these values, create designs for doing things, and turn those designs into the hardware level of the computer.</p>
+</section>
+</body>
+</html>

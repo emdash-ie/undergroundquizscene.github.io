@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>3 - Timing Measures</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="timing" class="level1">
+<h1>Timing</h1>
+<p>Can define the total time, and then the best-case, worst-case, and average-case times, for a program and the set of inputs.</p>
+</section>
+<section id="complexity-analysis-techniques" class="level1">
+<h1>Complexity Analysis Techniques</h1>
+<p>Could try running a program on all possible inputs of a certain size to determine the running time of the program. However, there are too many inputs for this.</p>
+<p>Instead, we could try random sampling, find the average running time, and use that an approximation of the overall average. We would have to do this on many samples to get a consistent result, and even then we’re not sure it’s a representative result.</p>
+<section id="comparison-time" class="level2">
+<h2>Comparison Time</h2>
+<p>To simplify, you can count some steps carried out by an algorithm, instead of all of them. Doing this we can make the analysis as machine-independent as possible, and then form machine-specific results from this result.</p>
+<p>We’re gonna look at sorting algorithms. One of the main options is comparisons, so we usually focus on that (even if assignments or swaps are happening, typically they’re the result of a comparison).</p>
+<p>The comparison time of an algorithm on an input L is defined to be the total number of comparisons A makes in computing the output for L.</p>
+<section id="constant-time-algorithms" class="level3">
+<h3>Constant Time Algorithms</h3>
+<p>These take the same amount of time on all inputs of a fixed size. We’re gonna start by looking at these, because they’re easy to analyse.</p>
+<p>For these algorithms, the best case, worst case, and average case times are all the same.</p>
+<p>Two examples are Bubble Sort and Selection Sort.</p>
+<section id="bubble-sort" class="level4">
+<h4>Bubble Sort</h4>
+<p>On the first run, we look at n-1 pairs (compare each element to the one after it in the list), on the second we look at n-2, and so on. The total number of comparisons is 1 + 2 + … + (n - 1), which is equal to (n)(n - 1) / 2.</p>
+<p>This result is O(n^2), which is typically the case when loops are nested two-deep. This won’t always be the case, but it often is.</p>
+</section>
+<section id="selection-sort" class="level4">
+<h4>Selection Sort</h4>
+<p>By a similar analysis, selection sort also comes out as (n)(n - 1) / 2.</p>
+</section>
+</section>
+<section id="non-constant-time-algorithms" class="level3">
+<h3>Non-Constant Time Algorithms</h3>
+<p>Many algorithm don’t run in constant time. To analyse these, it can help to identify groups of inputs (constant time groups) on which the algorithm does have constant time. This simplifies the average-case analysis of these algorithms quite a bit.</p>
+<p>The total time is the time for each group multiplied by the size of the group.</p>
+<p>This makes the analysis easier if the constant time groups are all the same size, which is quite common. Then the average time is the group size multiplied by the sum of the constants, divided by […].</p>
+<section id="example-sequential-search" class="level4">
+<h4>Example: Sequential Search</h4>
+<ul>
+<li><p>assume the target is always in the list</p></li>
+<li><p>assume all elements in the list are distinct</p></li>
+</ul>
+<p>How many possible lists are there with the target in the first position? (E.g. what is the size of the group which only requires 1 comparison.)</p>
+</section>
+</section>
+</section>
+</section>
+<section id="timing-measures" class="level1">
+<h1>Timing Measures</h1>
+<section id="clock-based-timing" class="level2">
+<h2>Clock-based Timing</h2>
+<p>Basically, use a clock to time an input.</p>
+<p>There are two problems with this:</p>
+<ul>
+<li><p>it’s machine-dependent</p></li>
+<li><p>it’s input dependent</p></li>
+</ul>
+</section>
+<section id="static-time-analysis" class="level2">
+<h2>Static Time Analysis</h2>
+<p>Assign a time to unit to each “basic step”, and count those.</p>
+<p>For comparison-based algorithms (algorithms where every operation is based on a preceding comparison), we look only at comparisons when counting steps.</p>
+</section>
+<section id="size-based-measures" class="level2">
+<h2>Size-based Measures</h2>
+<p>Focus on groups of inputs of the same size.</p>
+<section id="repeated-elements" class="level3">
+<h3>Repeated Elements</h3>
+<p>To account for this, we assign tie-breakers (a random permutation of distinct values is assigned to the list, and we use those when two elements are the same).</p>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>10: C – Structs and Unions</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">10: C – Structs and Unions</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>A struct is a collection of different types of data. It’s like an (OOP) object.</p>
+<p>A union is used to create a space in memory that can store data of different types at different times. E.g. a union of a <code>char</code> and an <code>int</code> can hold either a <code>char</code> or an <code>int</code>. You need to remember what’s in there to interpret the type correctly.</p>
+</section>
+<section id="structs" class="level1">
+<h1>Structs</h1>
+<p>There may be gaps between elements in a structure.</p>
+<p>Structures represent user-defined data types.</p>
+<p>Most commonly a <code>typedef</code> name is defined:</p>
+<pre class="sourceCode c" id="cb1"><code class="sourceCode c"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">typedef</span> <span class="kw">struct</span> {</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    […]</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">}</div></code></pre>
+<section id="initialising-structures" class="level2">
+<h2>Initialising Structures</h2>
+<p>You can use array initialisation syntax:</p>
+<pre class="sourceCode c" id="cb2"><code class="sourceCode c"><div class="sourceLine" id="cb2-1" data-line-number="1">VITALSTAT vs = {<span class="st">&quot;Joe Smith&quot;</span>, <span class="dv">0982459180</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">1975</span>};</div></code></pre>
+</section>
+<section id="referencing-members" class="level2">
+<h2>Referencing Members</h2>
+<p>Two methods, depending on whether you have the structure or a pointer to it:</p>
+<pre class="sourceCode c" id="cb3"><code class="sourceCode c"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">/* With the structure */</span></div>
+<div class="sourceLine" id="cb3-2" data-line-number="2">vs.month = <span class="dv">3</span>;</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3">vs.day = <span class="dv">15</span>;</div>
+<div class="sourceLine" id="cb3-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">/* With a pointer */</span></div>
+<div class="sourceLine" id="cb3-6" data-line-number="6">pvs-&gt;month = <span class="dv">3</span>;</div>
+<div class="sourceLine" id="cb3-7" data-line-number="7">pvs-&gt;day = <span class="dv">15</span>;</div></code></pre>
+<p>The arrow operator is shorthand for dereferencing the pointer and using the dot operator:</p>
+<pre class="sourceCode c" id="cb4"><code class="sourceCode c"><div class="sourceLine" id="cb4-1" data-line-number="1">(*pvs).day = <span class="dv">15</span>;</div></code></pre>
+</section>
+<section id="self-referencing-structs" class="level2">
+<h2>Self-Referencing Structs</h2>
+<p>You can’t have instances of a structure inside itself, but you can have pointers to instances. This allows you to create e.g. linked lists or trees.</p>
+</section>
+<section id="relevance-to-project" class="level2">
+<h2>Relevance to Project</h2>
+<p>Say you have a series of pins, and each pin has a zone. You can define structs for each pin which define the type of the zone.</p>
+</section>
+</section>
+</body>
+</html>

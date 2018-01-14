@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Case Studies</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="case-studies" class="level1">
+<h1>Case Studies</h1>
+<hr />
+<p>For the case studies, you will need to study the code in your own time, as he will only go through the highlights of the code.</p>
+<p>All code examples will not be quite professional standard, as he’s stripped away extra stuff to teach us things.</p>
+<hr />
+<section id="case-study-1-user-comments" class="level2">
+<h2>Case Study 1: User Comments</h2>
+<section id="a-comments-on-a-web-page" class="level3">
+<h3>1A: Comments on a Web Page</h3>
+<p>Want to be able to leave comments and see other people’s comments.</p>
+<p>We need a database to hold the comments:</p>
+<pre><code>    CREATE TABLE comments_table 
+(
+    comment_id INT AUTO_INCREMENT,
+    username VARCHAR(255),
+    comment TEXT,
+    PRIMARY KEY (comment_id)
+);</code></pre>
+<p>Note the TEXT datatype which can be an arbitrary length.</p>
+<section id="post" class="level4">
+<h4>Post</h4>
+<p>We use a self-processing page in a python program, which will use post in its form.</p>
+<p>We use post rather than get because:</p>
+<ul>
+<li>We want to update the database, because issuing the request more than once would do something different.</li>
+<li>We’re sending a lot of data.</li>
+</ul>
+</section>
+<section id="article" class="level4">
+<h4>&lt;article&gt;</h4>
+<p>HTML 5 recommends using the &lt;article&gt; tag for comments.</p>
+</section>
+<section id="textarea" class="level4">
+<h4>&lt;textarea&gt;</h4>
+<p>Used for multi-line text boxes:</p>
+<pre><code>&lt;textarea name=&quot;new_comment&quot; id=&quot;new_comment&quot; rows=&quot;5&quot; cols=&quot;50&quot;&gt;&lt;/textarea&gt;</code></pre>
+<p>Still use <code>form_data.getfirst</code> with it, like with standard text inputs.</p>
+</section>
+<section id="legend" class="level4">
+<h4>&lt;legend&gt;</h4>
+<p>The legend tag adds a title to the box drawn by the &lt;fieldset&gt; tag, used for defining sections in forms sometimes.</p>
+</section>
+</section>
+<section id="b-a-web-site-comments-facility" class="level3">
+<h3>1B: A Web Site Comments Facility</h3>
+<p>We modify what we’ve made already to work on as many pages as we would like.</p>
+<p>We want individual comments on each page.</p>
+<section id="database" class="level4">
+<h4>Database</h4>
+<p>We need a slightly different database schema:</p>
+<pre><code>CREATE TABLE comments_table 
+(
+    comment_id INT AUTO_INCREMENT,
+    username VARCHAR(255),
+    url VARCHAR(255) NOT NULL,
+    comment TEXT,
+    PRIMARY KEY (comment_id)
+);</code></pre>
+<p>The ‘url’ field now holds the url of the page the comment was left on.</p>
+</section>
+<section id="many-pages" class="level4">
+<h4>Many Pages</h4>
+<p>Each page is a python program, a self-processing page, and then we use <code>import</code> to load the code for the comments, which will be written in a separate module <code>comments.py</code>.</p>
+</section>
+<section id="comments.py" class="level4">
+<h4>Comments.py</h4>
+<pre><code>from os import environ
+url = environ.get(&#39;SCRIPT_NAME&#39;)</code></pre>
+<p>The latter line gets the url of this program (i.e. page1 or page2).</p>
+<hr />
+</section>
+</section>
+</section>
+<section id="case-study-2-sessions-and-shopping-carts" class="level2">
+<h2>Case Study 2: Sessions and Shopping Carts</h2>
+<p>Again, the code here is very stripped down, and is ugly and not especially functional, so it can be small enough to show us.</p>
+<section id="background" class="level3">
+<h3>Background</h3>
+<p>HTTP is <strong>stateless</strong>, it has no memory. We need to be able to remember people for remembering people who’ve contacted the server in the past, or for a sequence of requests from the same client in a short period of time (a <strong>session</strong>).</p>
+<p>For this we use cookies.</p>
+<section id="cookies" class="level4">
+<h4>Cookies</h4>
+<p>Two types:</p>
+<ul>
+<li>Persistent
+<ul>
+<li>These are stored on disk and have an expiry date.</li>
+</ul></li>
+<li>In-memory
+<ul>
+<li>These are stored in RAM and have no expiry date, but are removed when the browser closes or your computer shuts down.</li>
+</ul></li>
+</ul>
+<p>For sessions we’ll use in-memory cookies.</p>
+</section>
+<section id="session-ids" class="level4">
+<h4>Session IDs</h4>
+<p>We give each session an ID, which is sent back and forth in a cookie during the session.</p>
+<p>It’s created by the server, sent to the client, and sent back every time the client makes a new request.</p>
+<section id="hashing-the-server-time" class="level5">
+<h5>Hashing the Server Time</h5>
+<pre><code>from hashlib import sha256
+from time import time
+            
+sid = sha256(repr(time()).encode()).hexdigest()</code></pre>
+<p>This code produces a unique hex number based on the server time. Even two conversations that occur at the same time will have different IDs.</p>
+</section>
+</section>
+<section id="session-state" class="level4">
+<h4>Session State</h4>
+<p>This is the data kept about a session.</p>
+<p>We store it in a database or a file (databases are often overkill) on the server side, rather than sending it back and forth.</p>
+<section id="the-shelve-module" class="level5">
+<h5>The Shelve Module</h5>
+<p>In Python, this is a way of writing and reading files that looks as if you’re interacting with a dictionary.</p>
+<pre><code>from shelve import open
+
+session_store = open(&#39;sess_&#39; + sid, writeback=True)
+
+# Examples of writing to the file
+session_store[&#39;firstname&#39;] = &#39;Hugh&#39; 
+session_store[&#39;surname&#39;] = &#39;Jeegoh&#39;
+
+# Example of reading from the file
+print(session_store.get(&#39;firstname&#39;)) 
+
+session_store.close()</code></pre>
+<p>Using <code>writeback=True</code> allows us to read and write to the file, whereas setting it to <code>False</code> only lets us read.</p>
+<p>We interact with the file as if with a dictionary and it’s written to the disk as we go.</p>
+</section>
+</section>
+</section>
+<section id="a-simple-shopping-cart" class="level3">
+<h3>A Simple Shopping Cart</h3>
+<p>Three python programs, a database to store available wines, and 1 file per session to hold the shopping cart for each user.</p>
+<p>add_to_cart.py:</p>
+<ul>
+<li>Check if the user already has a cookie, take the session id if they do, or create a new one.</li>
+<li>Check which bottle of wine they want (using FieldStorage()) and update their shopping cart.</li>
+</ul>
+<p>show_cart.py:</p>
+<ul>
+<li>Do the cookie checking.</li>
+<li>Retrieve quantities from the shopping cart, get the relevant names from the database, and put them in a HTML table along with the quantities from the shopping carts.</li>
+</ul>
+<p>We still would need some way of purging old session stores, because otherwise the files will just build up forever.</p>
+</section>
+</section>
+<section id="case-study-3a-user-authentication" class="level2">
+<h2>Case Study 3A: User Authentication</h2>
+<p>You need both cookies and a session store, so that you can flag that the user is logged in, and remove that when the user logs out.</p>
+<p>You can’t delete the cookie on the user’s computer, so you need to make sure they can’t see the protected pages after they log out.</p>
+<p>Since you have to have the same authentication code (involving the session store) on all protected pages, you could make this cleaner by calling a function and passing in what you want to put inside the if statement.</p>
+</section>
+<section id="case-study-3b-ajax" class="level2">
+<h2>Case Study 3B: AJAX</h2>
+<p>Client-side scripts can also send http requests.</p>
+<section id="xmlhttprequest-objects" class="level3">
+<h3>XMLHttpRequest Objects</h3>
+<p>Your script needs to do 5 things:</p>
+<ol type="1">
+<li>Create the request object.</li>
+<li>Register a function that will handle the response (assuming asynchronous response handling).</li>
+<li>Specify the URL and the HTTP method (e.g. GET or POST).</li>
+<li>Optionally, specify any special headers that are to be sent.</li>
+<li>Send the request.</li>
+</ol>
+<p>Here’s the code example:</p>
+<pre><code>var request = new XMLHttpRequest();
+request.addEventListener(&#39;readystatechange&#39;, handle_response, false);
+request.open(&#39;GET&#39;, url, true);
+request.setRequestHeader(&#39;User-Agent&#39;, &#39;XMLHttpRequest&#39;);
+request.setReguestHeader(&#39;Accept-Language&#39;, &#39;en&#39;);
+request.send(null);</code></pre>
+<p>The ‘null’ is where you put the data if using a post request.</p>
+<p>Once you get the response, it’s stored in the same variable the request was stored in.</p>
+</section>
+<section id="handling-responses" class="level3">
+<h3>Handling Responses</h3>
+<pre><code>function handle_response() {
+    // Check that the response has fully arrived
+    if ( request.readyState === 4 ) {
+        // Check the request was successful
+        if ( request.status === 200 ) {
+            // do whatever you want to do with 
+            // request.responseText or request.responseXML
+        }
+    }
+}</code></pre>
+<p>State 4 means the response has fully arrived.</p>
+</section>
+<section id="ajax" class="level3">
+<h3>AJAX</h3>
+<p>AJAX stands for Asynchronous JavaScript and XML, and is not a specific programming language.</p>
+<p>It’s meant to make the web more responsive and fun to use, rather than reloading the whole page for any change. E.g. when you like something on facebook, it needs to update the server.</p>
+<p>AJAX may be slowing things down, as websites send many tiny requests all the time.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

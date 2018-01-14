@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 2</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="objects" class="level1">
+<h1>Objects</h1>
+<ul>
+<li>Java makes sure the right types are passed to functions.</li>
+<li>Every object in Java belongs to a unique class. Every object is an instance of a class.</li>
+<li>Every class has its own API. The API defines a common protocol and describes how to use the class:
+<ul>
+<li>The names of methods</li>
+<li>types of arguments</li>
+<li>purpose of arguments</li>
+<li>return value</li>
+<li>side effects</li>
+</ul></li>
+<li>Global variables are stored on a heap
+<ul>
+<li>Local variables within functions are usually stored on the stack</li>
+</ul></li>
+<li>When declaring variables in Java, you have to provide the name and the type. You may also provide the value.</li>
+</ul>
+<section id="types-in-java" class="level2">
+<h2>Types in Java</h2>
+<p>Java has a few numeric (primitive) types:</p>
+<ul>
+<li>whole numbers:
+<ul>
+<li><code>byte</code></li>
+<li><code>short</code></li>
+<li><code>int</code></li>
+<li><code>long</code></li>
+</ul></li>
+<li>floating point numbers:
+<ul>
+<li><code>float</code></li>
+<li><code>double</code></li>
+</ul></li>
+</ul>
+<p>These are primitive types because they correspond to byte patterns (or something?).</p>
+<p>For whole numbers, <code>int</code> is usually a good choice, unless you need a really big number.</p>
+<p>For floating point numbers, use <code>double</code>.</p>
+</section>
+<section id="operations-on-numbers" class="level2">
+<h2>Operations on Numbers</h2>
+<p>Note the <code>int</code> and <code>long</code> types are 2’s complement integers, so there is one more value less than 0 than there is greater than 0. The unary minus functions differently with this value.</p>
+</section>
+<section id="primitive-types" class="level2">
+<h2>Primitive Types</h2>
+<p>A type starting with a lowercase variable is a primitive type. It corresponds to a byte pattern.</p>
+</section>
+<section id="object-types" class="level2">
+<h2>Object Types</h2>
+<p>Types starting with uppercase letters are object reference types. Object variables have objects.</p>
+<p>You can use capitalised versions of primitive types as wrapper classes for primitive type values:</p>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="bu">Integer</span> number = <span class="kw">new</span> <span class="bu">Integer</span>(<span class="dv">1</span>);</div></code></pre>
+<p>In general the primitives are best, as they incur less overhead, though you do get some additional methods from the wrapper classes.</p>
+<section id="wrapper-classes" class="level3">
+<h3>Wrapper Classes</h3>
+<p>Java has a wrapper class for each primitive type. These wrapper classes have getter functions to access the primitive value:</p>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1">    <span class="dt">final</span> <span class="bu">Integer</span> iObject = <span class="kw">new</span> <span class="bu">Integer</span>(<span class="dv">42</span>);</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">    <span class="dt">final</span> <span class="dt">int</span> val = iObject.<span class="fu">intValue</span>();</div></code></pre>
+<ul>
+<li>primitive <code>bool</code> variables have values of <code>true</code> and <code>false</code></li>
+<li>The object wrapper for that has values of <code>True</code> and <code>False</code></li>
+</ul>
+</section>
+<section id="autoboxing-unboxing" class="level3">
+<h3>Autoboxing &amp; Unboxing</h3>
+<p>Writing code to convert to and from wrapper classes is tedious, and increases the code size.</p>
+<p>Java automates some conversions.</p>
+<section id="autoboxing" class="level4">
+<h4>Autoboxing</h4>
+<p>If you use a primitive type when Java expects an object, Java will autobox it to the corresponding wrapper class. For example, an <code>int</code> becomes an <code>Integer</code>.</p>
+</section>
+<section id="unboxing" class="level4">
+<h4>Unboxing</h4>
+<p>Unboxing is the opposite process, and happens when you use one of these objects where Java expects a primitive type.</p>
+</section>
+</section>
+<section id="caching" class="level3">
+<h3>Caching</h3>
+<p>Java caches a limited number of wrapper class values. So <code>new Integer(0) == new Integer(0)</code> evaluates as true – both object references point to the same object representing the number 0.</p>
+<p>This guarantees shallow equality for small number of boxed values:</p>
+<ul>
+<li>If <code>o1.equals(o2)</code>, then <code>o1 == o2</code>.</li>
+</ul>
+<p>This doesn’t work for all numbers. <code>new Integer(666) == new Integer(666)</code> evaluates as false.</p>
+<p>Caching is implemented because it saves memory, rather than creating a new object to represent 0 every time we make a new <code>Integer</code> with value 0.</p>
+<p>In general caching works for small primitive values. Here are the ranges:</p>
+<ul>
+<li><code>boolean</code>: <code>true</code> and <code>false</code></li>
+<li><code>byte</code>: 0-255</li>
+<li><code>char</code>: <code>\u0000-\u007f</code></li>
+<li><code>short</code>: -128 – 127</li>
+<li><code>int</code>: -128 - 127</li>
+</ul>
+</section>
+<section id="using-variables-in-methods" class="level3">
+<h3>Using Variables in Methods</h3>
+<ul>
+<li><p>You can’t use variables that don’t have a value yet. The following will give a compiler error:</p>
+<p>int number; int square = number * number;</p></li>
+</ul>
+</section>
+<section id="comments" class="level3">
+<h3>Comments</h3>
+<p>Comments have a couple of purposes:</p>
+<ul>
+<li>Describing the purpose of a variable of method.</li>
+<li>[more here]</li>
+<li>There are multi-line comments and javadoc comments. Javadoc comments are a special kind of multi-line comment.</li>
+</ul>
+</section>
+<section id="variable-names" class="level3">
+<h3>Variable Names</h3>
+<ul>
+<li>By convention, variable names should be nouns.</li>
+<li>For non-constant variables, use <code>lowerCamelCase</code>.</li>
+<li>For constant variables, use <code>UPPER_CASE_WITH_UNDERSCORES</code>.</li>
+<li>Variable names should be descriptive.</li>
+</ul>
+</section>
+<section id="variable-types" class="level3">
+<h3>Variable Types</h3>
+<p>You can’t do this because the types don’t match:</p>
+<pre class="sourceCode java" id="cb3"><code class="sourceCode java"><div class="sourceLine" id="cb3-1" data-line-number="1">    Dog barney = <span class="kw">new</span> <span class="fu">Giraffe</span>();</div></code></pre>
+</section>
+<section id="working-with-objects" class="level3">
+<h3>Working With Objects</h3>
+<p>Before you can use an object, you must construct it by calling a constructor for it. There may be several constructors with different signatures.</p>
+</section>
+<section id="constructor-process" class="level3">
+<h3>Constructor Process</h3>
+<ol type="1">
+<li>The new operator creates memory to represent the object.</li>
+<li>The constructor uses its arguments to initialise the object. […]</li>
+</ol>
+</section>
+<section id="method-declarations" class="level3">
+<h3>Method Declarations</h3>
+<p>To define a method you provide:</p>
+<ul>
+<li>The name of the method</li>
+<li>The return type</li>
+<li>The names and types of the formal parameters</li>
+</ul>
+<pre class="sourceCode java" id="cb4"><code class="sourceCode java"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">public</span> <span class="dt">int</span> <span class="fu">getWidth</span>() {<span class="co">/* Implementation omitted. */</span>}</div></code></pre>
+<ul>
+<li>You use <code>void</code> for a method without a return value.</li>
+</ul>
+<p>If the argument types are different, the names may overlap. This is called overloading:</p>
+<ul>
+<li>Multiple methods with the same name but different argument signatures, e.g. one takes one string, one takes two ints.</li>
+</ul>
+</section>
+<section id="accessor-and-mutator-methods" class="level3">
+<h3>Accessor and Mutator Methods</h3>
+<p>An accessor method returns information about an object without modifying the object, e.g. <code>rectangle.getWidth()</code>.</p>
+<p>A mutator method modifies an object’s instance variables, e.g. <code>rectangle.setWidth(4.0)</code>.</p>
+</section>
+<section id="state-and-behaviour" class="level3">
+<h3>State and Behaviour</h3>
+<p>State should be implemented by instance variables and behaviour by instance methods.</p>
+<ul>
+<li>Too much (object) state slows down the JVM.</li>
+<li>An object’s behaviour should determine its state.</li>
+</ul>
+<p>Start writing a class by thinking about its behaviour, then you can add state as required.</p>
+</section>
+</section>
+</section>
+<section id="implementing-a-tally-counter-class" class="level1">
+<h1>Implementing a Tally Counter Class</h1>
+<p>We’ll call the class <code>Counter</code>.</p>
+<section id="behaviour" class="level2">
+<h2>Behaviour</h2>
+<ul>
+<li>Increment the counter - <code>public void incrementValue()</code></li>
+<li>Maybe reset the counter</li>
+<li>Return the current count - <code>public int getValue()</code></li>
+</ul>
+</section>
+<section id="state" class="level2">
+<h2>State</h2>
+<p>We can see from the behaviour that we need a counter value.</p>
+<ul>
+<li>Counter value - <code>private int value</code></li>
+</ul>
+</section>
+<section id="implementation" class="level2">
+<h2>Implementation</h2>
+<pre class="sourceCode java" id="cb5"><code class="sourceCode java"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="co">// Class for representing tally counter objects.</span></div>
+<div class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">public</span> <span class="kw">class</span> Counter {</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3">    <span class="co">// The current tally counter value</span></div>
+<div class="sourceLine" id="cb5-4" data-line-number="4">    <span class="kw">private</span> <span class="dt">int</span> value;</div>
+<div class="sourceLine" id="cb5-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb5-6" data-line-number="6">    <span class="co">// Returns the current counter value</span></div>
+<div class="sourceLine" id="cb5-7" data-line-number="7">    <span class="kw">public</span> <span class="dt">int</span> <span class="fu">getValue</span>() {</div>
+<div class="sourceLine" id="cb5-8" data-line-number="8">        <span class="kw">return</span> value;</div>
+<div class="sourceLine" id="cb5-9" data-line-number="9">    }</div>
+<div class="sourceLine" id="cb5-10" data-line-number="10"></div>
+<div class="sourceLine" id="cb5-11" data-line-number="11">    <span class="co">// Increment the counter</span></div>
+<div class="sourceLine" id="cb5-12" data-line-number="12">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">incrementValue</span>() {</div>
+<div class="sourceLine" id="cb5-13" data-line-number="13">        value += <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb5-14" data-line-number="14">    }</div>
+<div class="sourceLine" id="cb5-15" data-line-number="15">}</div></code></pre>
+<ul>
+<li>Note that the comments should be javadoc comments.</li>
+<li>You may need auxiliary methods if methods are getting long.</li>
+<li>Explicit constructor not shown.</li>
+<li>Don’t have to write <code>this.value</code> as there’s no conflict.
+<ul>
+<li>If a formal parameter had the name <code>value</code> we’d have a conflict, for example.</li>
+</ul></li>
+</ul>
+</section>
+<section id="instance-variables" class="level2">
+<h2>Instance Variables</h2>
+<ul>
+<li>You write <code>tally.value</code> to access the value of a specific counter object (inside the class).</li>
+</ul>
+</section>
+<section id="encapsulation" class="level2">
+<h2>Encapsulation</h2>
+<p>Instance variables should be private.</p>
+<ul>
+<li>Prevents malicious access to the variables</li>
+<li>Makes it easier to use the API</li>
+<li>Allows implementation to change without breaking code that uses it</li>
+</ul>
+<p>For similar reasons, methods that aren’t/shouldn’t be part of the API should be private.</p>
+<ul>
+<li>Allows you to remove methods in future.</li>
+</ul>
+</section>
+<section id="automatic-variables" class="level2">
+<h2>Automatic Variables</h2>
+<p>Variables declared in methods are “automatic” – they only live for the lifespan of their block.</p>
+<ul>
+<li>Use these for intermediate computations rather than instance attributes.</li>
+</ul>
+</section>
+</section>
+<section id="arrays" class="level1">
+<h1>Arrays</h1>
+<p>Arrays are a special data type in Java. They are objects that contain other things.</p>
+<p>There are two kinds:</p>
+<ol type="1">
+<li>Arrays consisting of primitive data type values</li>
+<li>Arrays consisting of object reference values</li>
+</ol>
+<p>The type of an array determines the type of its values.</p>
+<ul>
+<li>Before you use an array you have to create it.
+<ul>
+<li>When doing this you have to specify the array’s length.</li>
+<li>The length remains fixed.</li>
+</ul></li>
+</ul>
+<p>You can put things into the array and retrieve things from the array.</p>
+<p>You can only access arrays with index value:</p>
+<ul>
+<li>Only <code>int</code> index values are allowed</li>
+<li>They must be non-negative</li>
+<li>They must be smaller than the length of the array</li>
+</ul>
+<section id="initialisation" class="level2">
+<h2>Initialisation</h2>
+<pre class="sourceCode java" id="cb6"><code class="sourceCode java"><div class="sourceLine" id="cb6-1" data-line-number="1"><span class="dt">final</span> <span class="dt">int</span>[] numbers = <span class="kw">new</span> <span class="dt">int</span>[<span class="dv">10</span>];</div>
+<div class="sourceLine" id="cb6-2" data-line-number="2"><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;&quot;</span>);</div>
+<div class="sourceLine" id="cb6-3" data-line-number="3">[…]</div></code></pre>
+</section>
+<section id="default-values" class="level2">
+<h2>Default values</h2>
+<p>New arrays will be initialised with the default value for the type.</p>
+<ul>
+<li>boolean: <code>false</code></li>
+<li>char: <code>\u0000</code></li>
+<li>numeric: <code>0</code></li>
+<li>object: <code>null</code></li>
+</ul>
+</section>
+<section id="arrays-with-primitive-type-values" class="level2">
+<h2>Arrays with Primitive Type Values</h2>
+<pre class="sourceCode java" id="cb7"><code class="sourceCode java"><div class="sourceLine" id="cb7-1" data-line-number="1"><span class="dt">byte</span>[] nums = <span class="kw">new</span> <span class="dt">byte</span>[<span class="dv">5</span>];</div>
+<div class="sourceLine" id="cb7-2" data-line-number="2">nums[<span class="dv">1</span>] = <span class="dv">4</span>;</div></code></pre>
+</section>
+<section id="arrays-do-not-grow" class="level2">
+<h2>Arrays Do Not Grow</h2>
+<p>The length attribute of a java array is final. You can’t assign any values to array.length.</p>
+<p>Minimum size is 0 and maximum size is the max int size.</p>
+</section>
+</section>
+</body>
+</html>

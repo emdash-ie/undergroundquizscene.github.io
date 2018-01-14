@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Networking Basics</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="what-is-the-internet" class="level1">
+<h1>What is the Internet?</h1>
+<p>Important points:</p>
+<ul>
+<li>There are many different connection types</li>
+<li>The internet is many networks, rather than just one</li>
+</ul>
+<section id="nuts-bolts-view" class="level2">
+<h2>Nuts &amp; Bolts View</h2>
+<ul>
+<li>Protocols control sending and receiving of messages
+<ul>
+<li>Examples: TCP, IP, HTTP, Skype, Ethernet</li>
+</ul></li>
+<li>The internet is a network of networks
+<ul>
+<li>It is loosely hierarchical</li>
+<li>There’s a public internet and private intranets
+<ul>
+<li>Private intranets e.g. in companies. Typically use the same protocols as the public internet, the difference is just who has access.</li>
+</ul></li>
+</ul></li>
+<li>Internet standards
+<ul>
+<li>RFCs (Requests for comments) are where standards are published.</li>
+<li>They’re published by the IETF (the Internet Engineering Task Force).</li>
+<li>Anyone can attend the working groups where standards are defined.</li>
+</ul></li>
+</ul>
+</section>
+<section id="service-view" class="level2">
+<h2>Service View</h2>
+<ul>
+<li>Communication infrastructure enables distributed applications.
+<ul>
+<li>Examples: Web, VoIP, email, games, e-commerce, file sharing</li>
+</ul></li>
+<li>Communication services provided to apps:
+<ul>
+<li>Reliable data delivery from source to destination</li>
+<li>“Best effort” data delivery
+<ul>
+<li>Occasionally the data won’t get there, but methods of dealing with this are supplied.</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="protocols" class="level2">
+<h2>Protocols</h2>
+<ul>
+<li>Sets of rules governing the exchange or transmission of data between devices.</li>
+</ul>
+<p>People are very good at adapting to nuances of speech and social interaction (including different languages), but computers work best when there is no ambiguity in the communication. This is why we need protocols.</p>
+<p>Protocols define:</p>
+<ul>
+<li>format and order of messages sent and received among network entities</li>
+<li>actions taken on message transmission or receipt</li>
+</ul>
+<section id="request-response-protocols" class="level3">
+<h3>Request-Response Protocols</h3>
+<p>This covers most network protocols:</p>
+<ul>
+<li>The client sends a message to a server requesting some information.</li>
+<li>The server responds by sending back a message to the client.</li>
+</ul>
+</section>
+<section id="specifying-protocols" class="level3">
+<h3>Specifying Protocols</h3>
+<p>You need to specify the following:</p>
+<ul>
+<li>The set of message types (e.g. request, response, error)</li>
+<li>The format of each message</li>
+<li>The action to be taken when a message is received, including what response to send</li>
+</ul>
+<p>If the specification is unambiguous, different implementations should be compatible.</p>
+</section>
+<section id="implementing-protocols" class="level3">
+<h3>Implementing Protocols</h3>
+<ul>
+<li>Network protocols are usually implemented in software.</li>
+<li>The software must faithfully implement the protocol specification.
+<ul>
+<li>The choice of programming language and operating system doesn’t matter.</li>
+</ul></li>
+<li>This software must be installed at the client and server computers.
+<ul>
+<li>As long as the specification was adhered to, independent implementations <em>should</em> work together.</li>
+</ul></li>
+</ul>
+</section>
+<section id="types-of-protocols" class="level3">
+<h3>Types of Protocols</h3>
+<ul>
+<li>each protocol is designed for a specific purpose</li>
+<li>the most crucial protocols allow messages to be routed to the right destination and reliably delivered
+<ul>
+<li>their operation is largely invisible to end-users</li>
+</ul></li>
+<li>other protocols are more familiar, e.g.:
+<ul>
+<li>HTTP, which allows web browsers to send requests to web servers</li>
+<li>BitTorrent, for peer-to-peer file sharing</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="a-closer-look-at-network-structure" class="level1">
+<h1>A Closer Look at Network Structure</h1>
+<ul>
+<li>Network edge
+<ul>
+<li>Applications and hosts</li>
+</ul></li>
+<li>Access networks, physical media
+<ul>
+<li>Wired/wireless communication links</li>
+</ul></li>
+<li>Network core
+<ul>
+<li>interconnected routers</li>
+<li>network of networks</li>
+</ul></li>
+</ul>
+</section>
+<section id="the-network-edge" class="level1">
+<h1>The Network Edge</h1>
+<p>The network edge is made up of end systems (hosts), which run application programs (e.g. web, email).</p>
+<ul>
+<li>Client/server and peer-to-peer relationships are defined only in software. To the network they look the same.</li>
+</ul>
+<section id="access-networks-and-physical-media" class="level2">
+<h2>Access Networks and Physical Media</h2>
+<p>How do you connect end systems to edge routers?</p>
+<ul>
+<li>Residential access nets</li>
+<li>Institutional access networks (university, company)</li>
+<li>Mobile access networks</li>
+</ul>
+<p>Important criteria for comparing networks:</p>
+<ul>
+<li>Bandwidth (in bits per second)</li>
+<li>Is it shared or dedicated?
+<ul>
+<li>Is it 100 Mb/s for the neighbourhood or just for me?</li>
+</ul></li>
+<li>Price</li>
+<li>Security</li>
+</ul>
+<p>Access networks are the first connection, from users devices to a router.</p>
+</section>
+<section id="dial-up-modem" class="level2">
+<h2>Dial-Up Modem</h2>
+<ul>
+<li>Rarely used anymore, but important because many parts of broadband specifications were developed in this context.</li>
+<li>Lowest-cost option, because everyone already had a telephone connection</li>
+<li>Telephone network is analogue, so all bits have to be converted to sounds for transmission.
+<ul>
+<li>Converted back to bits by the central office when sending to the ISP.</li>
+<li>Correction: Connection from home to central office is analogue – internal communication between switches in the telephone network is digital.</li>
+</ul></li>
+<li>Can never get more than 64/56 kb/s, because of the way the telephone network works.</li>
+<li>Charged per minute.</li>
+<li>Can’t take a phone call at the same time.</li>
+</ul>
+</section>
+<section id="dsl" class="level2">
+<h2>DSL</h2>
+<ul>
+<li>Can use a single line for phone and internet at the same time.</li>
+<li>DSLAM in the central office splits voice communication and internet communication to send to different places.</li>
+<li>Still uses existing phone infrastructure, so it’s still cheap</li>
+<li>Rates are improving over time</li>
+<li>Note asymmetric down vs. up rates
+<ul>
+<li>Assumption: we download far more than we upload</li>
+<li>Up until a few years ago, most people never uploaded</li>
+<li>Nowadays with video broadcasting, torrenting, etc. people upload far more</li>
+</ul></li>
+<li>The closer you are to the central office (close = say 2-3 km) the better your data rate
+<ul>
+<li>Signal attenuates over distance (in any medium)</li>
+<li>When further away, there’s more uncertainty, so more redundancy is required</li>
+<li>So the data rate has to be lowered</li>
+</ul></li>
+</ul>
+</section>
+<section id="residential-access-cable-modems" class="level2">
+<h2>Residential Access: Cable Modems</h2>
+<ul>
+<li>Dominant in the U.S. but uncommon in Ireland
+<ul>
+<li>Only company is Virgin here</li>
+</ul></li>
+<li>Very important that it’s shared access rather than dedicated access</li>
+<li>Mix of different technologies</li>
+<li>Separate channels for upstream and downstream as before</li>
+</ul>
+</section>
+<section id="fibre-to-the-home" class="level2">
+<h2>Fibre to the Home</h2>
+<ul>
+<li>Best option you can have (gold standard)</li>
+<li>Light is very fast, so low latency and high transmission rates</li>
+</ul>
+</section>
+<section id="ethernet-internet-access" class="level2">
+<h2>Ethernet Internet Access</h2>
+<ul>
+<li>Different requirements for institutions
+<ul>
+<li>Lots of different computers</li>
+<li>Constant connection</li>
+</ul></li>
+<li>Internal data rates are very high, so the external data rates need to be <em>very</em> high.</li>
+</ul>
+</section>
+<section id="wireless-access-network" class="level2">
+<h2>Wireless Access Network</h2>
+<ul>
+<li>Data rates depend on a couple of things
+<ul>
+<li>Distance because of attenuation
+<ul>
+<li>If you’re close to a base station, you’ll get really good rates</li>
+</ul></li>
+</ul></li>
+<li>Always shared
+<ul>
+<li>Including WiFi</li>
+</ul></li>
+<li>Inherently less secure than a wired connection
+<ul>
+<li>Anyone can easily capture any traffic going back and forth</li>
+</ul></li>
+</ul>
+</section>
+<section id="home-networks" class="level2">
+<h2>Home Networks</h2>
+</section>
+<section id="physical-media" class="level2">
+<h2>Physical Media</h2>
+<p>Difference between ethernet cabling categories is down to the materials used. Better materials means better speed capabilities.</p>
+<section id="coax" class="level3">
+<h3>Coax</h3>
+<ul>
+<li>Very rarely used these days, except for tv</li>
+</ul>
+</section>
+<section id="fibre" class="level3">
+<h3>Fibre</h3>
+<ul>
+<li><p>Cables surrounded by rubber to keep them dark as shielding</p></li>
+<li>Communication within buildings almost always copper</li>
+<li>Communication between buildings, between cities, between continents usually fibre
+<ul>
+<li>More data to deal with close to the core of the internet</li>
+</ul></li>
+</ul>
+</section>
+<section id="radio" class="level3">
+<h3>Radio</h3>
+<ul>
+<li>Sometimes asymmetric communication - I can hear you but you can’t hear me
+<ul>
+<li>This doesn’t happen with wired communication</li>
+</ul></li>
+<li>Less secure and less reliable
+<ul>
+<li>Before WGB, used to be a wireless signal sent from the top of the Kane to other lecture building – foggy mornings meant terrible data rates</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="network-core" class="level1">
+<h1>Network Core</h1>
+<p>What we need to do (for the last section and this one and possibly in the future) is understand how different technologies differ across a number of different criteria.</p>
+<p>The core of the network is made up of routers and switches.</p>
+<p>The fundamental question is: how is data transferred through the net?</p>
+<p>How can we forward data in the best way possible?</p>
+<ul>
+<li>Fastest</li>
+<li>Most efficient</li>
+<li>Most accurate?</li>
+</ul>
+<p>There are two ways to transfer data:</p>
+<ul>
+<li>circuit switching:
+<ul>
+<li>dedicated circuit per call</li>
+<li>this is used for the telephone net</li>
+</ul></li>
+<li>packet switching:
+<ul>
+<li>data is sent through the net in discrete chunks</li>
+<li>this is used for the internet</li>
+</ul></li>
+</ul>
+<p>Today’s lecture is about why we use packet switching and not circuit switching.</p>
+<section id="circuit-switching" class="level2">
+<h2>Circuit Switching</h2>
+<p>End to end resources are reserved for a call between two endpoints.</p>
+<ul>
+<li>link bandwidth is the switch capacity</li>
+<li>resources are dedicated – there’s no sharing</li>
+<li>performance is circuit-like/guaranteed</li>
+<li>call setup is required
+<ul>
+<li>you need to tell the network in advance what you need</li>
+</ul></li>
+</ul>
+<section id="network-resources" class="level3">
+<h3>Network Resources</h3>
+<ul>
+<li>Divide them (e.g. bandwidth) into pieces
+<ul>
+<li>pieces are allocated to calls</li>
+<li>resource piece is idle if not used by owning call (no sharing)</li>
+</ul></li>
+</ul>
+</section>
+<section id="fdm-and-tdm" class="level3">
+<h3>FDM and TDM</h3>
+<section id="fdm-frequency-division-multiplexing" class="level4">
+<h4>FDM (Frequency-division multiplexing)</h4>
+<p>You allocate a different frequency to each user.</p>
+<p>This is used in cable tv.</p>
+</section>
+<section id="tdm-time-division-multiplexing" class="level4">
+<h4>TDM (Time-division multiplexing)</h4>
+<p>Each user gets a time quantum.</p>
+<pre><code>* First user goes
+* Then second
+* …</code></pre>
+<p>Each user gets the full channel for their time period.</p>
+<p>The size of the time quanta determines how many users you can support over a fixed unit of time.</p>
+<p>TDM is used in the digital telephone network.</p>
+</section>
+</section>
+</section>
+<section id="packet-switching" class="level2">
+<h2>Packet Switching</h2>
+<ul>
+<li>Divide file into chunks, send them one after the other</li>
+<li>Packets from different users share resources</li>
+<li>Each packet uses the full link bandwidth</li>
+<li>Resources used as needed</li>
+</ul>
+<p>Resource contention:</p>
+<ul>
+<li>Aggregate resource demand can exceed amount available</li>
+<li>congestion: packets queue, wait for link use
+<ul>
+<li>the queue can overflow and packets can be lost</li>
+</ul></li>
+<li>store and forward: packets move one hop at a time
+<ul>
+<li>node receives complete packet before forwarding</li>
+</ul></li>
+</ul>
+<section id="statistical-multiplexing" class="level3">
+<h3>Statistical Multiplexing</h3>
+<p>Multiplex packets from users based on a statistical model onto one link.</p>
+<ul>
+<li>Some time slots are empty – no packets were in the queue to send at that time.</li>
+</ul>
+</section>
+<section id="store-and-forward" class="level3">
+<h3>Store and Forward</h3>
+<ul>
+<li>Entire packet must arrive at a router before it can be transmitted on the next link.</li>
+<li>Transmission delays at each link are summed to give the total transmission delay.</li>
+</ul>
+</section>
+</section>
+<section id="packet-switching-vs.circuit-switching" class="level2">
+<h2>Packet Switching vs. Circuit Switching</h2>
+<ul>
+<li>Packet switching allows more users to use the network.</li>
+</ul>
+<p>Assume each user needs 100 kb/s when “active”, and is active 10% of the time.</p>
+<p>In circuit switching, we can support 10 users on a 1 Mb/s link.</p>
+<p>In packet switching, we can support at least 10, depending on the probability of users being active at the same time.</p>
+<p>If we have 20 users at the same time:</p>
+<ul>
+<li>In circuit switching, 10 users get no connection, they have to wait till the circuit is free</li>
+<li>In packet switching, 20 users get a connection, but are not getting the speed they need</li>
+</ul>
+<p>If we have 1 user:</p>
+<ul>
+<li>In packet switching, the user gets the full bandwidth</li>
+<li>In circuit switching, the user still gets one tenth of the bandwidth</li>
+</ul>
+<section id="winner" class="level3">
+<h3>Winner</h3>
+<p>Packet switching is good for bursty (VBR rather than CBR) data:</p>
+<ul>
+<li>resource sharing</li>
+<li>simpler, no call setup</li>
+</ul>
+<p>But it has excessive congestion:</p>
+<ul>
+<li>packet delay and loss
+<ul>
+<li>protocols are needed for reliable data transfer, and congestion control</li>
+</ul></li>
+</ul>
+<p>How can you provide circuit-like behaviour?</p>
+<pre><code>* we need bandwidth guarantees for audio/video apps
+* this is still an unsolved problem - most solutions are not widely used</code></pre>
+</section>
+</section>
+<section id="internet-structure" class="level2">
+<h2>Internet Structure</h2>
+<ul>
+<li>very roughly hierarchical</li>
+<li>At the centre, “tier-1” ISPs (e.g. Global Crossing, Level 3, Sprint, AT&amp;T)
+<ul>
+<li>They provide national/international coverage</li>
+<li>They treat each other as equals</li>
+<li>They interconnect (peer) privately
+<ul>
+<li>This to allow customers from different ISPs to access through their ISP to another</li>
+</ul></li>
+</ul></li>
+<li>“Tier-2” ISPs: smaller (often regional) ISPs
+<ul>
+<li>These connect to one or more ISPs</li>
+</ul></li>
+<li>“Tier-3” ISPs and local ISPs
+<ul>
+<li>last hop (“access”) network (closest to end systems)</li>
+</ul></li>
+</ul>
+<p>A packet passes through many networks.</p>
+<p>As a general rule, you don’t want too many hops, as the more hops lead to a greater chance to encountering congestion.</p>
+<p>There’s a utility called traceroute on unix systems which can tell which networks your communication goes through.</p>
+</section>
+</section>
+<section id="network-performance-metrics" class="level1">
+<h1>Network Performance Metrics</h1>
+<section id="how-do-loss-and-delay-occur" class="level2">
+<h2>How Do Loss and Delay Occur?</h2>
+<ul>
+<li>Packets queue in router buffers</li>
+<li>Packet arrival rate to the link exceeds the output link capacity</li>
+<li>Packets queue, wait for turn</li>
+<li>Arriving packets are dropped if there are no free buffers</li>
+</ul>
+<p>Transmission delay is a function of bandwidth. If you have a higher bandwidth you can push things onto the connection faster.</p>
+<p>There’s also queueing delay.</p>
+<section id="four-sources-of-packet-delay" class="level3">
+<h3>Four Sources of Packet Delay</h3>
+<ol type="1">
+<li>processing delay
+<ul>
+<li>check bit errors</li>
+<li>copy over to output queue</li>
+<li>determine output link</li>
+<li>usually negligible</li>
+</ul></li>
+<li>queueing
+<ul>
+<li>time waiting at output link for transmission</li>
+<li>depend on congestion level of route</li>
+<li>depend on number of hops (routers)</li>
+</ul></li>
+<li>propagation delay
+<ul>
+<li>function of the distance</li>
+<li>= d / s (length of link / propagation speed in medium)</li>
+<li>s e.g. 2 * 10^8 m/s in copper</li>
+<li>can’t change the distance or the speed of light easily, so have no control over this</li>
+</ul></li>
+<li>transmission delay
+<ul>
+<li>L / R</li>
+<li>L is the packet length</li>
+<li>R is the link bandwidth</li>
+</ul></li>
+</ol>
+<p>Size of what you’re sending affects whether transmission delay or propagation delay is most relevant.</p>
+<p>Nodal delay = processing delay + queueing delay + transmission delay + propagation delay</p>
+</section>
+<section id="queueing-delay" class="level3">
+<h3>Queueing Delay</h3>
+<p>Traffic intensity = <code>La/R</code> where:</p>
+<ul>
+<li>L is the packet length</li>
+<li>a is the average packet arrival rate</li>
+<li>R is the link bandwidth</li>
+</ul>
+</section>
+<section id="packet-loss" class="level3">
+<h3>Packet Loss</h3>
+<p>Packets get dropped when router queues fill up. Lost packets may be resent from the source, or not.</p>
+</section>
+<section id="throughput" class="level3">
+<h3>Throughput</h3>
+<p>Throughput is end-to-end.</p>
+<p>It’s the rate (bits per time unit) at which bits are transferred between sender and receiver.</p>
+<ul>
+<li>instantaneous is the rate at a given point in time</li>
+<li>average is the rate over a longer period of time</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="network" class="level1">
+<h1>Network</h1>
+<p>Common enough to have questions where you’re given a network and you have to work out the delay.</p>
+<p>Start by writing this equation: <code>D = T + P + Q</code> (processing delay is ignored as it’s usually not significant).</p>
+<ul>
+<li>Next think about which of these you need to calculate
+<ul>
+<li>If there are no routers there’s no queueing delay</li>
+<li>If we’re not told how long the wire is we can’t calculate the propagation delay</li>
+</ul></li>
+</ul>
+</section>
+<section id="throughput-1" class="level1">
+<h1>Throughput</h1>
+<p>What is the average end to end throughput when Rs &lt; Rc? It’s Rs.</p>
+<p>When Rc &lt; Rs? It’s Rc.</p>
+<p>The bottleneck link is the link on the end to end path that has the lowest available data rate. That one determines your throughput.</p>
+<section id="internet-scenario" class="level2">
+<h2>Internet Scenario</h2>
+<p>The per-connection end-to-end throughput is min(Rs, Rc, R/10), where R is the shared link in the middle for 10 connections. In practice it’s nearly always Rc.</p>
+</section>
+</section>
+<section id="network-protocol-architecture" class="level1">
+<h1>Network Protocol Architecture</h1>
+<p>Today’s networks are very complicated (lots of different types of connections, lots of connections), and have very different applications (web, streaming, VoIP, gaming).</p>
+<p>To deal with complexity:</p>
+<ul>
+<li>We need to cope with heterogeneity of function and requirements, including for example:
+<ul>
+<li>network speed, errors, latency</li>
+<li>application security, reliability, quality of service</li>
+</ul></li>
+<li>Need to facilitate evolution of network elements and applications
+<ul>
+<li>upgrade to better technology</li>
+<li>adapt to changing needs</li>
+</ul></li>
+</ul>
+<section id="layered-architectures" class="level2">
+<h2>Layered Architectures</h2>
+<p>This is somewhat similar to abstraction in OOP.</p>
+<ul>
+<li>Similar network functions are grouped together into distinct layers</li>
+<li>Layers are organised in a stack, representing increasing functionality
+<ul>
+<li>And the dependency of a layer on the layer below</li>
+</ul></li>
+<li>Layering is an abstraction that enforces modularity
+<ul>
+<li>Makes it easier to change the network functions</li>
+</ul></li>
+</ul>
+<p>Each layer implements a service via its own internal-layer actions, relying on services provided by the layer below.</p>
+<section id="internet-protocol-architecture" class="level3">
+<h3>Internet Protocol Architecture</h3>
+<ol start="5" type="1">
+<li>Application layer (L5)
+<ul>
+<li>This does application-specific functions (e.g. http, email, DNS, BitTorrent)</li>
+</ul></li>
+<li>Transport layer (L4)
+<ul>
+<li>Common end-to-end delivery functions like reliability, security, e.g. TCP</li>
+</ul></li>
+<li>Network layer (L3)
+<ul>
+<li>Core network functions for delivery of a packet across multiple links to the destination, e.g. IP (Internet Protocol)</li>
+<li>There’s only one protocol here (hourglass structure)</li>
+</ul></li>
+<li>Link layer (L2)
+<ul>
+<li>Functions to deliver a packet across a single link, such as for error detection, e.g. WiFi</li>
+</ul></li>
+<li>Physical layer (L1)
+<ul>
+<li>Defines the operation of a physical communication medium e.g. optical fibre</li>
+</ul></li>
+</ol>
+</section>
+<section id="isoosi-reference-model" class="level3">
+<h3>ISO/OSI Reference Model</h3>
+<p>This is not widely used. It’s considered to be a bit too complicated.</p>
+<ol start="7" type="1">
+<li>Application</li>
+<li>Presentation
+<ul>
+<li>Allow applications to interpret meaning of data, e.g. encryption, compression, machine-specific conventions</li>
+<li>This stuff is done in the application layer in IPA</li>
+</ul></li>
+<li>Session
+<ul>
+<li>Synchronisation, checkpointing, recovery of data exchange</li>
+<li>Also implemented in application layer in IPA</li>
+</ul></li>
+<li>Transport</li>
+<li>Network</li>
+<li>Link</li>
+<li>Physical</li>
+</ol>
+</section>
+<section id="encapsulation" class="level3">
+<h3>Encapsulation</h3>
+<p>Each layer (except the physical layer) adds its own header. This is called encapsulating the packet.</p>
+<p>In a router in the middle, the link header will be removed and replaced with a new one. This is needed because each link is different.</p>
+</section>
+</section>
+</section>
+<section id="network-security" class="level1">
+<h1>Network Security</h1>
+<p>The field of network security is about:</p>
+<ul>
+<li>how bad guys can attack computer networks</li>
+<li>how we can defend networks against attacks</li>
+<li>how to design architectures that are immune to attacks</li>
+</ul>
+<p>The fundamental problem is that the internet was not originally designed with (much) security in mind:</p>
+<ul>
+<li>original vision […]</li>
+</ul>
+<section id="malware" class="level2">
+<h2>Malware</h2>
+<p>Malware can get in hose from a virus, worm, or trojan horse.</p>
+<p>Spyware malware can record keystrokes, web sites visited, upload info to collection site.</p>
+<p>Infected host can be enrolled in a botnet, used for spam and DDoS attacks.</p>
+<p>Malware is often self-replicating: from an infected host, it can spread to […]</p>
+<p>[…]</p>
+</section>
+<section id="packet-sniffing" class="level2">
+<h2>Packet Sniffing</h2>
+<p>Record all packets passing through the network.</p>
+</section>
+<section id="ip-spoofing" class="level2">
+<h2>IP Spoofing</h2>
+<p>Send a packet with a false source address.</p>
+</section>
+<section id="record-and-playback" class="level2">
+<h2>Record-and-Playback</h2>
+<p>Sniff sensitive info (e.g. password) and use later.</p>
+<ul>
+<li>password holder <em>is</em> that user from system point of view</li>
+</ul>
+</section>
+</section>
+<section id="history" class="level1">
+<h1>History</h1>
+<ul>
+<li>Minimalism is important – you should be able to plug things into the internet and go with minimum effort.</li>
+<li>Best effort service model (anything else too hard)</li>
+<li>Stateless routers</li>
+<li>Decentralised control (greater resilience)</li>
+</ul>
+</section>
+</body>
+</html>

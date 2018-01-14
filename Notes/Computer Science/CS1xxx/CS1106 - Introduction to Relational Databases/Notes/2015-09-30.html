@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-30</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>Labs start tomorrow, there are two time slots. Check online for which one you’re in.</p>
+<section id="data-manipulation-cont." class="level1">
+<h1>Data Manipulation (cont.)</h1>
+<section id="deleting-rows" class="level2">
+<h2>Deleting Rows</h2>
+<p>Example:</p>
+<blockquote>
+<p>DELETE<br />
+FROM students<br />
+WHERE id_numbers = ‘987654321’;</p>
+</blockquote>
+<p>There is a problem with the following example:</p>
+<blockquote>
+<p>DELETE<br />
+FROM students<br />
+WHERE first_name = ‘Gráinne’ AND last_name = ‘Gogerty’;</p>
+</blockquote>
+<p>The problem is that there could potentially be many Gráinne Gogertys, rather than just the one. Using the key above ensures that only one student will be removed.</p>
+<p>Can also delete multiple rows:</p>
+<blockquote>
+<p>DELETE<br />
+FROM students<br />
+WHERE hometown = ‘Tralee’;</p>
+</blockquote>
+</section>
+<section id="updating-values-within-a-table" class="level2">
+<h2>Updating Values Within a Table</h2>
+<p>Example:</p>
+<blockquote>
+<p>UPDATE students<br />
+SET points = 500<br />
+WHERE id_number = ‘112356489’;</p>
+</blockquote>
+<p>Use a WHERE condition to specify the target.</p>
+<p>Can update multiple values at once (multiple rows and multiple columns):</p>
+<blockquote>
+<p>UPDATE students<br />
+SET points = 1.2*points, first_name = ‘Loretta’<br />
+WHERE hometown = ‘Tralee’;</p>
+</blockquote>
+</section>
+</section>
+<section id="data-definition-language" class="level1">
+<h1>Data Definition Language</h1>
+<p>So far we’ve looked at SQL’s <em>data manipulation language</em> (DML). Now we’re going to look at <em>data definition language</em> (DDL) which allows us to set up a table. DDL allows us to:</p>
+<ul>
+<li><p>specify the structure of the DBs table(s)</p></li>
+<li><p>create a table with this structure</p></li>
+</ul>
+<section id="a-table-definition-for-the-running-example" class="level2">
+<h2>A Table Definition for the Running Example</h2>
+<blockquote>
+<p>CREATE TABLE students<br />
+(<br />
+id_number CHAR(9),<br />
+first_name VARCHAR(20),<br />
+last_name VARCHAR(30),<br />
+date_of_birth DATE,<br />
+hometown VARCHAR(30),<br />
+course CHAR(5),<br />
+points INTEGER,<br />
+…<br />
+)</p>
+</blockquote>
+<p>This creates a table called students with the specified structure. We enter attribute names (e.g. points) first, followed by <em>types</em> ( e.g. INTEGER), with lengths in brackets (e.g. (30)).</p>
+<p>You can go below the length limit for CHAR, it’ll usually pad them with blanks to fit the limit. You <em>cannot</em> go above.</p>
+<p>The difference between CHAR and VARCHAR:</p>
+<ul>
+<li><p>CHAR has fixed length, and will pad with blanks to reach the limit</p></li>
+<li><p>VARCHAR has an upper limit, and won’t pad anything.</p></li>
+</ul>
+<p>You shouldn’t rely on CHAR padding things with blanks, because it depends on the implementation, and also, padded blanks can cause problems later anyway.</p>
+<p>Generally you use VARCHAR unless you know the exact length.</p>
+<p>Lengths are important for managing space. The implementation may try to save space by allocating less memory when VARCHARs aren’t filled, for example, if it’s worth doing.</p>
+</section>
+<section id="overview-of-data-types-in-sql" class="level2">
+<h2>Overview of Data Types in SQL</h2>
+<p>Broken into 4 broad categories:</p>
+<ul>
+<li><p>Textual: strings of characters</p></li>
+<li><p>Numerical: numbers (integers and more)</p></li>
+<li><p>Temporal: dates, times, date-time timestamps etc.</p></li>
+<li><p>Others: BLOB (binary large object), more</p></li>
+</ul>
+</section>
+<section id="integer-types" class="level2">
+<h2>Integer Types</h2>
+<p>The INTEGER type is limited to the range<br />
+-2,147,483,468…2,147,483,467 in MySQL.</p>
+<p>Most systems offer variants (SMALLINT, BIGINT) with different ranges; require different amounts of space; need to choose carefully.</p>
+</section>
+<section id="other-numerical-types" class="level2">
+<h2>Other Numerical Types</h2>
+<p>DECIMAL(n, d):</p>
+<ul>
+<li>any n-digit number with d digits after the decimal point (d-digit mantissa)</li>
+</ul>
+<p>FLOAT</p>
+<ul>
+<li><p>scientific notation (e.g. 1.34E+12 = 1.34 x 10<sup>+12</sup>)</p></li>
+<li><p>useful for scientific data</p></li>
+<li><p>system-dependent limits on number size</p></li>
+</ul>
+</section>
+</section>
+</body>
+</html>

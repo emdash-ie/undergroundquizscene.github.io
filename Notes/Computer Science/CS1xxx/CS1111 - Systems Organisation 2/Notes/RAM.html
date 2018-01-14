@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>RAM</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="ram" class="level1">
+<h1>RAM</h1>
+<hr />
+<p>Random Access Memory is called random-access because it takes the same amount of time access any one memory location.</p>
+<section id="magnetic-core-memory" class="level2">
+<h2>Magnetic-core Memory</h2>
+<p>This was the predominant form of random-access memory from about 1955 to 1975, consisting of magnetic cores or rings that could have one of two possible orientations. One main problem is that reading a value erases it.</p>
+</section>
+<section id="modern-memory" class="level2">
+<h2>Modern Memory</h2>
+<p>Modern memory has the same configuration as magnetic core memory, but the rings have been replaced with electronic memory cells such as the D-latch. These D-latches are fast but take up a lot of space.</p>
+<p>Each row represents a memory location where a binary value is stored. The columns represent different bits of those memory locations.</p>
+<p>Memory is like a matrix where the number of rows identifies the number of memory locations and the number of columns identifies the number of bits in each memory location.</p>
+<p>To store or retrieve data from memory, the processor places a binary number called an address on special inputs to the memory device.</p>
+<p>The address identifies which row of the memory matrix or array the processor is interested in communcating with, and enables it. The memory cells in that row are connected to bi-directional connections (called <strong>data lines</strong>) that allow data to be written to or read from the cells.</p>
+<p>Three additional lines (<strong>chip select</strong>, <strong>read enable</strong> and <strong>write enable</strong>) are used to control the transaction:</p>
+<ul>
+<li>When read enable is zero, we are reading data from memory.</li>
+<li>When write enable is zero, we are writing data to memory.</li>
+<li>They should never both be zero.</li>
+<li>When reading the data lines connect to the Q inputs of the latches, and when writing they connect to the D inputs.</li>
+<li>If the chip select is zero, the memory activates all of its input and output lines.</li>
+</ul>
+<p>The processor (the arbiter) uses digital logic to control the devices so that only one is talking or listening at any one time. The aribter decides who gets the bus.</p>
+<section id="dram" class="level3">
+<h3>DRAM</h3>
+<p>Unlike SRAM, which functions as a D-flip-flop like we have described, DRAM is a transistor and capacitor paired to create a <strong>memory cell</strong>.</p>
+<ul>
+<li>The capacitor holds the bit of information by holding a tiny amount of charge.</li>
+<li>The transistor acts as a switch that lets the control circuitry on the memory chip read the capacitor or change its state.</li>
+</ul>
+<p>Since the capacitors are so small, they discharge very rapidly (e.g. every couple of millisecond) once they’re charged. To combat this, there’s a piece of logic that detects whether there’s a charge on the capacitor, and refreshes the charge if it’s there. The memory controller reads the memory and then writes it back.</p>
+<p>This needs to be done continuously, and is the reason for “dynamic” in the name. This happens <strong>thousands of times per second per bit</strong>. This is where the power in the machine goes.</p>
+</section>
+<section id="error-checking-and-parity" class="level3">
+<h3>Error-checking and Parity</h3>
+<p>Memory is very reliable, and most systems have the memory controller check for errors at start-up and rely on that.</p>
+<p>Parity chips have an extra bit for every 8 bits of data.</p>
+<section id="even-and-odd-parity" class="level4">
+<h4>Even and Odd Parity</h4>
+<p>The memory chip adds up the total number of 1s in each byte written to the memory. For <strong>Even Parity</strong>:</p>
+<ul>
+<li>If the total number of 1s is odd, the parity bit is set to 1</li>
+<li>If the total is even, it’s set to 0.</li>
+<li>When the data is read from the memory, the process is repeated and checked against the parity bit.</li>
+</ul>
+<p><strong>Odd Parity</strong> works the same way, but sets the parity bit the other way around.</p>
+<p>Parity assumes that it’s unlikely more than 1 bit will go wrong. It cannot detect if two bits have gone wrong.</p>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

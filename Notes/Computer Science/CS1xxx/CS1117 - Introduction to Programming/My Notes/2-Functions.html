@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2-Functions</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="functions" class="level1">
+<h1>Functions</h1>
+<hr />
+<p>Functions allow you to define new statements and what they do, with arguments passed through to the function.<br>The main purpose is to write a section of code once and then use it multiple times, rather than writing it again every time you need it.</p>
+<p>Example:</p>
+<pre><code>def Greet(name):
+    print(&#39;Hello&#39;, name)
+    </code></pre>
+<p>Notes:</p>
+<ul>
+<li>You can call functions anything you want, though it makes sense to name them descriptively, for clarity.</li>
+<li>The same goes for function arguments (e.g. ‘name’ in the above example).</li>
+<li>print() is a pre-defined function in Python.</li>
+</ul>
+<section id="function-definitions" class="level3">
+<h3>Function Definitions</h3>
+<p>The code in the above example is the function definition for Greet().</p>
+<p>In function definitions in Python, the code that makes up the function is indented. It’s important that it’s all indented the same amount (standard Python convention is 4 spaces, but it can be any number of spaces).</p>
+<p>When the interpreter comes to non-indented text again, that’s how it recognises the end of the function. If there is no more text (because it’s the end of the file), the interpreter will use the end of the file to recognise the end of the program.</p>
+</section>
+<section id="parameters" class="level3">
+<h3>Parameters</h3>
+<p>Parameters or arguments are how you pass data into functions.</p>
+<p>Each time you call the function, an assignment statement is performed (e.g. for the above example, name = ‘Ann’).</p>
+<p>You can have as many parameters as you like in Python (your hardware will eventually stop you, but not for a very long time). Parameters are separated by commas.</p>
+<ul>
+<li>It is possible to specify optional parameters (with default values), as well as variable numbers of parameters—these will be dealt with later.</li>
+</ul>
+</section>
+<section id="the-return-statement" class="level3">
+<h3>The <em>return</em> Statement</h3>
+<p>Example:</p>
+<pre><code>return EXPRESSION</code></pre>
+<p>The <em>return</em> statement does 3 things:</p>
+<ol type="1">
+<li>Calculates the value of EXPRESSION.</li>
+<li>Marks the result as the answer from the function.</li>
+<li>Exits from the function.</li>
+</ol>
+<p>Not all functions return values (e.g. the Greet() function above, which just prints values).</p>
+</section>
+<section id="modules-in-idle" class="level3">
+<h3>Modules in IDLE</h3>
+<p>Assignments for this course are submitted as Python modules, files that contain Python code and end in ‘.py’.</p>
+<p>These can be run within IDLE (the editor we use) in order to use the functions within. Many modules can be loaded at once, though this is normally done through the use of <em>import</em> statements, which we will see later.</p>
+</section>
+<section id="reserved-words-keywords" class="level3">
+<h3>Reserved Words / Keywords</h3>
+<p>Note that <em>def</em> and <em>return</em> are reserved words. This means that, since they have special functions in Python, they can’t be used for anything else. You will get an error if you try to run code where you call something one of these words.</p>
+</section>
+<section id="built-in-functions" class="level3">
+<h3>Built-in Functions</h3>
+<p>print() is a built-in function, rather than a reserved word. This was a change from Python 2 to Python 3. This allows you to, for example, pass print() as an argument to another function.</p>
+<p>Built-in functions are conceptually no different from functions you might write yourself, except that they have already been written by someone else.</p>
+</section>
+</section>
+</body>
+</html>

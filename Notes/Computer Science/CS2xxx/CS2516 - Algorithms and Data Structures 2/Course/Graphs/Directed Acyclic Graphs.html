@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Directed Acyclic Graphs</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="directed-acyclic-graphs" class="level1">
+<h1>Directed Acyclic Graphs</h1>
+<section id="directed-graphs" class="level2">
+<h2>Directed Graphs</h2>
+<ul>
+<li>directed graph ADT same as undirected, but the order of the vertices in each edge is treated as significant</li>
+<li>add a few methods to the graph as well</li>
+</ul>
+<pre class="pseudo"><code>Edge
+    get_start()
+    get_end()
+
+Graph
+    in_degree(x)
+    out_degree(x)
+    get_in_edges(x)
+    get_out_edges(x)</code></pre>
+<ul>
+<li><code>in_degree</code> and <code>get_in_edges</code> look at edges pointing at x</li>
+<li><code>out_degree</code> and <code>get_out_edges</code> look at edges pointing away from x</li>
+<li>a path is a sequence of vertices, such that each pair of adjacent vertices in the sequence is a directed edge in the graph</li>
+<li>a cycle (in a directed graph) is a path of length &gt;= 1 which starts and finishes at the same vertex</li>
+</ul>
+</section>
+<section id="directed-acyclic-graphs-1" class="level2">
+<h2>Directed Acyclic Graphs</h2>
+<ul>
+<li>can draw any binary relation over a single set as a directed graph
+<ul>
+<li>an order relation’s representation can’t contain a cycle</li>
+</ul></li>
+<li><p>a directed acyclic graph must have at least one vertex with in-degree = 0</p>
+<ul>
+<li><p>proof: work backwards from any vertex over the in-edges</p>
+<ul>
+<li>you’ll reach a vertex of 0-degree or the graph contains a cycle</li>
+</ul></li>
+</ul></li>
+</ul>
+<section id="topological-sort" class="level3">
+<h3>Topological Sort</h3>
+<p>Given a directed acyclic graph, a topological sort is an ordered sequence of all vertices in the graph such that if two vertices x and y in the graph have a directed edge (x, y), then x appears before y in the sequence.</p>
+<ul>
+<li>There can be multiple topological sorts for one DAG</li>
+</ul>
+<section id="algorithm" class="level4">
+<h4>Algorithm</h4>
+<ul>
+<li><p>mark all vertices of in-degree 0 as available</p></li>
+<li><p>for each vertex that’s available</p>
+<ul>
+<li><p>add to the end of your sort</p></li>
+<li><p>decrement the in-degree of all vertices this vertex has an edge onto</p>
+<ul>
+<li>mark any of those vertices available if they have an in-degree of 0</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="code" class="level4">
+<h4>Code</h4>
+<pre class="sourceCode python" id="cb2"><code class="sourceCode python"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">def</span> topological_sort(<span class="va">self</span>):</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">    <span class="co"># assumed to be operating on a DAG</span></div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">    in_edge_count <span class="op">=</span> {} <span class="co"># map of (vertex:in_degree) pairs</span></div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">    output <span class="op">=</span> []       <span class="co"># list of vertices in sort order</span></div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">    available <span class="op">=</span> []   <span class="co"># vertices with no active in-edges</span></div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">    <span class="cf">for</span> v <span class="kw">in</span> <span class="va">self</span>._structure:</div>
+<div class="sourceLine" id="cb2-7" data-line-number="7">        in_count <span class="op">=</span> <span class="va">self</span>.in_degree(v)</div>
+<div class="sourceLine" id="cb2-8" data-line-number="8">        in_edge_count[v] <span class="op">=</span> in_count</div>
+<div class="sourceLine" id="cb2-9" data-line-number="9">        <span class="cf">if</span> in_count <span class="op">==</span> <span class="dv">0</span>:</div>
+<div class="sourceLine" id="cb2-10" data-line-number="10">           available.append(v)</div>
+<div class="sourceLine" id="cb2-11" data-line-number="11">    <span class="cf">while</span> <span class="bu">len</span>(available) <span class="op">&gt;</span> <span class="dv">0</span>:</div>
+<div class="sourceLine" id="cb2-12" data-line-number="12">        w <span class="op">=</span> available.pop()</div>
+<div class="sourceLine" id="cb2-13" data-line-number="13">        output.append(w)</div>
+<div class="sourceLine" id="cb2-14" data-line-number="14">        <span class="cf">for</span> e <span class="kw">in</span> <span class="va">self</span>.get_out_edges(w):</div>
+<div class="sourceLine" id="cb2-15" data-line-number="15">            u <span class="op">=</span> e.opposite(w)</div>
+<div class="sourceLine" id="cb2-16" data-line-number="16">            in_edge_count[u] <span class="op">-=</span> <span class="dv">1</span></div>
+<div class="sourceLine" id="cb2-17" data-line-number="17">            <span class="cf">if</span> in_edge_count[u] <span class="op">==</span> <span class="dv">0</span>:</div>
+<div class="sourceLine" id="cb2-18" data-line-number="18">                available.append(u)</div>
+<div class="sourceLine" id="cb2-19" data-line-number="19">    <span class="cf">return</span> output</div></code></pre>
+</section>
+</section>
+<section id="exercises" class="level3">
+<h3>Exercises</h3>
+<p>Write an algorithm which takes an arbitrary directed graph and returns True if it’s a DAG, and False if it isn’t.</p>
+<pre><code>* do a breadth-first or depth-first search of the graph
+
+    * keep track of all vertices you&#39;ve seen
+
+    * if you see one you&#39;ve seen already, return False
+
+* if you get to the end of the graph return True</code></pre>
+<p>What is the complexity of the topological sort algorithm?</p>
+<pre><code>* every vertex considered once in the for loop
+
+* every vertex considered once in the while loop
+
+* every outward edge from every vertex considered once in the inner for loop
+
+* O(2n + m) (= O(n+m)?), where n is the number of vertices and m is the number of edges</code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

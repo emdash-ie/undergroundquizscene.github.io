@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 1</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="info" class="level1">
+<h1>Info</h1>
+<ul>
+<li>The moodle course is CS2501.2017</li>
+<li>Early part will revise what we did in CS1106 and extend it.</li>
+<li>80 marks for exam, 5 assignments each 4 marks (totalling 20) – 100 marks overall</li>
+<li>22 lectures, 5 2-hour labs</li>
+</ul>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<ul>
+<li>Use and application of Database Management Systems (DMBSs)
+<ul>
+<li>Database configuration</li>
+<li>SQL
+<ul>
+<li>Data manipulation language (retrieval, recording, modification, removal)</li>
+<li>Data definition language (creating, altering, removing structures)</li>
+<li>Data control language (data security and integrity)
+<ul>
+<li>Who has what permission on what components of the database.</li>
+</ul></li>
+</ul></li>
+<li>Views (aka virtual tables)
+<ul>
+<li>These allow you to create a much richer representation of data by tailoring a DB to specific users and applications.</li>
+</ul></li>
+<li>Database programming
+<ul>
+<li>Embedding SQL within programs (ESQL)</li>
+<li>Web-SQL interface programming (PHP)</li>
+</ul></li>
+</ul></li>
+<li>Implementation of database systems
+<ul>
+<li>Database directory
+<ul>
+<li>This describes the database, and is central to all query evaluation. (Queries are validated against this.)</li>
+</ul></li>
+<li>Relational algebra/calculus
+<ul>
+<li>SQL is converted/compiled to this intermediate form.</li>
+</ul></li>
+<li>Query evaluation and optimisation</li>
+</ul></li>
+<li>Design of database systems (how to find the useful set of tables for an application)
+<ul>
+<li>Entity-relationship modelling</li>
+<li>UML modelling
+<ul>
+<li>This is an extension of entity-relationship modelling</li>
+</ul></li>
+<li>Normalisation
+<ul>
+<li>We may or may not cover this – it’s not really used anymore</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>A relational database is a collection of data organised into several related tables. The rows in the tables are sometimes called relations and the columns are sometimes called attributes.</p>
+<p>A database management system (DBMS) is a software system whose purpose is to support storage of and controlled access to databases. These are often called databases for convenience.</p>
+<section id="users" class="level2">
+<h2>Users</h2>
+<p>Users of a DBMS may be:</p>
+<ul>
+<li>Casual online users
+<ul>
+<li>E.g. us</li>
+<li>Sit down, write a query, test that it works, put it in a program.</li>
+</ul></li>
+<li>Programmers
+<ul>
+<li>Write programs for other users to use to interact with the database</li>
+</ul></li>
+<li>Parametric end-users
+<ul>
+<li>Run programs and supply parameters to those programs to get different results</li>
+<li>Largest class of users – typically don’t know that they’re using a DBMS.</li>
+<li>E.g. staff in a records office</li>
+</ul></li>
+<li>Database administrators
+<ul>
+<li>A database is a shared resource – you need someone to manage it.</li>
+<li>Important for managing security.</li>
+</ul></li>
+</ul>
+</section>
+<section id="configuration-of-a-dbms" class="level2">
+<h2>Configuration of a DBMS</h2>
+<p>A DBMS is usually installed as a server (listening on e.g. TCP/IP port 156).</p>
+<p>Incoming requests are always SQL requests – the DBMS takes these and executes them.</p>
+<p>A bunch of different clients can be used, and they can be text-only or graphical. Examples include HeidiSQL, MySQL Workbench.</p>
+<p>Most DBMSs have interfaces (APIs – application programming interfaces) to multiple programming languages, to make them more useful.</p>
+<p>Different DBMSs use slightly different flavours of SQL, but generally speaking if you can use one you can use them all.</p>
+</section>
+</section>
+<section id="sql" class="level1">
+<h1>SQL</h1>
+<p>SQL is a set of commands divided into three groups:</p>
+<ul>
+<li>DDL (Data definition language)
+<ul>
+<li><code>CREATE</code></li>
+<li><code>DROP</code></li>
+<li><code>ALTER</code></li>
+</ul></li>
+<li>DML (Data manipulation language)
+<ul>
+<li><code>SELECT</code></li>
+<li><code>DELETE</code></li>
+<li><code>UPDATE</code></li>
+<li><code>INSERT</code></li>
+</ul></li>
+<li>DCL (Data control language)
+<ul>
+<li><code>GRANT</code></li>
+<li><code>REVOKE</code></li>
+<li>These are for managing permissions/access</li>
+</ul></li>
+</ul>
+<p>DML is the most commonly used, then DDL, then DCL.</p>
+<section id="dml" class="level2">
+<h2>DML</h2>
+<section id="select" class="level3">
+<h3><code>SELECT</code></h3>
+<pre class="sourceCode sql" id="cb1"><code class="sourceCode sql"><div class="sourceLine" id="cb1-1" data-line-number="1">  <span class="kw">SELECT</span> [<span class="kw">DISTINCT</span>] ColumnList</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">FROM</span> TableList</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">  [<span class="kw">WHERE</span> Condition]</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">  [GOUP <span class="kw">BY</span> ColumnList</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw">HAVING</span> […]]</div></code></pre>
+</section>
+<section id="things-to-note" class="level3">
+<h3>Things to Note</h3>
+<p>With a <code>SELECT</code> statement with a <code>WHERE</code> condition, every row is checked – if the condition is true, the row is added to the output. If the condition is false, it isn’t.</p>
+<p>Note that the <code>DISTINCT</code> option is slow, because it sorts the table to remove duplicates. Usually, you avoid sorting in SQL if possible.</p>
+<p><code>Address LIKE '%Houston%'</code> allows arbitrary-length strings in place of the % symbols.</p>
+<ul>
+<li><code>Salary BETWEEN 20000 AND 30000</code></li>
+<li><code>Dno IN (4, 5)</code></li>
+<li><code>CONCAT(Lname, ', ', Fname)</code>
+<ul>
+<li>Concatenates the given strings.</li>
+</ul></li>
+<li><code>SELECT Ssn AS &quot;Staff Id&quot;</code>
+<ul>
+<li>Gives a column name to use in the result.</li>
+</ul></li>
+<li>String matching is case sensitive.
+<ul>
+<li>Some people make sure their databases are kept clean, format-wise</li>
+<li>It’s also possible to turn off case-sensitivity for string matching</li>
+<li>It’s also also possible to do the conversion when you retrieve it:
+<ul>
+<li><code>SELECT … WHERE UPPER(Lname) = 'SMITH'</code></li>
+</ul></li>
+</ul></li>
+<li><code>WHERE SOUNDEX(Lname) = SOUNDEX('SMITH')</code>
+<ul>
+<li><code>SOUNDEX</code> converts strings to sequences of phonemes</li>
+<li>It’s good for one-syllable words, but not great for words with more syllables – gets worse as it goes</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

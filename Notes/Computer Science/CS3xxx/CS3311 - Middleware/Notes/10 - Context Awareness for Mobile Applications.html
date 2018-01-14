@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>10 - Context Awareness for Mobile Applications</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="context" class="level1">
+<h1>Context</h1>
+<p>The context is all elements that are significant in a given situation and can influence the execution of mobile applications. There may be device context (current state of the device, e.g. RAM in use, battery level), user context, and environment context.</p>
+<p>Since these contexts are quite different, we need a framework to define how context information is acquired and delivered.</p>
+</section>
+<section id="generic-information-sources" class="level1">
+<h1>Generic Information Sources</h1>
+<ul>
+<li>Sensors, e.g. temperature, humidity
+<ul>
+<li>These may be internal, or e.g. ad-hoc external sensors using WLAN</li>
+</ul></li>
+<li>mobile device</li>
+<li>user
+<ul>
+<li>activities/profiles (e.g. at work, driving)</li>
+<li>preferences</li>
+<li>policies
+<ul>
+<li>if there are several pieces of data at the same type, which should be chosen?</li>
+</ul></li>
+</ul></li>
+<li>time, location</li>
+<li>internet</li>
+</ul>
+<p>When you have mobility, the context is always changing.</p>
+<p>The level of abstraction of the data should be appropriate to the particular data.</p>
+<p>The frequency with which the context is updated needs to be low enough to be useful.</p>
+<section id="challenges" class="level2">
+<h2>Challenges</h2>
+<p>Data may change rapidly and may be incomplete.</p>
+<p>Extracting context info by fusing data from several sources is complicated.</p>
+</section>
+</section>
+<section id="context-framework" class="level1">
+<h1>Context Framework</h1>
+<p>This is a generic model – usually only a subset of this functionality is used.</p>
+<p>Applications talk to a context manager, which has components providing different services. Applications tell the context manager what type of context data they need, as well as how frequently they need updates, and what level of abstraction they need. The application is essentially subscribing to the context manager.</p>
+<p>The context manager needs to create the different contexts based on the atomic data.</p>
+<section id="context-manager-components" class="level2">
+<h2>Context Manager Components</h2>
+<section id="resource-server" class="level3">
+<h3>Resource Server</h3>
+<p>The resource server connects to any context data source and outputs context atoms. It has a pipeline structure.</p>
+<p>Sensor measurement -&gt; Preprocessing -&gt; Feature extraction -&gt; Quantisation and semantic labelling</p>
+<p>Pre-processing stage builds measurement data arrays that store a certain amount of samples and calculates generic features for each time interval.</p>
+<p>Feature extraction identifies which data is significant and extracts.</p>
+</section>
+<section id="context-recognition-service" class="level3">
+<h3>Context Recognition Service</h3>
+<p>The quantisation phase produces context atoms that can be used or further refined.</p>
+<p>The resource server can use one of two methods for quantisation:</p>
+<ul>
+<li>crisp limits
+<ul>
+<li>e.g. sound intensity = silent/moderate/loud</li>
+</ul></li>
+<li>fuzzy set
+<ul>
+<li>silent: 0.6, moderate: 0.3, loud: 0.1</li>
+<li>produces a weight for each category</li>
+<li>the example is 60% silent, 30% moderate, and 10% loud</li>
+</ul></li>
+</ul>
+<p>Context recognition uses either a set time-stamp or a time series of context atoms. It returns a single higher-level context.</p>
+<p>###? Context Manager Work</p>
+<p>A naïve Bayse classifier recognises higher-level contexts from lower-level context atoms.</p>
+<p>The classifier […]</p>
+<p>[…]</p>
+</section>
+<section id="change-detection-service" class="level3">
+<h3>Change Detection Service</h3>
+<p>Changes the context if there is a significant change in some context atoms.</p>
+</section>
+<section id="context-storage" class="level3">
+<h3>Context Storage</h3>
+<p>The context history can be used to save computing resources by determining that the context follows a routine. We can fetch previously-determined contexts from storage and apply those.</p>
+</section>
+</section>
+</section>
+<section id="context-ontology" class="level1">
+<h1>Context Ontology</h1>
+<p>How do we represent the context?</p>
+<p>A set of axioms (the ontology) can be used to express relationships between entities, e.g. a Father entity could have a hasDaughter relationship, which connects it to a Daughter entity. A context reasoner (inference engine) can parse the axioms to make inferences about what it true and false.</p>
+<p>[…]</p>
+<p>Resource Description Framework (RDF) can be used as the description syntax, which gives a common structure for representing information.</p>
+</section>
+</body>
+</html>

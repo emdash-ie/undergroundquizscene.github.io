@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 3</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="partially-filled-arrays" class="level1">
+<h1>Partially Filled Arrays</h1>
+<p>You must fill the array before you can use it. You usually start filling at the bottom (index 0). Then fill the next position and so on.</p>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="dt">final</span> <span class="bu">Scanner</span> scanner = <span class="kw">new</span> <span class="bu">Scanner</span>(<span class="bu">System</span>.<span class="fu">in</span>);</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="dt">final</span> <span class="dt">int</span>[] values = <span class="kw">new</span> <span class="dt">int</span>[scanner.<span class="fu">nextInnt</span>()];</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb1-4" data-line-number="4"><span class="dt">int</span> size = <span class="dv">0</span>;</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5"><span class="dt">int</span> next = <span class="dv">0</span>;</div>
+<div class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">while</span> ((size != values.<span class="fu">length</span>) &amp;&amp; (next &gt;= <span class="dv">0</span>)) {</div>
+<div class="sourceLine" id="cb1-7" data-line-number="7">    <span class="bu">System</span>.<span class="fu">err</span>.<span class="fu">println</span>(<span class="st">&quot;Next value (negative value to stop): &quot;</span>);</div>
+<div class="sourceLine" id="cb1-8" data-line-number="8">    next = scanner.<span class="fu">nextInt</span>();</div>
+<div class="sourceLine" id="cb1-9" data-line-number="9">    <span class="kw">if</span> (next &gt;= <span class="dv">0</span>) {</div>
+<div class="sourceLine" id="cb1-10" data-line-number="10">        values[size++] = next;</div>
+<div class="sourceLine" id="cb1-11" data-line-number="11">    }</div>
+<div class="sourceLine" id="cb1-12" data-line-number="12">}</div>
+<div class="sourceLine" id="cb1-13" data-line-number="13"></div>
+<div class="sourceLine" id="cb1-14" data-line-number="14"><span class="dt">final</span> <span class="dt">double</span> percentage = <span class="fl">100.0</span> * size / values.<span class="fu">length</span>);</div>
+<div class="sourceLine" id="cb1-15" data-line-number="15"><span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;Percentage filled is &quot;</span> + percentage);</div></code></pre>
+<ul>
+<li>We use <code>System.err</code> for the user prompts so that we can suppress that if desired and still get the output message.
+<ul>
+<li>Say we’re testing with a stream of numbers and we don’t need to be instructed about them, but we still want to see the result.</li>
+</ul></li>
+<li>No negative indices for arrays.</li>
+<li>Don’t forget to initialise arrays. Operations on <code>null</code> cause runtime errors.</li>
+</ul>
+<section id="parallel-array-implementation" class="level2">
+<h2>Parallel Array Implementation</h2>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> AccountManager {</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">    <span class="kw">private</span> <span class="dt">final</span> <span class="bu">String</span>[] owners;</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">    <span class="kw">private</span> <span class="dt">final</span> <span class="dt">double</span>[] balances;</div>
+<div class="sourceLine" id="cb2-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">public</span> <span class="fu">AccountManager</span>(<span class="dt">final</span> <span class="dt">int</span> size) {</div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">        <span class="dt">final</span> <span class="bu">Scanner</span> scanner = <span class="kw">new</span> <span class="bu">Scanner</span>(<span class="bu">System</span>.<span class="fu">in</span>);</div>
+<div class="sourceLine" id="cb2-7" data-line-number="7">        owners = <span class="kw">new</span> <span class="bu">String</span>[size];</div>
+<div class="sourceLine" id="cb2-8" data-line-number="8">        balances = <span class="kw">new</span> <span class="dt">double</span>[size];</div>
+<div class="sourceLine" id="cb2-9" data-line-number="9">        <span class="kw">for</span> (<span class="dt">int</span> index = <span class="dv">0</span>; index != size; index++) {</div>
+<div class="sourceLine" id="cb2-10" data-line-number="10">            owners[index] = scanner.<span class="fu">next</span>();</div>
+<div class="sourceLine" id="cb2-11" data-line-number="11">            balances[index] = scanner.<span class="fu">nextDouble</span>();</div>
+<div class="sourceLine" id="cb2-12" data-line-number="12">        }</div>
+<div class="sourceLine" id="cb2-13" data-line-number="13">    }</div>
+<div class="sourceLine" id="cb2-14" data-line-number="14">}</div></code></pre>
+</section>
+<section id="class-based-implementation" class="level2">
+<h2>Class-Based Implementation</h2>
+<ul>
+<li>Create an <code>Account</code> object to store in the array, which will hold the owner and the balance each time.</li>
+</ul>
+</section>
+<section id="comparison" class="level2">
+<h2>Comparison</h2>
+<p>The parallel array implementation is not safe:</p>
+<ul>
+<li>Parallel array clients need access to all arrays:
+<ul>
+<li><code>withdraw(owners, balances, nr, amount);</code></li>
+<li>This gives the client access to all account details</li>
+<li>They can modify the array.</li>
+<li>This violates encapsulation.</li>
+</ul></li>
+<li>Direct access for Account clients:
+<ul>
+<li><code>account.withdraw(amount)</code></li>
+<li>Much safer.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="designing-classes" class="level1">
+<h1>Designing Classes</h1>
+<p>Methods are good because:</p>
+<ul>
+<li>They provide reusable computations</li>
+<li>They’re building blocks of complex computations</li>
+<li>Calls are the only mechanism to change private variables.</li>
+</ul>
+<section id="pass-by-value-mechanism" class="level2">
+<h2>Pass-by-Value Mechanism</h2>
+<p>Makes copies of the actual parameters.</p>
+<ol type="1">
+<li>Create a fresh variable for each parameter</li>
+<li>For i from 1 to n:
+<ol type="1">
+<li>Evaluate the ith actual parameter</li>
+<li>Assign the result […] […]</li>
+</ol></li>
+</ol>
+<ul>
+<li>When putting automatic variables on the stack, the order they go in depends on the JVM.
+<ul>
+<li>In exams you can write them in any order, but make sure you label them correctly.</li>
+</ul></li>
+</ul>
+</section>
+<section id="class-design" class="level2">
+<h2>Class Design</h2>
+<p>How do we choose the classes, attributes, and methods?</p>
+<ul>
+<li>Note: problem specifications for assignments will sometimes be incomplete</li>
+</ul>
+<p>Look for actors in the specification. These actors do things and own things. The things they do are methods and things they own are attributes. Typically you’re looking for nouns that are the subject/object (I forget which is which) in a sentence.</p>
+<section id="toy-class" class="level3">
+<h3>Toy Class</h3>
+<pre class="sourceCode java" id="cb3"><code class="sourceCode java"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Toy {</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2">    <span class="kw">private</span> <span class="dt">final</span> <span class="bu">String</span> name;</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3">    <span class="kw">private</span> <span class="dt">boolean</span> used;</div>
+<div class="sourceLine" id="cb3-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb3-5" data-line-number="5">    <span class="kw">public</span> <span class="fu">Toy</span>(<span class="bu">String</span> name) {</div>
+<div class="sourceLine" id="cb3-6" data-line-number="6">        <span class="kw">this</span>.<span class="fu">name</span> = name;</div>
+<div class="sourceLine" id="cb3-7" data-line-number="7">        used = <span class="kw">false</span>;</div>
+<div class="sourceLine" id="cb3-8" data-line-number="8">    }</div>
+<div class="sourceLine" id="cb3-9" data-line-number="9"></div>
+<div class="sourceLine" id="cb3-10" data-line-number="10">    <span class="co">// Getter and setter methods omitted.</span></div>
+<div class="sourceLine" id="cb3-11" data-line-number="11"></div>
+<div class="sourceLine" id="cb3-12" data-line-number="12">    <span class="at">@Override</span></div>
+<div class="sourceLine" id="cb3-13" data-line-number="13">    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">toString</span>() {</div>
+<div class="sourceLine" id="cb3-14" data-line-number="14">        <span class="kw">return</span> <span class="st">&quot;Toy[name = &quot;</span> + name + <span class="st">&quot;]&quot;</span>;</div>
+<div class="sourceLine" id="cb3-15" data-line-number="15">    }</div>
+<div class="sourceLine" id="cb3-16" data-line-number="16">}</div></code></pre>
+</section>
+<section id="hand-class" class="level3">
+<h3>Hand Class</h3>
+<pre class="sourceCode java" id="cb4"><code class="sourceCode java"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Hand{</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2">    <span class="kw">private</span> <span class="dt">final</span> <span class="bu">String</span> type;</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3">    <span class="kw">private</span> Toy toy;</div>
+<div class="sourceLine" id="cb4-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb4-5" data-line-number="5">    <span class="kw">public</span> <span class="fu">Hand</span>(<span class="bu">String</span> type) {</div>
+<div class="sourceLine" id="cb4-6" data-line-number="6">        <span class="kw">this</span>.<span class="fu">type</span> = type;</div>
+<div class="sourceLine" id="cb4-7" data-line-number="7">        toy = <span class="kw">null</span>;</div>
+<div class="sourceLine" id="cb4-8" data-line-number="8">    }</div>
+<div class="sourceLine" id="cb4-9" data-line-number="9"></div>
+<div class="sourceLine" id="cb4-10" data-line-number="10">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">take</span>(<span class="dt">final</span> Toy toy) {</div>
+<div class="sourceLine" id="cb4-11" data-line-number="11">        <span class="co">// We cannot take a Toy if the Hand is full</span></div>
+<div class="sourceLine" id="cb4-12" data-line-number="12">        <span class="kw">if</span> (<span class="fu">isFull</span>()) {</div>
+<div class="sourceLine" id="cb4-13" data-line-number="13">            <span class="co">// output error</span></div>
+<div class="sourceLine" id="cb4-14" data-line-number="14">        } <span class="kw">else</span> <span class="kw">if</span> (toy.<span class="fu">getUsed</span>()){</div>
+<div class="sourceLine" id="cb4-15" data-line-number="15">            <span class="co">// We cannot take a used Toy</span></div>
+<div class="sourceLine" id="cb4-16" data-line-number="16"></div>
+<div class="sourceLine" id="cb4-17" data-line-number="17">        } <span class="kw">else</span> {</div>
+<div class="sourceLine" id="cb4-18" data-line-number="18">            <span class="co">// Take to.</span></div>
+<div class="sourceLine" id="cb4-19" data-line-number="19">            <span class="co">// Formally mark toy as used</span></div>
+<div class="sourceLine" id="cb4-20" data-line-number="20">            toy.<span class="fu">setUsed</span>(<span class="kw">true</span>);</div>
+<div class="sourceLine" id="cb4-21" data-line-number="21">        }</div>
+<div class="sourceLine" id="cb4-22" data-line-number="22"></div>
+<div class="sourceLine" id="cb4-23" data-line-number="23"></div>
+<div class="sourceLine" id="cb4-24" data-line-number="24">    }</div>
+<div class="sourceLine" id="cb4-25" data-line-number="25">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">drop</span>() {</div>
+<div class="sourceLine" id="cb4-26" data-line-number="26">        <span class="kw">if</span> (<span class="fu">isEmpty</span>()) {</div>
+<div class="sourceLine" id="cb4-27" data-line-number="27">            <span class="co">// We can only drop a toy if we have one</span></div>
+<div class="sourceLine" id="cb4-28" data-line-number="28">            <span class="co">// Error message</span></div>
+<div class="sourceLine" id="cb4-29" data-line-number="29">        } <span class="kw">else</span> {</div>
+<div class="sourceLine" id="cb4-30" data-line-number="30">            <span class="co">//Drop our current toy</span></div>
+<div class="sourceLine" id="cb4-31" data-line-number="31">            <span class="co">// Formally mark toy as free</span></div>
+<div class="sourceLine" id="cb4-32" data-line-number="32">            toy.<span class="fu">setUsed</span>(<span class="kw">false</span>);</div>
+<div class="sourceLine" id="cb4-33" data-line-number="33">            toy = <span class="kw">null</span>; <span class="co">// check this</span></div>
+<div class="sourceLine" id="cb4-34" data-line-number="34">        }</div>
+<div class="sourceLine" id="cb4-35" data-line-number="35">    }</div>
+<div class="sourceLine" id="cb4-36" data-line-number="36"></div>
+<div class="sourceLine" id="cb4-37" data-line-number="37">    <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getType</span>() {</div>
+<div class="sourceLine" id="cb4-38" data-line-number="38">        <span class="kw">return</span> type;</div>
+<div class="sourceLine" id="cb4-39" data-line-number="39">    }</div>
+<div class="sourceLine" id="cb4-40" data-line-number="40">    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">isEmpty</span>() {</div>
+<div class="sourceLine" id="cb4-41" data-line-number="41">        <span class="kw">return</span> toy == <span class="kw">null</span>;</div>
+<div class="sourceLine" id="cb4-42" data-line-number="42">    }</div>
+<div class="sourceLine" id="cb4-43" data-line-number="43">    <span class="kw">public</span> <span class="dt">boolean</span> <span class="fu">isFull</span>() {</div>
+<div class="sourceLine" id="cb4-44" data-line-number="44">        <span class="kw">return</span> !<span class="fu">isEmpty</span>();</div>
+<div class="sourceLine" id="cb4-45" data-line-number="45">    }</div>
+<div class="sourceLine" id="cb4-46" data-line-number="46">    […]</div>
+<div class="sourceLine" id="cb4-47" data-line-number="47">}</div></code></pre>
+<ul>
+<li>top-down approach means using methods in others before we write them, in order to figure out that we need to write them</li>
+<li>Using strings for marking “left” and “right” is not ideal, because the compiler can’t help you if another string is passed.
+<ul>
+<li>Another solution (still not ideal) is to introduce class constants defined to allowed values, but there are still problems.
+<ul>
+<li>These <code>LEFT</code> and <code>RIGHT</code> constants should be moved to the Hand class.</li>
+</ul></li>
+<li>A better way is to define an object class that only has the two acceptable values, this way you can use the type to guarantee that only allowed values are passed.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="designing-classes-cont." class="level2">
+<h2>Designing Classes (cont.)</h2>
+<ul>
+<li><code>for</code> and <code>while</code> loops</li>
+<li><code>invariants</code> - comments about object relationships</li>
+<li>linear search algorithm
+<ul>
+<li>proof of correctness with <code>invariants</code></li>
+</ul></li>
+<li>top-down approach:
+<ul>
+<li>start with a description in English, revise the implementation step by step until you end up with Java</li>
+</ul></li>
+</ul>
+<section id="for-loop" class="level3">
+<h3><code>for</code> loop</h3>
+<pre class="sourceCode java" id="cb5"><code class="sourceCode java"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">for</span> ([initialisation]; [condition]; [update]) {</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2">    [stuff]</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3">}</div></code></pre>
+<ul>
+<li>The initialisation is called first</li>
+<li>the condition is checked at the start of each loop</li>
+<li>The update is carried out at the end of every iteration</li>
+<li>be careful of 1s and ls looking similar
+<ul>
+<li>you should minimise the scope of variables to ensure that it only covers the loops
+<ul>
+<li>do this by declaring your counters in the initialisation section of the loop</li>
+<li>this variable will only exist for the lifetime of the loop</li>
+</ul></li>
+</ul></li>
+</ul>
+<pre class="sourceCode java" id="cb6"><code class="sourceCode java"><div class="sourceLine" id="cb6-1" data-line-number="1"><span class="co">// do this:</span></div>
+<div class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">for</span> (<span class="dt">int</span> digit = <span class="dv">0</span>; digit &lt;= <span class="dv">1</span>; digit++){</div>
+<div class="sourceLine" id="cb6-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb6-4" data-line-number="4">}</div>
+<div class="sourceLine" id="cb6-5" data-line-number="5"><span class="co">//not [insert]:</span></div></code></pre>
+</section>
+<section id="while-loop" class="level3">
+<h3><code>while</code> loop</h3>
+<pre class="sourceCode java" id="cb7"><code class="sourceCode java"><div class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">while</span> ([condition]) {</div>
+<div class="sourceLine" id="cb7-2" data-line-number="2">    [stuff]</div>
+<div class="sourceLine" id="cb7-3" data-line-number="3">}</div></code></pre>
+<ul>
+<li>you don’t need braces if there’s only one command in the loop, but you should use them to make things clearer</li>
+</ul>
+</section>
+<section id="do-while" class="level3">
+<h3><code>do while</code></h3>
+<pre class="sourceCode java" id="cb8"><code class="sourceCode java"><div class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">do</span> {</div>
+<div class="sourceLine" id="cb8-2" data-line-number="2">    [statement]</div>
+<div class="sourceLine" id="cb8-3" data-line-number="3">} <span class="kw">while</span> ([condition]);</div></code></pre>
+<ul>
+<li>This will execute the statement before checking the condition, instead of checking first and doing the statement after, each time.</li>
+<li>It’s equivalent to putting the statement in one extra time before a <code>while</code> loop.</li>
+</ul>
+</section>
+<section id="invariants" class="level3">
+<h3>Invariants</h3>
+<p>Invariants relate the values of the variables in your program.</p>
+<ul>
+<li>They make the relationships explicit (a form of documentation)</li>
+<li>They may help you prove the program is correct</li>
+<li>They help you maintain your program
+<ul>
+<li>Easier to remember what your code is meant to do</li>
+</ul></li>
+</ul>
+<p>You should state invariants as comments in your programs.</p>
+<pre class="sourceCode java" id="cb9"><code class="sourceCode java"><div class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">if</span> ([condition]) {</div>
+<div class="sourceLine" id="cb9-2" data-line-number="2">    <span class="co">// [condition]</span></div>
+<div class="sourceLine" id="cb9-3" data-line-number="3">} <span class="kw">else</span> {</div>
+<div class="sourceLine" id="cb9-4" data-line-number="4">    <span class="co">// ![condition]</span></div>
+<div class="sourceLine" id="cb9-5" data-line-number="5">}</div></code></pre>
+<ul>
+<li>listing the condition in the comment helps make it clearer</li>
+<li>also with the <code>else</code></li>
+</ul>
+<pre class="sourceCode java" id="cb10"><code class="sourceCode java"><div class="sourceLine" id="cb10-1" data-line-number="1"><span class="co">// [condition1]</span></div>
+<div class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">while</span> ([condition2]) {</div>
+<div class="sourceLine" id="cb10-3" data-line-number="3">    …</div>
+<div class="sourceLine" id="cb10-4" data-line-number="4">    <span class="co">// [condition1]</span></div>
+<div class="sourceLine" id="cb10-5" data-line-number="5">}</div>
+<div class="sourceLine" id="cb10-6" data-line-number="6">    <span class="co">// ! [condition2]</span></div>
+<div class="sourceLine" id="cb10-7" data-line-number="7">    <span class="co">// [condition1] &amp;&amp; ![condition2]</span></div></code></pre>
+<pre class="sourceCode java" id="cb11"><code class="sourceCode java"><div class="sourceLine" id="cb11-1" data-line-number="1">in i, sum;</div>
+<div class="sourceLine" id="cb11-2" data-line-number="2"></div>
+<div class="sourceLine" id="cb11-3" data-line-number="3">i = <span class="dv">0</span>;</div>
+<div class="sourceLine" id="cb11-4" data-line-number="4">sum = <span class="dv">0</span>; <span class="co">// i &lt;= 100 &amp;&amp; sum == ) + 1 + … + i</span></div>
+<div class="sourceLine" id="cb11-5" data-line-number="5"><span class="kw">while</span> (i &lt; <span class="dv">100</span>) {</div>
+<div class="sourceLine" id="cb11-6" data-line-number="6">    i = i + <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb11-7" data-line-number="7">    sum = sum + i; <span class="co">// i &lt;= 100 &amp;&amp; sum == 0 + 1 + … + i</span></div>
+<div class="sourceLine" id="cb11-8" data-line-number="8">}</div></code></pre>
+</section>
+<section id="linear-search" class="level3">
+<h3>Linear Search</h3>
+<pre class="sourceCode java" id="cb12"><code class="sourceCode java"><div class="sourceLine" id="cb12-1" data-line-number="1"><span class="dt">int</span> index = <span class="dv">0</span>;</div>
+<div class="sourceLine" id="cb12-2" data-line-number="2"></div>
+<div class="sourceLine" id="cb12-3" data-line-number="3"><span class="kw">while</span> (index &lt; array.<span class="fu">length</span> &amp;&amp; !<span class="fu">satisfies</span>(array[index])) {</div>
+<div class="sourceLine" id="cb12-4" data-line-number="4">    index++;</div>
+<div class="sourceLine" id="cb12-5" data-line-number="5">}</div></code></pre>
+<ul>
+<li>We can put our search condition in the while condition like this</li>
+<li>You can prove that it’s correct with invariants</li>
+<li>Not sure which ones we should put in here.</li>
+</ul>
+</section>
+<section id="battleship" class="level3">
+<h3>Battleship</h3>
+<p>Simplified version:</p>
+<ul>
+<li>Only have one “dotCom”</li>
+<li>Represent it as a 3-value int array
+<ul>
+<li>Values are location cell numbers</li>
+<li>Location cells are consecutive numbers between 1 and 7</li>
+</ul></li>
+<li>User guesses location cells</li>
+<li>If the user guesses right we announce a hit</li>
+<li>If there are three hits […]</li>
+</ul>
+<p>Steps:</p>
+<ol type="1">
+<li>Figure out what the class is supposed to do</li>
+<li>List the instance variables and methods</li>
+<li>Write prep code for the methods</li>
+<li>Write test code for the methods
+<ul>
+<li>helps clarify what the methods needs to do</li>
+<li>helps design the method API</li>
+<li>test code acts as documentation/contract</li>
+<li>by writing test code early, we can use it early and eliminate bugs</li>
+</ul></li>
+<li>write real code for the methods - write the class</li>
+<li>debug and implement as required</li>
+</ol>
+<ul>
+<li>Note that these steps were developed before JUnit testing, which can be done instead of writing the test code.</li>
+<li>Read the book to find out how to write test code</li>
+</ul>
+</section>
+<section id="code" class="level3">
+<h3>Code</h3>
+<pre class="sourceCode java" id="cb13"><code class="sourceCode java"><div class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw">public</span> <span class="bu">String</span> <span class="fu">checkYourself</span>([…]) {</div>
+<div class="sourceLine" id="cb13-2" data-line-number="2">    <span class="dt">final</span> <span class="dt">int</span> cell = <span class="bu">Integer</span>.<span class="fu">parseInt</span>(guess);</div>
+<div class="sourceLine" id="cb13-3" data-line-number="3">    <span class="dt">final</span> <span class="dt">boolean</span> found = <span class="fu">findLocation</span>(cell);</div>
+<div class="sourceLine" id="cb13-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb13-5" data-line-number="5">    hits += (found ? <span class="dv">1</span> : <span class="dv">0</span>);</div>
+<div class="sourceLine" id="cb13-6" data-line-number="6">    <span class="co">// ternary operator - if found is true, the expression becomes 1</span></div>
+<div class="sourceLine" id="cb13-7" data-line-number="7">    <span class="co">//      if found is false, the expression becomes 0</span></div>
+<div class="sourceLine" id="cb13-8" data-line-number="8">    <span class="co">// So this increments hits if found is true</span></div>
+<div class="sourceLine" id="cb13-9" data-line-number="9"></div>
+<div class="sourceLine" id="cb13-10" data-line-number="10">    <span class="kw">return</span> <span class="fu">getResultAsString</span>(found);</div>
+<div class="sourceLine" id="cb13-11" data-line-number="11">}</div></code></pre>
+<p>Need an instance variable that generates a random number. This comes from the random class:</p>
+<pre class="sourceCode java" id="cb14"><code class="sourceCode java"><div class="sourceLine" id="cb14-1" data-line-number="1"><span class="bu">Random</span>()</div>
+<div class="sourceLine" id="cb14-2" data-line-number="2"><span class="co">// There are a few constructors</span></div>
+<div class="sourceLine" id="cb14-3" data-line-number="3"><span class="bu">Random</span>(seed)</div>
+<div class="sourceLine" id="cb14-4" data-line-number="4"><span class="co">// seed must be a `long` value</span></div>
+<div class="sourceLine" id="cb14-5" data-line-number="5"><span class="co">// allows you to reproduce the same sequence of random numbers, e.g. for testing</span></div></code></pre>
+<pre class="sourceCode java" id="cb15"><code class="sourceCode java"><div class="sourceLine" id="cb15-1" data-line-number="1">rand.<span class="fu">nextInt</span>(maxStartValue);</div>
+<div class="sourceLine" id="cb15-2" data-line-number="2"><span class="co">// this gives a random value up to but not including maxStartValue,</span></div>
+<div class="sourceLine" id="cb15-3" data-line-number="3"><span class="co">// assuming you&#39;ve created the variable `rand` already</span></div></code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

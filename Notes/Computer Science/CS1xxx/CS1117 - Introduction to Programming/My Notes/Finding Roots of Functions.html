@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Finding Roots of Functions</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="finding-roots-of-functions" class="level1">
+<h1>Finding Roots of Functions</h1>
+<hr />
+<p>We’re looking for the point at which a function f(x) crosses the x-axis.</p>
+<p>We know that at one of two points on the axis (x1, x2) the function is below the axis, and that at the other it’s above the axis.</p>
+<section id="uses-of-this" class="level3">
+<h3>Uses of This</h3>
+<p>If we can find the place f(x) = (x*x) - 2 crosses the x-axis, we have found the value of sqrt(2).</p>
+<p>In general, you can find the nth root of a value m by finding the root of the function f(x) = x^n - m.</p>
+</section>
+<section id="process-the-bisection-method" class="level2">
+<h2>Process (The Bisection Method)</h2>
+<p>Call the points low and high. Either f(low) &lt; 0 and f(high) &gt; 0, or the other way around.</p>
+<p>We want to find z &gt; low, z &lt; high such that f(z) = 0.</p>
+<p>We already know how to do this. It’s an exmaple of binary search:</p>
+<pre><code>def Zero(f, lo, hi):
+
+    mid = (lo + hi)/2
+    if f(mid) == 0:
+        return mid
+    if f(lo) * f(mid) &lt; 0:
+        hi = mid
+    else:
+        low = mid
+        </code></pre>
+<p>Note the second if condition is checking if f(lo) and f(mid) have opposite sign.</p>
+<p>With this program (with a loop in it), it’s likely that you’ll never hit exactly the number you need, so you need to specify how close you want to get to the number:</p>
+<pre><code>def Zero(f, lo, hi):
+
+    while hi - lo &gt;= 0.001:
+        mid = (lo + hi)/2
+        if f(mid) == 0:
+            return mid
+        if f(lo) * f(mid) &lt; 0:
+            hi = mid
+        else:
+            low = mid
+    return (lo + hi)/2
+    </code></pre>
+<p>You can also let the user input a precision value:</p>
+<pre><code>def Zero(f, lo, hi, tolerance=0.001):
+
+    while hi - lo &gt;= 2*tolerance:
+        mid = (lo + hi)/2
+        if f(mid) == 0:
+            return mid
+        if f(lo) * f(mid) &lt; 0:
+            hi = mid
+        else:
+            low = mid
+    return (lo + hi)/2
+    </code></pre>
+<p>This function guarantees a maximum error in the answer of ‘tolerance’.</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Timsort</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="timsort" class="level2">
+<h2>Timsort</h2>
+<ul>
+<li>Specifically designed for Python by Tim Peters in 2002.</li>
+<li>It’s a hybrid of mergesort and insertion sort, designed to perform well when the data is already partially sorted.</li>
+<li>It’s stable.</li>
+</ul>
+<p>Timsort:</p>
+<ul>
+<li>finds ‘runs’ – sequences of items already in order</li>
+<li>merges runs together</li>
+<li>runs of short length are combined with larger ones using insertion sort, but this is too complex and too detailed to present in this module</li>
+</ul>
+<p>Its worst-case complexity is O(n log n), its best case is O(n), and it is believed to be faster than quicksort in most cases.</p>
+<p>It is now also the default sorting algorithm in Java and in Android.</p>
+<p>The original description is <a href="https://svn.python.org/projects/python/trunk/Objects/listsort.txt">here</a>.</p>
+</section>
+</body>
+</html>

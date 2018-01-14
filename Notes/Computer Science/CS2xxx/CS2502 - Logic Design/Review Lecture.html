@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Review Lecture</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="review-lecture" class="level1">
+<h1>Review Lecture</h1>
+<hr />
+<p>Last year’s exam is not representative of what this year’s will be like, but the other exam papers are pretty good.</p>
+<p>In general proofs don’t carry many marks. Exam questions with Karnaugh maps and optimisation tend to carry the most marks, so he recommends focusing on that.</p>
+<section id="proofs" class="level2">
+<h2>Proofs</h2>
+<section id="distribution-of-xor-with-or" class="level3">
+<h3>Distribution of XOR (<code>(+)</code>) with OR</h3>
+<p>Is the OR operation distributive with respect to XOR?</p>
+<p><code>A + (B (+) C (+) D (+) E …)</code> = <code>(A + B) (+) (A + C) (+) (A + D) (+) (A + E) …</code>?</p>
+<p>Let <code>A = 1</code> and examine the result.</p>
+<ul>
+<li>The left-hand side is now 1, as one of the arguments for the OR is 1.</li>
+<li>On the right-hand side, each OR operation reduces to 1.</li>
+<li>So, we have a number of 1s XORed:
+<ul>
+<li>If we have an even number of 1s, the result is 0 and we have a contradiction.</li>
+<li>If we have an odd number of 1s, the result is 1 as expected.</li>
+</ul></li>
+</ul>
+<p>So, the property does not always hold.</p>
+</section>
+<section id="associative-law-for-or" class="level3">
+<h3>Associative Law for OR</h3>
+<p>Is <code>(A + B + C)</code> = <code>A + (B + C)</code>?</p>
+<p>We can generally see that this is true immediately, so he didn’t provide a proof.</p>
+</section>
+<section id="associative-law-for-nor" class="level3">
+<h3>Associative Law for NOR</h3>
+<p>Is <code>(A + B + C)' = ((A + B)' + C)' = (A + (B + C)')'</code>?</p>
+<p>First, remove the outer inverters from each expression.</p>
+<pre><code>A + B + C = (A + B)&#39; + C = A + (B + C)&#39;</code></pre>
+<p>Let <code>C = 1</code>, as this will simplify the middle expression hugely. Now the middle and right expressions become:</p>
+<pre><code>1 = A</code></pre>
+<p>So if <code>C = 1</code>, this associative law only holds if A is also 1, meaning it does not generally hold.</p>
+<p>The idea here is to plug in a value to simplify the result, aiming to find a contradiction.</p>
+</section>
+</section>
+<section id="grey-coding" class="level2">
+<h2>Grey-Coding</h2>
+<p>You can forget about the Quine-McClusky algorithm, it won’t be examined. You just need to know the grey-coding ordering for the karnaugh maps.</p>
+</section>
+<section id="moore-machines-and-mealy-machines" class="level2">
+<h2>Moore Machines and Mealy Machines</h2>
+<p>The course can be separated into combinational circuits and sequential circuits.</p>
+<ul>
+<li>For combinational circuits, the output is only a function of the inputs – you can always plug in the input values to determine the output of the circuit.</li>
+<li>For sequential circuits, the output is a function of input values and the state of the circuit.</li>
+</ul>
+<section id="sequential-circuits" class="level3">
+<h3>Sequential Circuits</h3>
+<p>Sequential circuits can be broken into two categories:</p>
+<ul>
+<li>Continuous Time (rather than latches/flip-flops, these use an integrator)</li>
+<li>Discrete Time, which can be broken down further:
+<ul>
+<li>Asynchronous</li>
+<li>Synchronous
+<ul>
+<li>Synchronous circuits have one clock, which is connected to everything that requires a clock input</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Synchronous circuits can then be broken down into two categories:</p>
+<ul>
+<li>Moore machines</li>
+<li>Mealy machines</li>
+</ul>
+</section>
+<section id="mealy-machines" class="level3">
+<h3>Mealy Machines</h3>
+<p>The output is always a function of the inputs and the current state, so if either changes, the output can change. Unlike Moore machines (below), the output can change at any time.</p>
+<p>The next state (the state at the next clock step) is also a function of the inputs and the current state.</p>
+</section>
+<section id="moore-machines" class="level3">
+<h3>Moore Machines</h3>
+<p>Moore machines are a special case of Mealy machines, where the output is only dependant on the state, and not on the inputs.</p>
+<p>Since the state changes only on the clock ticks, the output can only change on the clock ticks. This is the important property of Moore machines.</p>
+</section>
+<section id="this-years-exam" class="level3">
+<h3>This Year’s Exam</h3>
+<p>We’ve only ever looked at Moore and Mealy machines where the input and output are only one bit, so “it’s reasonable to assume this year’s exam will only contain similar problems.”</p>
+</section>
+</section>
+<section id="sample-question-2012-q4" class="level2">
+<h2>Sample Question: 2012 Q4</h2>
+<section id="a" class="level3">
+<h3>(a)</h3>
+<p>Since this is a Moore machine, the output table contains the state and the output. Each state has an output, and the binary value of the state corresponds to the input at last 3 clock steps.</p>
+<table>
+<thead>
+<tr class="header">
+<th>z</th>
+<th>Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="b" class="level3">
+<h3>(b)</h3>
+<p>A state transition table is a truth table of the <code>f()</code> function which determines the next state. On the axes we have the current state and the value of the input.</p>
+<table>
+<thead>
+<tr class="header">
+<th>z  x</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>6</td>
+<td>7</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>4</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>6</td>
+<td>7</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that each state transition corresponds to a left-shift of the binary value of the state. If we are at <code>z = 3</code>, then the last three values we’ve recorded are 0, 1, and 1. The next state will be 1, 1, and then whatever we’ve seen next.</p>
+<p>So the left-ward shift corresponds to multiplying by 2 % 8.</p>
+<p>Also note that this table makes it look like you can reduce these 8 states to 4 states, but as (e.g.) states 1 and 5 have different outputs. You can simplify it a bit (since 0 and 4 share output, as do 3 and 7), but we won’t go into it.</p>
+</section>
+<section id="c" class="level3">
+<h3>(c)</h3>
+<p>An alternating input sequence, e.g. 0, 1, 0, 1…</p>
+</section>
+<section id="d" class="level3">
+<h3>(d)</h3>
+<p>A circuit realisation would contain 3 flip-flop circuits, as we have 8 states, and the state is represented by the binary number from combining the three circuits.</p>
+<p>An alternate argument is that we need to record the value at 3 separate clock ticks, so we need a flip-flop to record the input at each of those 3 clock ticks.</p>
+<p>Not part of the question, but the circuit realisation would be 3 flip-flops in series, with the output of each connected to a multiplexor.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

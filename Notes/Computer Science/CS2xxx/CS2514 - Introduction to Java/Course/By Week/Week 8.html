@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 8</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="assignment-1-returned" class="level1">
+<h1>Assignment 1 Returned</h1>
+<ul>
+<li>Only 1 or 2 people got 100%.</li>
+<li>Most common problems were using static variables to represent object state and not using constants to represent literal values specific to the problem.</li>
+<li>Don’t put any printing statements in your constructor, so that clients can make instances without side-effects.</li>
+</ul>
+</section>
+<section id="generic-types" class="level1">
+<h1>Generic Types</h1>
+<ul>
+<li>removing the need for runtime checks allows code to be made more efficient by the JVM</li>
+</ul>
+<p>If interested, get book – [Naftalin and Wadler, 2009].</p>
+<section id="motivation-for-generics" class="level2">
+<h2>Motivation for Generics</h2>
+<ul>
+<li>an example where we might not know the type is if we read in an array index from the user</li>
+<li>the code on the slide will compile and then generate a runtime error</li>
+<li>want to tell the compiler “you can use the general implementation of the class, but there will only be objects of this type in the collection”</li>
+<li>ArrayList is a generic type</li>
+</ul>
+</section>
+<section id="solution-generic-types" class="level2">
+<h2>Solution: Generic Types</h2>
+<ul>
+<li>You assign a value to the type when you want to use a generic class</li>
+<li>Can also write <code>G&lt;&gt;</code> if the type can be inferred</li>
+<li>Avoids code duplication because you can implement the class once and use it for many types</li>
+</ul>
+</section>
+<section id="the-comparable-interfaces" class="level2">
+<h2>The Comparable Interfaces</h2>
+<ul>
+<li>shallow comparisons just compare object references
+<ul>
+<li>get true if the references are the same</li>
+</ul></li>
+<li>deep comparisons compare attributes as well
+<ul>
+<li>e.g. two Integer objects might be deeply equal if they represent the same integer value</li>
+</ul></li>
+</ul>
+<section id="example" class="level3">
+<h3>Example</h3>
+<ul>
+<li>if we had subtracted the two values, we might get overflow, which would damage the result</li>
+</ul>
+</section>
+</section>
+<section id="a-simple-generic-class" class="level2">
+<h2>A Simple Generic Class</h2>
+<ul>
+<li><p>a class can depend on multiple types, which are comma-separated in the angle brackets</p>
+<ul>
+<li><p>by convention use single upper-case letters to represent these types</p>
+<ul>
+<li>keeps class definitions short</li>
+</ul></li>
+</ul></li>
+</ul>
+<section id="using-the-generic-class" class="level3">
+<h3>Using the Generic Class</h3>
+<ul>
+<li>can write <code>gi = new GenericClass&lt;&gt;(42);</code> due to type inference</li>
+</ul>
+</section>
+</section>
+<section id="wildcards-with-extends" class="level2">
+<h2>Wildcards with Extends</h2>
+<ul>
+<li>won’t be examined</li>
+</ul>
+<section id="example-1" class="level3">
+<h3>Example</h3>
+<ul>
+<li><code>nums.add(3.14)</code> isn’t allowed because <code>? extends Number</code> guarantees that the objects in the ArrayList are all subclasses of Number, but doesn’t tell us which subclass (they must all still be the same class)
+<ul>
+<li>so we don’t know which type we’re allowed add</li>
+</ul></li>
+<li>none of this is examinable</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

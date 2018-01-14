@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Complexity</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="complexity-analysis" class="level1">
+<h1>Complexity Analysis</h1>
+<p>Programs that take too long to finish are useless – good programming skills will not compensate for poor algorithms.</p>
+<p>We need to understand how much work our algorithms will require for different inputs – learn to avoid bad or inefficient design patterns.</p>
+<p>We also need to understand the limits – some problems can’t be solved without at least a minimum amount of work. Don’t waste time trying to design something that is impossible to achieve.</p>
+<section id="revision" class="level2">
+<h2>Revision</h2>
+<p>We measure complexity in terms of the number of basic steps – quick constant-time operations:</p>
+<ul>
+<li>reading a value</li>
+<li>assigning a value</li>
+<li>comparing two values</li>
+<li>simple arithmetic operations</li>
+<li>calling a function</li>
+<li>returning a value</li>
+</ul>
+<p>Our main concern is wort-case complexity:</p>
+<ul>
+<li>We want to know how bad it could get, and use that as a performance guarantee</li>
+<li>The complexity is based on the size of the input, n – how many items in a list, or in a tree, or rows in a file</li>
+<li>We are only concern about large inputs
+<ul>
+<li>asymptotic analysis: as n tends to infinity, how many steps as a function of n?</li>
+</ul></li>
+</ul>
+</section>
+<section id="big-o" class="level2">
+<h2>Big O</h2>
+<p>For two functions f and g operating on positive integers, f(n) is O(g(n)) is there is an integer constant k &gt;= 0 and a real constant C &gt; 0 such that for all n bigger than k:</p>
+<pre><code>f(n) &lt;= C*g(n)</code></pre>
+<p>We can think of O(g(n)) as specifying a set of functions that are not significantly worse than g.</p>
+<section id="standard-function-hierarchy" class="level3">
+<h3>Standard Function Hierarchy</h3>
+<p>O(c) C O(log(n)) C O(n) C O(nlogn) C O(n^2) C O(n^3) … C O(2^n) C O(n!)</p>
+<ul>
+<li>Polynomials are classified by their highest degree.</li>
+</ul>
+<p>It is correct to say that n^2 + 3n + 5 is O(n^3), but that’s not as useful as saying that it’s O(n^2).</p>
+<p>Though sometimes looser bounds are all you need and are easier to guarantee from looking at your code.</p>
+<p>There is a massive difference between a polynomial bound and O(2^n), which is taken as the boundary between efficient and non-efficient algorithms.</p>
+</section>
+</section>
+<section id="big-omega" class="level2">
+<h2>Big Omega</h2>
+<p>Never better than a constant multiple.</p>
+<p>f(n) is Ω(g(n)) if there is an integer constant k &gt;= 0 and a real constant C &gt; 0 so that for all n bigger than k […]</p>
+<section id="example-prove-fibonaccin-is-ω32n" class="level3">
+<h3>Example: Prove fibonacci(n) is Ω((3/2)^n)</h3>
+<p>For all n &gt;= 3, fib(n) &gt; fib(n-1).</p>
+<p>We know fib(n) = fib(n-1) + fib(n-2).</p>
+<p>So for all n &gt;=4, fib(n) &lt; fib(n-1) + fib(n-1)</p>
+<p>So fib(n) &lt; 2*fib(n-1)</p>
+<p>So 1/2 * fib(n) &lt; fib(n-1)</p>
+<p>Now take k = 2 and C = 1/2.</p>
+<p>When n = 3, fib(n) = 2 and C * (2/3)^n = 27/16 which is &lt; 2</p>
+<p>Assume true for n = p for some p &gt;= 3. Consider n = p + 1.</p>
+<p>fib(p + 1) = fib(p) + fib(p-1)</p>
+<p>fib(p+1) &gt; fib(p) + 1/2 * fib(p) which is = 3/2 * fib(p)</p>
+<p>fib(p+1) &gt; 1/2 * (3/2 ^ p+1)</p>
+<p>So result true by induction.</p>
+</section>
+</section>
+<section id="big-theta" class="level2">
+<h2>Big Theta</h2>
+<p>Has an upper and lower bound, showing that f is not significantly different from g.</p>
+<p>If you can prove that something is O(f(n)) and Ω(f(n)), then you already have Theta(f(n)).</p>
+<section id="example-n2-3n-5" class="level3">
+<h3>Example: n^2 + 3n + 5</h3>
+<ul>
+<li>We already know this is O(n^2).</li>
+</ul>
+<p>Now pick k = 0.</p>
+<p>n^2 + 3n + 5 &lt;= n^2 + 3n^2 + 5n^2 = 9n^2</p>
+<p>C2 = 9</p>
+<p>n^2 &lt;= n^2 + 3n + 5</p>
+<p>So C1 = 1</p>
+<p>It’s always between n^2 and 9n^2.</p>
+</section>
+</section>
+<section id="amortised-analysis" class="level2">
+<h2>Amortised Analysis</h2>
+<p>The true cost to the CPU of appending to a Python list of size k:</p>
+<ul>
+<li>if there is space, c units of time to assign value to the next cell</li>
+<li>If there is not space, then:
+<ul>
+<li>kc units of time to copy k values across to new list</li>
+<li>c units of time to assign the value</li>
+</ul></li>
+</ul>
+<p>In the analysis, we will charge a fixed cost for each append no matter what space is available or what size the list is.</p>
+<ul>
+<li>For simple appends, this builds up a profit</li>
+<li>Which we then spend on the complex appends</li>
+</ul>
+<p>How much should we charge to ensure that we never run at a loss (for big enough lists)?</p>
+<ul>
+<li>This value is the amortised complexity of the operation.</li>
+</ul>
+<p>Assume the fixed c units of time are worth €1. Simple append is €1, complex append is €(k+1). Let’s charge €3 per append.</p>
+<p>[get this bit]</p>
+<p>In general, you want the charge to be as low as possible to still cover the cost.</p>
+<p>For amortised complexity, you use an <code>*</code>: <code>O(1)*</code></p>
+</section>
+<section id="recursive-function-complexity" class="level2">
+<h2>Recursive Function Complexity</h2>
+<p>Basic approach:</p>
+<ol type="1">
+<li>count the worst-case work done by a single activation, without the recursive call</li>
+<li>count the worst-case number of recursive calls</li>
+<li>multiply the two counts together</li>
+</ol>
+<section id="example-powers" class="level3">
+<h3>Example: Powers</h3>
+<p>Instead of stepping through powers one at a time: x^n * x^n-1 * …</p>
+<p>We do this: x^n/2 * x^n/2</p>
+<p>This means instead of n recursive calls, we have log(n), with still a constant number of operations in each call.</p>
+<p>This is significantly faster, and reduces the number of calls on the activation stack, meaning you’re less likely to hit the memory limit.</p>
+</section>
+<section id="example-du" class="level3">
+<h3>Example: du</h3>
+<p><code>du</code> is a Linux utility to calculate the size of a directory subtree.</p>
+<p>If there are n total directories, then each directory will be processed once and only once, and if there are t files in total, then the algorithm will be O(n+t).</p>
+</section>
+</section>
+<section id="more-on-recursion-complexity" class="level2">
+<h2>More on Recursion Complexity</h2>
+<section id="example-fibonacci" class="level3">
+<h3>Example: Fibonacci</h3>
+<pre class="sourceCode python" id="cb2"><code class="sourceCode python"><div class="sourceLine" id="cb2-1" data-line-number="1">    <span class="kw">def</span> fib1(n):</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">        <span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">2</span>:</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">            <span class="cf">return</span> <span class="dv">1</span></div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">        <span class="cf">elif</span> n <span class="op">==</span> <span class="dv">2</span>:</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">            <span class="cf">return</span> <span class="dv">1</span></div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">        <span class="cf">return</span> fib1(n<span class="dv">-1</span>) <span class="op">+</span> fib1(n<span class="dv">-2</span>)</div></code></pre>
+<section id="analysis" class="level4">
+<h4>Analysis</h4>
+<p>All constant except the recursive calls, and we need two recursive calls per activation.</p>
+<p>However, the 2nd is repeated inside the first. We’re calling fib(n-2) again inside fib1(n-1), meaning we’re calling it twice.</p>
+<p>E.g. to get fib(7) we have to get fib(6) and fib(5). [etc]</p>
+<ul>
+<li>fib(7) and fib(6) are called once</li>
+<li>fib(5) is called twice</li>
+<li>fib(4) is called 3 times</li>
+<li>fib(3) is called 5 times</li>
+<li>fib(2) is called 8 times</li>
+</ul>
+<p>This is extremely inefficient. It can’t do numbers higher than about 12.</p>
+<p>The number of calls for f(n) is &gt; 2 ^(n/2).</p>
+<p>So the algorithm is Ω(2^n) [check]</p>
+</section>
+</section>
+<section id="example-efficient-fibonacci" class="level3">
+<h3>Example: Efficient Fibonacci</h3>
+<p>Each call to fib(n) computes fib(n-1) also. We will return them both.</p>
+<pre class="sourceCode python" id="cb3"><code class="sourceCode python"><div class="sourceLine" id="cb3-1" data-line-number="1">    <span class="kw">def</span> fib(n):</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2">        (a,b) <span class="op">=</span> _fib(n)</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3">        <span class="cf">return</span> a</div>
+<div class="sourceLine" id="cb3-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb3-5" data-line-number="5">    <span class="kw">def</span> _fib(n):</div>
+<div class="sourceLine" id="cb3-6" data-line-number="6">        <span class="cf">if</span> n <span class="op">==</span> <span class="dv">1</span>:</div>
+<div class="sourceLine" id="cb3-7" data-line-number="7">            <span class="cf">return</span> (<span class="dv">1</span>, <span class="dv">0</span>)</div>
+<div class="sourceLine" id="cb3-8" data-line-number="8">        <span class="cf">elif</span> n <span class="op">==</span> <span class="dv">2</span>:</div>
+<div class="sourceLine" id="cb3-9" data-line-number="9">            <span class="cf">return</span> (<span class="dv">1</span>, <span class="dv">1</span>)</div>
+<div class="sourceLine" id="cb3-10" data-line-number="10">        (a, b) <span class="op">=</span> _fib(n<span class="dv">-1</span>)</div>
+<div class="sourceLine" id="cb3-11" data-line-number="11">        <span class="cf">return</span> (a <span class="op">+</span> b, a)</div></code></pre>
+<p>This is linear.</p>
+</section>
+<section id="exercise-more-efficient-fibonacci-using-matrices" class="level3">
+<h3>Exercise: More Efficient Fibonacci Using Matrices</h3>
+<p>[check]</p>
+<ul>
+<li>You can get it to O(log(n)) using matrices and a trick from lecture 2.</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

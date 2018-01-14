@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Percentiles & Median</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="percentiles-median" class="level1">
+<h1>Percentiles / Median</h1>
+<p>To find the median/percentile of an unsorted list, you can use sorting techniques.</p>
+<section id="method-1" class="level2">
+<h2>Method 1</h2>
+</section>
+<section id="method-2" class="level2">
+<h2>Method 2</h2>
+<pre class="pseudo"><code>for each element in list:
+    add element to a sorted linked list
+step through linked list to position k</code></pre>
+<p>Worst case is for a sorted list, which gives O(n^2) additions followed by k steps.</p>
+</section>
+<section id="method-3" class="level2">
+<h2>Method 3</h2>
+<ul>
+<li>Sort algorithm</li>
+<li>Read position</li>
+</ul>
+<p>O(n log n) for merge or heap sort. O(n^2) for quick sort, but O(n log n) on average.</p>
+</section>
+<section id="method-4" class="level2">
+<h2>Method 4</h2>
+<ul>
+<li>apply quicksort idea to identify element in position k
+<ul>
+<li>called decrease and conquer</li>
+</ul></li>
+</ul>
+<pre class="pseudo"><code>pick a pivot
+sweep through list to gather all items less than, equal to, or greater than pivot
+if more items &#39;less than pivot&#39; than k
+    recurse on all items less than pivot
+else if more items &#39;less than or equal to pivot&#39; than k
+    return pivot
+else
+    recurse on all items greater than pivot</code></pre>
+<section id="analysis" class="level3">
+<h3>Analysis</h3>
+<p>Worst case - always choose a pivot that only decreases the list by 1 item. This is O(n^2) for small k.</p>
+<p>By a similar argument to quicksort, you can show that the average time for a list of length n is O(n).</p>
+<ul>
+<li>There is an algorithm called median of medians to guarantee O(n) runtime, but it requires handling of very large coefficients.</li>
+</ul>
+</section>
+</section>
+<section id="exercise" class="level2">
+<h2>Exercise</h2>
+<p>See notes. Developing and testing multiple versions of quickselect. Which is fastest on average?</p>
+</section>
+</section>
+</body>
+</html>

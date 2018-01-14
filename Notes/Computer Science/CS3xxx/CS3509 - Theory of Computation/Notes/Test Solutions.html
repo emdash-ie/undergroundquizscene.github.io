@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Test Solutions</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="question-1-smart-bubble-sort-decision-tree" class="level1">
+<h1>Question 1: Smart Bubble Sort Decision Tree</h1>
+</section>
+<section id="question-2-program-to-check-if-the-else-branch-is-taken" class="level1">
+<h1>Question 2: Program to Check if the “else” Branch is Taken</h1>
+<ol type="1">
+<li><p>Assume such a program (<code>C</code>) exists</p></li>
+<li><p>Construct <code>Q</code> as follows:</p></li>
+</ol>
+<pre class="sourceCode python" id="cb1"><code class="sourceCode python"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">def</span> Q():</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    <span class="cf">if</span> P(i) <span class="op">!=</span> P(i):</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">        <span class="bu">print</span>(<span class="st">&#39;if&#39;</span>)</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">    <span class="cf">else</span>:</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">        <span class="bu">print</span>(<span class="st">&#39;else&#39;</span>)</div></code></pre>
+<p>Q will execute the else branch if and only if P terminates on i. Therefore, if C can tell whether Q will execute the else branch, C can tell if P terminates on i, and solves the halting problem. However, we know this is impossible, so we have a contradiction – our assumption that C exists must be wrong.</p>
+</section>
+<section id="question-3-can-a-sorting-algorithm-run-in-log-time-on-n1sqrtn-of-its-inputs" class="level1">
+<h1>Question 3: Can a sorting algorithm run in log time on n!^(1/sqrt(n)) of its inputs?</h1>
+<p>Longest path has to take log_2(n!) comparisons with n! leaves. If we have k leaves, it will take log_2(k). Here, this is: log(n!^(1/sqrt(n))). Taking the power to the front, you get: 1/sqrt(n) * log(n!).</p>
+<p>We already know log(n!) […]</p>
+</section>
+<section id="question-4-separation" class="level1">
+<h1>Question 4: Separation</h1>
+<p>[…]</p>
+</section>
+<section id="question-5-prefix-code-forbidden-numbers" class="level1">
+<h1>Question 5: Prefix Code Forbidden Numbers</h1>
+<p>[…]</p>
+</section>
+<section id="question-6" class="level1">
+<h1>Question 6</h1>
+<section id="a-modularity-inequality" class="level2">
+<h2>(a) Modularity Inequality</h2>
+<ul>
+<li>many people gave size-based version, when output-based was what was wanted</li>
+</ul>
+</section>
+<section id="b-true" class="level2">
+<h2>(b) True</h2>
+<ul>
+<li>can show this using Gödel encoding</li>
+</ul>
+</section>
+<section id="c-true" class="level2">
+<h2>(c) True</h2>
+<ul>
+<li>can show this as prime numbers is a subset of N</li>
+</ul>
+</section>
+<section id="d-false" class="level2">
+<h2>(d) False</h2>
+<ul>
+<li>power set of N is equivalent to set of infinite binary sequences</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Solution</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<ul>
+<li><p>lots of different mistakes made</p></li>
+<li><p>will be implementing today and will point out mistakes</p></li>
+<li><p>we won’t do the exact same thing, but most points will apply</p></li>
+</ul>
+</section>
+<section id="notes" class="level1">
+<h1>Notes</h1>
+<ul>
+<li><p>need (understandable) javadoc comments that describe the API</p>
+<ul>
+<li><p>want to be able to understand those comments without understanding the class</p></li>
+<li><p>don’t describe implementation in general</p></li>
+</ul></li>
+<li><p>may also need comments inside your code for describing algorithms etc.</p></li>
+<li><p>don’t implement the frame as a boolean <code>hasFrame</code>:</p>
+<ul>
+<li>attribute <code>hasFrame</code> is not used at all</li>
+</ul></li>
+</ul>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> Bike {</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    <span class="co">// this is a bad technique – don&#39;t use it</span></div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">    <span class="kw">private</span> <span class="dt">boolean</span> hasFrame;</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">    <span class="kw">public</span> <span class="fu">Bike</span>() {</div>
+<div class="sourceLine" id="cb1-6" data-line-number="6">        hasFrame = <span class="kw">true</span>;</div>
+<div class="sourceLine" id="cb1-7" data-line-number="7">    }</div>
+<div class="sourceLine" id="cb1-8" data-line-number="8"></div>
+<div class="sourceLine" id="cb1-9" data-line-number="9">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">printComponents</span>() {</div>
+<div class="sourceLine" id="cb1-10" data-line-number="10">        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(<span class="st">&quot;I have a frame&quot;</span>);</div>
+<div class="sourceLine" id="cb1-11" data-line-number="11">    }</div>
+<div class="sourceLine" id="cb1-12" data-line-number="12">}</div></code></pre>
+<ul>
+<li><p>don’t represent the frame as a String</p>
+<ul>
+<li><p>no type safety – the <code>frame</code> variable can hold a string “Wheels”</p></li>
+<li><p>using only a Component class doesn’t fix this either</p></li>
+<li><p>instead we should have a class hierarchy for Components</p></li>
+</ul></li>
+</ul>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> Bike {</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">    <span class="co">// this is a bad technique – don&#39;t use it</span></div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">    <span class="kw">private</span> <span class="bu">String</span> frame;</div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">    <span class="kw">private</span> <span class="bu">String</span> wheels;</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">    <span class="kw">public</span> <span class="fu">Bike</span>() {</div>
+<div class="sourceLine" id="cb2-7" data-line-number="7">        frame = <span class="st">&quot;Frame&quot;</span>;</div>
+<div class="sourceLine" id="cb2-8" data-line-number="8">        wheels = <span class="st">&quot;Wheels&quot;</span>;</div>
+<div class="sourceLine" id="cb2-9" data-line-number="9">    }</div>
+<div class="sourceLine" id="cb2-10" data-line-number="10"></div>
+<div class="sourceLine" id="cb2-11" data-line-number="11">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">printComponents</span>() {</div>
+<div class="sourceLine" id="cb2-12" data-line-number="12">        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">println</span>(wheels + <span class="st">&quot; &quot;</span> + frame);</div>
+<div class="sourceLine" id="cb2-13" data-line-number="13">    }</div>
+<div class="sourceLine" id="cb2-14" data-line-number="14">}</div></code></pre>
+<ul>
+<li><code>printComponents</code> method in the Bike class shouldn’t be abstract because we want to reuse it</li>
+</ul>
+</section>
+<section id="implementation" class="level1">
+<h1>Implementation</h1>
+<ul>
+<li>see files in Java folder</li>
+</ul>
+</section>
+</body>
+</html>

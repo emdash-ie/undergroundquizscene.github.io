@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Input-Output Management</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="io-devices" class="level1">
+<h1>I/O Devices</h1>
+<ul>
+<li>Main issue is heterogeneity
+<ul>
+<li>there’s a vast range of I/O devices, and they can have very different forms and performance</li>
+</ul></li>
+<li>Each has a driver to help operate it
+<ul>
+<li>driver forms part of the kernel</li>
+<li>driver provides <em>only</em> the direct control of the device.</li>
+<li>driver works directly with the controller of the device</li>
+<li>.. makes sure the device is operated correctly by the OS</li>
+</ul></li>
+</ul>
+<p>But we may have classes of devices of the same type, and so cost-effective operation requires more from the OS. (don’t understand what this means)</p>
+<ul>
+<li>Class of device may be whether it’s block or character.</li>
+</ul>
+<p>We can create virtual copies of devices in memory to act as buffers, so that one device can be allocated to different processes simultaneously, with each waiting on the physical resource – gives a performance gain over each waiting to connect to the specific device with no virtual representation.</p>
+<p>It is also possible to virtualise two cores with one physical core.</p>
+<ul>
+<li>additional software layer
+<ul>
+<li>allows homogeneous representation of I/O devices
+<ul>
+<li>this is better (it’s an engineering principle)</li>
+</ul></li>
+<li>I/O space is brought in line with the file system
+<ul>
+<li>same set of operations executed with files and I/O devices
+<ul>
+<li>major benefit</li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>need same or similar namespace
+<ul>
+<li>qualified names used to address a device</li>
+<li>so now each process can have a name and an operation, where the name can be a file or an I/O device, and the operations are the same for both</li>
+</ul></li>
+</ul>
+<p>Broadly two classes of I/O device – character and block.</p>
+<p>Have also a major and minor device number (minor device number selects instance of a resource).</p>
+<p>Major number used to identify position in character or block table, where there are pointers to op procedures (entry points in the driver).</p>
+<ul>
+<li>disk controller handles waiting on sectors, etc.</li>
+</ul>
+<p>I/O schedulers operate in the kernel, in co-operation with the drivers.</p>
+</section>
+<section id="week-8" class="level1">
+<h1>(Week 8)</h1>
+<p>In Linux we have block and character devices, and I/O control is different for the two.</p>
+<section id="example" class="level2">
+<h2>Example</h2>
+<ul>
+<li><p>application running on the computer wants to write using the parallel port</p></li>
+<li><p>there’s a file descriptor that has all the details required to manage that connection</p></li>
+<li><p><code>write()</code> calls <code>lp_write()</code> which prepares for the output operation</p>
+<ul>
+<li><p>“prepares” as in for the specific device</p>
+<ul>
+<li><p>e.g. split the output into basic operations (i.e. one operation corresponds to a buffer)</p></li>
+<li><p>buffer-size data transfers will occur</p></li>
+<li><p>need a starting pointer and the amount of data to be printed</p></li>
+</ul></li>
+</ul></li>
+<li><p>driver in kernel memory space, controller separate</p></li>
+<li><p>controller uses an interrupt to tell the computer when each page is finished (then the next page is sent)</p></li>
+<li><p>also need a lock mechanism to uniquely allocate a printer to a particular process, for the duration of the print operation</p>
+<ul>
+<li><p>printer is then unlocked after</p></li>
+<li><p>other requests for the resource are queued until they can be processed</p></li>
+</ul></li>
+</ul>
+<p>Interrupt handler can take some steps to complete, so is divided into upper half and lower half.</p>
+<ul>
+<li><p>the upper half detects what has happened and acknowledges it</p>
+<ul>
+<li>only does quick things</li>
+</ul></li>
+<li><p>the lower half does any further processing required</p></li>
+</ul>
+</section>
+</section>
+<section id="sensors-on-mobile-computing-devices" class="level1">
+<h1>Sensors on Mobile Computing Devices</h1>
+<section id="sensors" class="level2">
+<h2>Sensors</h2>
+<p>Three categories:</p>
+<ol type="1">
+<li>motion sensors</li>
+<li>environmental sensors</li>
+<li>position sensors</li>
+</ol>
+<p>Most sensors have an official sensor type. There can be several sensors of the same type, e.g. two proximity sensors or two accelerometers.</p>
+<p>Some sensors are hardware but some are software sensors – these consider input from different hardware sensors.</p>
+<p>The OS allows users to get the raw data from sensors and use it in applications.</p>
+<p>For any sensor, the two important parameters are the sampling rate and the accuracy.</p>
+<section id="android-sensor-subsystem" class="level3">
+<h3>Android Sensor Subsystem</h3>
+<ul>
+<li>Application framework is different, as are libraries</li>
+</ul>
+<section id="applications-framework" class="level4">
+<h4>Applications Framework</h4>
+<ul>
+<li><p>One sensor can be connected to several applications.</p></li>
+<li><p>important that applications might not get the latency and sampling rate they expect</p></li>
+<li><p>when the last application unregisters from a sensor, the framework sends a request to the HAL to deactivate the sensor (de-allocate resources such as buffers and flags)</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="use-of-sensors-in-applications" class="level2">
+<h2>Use of Sensors in Applications</h2>
+<ul>
+<li>need a listener for changes to the sensor</li>
+</ul>
+<section id="sensor-events" class="level3">
+<h3>Sensor Events</h3>
+</section>
+<section id="event-reporting-modes" class="level3">
+<h3>Event Reporting Modes</h3>
+</section>
+<section id="further-developments" class="level3">
+<h3>Further Developments</h3>
+<ul>
+<li>external sensors e.g. sensors in the environment</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

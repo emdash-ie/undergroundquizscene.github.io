@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>9: Mobility Management Service</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">9: Mobility Management Service</h1>
+</header>
+<section id="access-point-based-mobile-networks" class="level1">
+<h1>Access Point Based Mobile Networks</h1>
+<ul>
+<li>the alternative would be ad-hoc networks</li>
+</ul>
+<p>The problem:</p>
+<ul>
+<li>mobile devices subscribe to events or need fetch data from internet servers</li>
+<li>moving from access point to access point should be transparent</li>
+<li>the middleware needs to minimise duplication and loss of information</li>
+</ul>
+<p>You can solve this problem with proxies and caching. Caching, however, raises the problem of inconsistency between different caches – one solution to this is to have the access point periodically broadcast invalidation reports that contain data that has been changed during the last time interval. (Access points are already broadcasting beacons periodically.)</p>
+<p>Here the supporting architecture is:</p>
+<ul>
+<li>proxies are stationary components running at or close to each access point</li>
+<li>while the client is disconnected, and during the hand-over phase, subscriptions and publications are managed by the proxy/caching system</li>
+</ul>
+<p>Note we are requiring significant resources with each access point.</p>
+</section>
+<section id="mobile-publishsubscribe-service" class="level1">
+<h1>Mobile Publish/Subscribe Service</h1>
+<p>Mobile clients use a mobility service client library, linked to the client application.</p>
+<p>When the client is connected, the client library mediates subscriptions – it stores a copy of client subscriptions. Before disconnecting, the client calls the move-out function, which causes the client library to move the stored subscriptions to the mobility proxy (which is on the access point).</p>
+<p>The proxy then subscribes to and buffers all incoming messages. When the client reaches the destination, it calls the move-in function, to contact the local proxy. The two proxies execute a protocol that results in the transfer of all subscriptions and buffered messages to the proxy that is now near the mobile device.</p>
+<p>The call to the move-out function can be triggered in response to a reduction in signal strength from the access point – this way it will happen if the client is leaving (though it may also happen for other reasons).</p>
+<p>The proxy will have to subscribe to publishers on behalf of each client that has called move-out and hasn’t yet reached another proxy.</p>
+<p>When the client reaches the new access point, it needs to tell the local proxy where to find its old proxy, so that the client can receive the stored subscriptions, etc. It will also need to give an ID to the local proxy, so that the old proxy knows which device’s subscriptions are no longer needed.</p>
+<section id="issues" class="level2">
+<h2>Issues</h2>
+<p>There are several issues here.</p>
+<p>First of all, security – the proxies need to be verified when they talk to each other. This can be solved by a symmetric key – the mobile device tells the first proxy it will use a specific key, and it then reports that to the second proxy.</p>
+<p>Second, duplication – a client may receive copies of the same notification. Some notifications may also be lost. Duplication happens between a client calling move-out and receiving confirmation of that, and also between calling move-in and the old proxy removing its subscription, when it is more likely.</p>
+<p>Data loss is possible if a client leaves an access point too quickly (and so doesn’t receive an acknowledgement from the access point), or if it is disconnected for too long (a proxy can only store a limited amount of data).</p>
+<p>How can you make this a robust system?</p>
+<p>We can use shadowing. The access point is aware that the client is shadowing the proxy, and so doesn’t deliver to both – just to the proxy.</p>
+<p>Another possibility is to use ping messages between the two proxies(using the Publisher/Subscriber system itself), and another is to introduce a delay before removing subscriptions issued by the move-out proxy.</p>
+</section>
+</section>
+<section id="cache-consistency" class="level1">
+<h1>Cache Consistency</h1>
+<p>Mobile devices on a certain access point may be running several applications that interact with remote servers (maybe for synchronisation). Each application will have a cache memory, so that it can find data there instead of having to access the server. This cache must be kept consistent with the data on the server.</p>
+<section id="systems" class="level2">
+<h2>Systems</h2>
+<ul>
+<li><p>stateless server (server has no information about the mobile clients)</p></li>
+<li><p>stateful and asynchronous server (server stores information about the clients)</p></li>
+</ul>
+<section id="stateless-server" class="level3">
+<h3>Stateless Server</h3>
+<p>We use invalidation reports – the server sends messages that report all data that was changed. Clients can then refresh any data in their cache that has changed.</p>
+<p>Invalidation reports must include:</p>
+<ul>
+<li>the server ID</li>
+<li>list of data that was changed
+<ul>
+<li>note this is variable</li>
+</ul></li>
+</ul>
+<p>The size of the broadcast window (interval between two invalidation reports) determines how much data can be invalidated in one IR.</p>
+<p>If an application is checking the cache, typically it will delay the cache until the next invalidation report, to see if the data is still valid. If it isn’t valid, it will request it from the server.</p>
+<p>Mobile applications can listen for the beacons to synchronise with the server.</p>
+<p>Benefits:</p>
+<ul>
+<li>mobile devices don’t have to always be connected</li>
+</ul>
+<p>Drawbacks:</p>
+<ul>
+<li></li>
+</ul>
+<section id="updated-invalidation-reports" class="level4">
+<h4>Updated Invalidation Reports</h4>
+<p>As before, there is a periodic beacon. In between beacons, we can also allow time-critical data invalidation reports (updated invalidation reports).</p>
+<p>Now, applications can wait for just the updated invalidation reports, and not the main ones.</p>
+</section>
+</section>
+<section id="stateful-server" class="level3">
+<h3>Stateful Server</h3>
+<p>Each server stores info about its clients (e.g. HomeCache).</p>
+<p>[need to check this – really don’t get it]</p>
+<p>Server sends updates to clients, and keeps track of whether the data has been acknowledged by the client.</p>
+</section>
+<section id="section" class="level3">
+<h3>?</h3>
+<p>When a mobile device disconnects and then reconnects, it needs to update its cache data.</p>
+<p>It sends a list of its caches to the access point proxy, along with the timestamps for the most recent modification of each of the caches.</p>
+<p>Everything before that timestamp can be removed – only updates after the timestamps need to be invalidated.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4 - Java</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="abstraction" class="level1">
+<h1>Abstraction</h1>
+<p>[…]</p>
+</section>
+<section id="multiple-implementations" class="level1">
+<h1>Multiple Implementations</h1>
+<p>Java provides two mechanisms for defining a type that permits multiple implementations – abstract classes and interfaces.</p>
+<p>Java 8 allows interfaces to have a default implementation.</p>
+<section id="abstract-classes" class="level2">
+<h2>Abstract Classes</h2>
+<p>An abstract class can be subclasses, but they can’t be instantiated.</p>
+<p>An abstract class may or may not include abstract methods, which are methods without an implementation.</p>
+<p>### When to Use Abstract Classes?</p>
+<p>When you want to share code among related classes.</p>
+<p>Sub-classes will have many common methods or fields.</p>
+<p>[…]</p>
+<section id="single-inheritance" class="level3">
+<h3>Single Inheritance</h3>
+<p>Java only permits single inheritance, which limits the use of abstract classes as type definitions. (E.g. How do you label a type as a combination of types?)</p>
+</section>
+</section>
+<section id="interfaces" class="level2">
+<h2>Interfaces</h2>
+<p>Interfaces allow you to separate a class’ interface from its implementation – interface specifies method signatures but not how they’re implemented.</p>
+<p>Any class that defines all the required methods, it is allowed to implement an interface, regardless of where the class resides in the class hierarchy.</p>
+<section id="hierarchical-interfaces" class="level3">
+<h3>Hierarchical Interfaces</h3>
+<p>Interfaces can extend each other and inherit all the method signatures.</p>
+<p>Three ways of working with default methods:</p>
+<ul>
+<li><p>don’t mention the default method, which lets the implementation be inherited</p></li>
+<li><p>redeclare the default method, making it abstract</p></li>
+<li><p>redefine the default method, overriding it</p></li>
+</ul>
+</section>
+<section id="multiple-inheritance-ish" class="level3">
+<h3>Multiple Inheritance (ish)</h3>
+<p>Classes can implement multiple interfaces, and interfaces can extend multiple other interfaces.</p>
+</section>
+<section id="retrofitting" class="level3">
+<h3>Retrofitting</h3>
+<p>Existing classes can easily be retrofitted to implement an existing interface.</p>
+</section>
+<section id="mixins" class="level3">
+<h3>Mixins</h3>
+<p>Mixins define extension functionality without predetermining what exactly is extended.</p>
+<p>A class can choose to implement them to provide additional behaviour.</p>
+</section>
+<section id="non-hierarchical-frameworks" class="level3">
+<h3>Non-hierarchical Frameworks</h3>
+<p>Can have very different classes that implement a particular interface.</p>
+</section>
+<section id="default-methods" class="level3">
+<h3>Default Methods</h3>
+<p>Java 8 brings in default methods for interfaces. However, they still can only refer to other interface methods, and not state.</p>
+</section>
+<section id="additional-requirements" class="level3">
+<h3>Additional Requirements</h3>
+<p>Writing method signatures requires you to see the methods from the user’s point of view.</p>
+<p>Usually you also need to include comments specifying how each method is used.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

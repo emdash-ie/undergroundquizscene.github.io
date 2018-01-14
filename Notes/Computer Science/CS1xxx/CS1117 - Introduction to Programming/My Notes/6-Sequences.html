@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>6-Sequences</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sequences" class="level1">
+<h1>Sequences</h1>
+<hr />
+<p>Ranges and strings are types of sequence we have seen already.</p>
+<section id="lists" class="level2">
+<h2>Lists</h2>
+<p>A list is a type of sequence that allows you to group bunches of numbers together.</p>
+<p>Example: <code>[21, 46, 84, 17]</code>, a list of four ints.</p>
+<p>You can also have <code>[]</code>, the empty list.</p>
+<section id="list-comprehensions" class="level3">
+<h3>List Comprehensions</h3>
+<p>An efficient way of generating large lists. Consists of an expression and a generator:</p>
+<pre><code>[n for n in range(1, 6)] =&gt; [1, 2, 3, 4, 5]</code></pre>
+<ul>
+<li>In this code, <code>n</code> is the expression, and <code>for n in range(1, 6)</code> is the generator.</li>
+</ul>
+<p>The generator cranks out numbers, which are fed into the expression to give the output for each step of the generator, and these outputs are stored in a list.</p>
+<p>The expression can be as simple or complex as you like, and doesn’t have to be related to the generator:</p>
+<pre><code>[&#39;hello&#39; for _ in range(5)] =&gt; [&#39;hello&#39;, &#39;hello&#39;, &#39;hello&#39;, &#39;hello&#39;, &#39;hello&#39;]</code></pre>
+<p>You can also include function calls in the expression:</p>
+<pre><code>[SmallestFactor(n) for n in range(2, 11)]</code></pre>
+<p>A list comprehension will return <code>[]</code> when the range is empty in the generator.</p>
+<section id="filter" class="level4">
+<h4>Filter</h4>
+<p>If you want to generate a bunch of numbers but only include some of them, you can use the optional filter parameter:</p>
+<pre><code>[n * n for n in range(20) if n * n &gt; 60]</code></pre>
+</section>
+</section>
+<section id="concatentation" class="level3">
+<h3>Concatentation</h3>
+<p>The <code>+</code> operator can be used for concatenation of lists as well as for strings:</p>
+<pre><code>[1, 2] + [3, 4, 5] =&gt; [1, 2, 3, 4, 5]</code></pre>
+<p>This can be useful for generating lists:</p>
+<pre><code>def Reverse(lst):
+
+    reverse = []
+    
+    for item in lst:
+        reverse = [item] + reverse
+    
+    return reverse</code></pre>
+</section>
+</section>
+<section id="strings" class="level2">
+<h2>Strings</h2>
+<p>A type of sequence that groups characters together.</p>
+<p>Example: <code>'abc def'</code>, a string with seven characters (including the space).</p>
+<p>You can also have <code>''</code>, the empty string.</p>
+<section id="concatenation" class="level3">
+<h3>Concatenation</h3>
+<p>The reverse function for lists defined above won’t work exactly for strings, it needs adjusting:</p>
+<pre><code>def Reverse(string):
+
+    reverse = &#39;&#39;
+    
+    for char in string:
+        reverse = char + reverse
+        
+    return reverse
+    </code></pre>
+<ul>
+<li>Note that you don’t need quote marks around <code>char</code> in the loop, as it is already a character, unlike in the version for lists, where you needed square brackets.</li>
+</ul>
+</section>
+</section>
+<section id="sum-and-max" class="level2">
+<h2>‘sum’ and ‘max’</h2>
+<p>Two inbuilt functions that work on sequences.</p>
+<p><code>sum(sequence)</code> gives the sum of all the elements in a sequence.</p>
+<p><code>max(sequence)</code> gives the maximal element in a sequence.</p>
+</section>
+<section id="indexing-of-sequences" class="level2">
+<h2>Indexing of Sequences</h2>
+<p>You can access position n of sequence s with <code>s[n]</code>.</p>
+<ul>
+<li><p>Counting is 0-based, so the first position is at index 0, and the last position is at index len(s) - 1.</p></li>
+<li><p>Accessing elements this way takes the same amount of time regardless of the value of n.</p></li>
+<li><p>You can put any expression inside the square brackets that evaluates to an integer value.</p></li>
+</ul>
+<p>Indexing can be used for some problems that are difficult otherwise:</p>
+<pre><code>def PrintReverse(s):
+    for i in range(len(s)):
+        print(s[len(s) - 1 - i])
+
+def IsSorted(s):        
+    for i in range(len(s) - 1):
+        if s[i + 1] &gt; s[i]:
+            return False
+    return True
+    
+def AddLists(numbers1, numbers2):
+    addlists = []
+    
+    for i in range(len(numbers1)):
+        addlists += [numbers1[i] + numbers2[i]]
+        
+    return addlists
+    
+def Rotate(lst, n):
+    rotate = []
+    
+    for i in range(n, n + len(lst)):
+        rotate += lst[i % len(lst)]
+        
+    return rotate
+    </code></pre>
+<section id="updating-values" class="level3">
+<h3>Updating Values</h3>
+<p>Using indexing, you can update values at specific positions in a sequence:</p>
+<pre><code>s = &#39;Bond&#39;
+
+s[3] = &#39;o&#39;
+print(s)    =&gt; &#39;Bono&#39;</code></pre>
+<hr />
+<section id="handouts-assignments" class="level6">
+<h6>Handouts &amp; Assignments</h6>
+<ul>
+<li>Handout 6 - Inspecting Lists (1)</li>
+<li>Handout 7 - Inspecting Lists (2)</li>
+<li>Handout 8 - List Comprehensions</li>
+<li>Handout 9 - Generating Lists</li>
+<li>Assignment 5 - Inspecting Sequences</li>
+<li>Assignment 6 - Inspecting and Generating Sequences</li>
+<li>Assignment 7 - Generating Sequences</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

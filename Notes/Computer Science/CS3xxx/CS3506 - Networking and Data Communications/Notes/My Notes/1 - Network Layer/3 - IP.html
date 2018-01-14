@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>3 - IP</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="ip-datagram-format" class="level1">
+<h1>IP Datagram Format</h1>
+<p>There are 20 (or more with options) bytes in the header, giving a 20-byte overhead on any IP datagram, no matter the size.</p>
+<ul>
+<li><p>The first field a router reads is the version number, so it can tell how to read the rest of the header.</p></li>
+<li><p>Uses the header length field to tell if there are options in use.</p></li>
+<li><p>The “type of service” field tells whether the packet is important and should be given priority</p></li>
+<li><p>TTL is used to prevent packets going in loops – routers decrement the value every time, once it gets to 0 the packet gets dropped.</p>
+<ul>
+<li>Can be used to restrict scope of packets (how far they go)</li>
+</ul></li>
+<li><p>IP addresses limited to 2^32 because of size of fields</p>
+<ul>
+<li>Source address can be used for <em>ingress filtering</em> – suppressing packets that claim they’re coming from somewhere that doesn’t make sense</li>
+</ul></li>
+</ul>
+<section id="fragmentation-reassembly" class="level2">
+<h2>Fragmentation / Reassembly</h2>
+<p>Fragmentation is a feature of IPv4 that accounts for link layer protocols supporting smaller message sizes. Link layer protocols may be heterogeneous, which is why we need to account for this.</p>
+<p>Packets are broken up into multiple packets to get them down to the right size, and reassembled at the destination.</p>
+<p>Each packet gets a new header, with the same ID as the large packet that’s being broken up. The packets are also given an offset value, to show the order they go in. The offset is measured in 8-byte chunks (185 = 1480 bytes).</p>
+<p>In IPv6, there’s a minimum MTU that every link has to be above, and there’s a way to check the minimum MTU between a source and destination – this saves the 32 bits in the header related to fragmentation.</p>
+</section>
+</section>
+<section id="ip-addressing" class="level1">
+<h1>IP Addressing</h1>
+<section id="intro" class="level2">
+<h2>Intro</h2>
+<p>An IP address identifies a particular subnetwork, and a device on that network (e.g. UCC and then a specific machine).</p>
+<p>Structured addresses like this have a few benefits:</p>
+<ul>
+<li><p>Working with the numbers is easier (e.g. UCC can be responsible for allocating numbers within their subnet)</p>
+<ul>
+<li><p>Without a structure allocation would require a single authority that everyone would need to contact.</p></li>
+<li><p>Finding particular IPs would require flooding the network by asking every device if they know where the IP is.</p></li>
+</ul></li>
+</ul>
+<p>Technically different network interfaces have different IP addresses, so one machine can have multiple addresses (e.g. routers).</p>
+</section>
+<section id="subnets" class="level2">
+<h2>Subnets</h2>
+<p>All devices on a subnet share an IP prefix. A subnet is where devices can communicate directly, rather than through a router.</p>
+<p>One interface of a router connecting some subnets sits on each subnet.</p>
+</section>
+<section id="class-based-addressing" class="level2">
+<h2>Class-Based Addressing</h2>
+<ul>
+<li><p>need to know why it was abandoned</p>
+<ul>
+<li>difficulty with efficiency of allocating addresses</li>
+</ul></li>
+</ul>
+</section>
+<section id="cidr-classless-interdomain-routing" class="level2">
+<h2>CIDR (Classless InterDomain Routing)</h2>
+<p>The subnet portion of an IP address is no longer a fixed length – the length is specified along with the IP.</p>
+</section>
+<section id="getting-an-ip-address" class="level2">
+<h2>Getting an IP Address</h2>
+<p>In the past, addresses were manually hardcoded, and provided by network admins according to which ones they knew were free.</p>
+<p>Nowadays, DHCP is used, which is where devices dynamically get addresses from the server.</p>
+<section id="dhcp" class="level3">
+<h3>DHCP</h3>
+<p>Devices lease addresses from the server, so the server can reclaim addresses over time if they’re no longer used.</p>
+<p>DHCP protocol contains 4 types of message:</p>
+<ul>
+<li><p>DHCP discover (optional)</p>
+<ul>
+<li>“Is there a DHCP server out there?”</li>
+</ul></li>
+<li><p>DHCP offer (optional)</p>
+<ul>
+<li>“You can use this address”</li>
+</ul></li>
+<li><p>DHCP request</p>
+<ul>
+<li>“I would like to use this address”</li>
+</ul></li>
+<li><p>DHCP ack</p>
+<ul>
+<li>“Confirmed. The address is yours”</li>
+</ul></li>
+</ul>
+</section>
+<section id="sidebar-broadcasting" class="level3">
+<h3>Sidebar: Broadcasting</h3>
+<p>You can deliver a message to a special address which means the message should be delivered to every interface on the local network.</p>
+<p>They can be used for finding the DHCP server.</p>
+</section>
+<section id="other-dhcp-info" class="level3">
+<h3>Other DHCP Info</h3>
+<p>DHCP server also tells a client the IP of the first-hop router on the path out of the network, as well as the name and IP of the local DNS nameserver, and the network mask, which tells which portion of the IPs is for the local network.</p>
+<p>DHCP is application layer and nearly always runs on UDP.</p>
+<p>DHCP must also do access control – decide whether it’ll give a computer access to the network.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

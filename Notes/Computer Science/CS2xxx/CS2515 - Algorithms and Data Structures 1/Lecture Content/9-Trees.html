@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>9-Trees</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="trees" class="level1">
+<h1>Trees</h1>
+<hr />
+<section id="binary-tree" class="level2">
+<h2>Binary Tree</h2>
+<p>A binary tree is a rooted tree in which:</p>
+<ul>
+<li>Every node has at most 2 children</li>
+<li>The children of a node are ordered from left to right</li>
+</ul>
+<p>The depth of a binary tree is the length of the longest path from the root node to a leaf node.</p>
+</section>
+<section id="binarytreenode" class="level2">
+<h2>BinaryTreeNode</h2>
+<p>BinaryTreeNode:</p>
+<ul>
+<li>element</li>
+<li>leftchild</li>
+<li>rightchild</li>
+</ul>
+<p>Note that this is the equivalent of a singly-linked list because the arrows only go in one direction.</p>
+</section>
+<section id="computing-the-height-of-a-node" class="level2">
+<h2>Computing the Height of a Node</h2>
+<p>height(node):</p>
+<ul>
+<li>= 0 if the node is a leaf</li>
+<li>= 1 + max(height(left), height(right))</li>
+</ul>
+<section id="code" class="level3">
+<h3>Code</h3>
+<pre><code>def height(node):
+    if node = None:
+        return 0
+    elif node.leftchild == None and node.rightchild == None:
+        return 0
+    else:
+        return 1 + max(height(node.leftchild), height(node.rightchild))
+        </code></pre>
+<p>It’s a recursive function.</p>
+</section>
+</section>
+<section id="preorder-traversal" class="level2">
+<h2>Preorder Traversal</h2>
+<p>So called because it does the parent before the children.</p>
+<p>To visit a node:</p>
+<ul>
+<li>Read the element then visit the children.</li>
+</ul>
+<section id="code-1" class="level3">
+<h3>Code</h3>
+<pre><code>def preorder_print(node):
+    if node:
+        print(node.element)
+        preorder_print(node.leftchild)
+        preorder_print(node.rightchild)
+        
+def preorder_str(node):
+    if node:
+        outputstr = str(node.element)
+        outputstr += preorder_str(node.leftchild)
+        outputstr += preorder_str(node.rightchild)
+        return outputstr
+    else:
+        return &#39;&#39;
+        </code></pre>
+</section>
+</section>
+<section id="inorder-traversal" class="level2">
+<h2>Inorder Traversal</h2>
+<p>(Doing the parent in between the children.)</p>
+<p>To visit a node:</p>
+<ul>
+<li>Visit the left child, then the parent’s element, then the right child.</li>
+</ul>
+<p>Typically we put brackets around each subtree.</p>
+<section id="code-2" class="level3">
+<h3>Code</h3>
+<pre><code>def inorder_str(node):
+    if node:
+        if node.leftchild or node.rightchild:
+            outstr = &#39;(&#39; + inorder_str(node.leftchild)
+            outstr += node.element
+            outstr += inorder_str(node.rightchild)
+            […]
+            </code></pre>
+</section>
+</section>
+<section id="post-order-traversal" class="level2">
+<h2>Post-order Traversal</h2>
+<p>Visit the children and then the parent.</p>
+</section>
+<section id="binary-search-tree" class="level2">
+<h2>Binary Search Tree</h2>
+<p>A binary search tree is a representation of an ordererd sequence of elements where:</p>
+<ul>
+<li>All left <strong>descendants</strong> of a node have values less than the node’s value.</li>
+<li>All right <strong>descendants</strong> of a node have values greater than the node’s value.</li>
+</ul>
+<p>Note that the arrows do not give the order of the sequence, just the tree structure. To get the order of the elements in the sequence, do an inorder traversal.</p>
+<section id="searching-a-binary-search-tree" class="level3">
+<h3>Searching a Binary Search Tree</h3>
+<ul>
+<li>Look at the top node.
+<ul>
+<li>If the number we’re looking for is less than that value, go left.</li>
+<li>If it’s greater than that value, go right.</li>
+</ul></li>
+<li>Repeat until you find the node or run out of children.</li>
+</ul>
+<p>If h is the height of the root, then this search is O(h) in the worst case.</p>
+<section id="note" class="level4">
+<h4>Note</h4>
+<p>This is not technically binary search yet, because we don’t know that the root node is the midpoint, and there could be a really big subtree in one corner.</p>
+</section>
+</section>
+</section>
+<section id="exercises" class="level2">
+<h2>Exercises</h2>
+<ul>
+<li>How would you implement the preorder traversal without using recursion?
+<ul>
+<li>This is important because with large trees, the function calls will take up a lot of memory, which may cause trouble on limited systems.</li>
+</ul></li>
+<li>How would you add a new item x into a binary search tree?</li>
+</ul>
+<section id="solutions" class="level3">
+<h3>Solutions</h3>
+<section id="preorder-traversal-without-recursion" class="level4">
+<h4>Preorder Traversal Without Recursion</h4>
+<p>We use a stack. We put the right child on the stack before the left child because you want to do it later than the left child.</p>
+<pre><code>st = Stack()
+st.push(node)
+while st is not empty:
+    n = st.pop()
+    print(n.element)
+    if n.rightchild is not None:
+        st.push(n.rightchild)
+    if n.leftchild is not None:
+        st.push(n.leftchild)</code></pre>
+</section>
+</section>
+</section>
+<section id="manipulating-binary-search-trees" class="level2">
+<h2>Manipulating Binary Search Trees</h2>
+<section id="adding-a-node-to-a-binary-search-tree" class="level3">
+<h3>Adding a Node to a Binary Search Tree</h3>
+<p>Requirement: maintain the order properly Aim: minimise the work</p>
+<p>When asked to add, if we allow only one copy of each element, then:</p>
+<ol type="1">
+<li>We check that the element is not already there</li>
+<li>Unless it is, we add it</li>
+</ol>
+<section id="pseudocode" class="level4">
+<h4>Pseudocode</h4>
+<pre><code>add(node, i):
+    if i &lt; current element
+        if no left child
+            add i as new left child
+        else
+            add(node.left, i)
+    else if i &gt; current element
+        if no right child
+            add i as new right child
+        else
+            add(node.right, i)
+    else
+        #do nothing – already there 
+    </code></pre>
+</section>
+<section id="complexity" class="level4">
+<h4>Complexity</h4>
+<p>To find the node or its natural position is O(height of the tree).</p>
+<p>To add the node at that position is a constant number of operations.</p>
+<p>If the tree is nicely structured, then the height of the tree will be a good bit less than the number of elements in the tree, which is why we use linked structures instead of e.g. the inbuilt Python list, which would be O(n) if you have to add something at the start.</p>
+</section>
+</section>
+<section id="removing-a-node-from-a-binary-search-tree" class="level3">
+<h3>Removing a Node from a Binary Search Tree</h3>
+<p>Requirement: maintain the order Aim: minimise the work</p>
+<p>We handle this by breaking it down into different cases:</p>
+<ul>
+<li>The node we want to remove is a leaf node</li>
+<li>The node we want to remove has only one child</li>
+<li>The node we want to remove has two children</li>
+<li>The node we want to remove has no parent (is the root node)</li>
+</ul>
+<p>Since for this we need to access the parent of a node we want to remove, we now make it a doubly-linked structure, where each node links to its parent as well as to its children.</p>
+<section id="case-1-removing-a-leaf-node" class="level4">
+<h4>Case 1: Removing a Leaf Node</h4>
+<ul>
+<li>Find the node we want to remove</li>
+<li>Update the parent’s child reference</li>
+<li>Set the node’s parent to None</li>
+<li>Remember the element</li>
+<li>Set the node’s element to None</li>
+<li>Return the element</li>
+</ul>
+</section>
+<section id="case-2-removing-a-root-and-leaf-node-from-a-bst" class="level4">
+<h4>Case 2: Removing a Root and Leaf Node from a BST</h4>
+<p>Trivial case where the tree only has one node. Put a check in so that we only update the parent’s child reference if the node has a parent.</p>
+</section>
+<section id="case-3-removing-a-semi-leaf-from-a-bst" class="level4">
+<h4>Case 3: Removing a Semi-Leaf from a BST</h4>
+<p>A semi-leaf is a node with only one child.</p>
+<ul>
+<li>Change the references to that the semi-leaf’s child is now the correct child of the semi-leaf’s parent</li>
+<li>Clean up</li>
+</ul>
+</section>
+<section id="case-4-removing-an-internal-node-from-a-bst" class="level4">
+<h4>Case 4: Removing an Internal Node from a BST</h4>
+<ul>
+<li>Replace the node with the biggest element less than it.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></li>
+<li>Move that element up to our current node</li>
+<li>Delete the node we have copied</li>
+</ul>
+<p>To find the biggest node less than a given node, we go to the left child, and then keep going right until we can’t anymore.</p>
+<p>Since we’ve hit a dead end, we know the new node is a leaf or a semi-leaf. We’ve already written the pseudocode to do that process.</p>
+</section>
+<section id="complexity-1" class="level4">
+<h4>Complexity</h4>
+<p>To find the node is O(height of the tree).</p>
+<ul>
+<li>Worst case is when it is a leaf on the longest branch</li>
+</ul>
+<p>To remove is it O(height of the tree).</p>
+<ul>
+<li>To find the biggest item less than it, it’s O(height of the node).</li>
+<li>To replace the node, it’s a constant number of operations.</li>
+</ul>
+</section>
+<section id="note-1" class="level4">
+<h4>Note</h4>
+<p>Implementing node removal in a BST is tricky.</p>
+<p>Maintaining the parent references makes it easier to keep track of where you are in the tree, and of which node needs to be updated.</p>
+<p>But there are now more referenecs to update, and more special cases to handle.</p>
+<p>Careful and exhaustive testing is important, and we’ll probably get it wrong when we first implement it, so we must not be disheartened.</p>
+</section>
+</section>
+</section>
+</section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>We could also replace it with the smallest element greater than it.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+</body>
+</html>

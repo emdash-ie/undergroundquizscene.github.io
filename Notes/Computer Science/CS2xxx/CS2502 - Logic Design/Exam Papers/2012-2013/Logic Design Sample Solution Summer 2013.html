@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Logic Design Sample Solution Summer 2013</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sample-solution-for-summer-2013" class="level1">
+<h1>Sample Solution for Summer 2013</h1>
+<hr />
+<section id="question-1" class="level2">
+<h2>Question 1</h2>
+<section id="a" class="level3">
+<h3>(a)</h3>
+<p>The minimum possible number of input variables is 6, as any smaller number of input variables wouldn’t have enough rows in the truth table (5 would have 2^5 = 32) to give terms to the CPOS, where each term corresponds to a row from the truth table.</p>
+</section>
+<section id="b" class="level3">
+<h3>(b)</h3>
+</section>
+</section>
+<section id="question-4" class="level2">
+<h2>Question 4</h2>
+<section id="a-1" class="level3">
+<h3>(a)</h3>
+<p>(see accompanying image in Drive – I need to figure out how to put pictures in these files)</p>
+</section>
+<section id="b-1" class="level3">
+<h3>(b)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>z  x</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>0</strong></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><strong>1</strong></td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><strong>3</strong></td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="c" class="level3">
+<h3>(c)</h3>
+<p>No, there is no such input sequence. If you start at state 3 (the only state which outputs 1), none of the states you can go to can return you to state 3 on the following step.</p>
+</section>
+<section id="d" class="level3">
+<h3>(d)</h3>
+<p>Yes. This sequence of input values will:</p>
+<pre><code>011101110111…</code></pre>
+<p>Note for the first state the output is undefined, so the output value sequence here will actually be this:</p>
+<pre><code>-10011001100…</code></pre>
+<p>If we want to have an extra 1 at the start, we just need to add an extra 0 or 1 to the start of our input sequence.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4 - Software Design</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="definitions" class="level1">
+<h1>Definitions</h1>
+<p>Design: A specification of an object, manifested by some agent, intended to accomplish goals, in a particular environment, using a set of primitive components, satisfying a set of requirements, subject to some constraints.</p>
+<ul>
+<li>specification</li>
+<li>goals</li>
+<li>environment</li>
+<li>components</li>
+<li>requirements</li>
+<li>constraints</li>
+</ul>
+</section>
+<section id="general-principles" class="level1">
+<h1>General Principles</h1>
+<p>There are no fixed rules to sound design – instead there are some general principles.</p>
+<p>Here are some:</p>
+<ul>
+<li>Modularisation</li>
+<li>Abstraction</li>
+<li>Information Hiding</li>
+<li>Coupling &amp; Cohesion
+<ul>
+<li>note that these also come up inside the others</li>
+</ul></li>
+</ul>
+<section id="modularisation" class="level2">
+<h2>Modularisation</h2>
+<p>A module should have only a single responsibility.</p>
+<p>If a module has more than one responsibility, then changes to one may inhibit the module’s ability to meet other responsibilities.</p>
+<p>This is also known as separation of concerns.</p>
+<p>Modules are containers for functionality or responsibilities.</p>
+<p>Advantages of modularisation:</p>
+<ol type="1">
+<li>Handles system complexity by introducing well-defined boundaries/interfaces.</li>
+<li>Supports software reuse.</li>
+<li>Improves system maintainability.
+<ul>
+<li>if a module breaks (e.g. a fatal security flaw is found), you can replace it with a new one</li>
+</ul></li>
+<li>Supports replacing modules with alternatives.</li>
+<li>Supports task decomposition (teamwork).</li>
+</ol>
+</section>
+<section id="information-hiding" class="level2">
+<h2>Information Hiding</h2>
+<p>A module should expose its functionality through an interface, but hide its implementation details.</p>
+<p>This:</p>
+<ul>
+<li>increases maintainability</li>
+<li>increases reuse</li>
+<li>supports task decomposition</li>
+</ul>
+</section>
+<section id="abstraction" class="level2">
+<h2>Abstraction</h2>
+<p>The process of forgetting information, so that things that are different can be treated as if they were the same.</p>
+<p>There are 2 common mechanisms:</p>
+<section id="parameterisation" class="level3">
+<h3>Parameterisation</h3>
+<p>Java generics and C++ templates are examples of this.</p>
+</section>
+<section id="specification" class="level3">
+<h3>Specification</h3>
+<p>E.g. inheritance, interface implementation</p>
+<ul>
+<li>making something more specific?</li>
+</ul>
+</section>
+<section id="why" class="level3">
+<h3>Why?</h3>
+<ul>
+<li><p>helps to prevent duplication of code through reusability</p></li>
+<li><p>duplication is bad because if you need to change something you have to change it in multiple places</p></li>
+</ul>
+</section>
+</section>
+<section id="coupling-cohesion" class="level2">
+<h2>Coupling &amp; Cohesion</h2>
+<p>Coupling is a measure of strength of association between modules.</p>
+<p>Strong coupling means many connections between modules, which reduces maintainability.</p>
+<p>Low coupling supports:</p>
+<ul>
+<li>program comprehension</li>
+<li>maintainability</li>
+<li>task decomposition</li>
+</ul>
+<p>Cohesion measures the degree of connectivity between elements <em>within</em> a module.</p>
+<p>Low cohesion means that a module contains many unrelated elements. This violates the principle of modularity (single responsibility) and the principle of abstraction.</p>
+<p>[…]</p>
+</section>
+</section>
+</body>
+</html>

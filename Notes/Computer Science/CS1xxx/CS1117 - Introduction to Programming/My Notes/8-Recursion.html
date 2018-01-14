@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>8-Recursion</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="recursion" class="level1">
+<h1>Recursion</h1>
+<hr />
+<p>Recursion is when a function calls itself:</p>
+<pre><code>def CountDown(n):
+    if n == 0:
+        print(&#39;Liftoff!&#39;)
+    else:
+        print(n)
+        CountDown(n - 1)
+    </code></pre>
+<section id="base-cases-and-problems-within-problems" class="level2">
+<h2>Base Cases and Problems within Problems</h2>
+<p>For recursive programs, you need to have a <em>base case</em>, where the problem is not solved by calling the function again, like the <code>if n == 0</code> bit in the function above.</p>
+<p>For designing recursive solutions to problems, you try to find a simpler version of the problem (i.e. a version of the problem that is closer to the base case) within the problem itself. It only needs to be a tiny bit simpler.</p>
+<p>In the example above, CountDown(10) can be broken into two steps:</p>
+<ol type="1">
+<li>Print ‘10’</li>
+<li>Solve CountDown(9)</li>
+</ol>
+<p>Since our base case is 0, and 9 is closer to 0, CountDown(9) is a simpler version of the problem.</p>
+<p>This problem, though, is just as easy without recursion.</p>
+</section>
+<section id="haskell" class="level2">
+<h2>Haskell</h2>
+<p>Haskell is a programming language largely based on recursion—it has no loops, statements, or variables.</p>
+</section>
+</section>
+</body>
+</html>

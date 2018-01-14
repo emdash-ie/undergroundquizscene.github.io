@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Call-Return Mechanism</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="call-return-mechanism" class="level1">
+<h1>Call-Return Mechanism</h1>
+<hr />
+<p>The call-return mechanism provides low-level implementation for subroutines<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<section id="subroutines" class="level2">
+<h2>Subroutines</h2>
+<p>We typically break problems down into smaller problems when solving them. If we have smaller problems that we solve many times, subroutines are useful to solve those smaller problems.</p>
+<section id="the-call-instruction" class="level3">
+<h3>The <em>call</em> Instruction</h3>
+<p>This instruction does a number of things:</p>
+<ol type="1">
+<li>Transfers control to the called subroutine by placing the subroutine address into the instruction pointer.</li>
+<li>Pushes the return address (the address of the instruction that follows the call instruction in memory) onto the stack.</li>
+</ol>
+<p>Note: the stack is used because of the First In, Last Out nature it has, which allows us to call subroutines within other subroutines using the same mechanism.</p>
+<p>The format of the call instruction in samphire is as follows:</p>
+<pre><code>call address</code></pre>
+<p>Where ‘address’ is the memory address of the start of the subroutine.</p>
+</section>
+<section id="the-org-instruction" class="level3">
+<h3>The <em>org</em> Instruction</h3>
+<p>In Samphire, the org instruction tells the assembler to place the following instructions into memory starting at a specific address.</p>
+<p>We can also use the org instruction to put data into memory, which is a very useful application.</p>
+<p>The format looks like this (in Samphire):</p>
+<pre><code>org address</code></pre>
+<p>Where address is the address at which the assembler should place the instructions.</p>
+<p>This instruction can be used to place a subroutine into memory at a known address.</p>
+</section>
+<section id="the-ret-instruction" class="level3">
+<h3>The <em>ret</em> Instruction</h3>
+<p>This instruction pops the return address from the stack into the Instruction Pointer.</p>
+<p>We can use it to return to the main routine from a subroutine.</p>
+</section>
+<section id="example" class="level3">
+<h3>Example</h3>
+<pre><code>mov al, 10
+call 70             ; Subroutine call
+mov [c0], al
+
+org 70
+add al, 1           ; The subroutine
+ret
+
+end</code></pre>
+</section>
+</section>
+<section id="subroutines-with-the-traffic-lights" class="level2">
+<h2>Subroutines with the Traffic Lights</h2>
+<p>Here’s some code:</p>
+<pre><code>start:
+mov al, 84          
+out 01              ; red, green
+mov bl, ff
+call 70
+
+mov al, 48
+out 01              ; orange, orange
+mov bl, 10
+call 70
+
+mov al, 30          
+out 01              ; green, red
+mov bl, ff
+call 70
+
+mov al 48
+out 01              ; orange, orange
+mov bl, 10
+call 70
+
+jmp start
+
+org 70
+in_delay:
+dec bl
+cmp bl, 00
+jnz in_delay
+ret
+
+end</code></pre>
+<p>This code simulates a set of traffic lights, and the call function is used to add a delay at each point, with the length of delay specified by the value in bl.</p>
+</section>
+</section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>A routine is basically an old-fashioned name for a program, making subroutines an old-fashioned name for functions or subprograms.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+</body>
+</html>

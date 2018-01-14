@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>17-Searching</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="searching" class="level1">
+<h1>Searching</h1>
+<hr />
+<p>If a list is completely unsorted, a linear search is the best you can do.</p>
+<p>However, if the list is sorted, you can use a binary search, which is as fast as you can go.</p>
+<section id="binary-search" class="level2">
+<h2>Binary Search</h2>
+<p>Look at the midpoint. If it’s the number you’re looking for, you’re done.</p>
+<p>If not, the number you’ve found is either smaller or bigger than the number you’re looking for, then you know which side of the midpoint it’s on, which will allow you to ignore half of the list.</p>
+<p>You then repeat this by finding the midpoint of the new section of the list.</p>
+<section id="in-python" class="level3">
+<h3>In Python</h3>
+<p>You have a variable called high and a variable called low, and when you want to look at a smaller section of the list, you increase low or decrease high. At first they’re set to the first and last indices of the list.</p>
+</section>
+<section id="alternate-binary-search" class="level3">
+<h3>Alternate Binary Search</h3>
+<pre><code>def BinarySearch(item, lst):
+
+    while lst != []: 
+        mid = len(lst) // 2
+        if item &lt; lst[mid]:
+            lst = lst[:mid]
+        elif item &gt; lst[mid]:
+            lst = lst[mid + 1 :]
+        else:
+            return ?
+            
+    return None
+            </code></pre>
+<p>It’s a class exercise to see what’s returned from the function at the <code>?</code>. You will also have to make some additions to the program for that.</p>
+<section id="speed-comparison" class="level4">
+<h4>Speed Comparison</h4>
+<p>This program (when completed) will work, but it is slower than the original binary search:</p>
+<p>|Algorithm|Time Taken| |:-|-:-| |Original:|0.06s| |Alternative:|98.52s|</p>
+<p>According to this table, the new type of binary search is 1642 times slower, which is a huge difference.</p>
+<p>This is because <code>lst = lst[:mid]</code> is a very slow command, as it creates the new list by stepping through the elements of the old list. This means that we end up looking at roughly all of the elements, undoing our speed advantage from the binary aspect of the search.</p>
+</section>
+</section>
+<section id="a-flaw-in-binary-search" class="level3">
+<h3>A Flaw in Binary Search</h3>
+<p>Given the list <code>[1, 2, 2, 2, 2, 3, 3]</code> and asked to find 2, our current algorithm would just give whichever 2 it hits first.</p>
+<p>Class exercise: by making a <em>small</em> modification to binary search as we have it, how could you get it to find the first 2?</p>
+</section>
+</section>
+<section id="linear-search-binary-search-with-recursion" class="level2">
+<h2>Linear Search &amp; Binary Search with Recursion</h2>
+<section id="recursive-programming-recap" class="level3">
+<h3>Recursive Programming Recap</h3>
+<ul>
+<li>See if you can look at your problem, and find within it a slightly simpler version of the same problem.</li>
+<li>Find a base case.</li>
+</ul>
+<section id="searching-example" class="level4">
+<h4>Searching Example</h4>
+<ul>
+<li>What’s simpler than looking for a number in a list of 9 numbers? Looking for a number in a list of 8 numbers.</li>
+<li>The simplest case is then the empty list, because if you’re looking for a number in the empty list, the result is always that it’s not there.</li>
+</ul>
+</section>
+</section>
+<section id="linear-search-recursive-version" class="level3">
+<h3>Linear Search (Recursive Version)</h3>
+<p>Using lst = lst[1:] would seem to make sense intuitively, when we want to cut the first element off the list, but it’s very slow, because it goes through the whole list to copy it.</p>
+<p>Instead, we use the idea of indices we used in binary search.</p>
+<p>For this there are two options:</p>
+<ul>
+<li>Use a helper function</li>
+<li>Use a default parameter (much nicer)</li>
+</ul>
+<section id="helper-function" class="level4">
+<h4>Helper Function:</h4>
+<pre><code># Main function:
+
+def LinearSearch(item, lst):
+    return LinearSearchFrom(item, lst, 0)
+
+
+# Helper function:
+# Note that if the index is len(lst), it&#39;s beyond the last index, (len(lst) - 1)
+
+def LinearSearchFrom(item, lst, start):     
+    if start == len(lst):               
+        return None                     
+    elif item == lst[start]:
+        return start
+    else:
+        return LinearSearchFrom(item, lst, start + 1)</code></pre>
+</section>
+<section id="default-parameter" class="level4">
+<h4>Default Parameter:</h4>
+<pre><code>def LinearSearch(item, lst, start = 0):
+    if start &gt;= len(lst):               &lt;--Note: see below
+        return None
+    elif item == lst[start]:
+        return start
+    else:
+        return LinearSearch(item, lst, start + 1)</code></pre>
+<p><strong>Note</strong>: it’s now &gt;= rather than == because the user can provide an index that’s out of bounds. Manning prefers to leave it as ==.</p>
+</section>
+</section>
+<section id="binary-search-recursive-version" class="level3">
+<h3>Binary Search (Recursive Version)</h3>
+<ul>
+<li>This is more straightforward/intuitive than making a recursive version of linear search.</li>
+</ul>
+</section>
+<section id="limitation-on-default-parameters" class="level3">
+<h3>Limitation on Default Parameters</h3>
+<p>Here’s a rule that’s not exactly correct, but is a good working rule for now:</p>
+<ul>
+<li>Default parameters in Python must be constants.</li>
+</ul>
+<p>This is why in the recursive handout we have this slightly awkward workaround:</p>
+<pre><code>def BinarySearch(item, lst, lo = 0, hi = None):
+
+if hi == None:
+    hi = len(lst - 1)
+…</code></pre>
+</section>
+</section>
+<section id="iteration-vs.recursion" class="level2">
+<h2>Iteration vs. Recursion</h2>
+<p>For each of these methods of searching, the iterative versions and recursive versions both work and are basically equivalent. You can choose whichever you’re happier with.</p>
+<p>We will come up against examples later where iterative programming can not (or can not easily) solve certain problems, which is where recursion can be very helpful.</p>
+</section>
+<section id="recursion-with-lambda" class="level2">
+<h2>Recursion with Lambda</h2>
+<p>(See notes on Assignment 19 for info on lambda.)</p>
+<p>It is possible to write recursive programs using lambda by using the Y Combinator, which can create recursion from lambdas.</p>
+</section>
+</section>
+</body>
+</html>

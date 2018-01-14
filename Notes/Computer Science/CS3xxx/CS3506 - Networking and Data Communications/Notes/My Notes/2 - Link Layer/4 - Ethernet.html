@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>4: Ethernet</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">4: Ethernet</h1>
+<p class="author"></p>
+<p class="date">Tuesday 7th of November, 2017</p>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Ethernet is the dominant technology – it’s simple and cheap, and widely deployed.</p>
+<p>Hard to replace it with token LANs or ATM, because it’s so dominant.</p>
+</section>
+<section id="frame-structure" class="level1">
+<h1>Frame Structure</h1>
+<p>Need preamble to show that a packet is starting, because otherwise you don’t know when packets are coming. It also allows you to synchronise the clocks between sender and receiver.</p>
+<p>The type field identifies a higher-layer protocol – usually IP but sometimes others e.g. AppleTalk in the past.</p>
+<p>The CRC is checked at the receiver, and the frame is silently dropped if there are errors.</p>
+</section>
+<section id="characteristics" class="level1">
+<h1>Characteristics</h1>
+<p>Ethernet has no connections – no handshaking between senders and receivers.</p>
+<p>No ACKs or NAKs are used, and so the channel is unreliable.</p>
+<p>There’s no flow control, so if a receiver can’t receive as fast as the sender can send, packets will be dropped. It’s assumed that this won’t happen, and in practice it doesn’t.</p>
+<p>Ethernet is unslotted – there’s no time synchronisation.</p>
+</section>
+<section id="standards" class="level1">
+<h1>Standards</h1>
+<p>802.3 are the ethernet standards.</p>
+</section>
+</body>
+</html>

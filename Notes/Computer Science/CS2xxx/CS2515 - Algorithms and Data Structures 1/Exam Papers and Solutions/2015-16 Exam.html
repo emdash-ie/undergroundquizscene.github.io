@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-16 Exam</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="exam" class="level1">
+<h1>2015/16 Exam</h1>
+<hr />
+<p>This is just an example of how I would answer this exam – I have no certainty about how this would score. If anyone notices any problems with these solutions, though, please point them out to me, and I’ll update them.</p>
+<section id="question-2" class="level2">
+<h2>Question 2</h2>
+<section id="i" class="level3">
+<h3>(i)</h3>
+<p>A Binary Search Tree is a binary tree in which, for all nodes, the leftchild is less than the parent and the right child is greater than the parent, according to an ordering.</p>
+</section>
+<section id="ii" class="level3">
+<h3>(ii)</h3>
+<section id="pseudocode" class="level4">
+<h4>Pseudocode</h4>
+<pre><code>if there is a left child
+    print left child (with this function)
+print this node&#39;s element
+if there is a right child
+    print right child (with this function)
+    </code></pre>
+</section>
+<section id="python" class="level4">
+<h4>Python</h4>
+<pre><code>def __str__():
+    if node.leftchild is not None:
+        print(node.leftchild)
+    print(node.element)
+    if node.rightchild is not None:
+        print(node.rightchild)
+        
+print(root_node)</code></pre>
+</section>
+</section>
+<section id="iii" class="level3">
+<h3>(iii)</h3>
+<section id="a-adding-a-new-element" class="level4">
+<h4>(a) – adding a new element</h4>
+<section id="text" class="level5">
+<h5>Text</h5>
+<ul>
+<li>Start at the root node.</li>
+<li>Repeat this process until you can no longer go the direction you’re trying:
+<ul>
+<li>At each node, compare that node’s element to the new element.</li>
+<li>If the new element is less than the node’s element, go to the node’s left child.</li>
+<li>If the new element is greater than the node’s element, go to the node’s right child.</li>
+<li>If the new element is equal to the node’s element, exit the function.</li>
+</ul></li>
+<li>Put the new element in a new node
+<ul>
+<li>If the new element is less than the current node’s element, make the new node the left child of the current node.</li>
+<li>If the new element is greater than the current node’s element, make the new node the right child of the current node.</li>
+</ul></li>
+</ul>
+</section>
+<section id="python-1" class="level5">
+<h5>Python</h5>
+<pre><code>def add(node=root, element):
+    if element &lt; node.leftchild:
+        if node.leftchild is not None:
+            add(node.leftchild, element)
+        else:
+            node.leftchild = DLLNode(element)
+    elif element &gt; node.rightchild:
+        if node.rightchild is not None:
+            add(node.rightchild, element)
+        else:
+            node.rightchild = DLLNode(element)
+            </code></pre>
+</section>
+</section>
+<section id="b---removing-a-node" class="level4">
+<h4>(b) - removing a node</h4>
+<section id="text-1" class="level5">
+<h5>Text</h5>
+<ul>
+<li>Start at the root node, and compare the element to be removed to the root element.
+<ul>
+<li>If it is less than the root, go to the root’s left child.</li>
+<li>If it’s greater than the root, go to the root’s rightchild.</li>
+</ul></li>
+<li>Repeat this until we’ve found the node containing the element.</li>
+<li>If the node is a leaf node, wipe the node and the parent’s appropriate child reference.</li>
+<li>If the node is a semi-leaf, connect the node’s child to the the node’s parent, and update the parent’s appropriate child reference. Then wipe the node.</li>
+<li>If the node is an internal node, find the maximum left-descendant of the node:
+<ul>
+<li>Go right from the left child until you can’t anymore.</li>
+</ul></li>
+<li>Move this value into our node, then delete this new node as with a semi-leaf above.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="iv" class="level3">
+<h3>(iv)</h3>
+<section id="a" class="level4">
+<h4>(a)</h4>
+<ul>
+<li>49 is now the right child of 37</li>
+<li>57 is gone</li>
+</ul>
+</section>
+<section id="b" class="level4">
+<h4>(b)</h4>
+<ul>
+<li>48 is now the left child of 92</li>
+<li>40 is now the right child of 36</li>
+<li>57 is gone</li>
+</ul>
+</section>
+</section>
+<section id="v" class="level3">
+<h3>(v)</h3>
+<p>No node is unbalanced. A node is considered unbalanced if the heights of its children differ by 2 or more, or if it has only one child, which has a height of 2 or more.</p>
+</section>
+<section id="vi" class="level3">
+<h3>(vi)</h3>
+<section id="a-1" class="level4">
+<h4>(a)</h4>
+<ul>
+<li>37 is now the root</li>
+<li>16 is the left child of 37</li>
+<li>18 is the right child of 16</li>
+<li>43 is the right child of 39</li>
+</ul>
+</section>
+<section id="b-1" class="level4">
+<h4>(b)</h4>
+<ul>
+<li>45 is now the root</li>
+<li>16 is the left child of 45</li>
+<li>43 is the right child of 16</li>
+<li>50 is the right child of 45</li>
+<li>50 has no left child</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="question-3" class="level2">
+<h2>Question 3</h2>
+<section id="i-1" class="level3">
+<h3>(i)</h3>
+<p>A Priority Queue is an ordered structure where each item is stored with a key value, to represent its priority. The next item removed from the Priority Queue is always the item (or one item) that has the highest priority, which is defined as the item having the lowest key.</p>
+<p>The standard operations are:</p>
+<ul>
+<li><code>add(key, value)</code> – add a new element into the priority queue</li>
+<li><code>min()</code> – return the element with the minimum key</li>
+<li><code>remove_min()</code> – remove and return the element with the minimum key</li>
+<li><code>is_empty()</code> – report whether there are no items in the queue</li>
+<li><code>length()</code> – report the number of elements in the queue</li>
+</ul>
+</section>
+<section id="ii-1" class="level3">
+<h3>(ii)</h3>
+<ul>
+<li><code>add(key, value)</code> – O(n)
+<ul>
+<li>In the worst case, we’ll have to add the new element to the start of our list, and so we’ll have to copy the whole list, making this O(n).</li>
+</ul></li>
+<li><code>min()</code> – O(1)
+<ul>
+<li>With the sorted list implementation, the minimum element will be at the end of the list, and since list lookup is O(1), this is O(1).</li>
+</ul></li>
+<li><code>remove_min()</code> – O(1)
+<ul>
+<li>Since the minimum element is at the end of the list, access is O(1), and removal is O(1) on average (as sometimes Python will shrink the list).</li>
+</ul></li>
+<li><code>is_empty()</code> – O(1)
+<ul>
+<li>We do this by checking the length and comparing it to 0, both of which are O(1), so this is O(1).</li>
+</ul></li>
+<li><code>length()</code> – O(1)
+<ul>
+<li>In-built <code>len()</code> is O(1) for lists (and most Python datatypes), making this O(1).</li>
+</ul></li>
+</ul>
+</section>
+<section id="iii-1" class="level3">
+<h3>(iii)</h3>
+<p>A Binary Heap is a binary tree with the following properties that define its structure:</p>
+<ul>
+<li>Any node is less than its children.</li>
+<li>Every level except the last must be complete.</li>
+<li>The last level must be filled from left to right.</li>
+<li>Every node is either greater than or less than each other node (no nodes are equal to one another).</li>
+</ul>
+<p>When a new node is added, it’s added to the leftmost empty spot in the last level, to give the correct shape, and the size variable is incremented. The new node is then compared to its parent, and they’re swapped if they’re ordered incorrectly. This is repeated up the tree until the new element is in the right place.</p>
+<p>The value at the root is saved to be returned at the end. The last element in the tree is copied into the root and the last node is removed. The element at the root is then compared to its lowest-ordered child, and they’re swapped if the child has lower key – this process is repeated down the tree until no more swaps are needed.</p>
+<p>The Binary Heap can be used to implement a Priority Queue by using the key of each node to determine the order – of two nodes, the node with lower key is less than the other node. This is an efficient implementation because:</p>
+<ul>
+<li>Both the add and remove methods are O(log(n)), as we only have to go along one path in the tree, which will be at most log(n) steps.</li>
+<li>Reporting <code>min()</code> is also O(1), as we keep a reference to the root.</li>
+<li>We keep a size variable, so reporting the length is O(1).</li>
+<li>For <code>is_empty()</code>, we compare the length to 0, which is O(1) because both operations are O(1).</li>
+</ul>
+</section>
+<section id="iv-1" class="level3">
+<h3>(iv)</h3>
+<p>In the resulting diagram:</p>
+<ul>
+<li>14 is where 16 was</li>
+<li>16 is where 22 was</li>
+<li>22 is in the new last position, left child of 16</li>
+</ul>
+</section>
+<section id="v-1" class="level3">
+<h3>(v)</h3>
+<p>In the resulting diagram:</p>
+<ul>
+<li>26 is the root</li>
+<li>28 is 26’s right child</li>
+<li>40 is 28’s left child</li>
+<li>34 has no right child</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

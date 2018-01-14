@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 2</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sql-recap" class="level1">
+<h1>SQL Recap</h1>
+<p>SQL is DDL, DML, and DCL.</p>
+<section id="arithmetic-expressions-functions" class="level2">
+<h2>Arithmetic Expressions &amp; Functions</h2>
+<p>Arithmetic Operators:</p>
+<ul>
+<li><code>+</code></li>
+<li><code>-</code></li>
+<li><code>*</code></li>
+<li><code>/</code></li>
+</ul>
+<p>Numeric Functions:</p>
+<ul>
+<li><code>ABS(x)</code></li>
+<li><code>CEILING(x)</code>, <code>FLOOR(x)</code></li>
+<li><code>COS(x)</code>, <code>SIN(x)</code>, <code>TAN(x)</code></li>
+<li><code>EXP(x)</code></li>
+<li><code>LOG(x)</code></li>
+</ul>
+</section>
+<section id="example-find-the-name-of-male-employees-aged-between-21-and-25" class="level2">
+<h2>Example: Find the Name of Male Employees Aged Between 21 and 25</h2>
+<pre class="sourceCode sql" id="cb1"><code class="sourceCode sql"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">SELECT</span> Fname Lname</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">WHERE</span> Sex = <span class="st">&#39;M&#39;</span></div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">    <span class="kw">AND</span> DOB <span class="kw">BETWEEN</span> DATE_SUB(CURDATE(), <span class="dt">INTERVAL</span> <span class="dv">25</span> <span class="dt">YEAR</span>)</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">                <span class="kw">AND</span> DATE_SUB(CURDATE(), <span class="dt">INTERVAL</span> <span class="dv">21</span> <span class="dt">YEAR</span>)</div></code></pre>
+<ul>
+<li><code>CURDATE()</code> gives the current date</li>
+<li><code>DATE_SUB()</code> subtracts amounts from dates
+<ul>
+<li>Accounts for leap years based on the calendar</li>
+</ul></li>
+<li>This won’t actually work in MySQL
+<ul>
+<li>MySQL won’t allow you to have a function within a function</li>
+</ul></li>
+</ul>
+</section>
+<section id="statistical-data-retrieval" class="level2">
+<h2>Statistical Data Retrieval</h2>
+<ul>
+<li><code>MAX(Salary)</code>
+<ul>
+<li>Gives the maximum entry in Salary</li>
+</ul></li>
+<li><code>MIN(Salary)</code>
+<ul>
+<li>Gives the minimum entry in Salary</li>
+</ul></li>
+<li><code>AVG(Salary)</code>
+<ul>
+<li>Gives the average for Salary</li>
+</ul></li>
+<li><code>COUNT(*)</code>
+<ul>
+<li>Counts the number of rows in the result table</li>
+<li>Normally used with <code>*</code> as the argument (one exception - <code>DISTINCT ColumnName</code> as below)</li>
+</ul></li>
+<li><code>COUNT(DISTINCT expr)</code>
+<ul>
+<li>Counts the rows containing <code>expr</code></li>
+<li>Example:</li>
+</ul>
+<pre class="sourceCode sql" id="cb2"><code class="sourceCode sql"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="kw">DISTINCT</span> ESSN)</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">FROM</span> DEPENDENT</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">[…]</div></code></pre></li>
+<li><code>SUM(Hours)</code>
+<ul>
+<li>Gives the sum of the entries for Hours</li>
+</ul></li>
+<li>You always get a result table with a single value (a singleton) when using these functions.</li>
+</ul>
+<p>Note that the where condition happens before the averaging, so this query below finds the average salary for female employees in department number 5:</p>
+<pre class="sourceCode sql" id="cb3"><code class="sourceCode sql"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">SELECT</span> <span class="fu">AVG</span>(Salary)</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">WHERE</span> Dno = <span class="dv">5</span></div>
+<div class="sourceLine" id="cb3-4" data-line-number="4">    <span class="kw">AND</span> Sex = <span class="st">&#39;F&#39;</span></div></code></pre>
+<section id="group-by" class="level3">
+<h3>GROUP BY</h3>
+<p><code>GROUP BY</code> is used for computing statistics over groups of values, rather than individual values.</p>
+<p>It sorts by a specified column, and then groups together all rows which have the same value for that column. Then it treats each group as a separate table.</p>
+<p>E.g. finding the maximum salary in each group:</p>
+<pre class="sourceCode sql" id="cb4"><code class="sourceCode sql"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">SELECT</span> Dno, <span class="fu">MAX</span>(Salary)</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">GROUP</span> <span class="kw">BY</span> Dno</div></code></pre>
+<p>The <code>WHERE</code> clause is evaluated before the <code>GROUP BY</code>, e.g.:</p>
+<pre class="sourceCode sql" id="cb5"><code class="sourceCode sql"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">SELECT</span> Dno, <span class="fu">AVG</span>(Salary / <span class="dv">12</span>)</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">WHERE</span> Sex = <span class="st">&#39;F&#39;</span></div>
+<div class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">GROUP</span> <span class="kw">BY</span> Dno</div></code></pre>
+</section>
+<section id="having" class="level3">
+<h3>HAVING</h3>
+<ul>
+<li>The <code>HAVING</code> clause is evaluated after separation by <code>GROUP BY</code> – it applies to groups, rather than rows.</li>
+<li>Usually contains a function.</li>
+</ul>
+<pre class="sourceCode sql" id="cb6"><code class="sourceCode sql"><div class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">SELECT</span> Dno, <span class="fu">AVG</span>(Salary)</div>
+<div class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">GROUP</span> <span class="kw">BY</span> Dno</div>
+<div class="sourceLine" id="cb6-4" data-line-number="4"><span class="kw">HAVING</span> <span class="fu">AVG</span>(Salary) &gt; <span class="dv">35000</span></div></code></pre>
+<ol type="1">
+<li>Group the table by department number</li>
+<li>Eliminate groups with average salary less than 35000</li>
+<li>Display the department number and average salary of each remaining group</li>
+</ol>
+</section>
+<section id="example-find-the-average-female-salary-in-departments-of-more-than-100-employees" class="level3">
+<h3>Example: Find the Average Female Salary in Departments of More Than 100 Employees</h3>
+<p>You might try this:</p>
+<pre class="sourceCode sql" id="cb7"><code class="sourceCode sql"><div class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">SELECT</span> Dno, <span class="fu">AVG</span>(Salary)</div>
+<div class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb7-3" data-line-number="3"><span class="kw">WHERE</span> Sex = <span class="st">&#39;F&#39;</span></div>
+<div class="sourceLine" id="cb7-4" data-line-number="4"><span class="kw">GROUP</span> <span class="kw">BY</span> Dno</div>
+<div class="sourceLine" id="cb7-5" data-line-number="5"><span class="kw">HAVING</span> <span class="fu">COUNT</span>(*) &gt; <span class="dv">100</span></div>
+<div class="sourceLine" id="cb7-6" data-line-number="6"><span class="kw">ORDER</span> <span class="kw">BY</span> <span class="dv">2</span></div></code></pre>
+<ol type="1">
+<li>Eliminate all male rows</li>
+<li>Group by department number</li>
+<li>Eliminate groups with less than 100 rows</li>
+<li>Display department number and average salary for each remaining group, ordered by average salary.</li>
+</ol>
+<p>However, here the <code>COUNT</code> clause only counts female employees, because the male employees were removed first. So only departments with more than 100 <em>female</em> employees are kept.</p>
+<ul>
+<li><code>ORDER BY 2</code> orders by the second column.
+<ul>
+<li>For computed columns, you have to specify the column positionally rather than by name.</li>
+</ul></li>
+</ul>
+<p>To do what we want, we need subqueries.</p>
+</section>
+</section>
+<section id="subqueries" class="level2">
+<h2>Subqueries</h2>
+<ul>
+<li>These go in brackets, and evaluate earlier than the rest of the query.</li>
+</ul>
+<p>Example:</p>
+<pre class="sourceCode sql" id="cb8"><code class="sourceCode sql"><div class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">SELECT</span> <span class="fu">CONCAT</span>(Lname, <span class="st">&#39;, &#39;</span>, Fname) <span class="kw">AS</span> Name</div>
+<div class="sourceLine" id="cb8-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb8-3" data-line-number="3"><span class="kw">WHERE</span> Sex = <span class="st">&#39;M&#39;</span></div>
+<div class="sourceLine" id="cb8-4" data-line-number="4">    <span class="kw">AND</span> Dno <span class="kw">IN</span></div>
+<div class="sourceLine" id="cb8-5" data-line-number="5">        (<span class="kw">SELECT</span> Dnumber</div>
+<div class="sourceLine" id="cb8-6" data-line-number="6">         <span class="kw">FROM</span> DEPT_LOCATIONS</div>
+<div class="sourceLine" id="cb8-7" data-line-number="7">         <span class="kw">WHERE</span> Dlocation = <span class="st">&#39;Houston&#39;</span>)</div>
+<div class="sourceLine" id="cb8-8" data-line-number="8"><span class="kw">ORDER</span> <span class="kw">BY</span> Name</div></code></pre>
+<ol type="1">
+<li>Get the department numbers of all departments in Houston</li>
+<li>Eliminate all employee rows who’re female or are in a department not in Houston (using the list of numbers from above)</li>
+<li>Display the concatenated name of all remaining employees, ordered by name.</li>
+</ol>
+<ul>
+<li><code>IN</code> is an inter-block connective – there are more later</li>
+<li>You can’t use <code>DISTINCT</code> or <code>ORDER BY</code> in subqueries.</li>
+<li>MySQL has another limitation to subqueries, which we’ll see later.</li>
+</ul>
+<section id="interblock-connectives" class="level3">
+<h3>Interblock Connectives</h3>
+<pre class="sourceCode sql" id="cb9"><code class="sourceCode sql"><div class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">SELECT</span> Lname, Fname</div>
+<div class="sourceLine" id="cb9-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb9-3" data-line-number="3"><span class="kw">WHERE</span> Salary =</div>
+<div class="sourceLine" id="cb9-4" data-line-number="4">    (<span class="kw">SELECT</span> <span class="fu">MAX</span>(Salary)</div>
+<div class="sourceLine" id="cb9-5" data-line-number="5">     <span class="kw">FROM</span> EMPLOYEE)</div></code></pre>
+<ul>
+<li>Equality is only legal when a subquery only returns a single value.</li>
+</ul>
+<pre class="sourceCode sql" id="cb10"><code class="sourceCode sql"><div class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">SELECT</span> Lname, Fname</div>
+<div class="sourceLine" id="cb10-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb10-3" data-line-number="3"><span class="kw">WHERE</span> Salary &gt;=ALL</div>
+<div class="sourceLine" id="cb10-4" data-line-number="4">    (<span class="kw">SELECT</span> Salary</div>
+<div class="sourceLine" id="cb10-5" data-line-number="5">     <span class="kw">FROM</span> EMPLOYEE)</div></code></pre>
+<pre class="sourceCode sql" id="cb11"><code class="sourceCode sql"><div class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw">SELECT</span> Lname, Fname</div>
+<div class="sourceLine" id="cb11-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb11-3" data-line-number="3"><span class="kw">WHERE</span> Sex = <span class="st">&#39;F&#39;</span></div>
+<div class="sourceLine" id="cb11-4" data-line-number="4">    <span class="kw">AND</span> Salary =</div>
+<div class="sourceLine" id="cb11-5" data-line-number="5">        (<span class="kw">SELECT</span> <span class="fu">MAX</span>(Salary)</div>
+<div class="sourceLine" id="cb11-6" data-line-number="6">         <span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb11-7" data-line-number="7">         <span class="kw">WHERE</span> Sex = <span class="st">&#39;F&#39;</span>))</div></code></pre>
+<ul>
+<li>Comparison Operators:
+<ul>
+<li><code>=</code></li>
+<li><code>!=</code></li>
+<li><code>&gt;</code></li>
+<li><code>&lt;</code></li>
+<li><code>&gt;=</code></li>
+<li><code>&lt;=</code></li>
+<li>These can only be used when a subquery returns a single value.</li>
+</ul></li>
+<li>Set Comparison Operators:
+<ul>
+<li>Any of the comparison operators followed by <code>ANY</code> e.g. <code>=ANY</code>.</li>
+<li>Any comparison operator followed by <code>ALL</code>.</li>
+</ul></li>
+<li>Set Inclusion Operator:
+<ul>
+<li><code>IN</code></li>
+<li><code>NOT IN</code></li>
+</ul></li>
+<li>Existential Quantifier:
+<ul>
+<li><code>EXISTS</code></li>
+<li><code>NOT EXISTS</code></li>
+<li>These can only be used with a specific kind of subquery (synchronised subqueries) that we’ll see later.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

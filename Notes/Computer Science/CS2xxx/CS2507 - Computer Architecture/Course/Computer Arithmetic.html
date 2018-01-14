@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Computer Arithmetic</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="operations-on-integers" class="level1">
+<h1>Operations on Integers</h1>
+<section id="addition" class="level2">
+<h2>Addition</h2>
+<ul>
+<li>overflow if result out of range (result goes higher than the highest positive number or lower than the lowest negative number)
+<ul>
+<li>if adding two positive operands and the result sign bit is 1</li>
+<li>if adding two negative numbers and the result sign bit is 0</li>
+</ul></li>
+<li>no overflow if adding a positive and a negative operand
+<ul>
+<li>adding a positive number to a negative number will always raise it – take it away from the lowest negative number</li>
+<li>adding a negative number to a positive number will always lower it – take it away from the highest positive number</li>
+</ul></li>
+</ul>
+</section>
+<section id="subtraction" class="level2">
+<h2>Subtraction</h2>
+<p>Add negation of second operand.</p>
+<ul>
+<li>overflow if result out of range
+<ul>
+<li>subtracting positive from negative and result sign bit is 0
+<ul>
+<li>equivalent to adding two negative numbers</li>
+</ul></li>
+<li>subtracting negative from positive and result sign bit is 1
+<ul>
+<li>equivalent to adding two positive numbers</li>
+</ul></li>
+</ul></li>
+<li>none if subtracting two operands of same sign</li>
+</ul>
+</section>
+<section id="dealing-with-overflow" class="level2">
+<h2>Dealing with Overflow</h2>
+<p>Some languages (e.g. C, Java) ignore overflow.</p>
+<ul>
+<li>Use MIPS <code>addu</code>, <code>addui</code>, <code>subu</code> instructions
+<ul>
+<li>‘u’ stands for unsigned</li>
+</ul></li>
+</ul>
+<p>Other languages (e.g. Ada, Fortran) require raising an exception.</p>
+<ul>
+<li>Use MIPS <code>add</code>, <code>addi</code>, <code>sub</code> instructions</li>
+<li>on overflow, invoke exception handler
+<ul>
+<li>Save PC in exception program counter (EPC) register</li>
+<li>Jump to predefined handler address</li>
+<li><code>mfc0</code> (move from coprocessor reg) instruction can retrieve EPC value, to return after corrective action</li>
+</ul></li>
+</ul>
+</section>
+<section id="multiplication" class="level2">
+<h2>Multiplication</h2>
+<ul>
+<li><p>You can multiply as if in decimal and just read the answer as binary.</p></li>
+<li><p>Product is allocated length equal to the sum of operand length.</p></li>
+</ul>
+<p>[…]</p>
+<section id="faster-multiplier" class="level4">
+<h4>Faster Multiplier</h4>
+<ul>
+<li>Use multiple adders
+<ul>
+<li>cost/performance tradeoff</li>
+</ul></li>
+<li>Can be pipelined
+<ul>
+<li>several multiplications performed in parallel</li>
+</ul></li>
+</ul>
+</section>
+<section id="mips-multiplication" class="level4">
+<h4>MIPS Multiplication</h4>
+<p>Two 32-bit registers for product:</p>
+<ul>
+<li>HI: most-significant 32 bits</li>
+<li>LO: least-significant 32 bits</li>
+</ul>
+<p>Instructions:</p>
+<ul>
+<li><code>mult rs, rt</code> or <code>multu rs, rt</code>
+<ul>
+<li>64-bit product in HI/LO</li>
+</ul></li>
+<li><code>mfhi rd</code> / <code>mflo rd</code>
+<ul>
+<li>Move from HI/LO to rd</li>
+<li>Can test HI value to see if product overflows 32 bits</li>
+</ul></li>
+</ul>
+</section>
+<section id="division" class="level3">
+<h3>Division</h3>
+<section id="faster-division" class="level4">
+<h4>Faster Division</h4>
+<ul>
+<li>Can’t use parallel hardware as in multiplier.
+<ul>
+<li>Subtraction is conditional on the sign of the remainder</li>
+</ul></li>
+<li>Faster dividers generate multiple quotient bits pre step
+<ul>
+<li>still require multiple steps</li>
+<li>solution current uses future prediction and correction strategy</li>
+</ul></li>
+</ul>
+</section>
+<section id="mips-division" class="level4">
+<h4>MIPS Division</h4>
+<ul>
+<li>Use HI/LO registers for result
+<ul>
+<li>HI: 32-bit remainder</li>
+<li>LO: 32-bit quotient</li>
+</ul></li>
+<li>Instructions
+<ul>
+<li><code>div rs, rt</code> / <code>divu rs, rt</code></li>
+<li>No overflow or divide-by-0 checking
+<ul>
+<li>software must perform checks if required</li>
+</ul></li>
+<li>Use <code>mfhi</code> and <code>mflo</code> to access result</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="floating-point-real-numbers" class="level2">
+<h2>Floating-point Real Numbers</h2>
+<p>Representation for non-integral numbers (including very small and very large numbers).</p>
+<p>Like scientific notation.</p>
+<p>General form: <code>±1.xxxxxx_2 * 2^yyyyy^</code></p>
+<ul>
+<li>Binary points (rather than decimal points)</li>
+</ul>
+<p>There are <code>float</code> and <code>double</code> in C. This will be explained later.</p>
+<section id="floating-point-standard" class="level3">
+<h3>Floating-point Standard</h3>
+<p>Defined by IEEE in Std 745-1985 (in 1985).</p>
+<p>Developed in response to divergence of representations – portability issues for scientific code.</p>
+<p>Now almost universally adopted.</p>
+<p>Two representation:</p>
+<ul>
+<li>Single precision (32-bit)</li>
+<li>Double precision (64-bit)</li>
+</ul>
+<pre><code>x = (-1)^S^ * (1 + Fraction) * 2^(Exponent - Bias)^</code></pre>
+<ul>
+<li>S is the sign bit (0 for non-negative, 1 for negative)</li>
+<li>Significand is <code>1 + Fraction</code></li>
+<li>Exponent: excess representation: actual exponent + bias
+<ul>
+<li>ensures exponent is unsigned</li>
+<li>single: bias = 127</li>
+<li>double: bias = 1203</li>
+</ul></li>
+</ul>
+<p>The bias was brought in to help sorting (?) as e.g. -1 contains mostly 1s and so looks very large, while +1 contains mostly 0s and looks very small [check this].</p>
+<section id="floating-point-range" class="level4">
+<h4>Floating-point Range</h4>
+<p>Exponents <code>11111111</code> and <code>00000000</code> are reserved.</p>
+<p>So the actual smallest value is 1 - 127, which gives -126.</p>
+<p>So the smallest value is ±1.0 * 2<sup>-126</sup> = [check].</p>
+<p>The largest value is ±2.0 * 2<sup>127</sup> = 3.4 * 10<sup>38</sup> in decimal.</p>
+</section>
+<section id="floating-point-example" class="level4">
+<h4>Floating-point Example</h4>
+<p>Represent -0.75:</p>
+<ul>
+<li>Subtract powers of 2 (from +0.75 and negate the answer) - each one subtracted corresponds to a 1 in the correct column of the binary result</li>
+<li>Alternatively, multiply the remainder by 2 and keep subtracting the same power of 2 (2^-1, which is 0.5).
+<ul>
+<li>You have to track which column you’re on.</li>
+</ul></li>
+<li>This is equivalent to long division by 2.</li>
+</ul>
+<ol type="1">
+<li>Subtract 0.5 from 0.75 – this corresponds to 0.1 in binary.
+<ul>
+<li>The remainder is 0.25.</li>
+</ul></li>
+<li>Subtract 0.25 from the remainder – this corresponds to 0.01 in binary.
+<ul>
+<li>The remainder is 0.</li>
+</ul></li>
+<li>Since the remainder is 0, we’re done. The answer is 0.11 in base 2.</li>
+</ol>
+<p>Alternative:</p>
+<ol type="1">
+<li>Subtract 0.5 from 0.75 – this corresponds to 0.1 in binary.
+<ul>
+<li>The remainder is 0.25.</li>
+</ul></li>
+<li>Multiply the remainder by 2 – this gives 0.5.</li>
+<li>Subtract 0.5 from the remainder – because of our multiplying by 2 this corresponds to 0.01 in binary.
+<ul>
+<li>The remainder is 0.</li>
+</ul></li>
+<li>Since the remainder is 0, we’re done. The answer is 0.11 in base 2.</li>
+</ol>
+</section>
+</section>
+<section id="floating-point-addition" class="level3">
+<h3>Floating-point Addition</h3>
+<ul>
+<li>Convert the values to binary</li>
+<li>Align the decimal points (remember each shift corresponds to multiplying or dividing by 2)</li>
+<li>Add the numbers</li>
+<li>Keep the power (which should now be the same)</li>
+<li>Normalise the result and check for over-/under-flow</li>
+<li>Round and renormalise is necessary</li>
+</ul>
+<section id="floating-point-adder-hardware" class="level4">
+<h4>Floating-point Adder Hardware</h4>
+<ul>
+<li>Much more complicated than an integer adder.</li>
+<li>Doing a calculation in one cycle isn’t possible.
+<ul>
+<li>If you slow down the clock to fit FP operations, you’ll slow all instructions down</li>
+</ul></li>
+<li>Instead, calculations take multiple clock steps
+<ul>
+<li>They can also be pipelined</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="floating-point-multiplication" class="level3">
+<h3>Floating-point Multiplication</h3>
+<p>In decimal:</p>
+<ol type="1">
+<li>Add exponents</li>
+<li>Multiply significands</li>
+<li>Normalise result</li>
+<li>Round and renormalise if necessary</li>
+<li>Determine sign of result from signs of operands</li>
+</ol>
+<p>In binary:</p>
+<ol type="1">
+<li>Add exponents (unbias them first)</li>
+<li>Multiply significands</li>
+<li>Normalise result and check for over-/under-flow</li>
+<li>Round and renormalise if necessary</li>
+<li>Determine sign of result</li>
+</ol>
+<section id="fp-multiplicator-hardware" class="level4">
+<h4>FP Multiplicator Hardware</h4>
+<ul>
+<li>Similar in complexity to FP adder.
+<ul>
+<li>Uses a multiplier for significands instead of an adder</li>
+</ul></li>
+<li>FP arithmetic hardware usually does:
+<ul>
+<li>additions, subtraction, multiplication, division, reciprocal, square-root</li>
+<li>floating point to integer conversion (and back)</li>
+</ul></li>
+<li>Operations usually take several cycles
+<ul>
+<li>Can be pipelined</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="floating-point-instructions-in-mips" class="level3">
+<h3>Floating-point Instructions in MIPS</h3>
+<p>There are separate floating-point registers:</p>
+<ul>
+<li>32 single-precision registers: $f0 … $f31</li>
+<li>Use two neighbouring ones together for double-precision</li>
+</ul>
+<p>Floating point operations only work with floating-point registers.</p>
+<p>There are also separate load and store instructions [check these].</p>
+<p>Single-precision arithmetic:</p>
+<ul>
+<li><code>add.s</code>, <code>sub.s</code>, <code>mul.s</code>, <code>div.s</code></li>
+</ul>
+<p>E.g. <code>add.s $f0, $f1, $f6</code></p>
+<p>Double-precision arithmetic:</p>
+<ul>
+<li><code>add.d</code>, <code>sub.d</code>, <code>mul.d</code>, <code>div.d</code></li>
+</ul>
+<p>E.g. <code>mul.d $f4, $f4, $f6</code></p>
+<p>Single and double-percision comparison:</p>
+<ul>
+<li><code>c.eq.s</code>, <code>c.lt.s</code>, <code>c.le.s</code></li>
+<li><code>c.eq.d</code>, […]</li>
+<li>These set or clear a floating-point condition bit</li>
+</ul>
+<p>Brach on floating-point condition:</p>
+<ul>
+<li><code>bc1t</code>, <code>bc1f</code>
+<ul>
+<li>branch if the condition bit is true, branch if the condition bit is false</li>
+</ul></li>
+</ul>
+<p>[Note: need to look up <code>lwc1</code> and <code>lwc2</code>.]</p>
+</section>
+<section id="accurate-arithmetic" class="level3">
+<h3>Accurate Arithmetic</h3>
+<p>There are extra bits for precision (guard, round, and sticky).</p>
+<p>These allow you to choose rounding modes, which allows you to control what’s happening in the intermediate stages.</p>
+<p>Not all FP units implement all options, though. Most programming languages and FP libraries just use the defaults.</p>
+<p>Floating-points have limited size (precision). These limits must be remembered and programs must be written accordingly.</p>
+</section>
+</section>
+</section>
+<section id="subword-parallelism" class="level1">
+<h1>Subword Parallelism</h1>
+<ul>
+<li>Designed to address multimedia applications</li>
+<li>Graphics and audio applications can take advantage of performing simultaneous operations on short vectors using parallelism.</li>
+</ul>
+<p>E.g. 128-bit adder can simultaneously perform:</p>
+<ul>
+<li>sixteen 8-bit adds</li>
+<li>eight 16-bit adds</li>
+<li>four 32-bit adds</li>
+</ul>
+<p>This is also called data-level parallelism, vector parallelism, or SIMD (single instruction, multiple data).</p>
+<section id="x86-fp-architecture" class="level2">
+<h2>x86 FP Architecture</h2>
+<ul>
+<li>Based on 8087 FP coprocessor
+<ul>
+<li>Used a push-down stack</li>
+</ul></li>
+<li>Intel provided 128-bit extension register for FP operations
+<ul>
+<li>four single-precision numbers (since a single-precision operation uses 32 bits)</li>
+<li>two double-precision numbers</li>
+</ul></li>
+<li>In 2011 Intel doubled the width to 256 bits
+<ul>
+<li>Single operation can support 8 single-precision operations</li>
+</ul></li>
+</ul>
+</section>
+<section id="pitfalls" class="level2">
+<h2>Pitfalls</h2>
+<ul>
+<li>Left shift multiplies by 2. However, right shift only divides by 2 for unsigned integers</li>
+<li>For signed integers, an arithmetic right shift replicates the sign bit.
+<ul>
+<li>Doesn’t give the right division result</li>
+</ul></li>
+</ul>
+</section>
+<section id="associativity-pitfall" class="level2">
+<h2>Associativity Pitfall</h2>
+<p>Parallel programs may interleave operations in unexpected orders, so associativity may not hold.</p>
+<ul>
+<li>This is a problem where you’re combining large numbers and small numbers</li>
+</ul>
+</section>
+<section id="floating-point-accuracy" class="level2">
+<h2>Floating Point Accuracy</h2>
+<ul>
+<li>Intel Pentium FDIV bug in 1994</li>
+<li>Even small inaccuracies can be a big problem</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Traversals</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="graph-traversals" class="level1">
+<h1>Graph Traversals</h1>
+<p>The standard traversal is to visit all the vertices that can be reached from some starting vertex.</p>
+<p>We’ll start with two basic ones:</p>
+<ul>
+<li>depth-first search</li>
+<li>breadth-first search</li>
+</ul>
+<section id="depth-first-search" class="level2">
+<h2>Depth-first Search</h2>
+<ul>
+<li>Go as far as you can</li>
+<li>Whenever you hit a dead end, retrace your steps until a new path is available to you</li>
+</ul>
+<p>In longer terms:</p>
+<ul>
+<li>mark the first vertex</li>
+<li>choose an edge, and move along it to the opposite vertex – mark it</li>
+<li>don’t visit any vertex you’ve visited before</li>
+<li>when there are no unmarked vertices adjacent to the current one:
+<ul>
+<li>backtrack to the vertex before the current one and try the next edge from there</li>
+</ul></li>
+<li>when we are back at the first vertex and there are no more edges we can try:
+<ul>
+<li>stop</li>
+</ul></li>
+</ul>
+<p>Pseudocode (for a recursive implementation):</p>
+<pre class="pseudo"><code>depthfirstsearch(graph, v):
+    mark v
+    for each edge (v, w)
+        if w has not been marked
+            mark w
+            depthfirstsearch(graph, w)</code></pre>
+<ul>
+<li>relies on the marking existing outside of the recursion</li>
+</ul>
+<p>This algorithm is quite efficient, but gives strange paths. You could implement DFS non-recursively using a stack.</p>
+<section id="properties" class="level3">
+<h3>Properties</h3>
+<ol type="1">
+<li>The set of vertices marked in DFS is the connected component of G containing v.</li>
+<li>The set of marked vertices and the edges that led to them in DFS form a rooted spanning tree of the connected component, rooted at v.</li>
+<li>The worst-case running time of DFS is O(n + m), where n is the number of vertices and m is the number of edges.</li>
+</ol>
+</section>
+</section>
+<section id="edges-in-a-graph" class="level2">
+<h2>Edges in a Graph</h2>
+<p>For a simple undirected graph with n vertices, there are <code>0 + 1 + … + (n-1)</code> edges (as long as no vertex can be linked to itself). This is equal to <code>0.5 * (n - 1) * n</code>, which is O(n^2).</p>
+</section>
+</section>
+<section id="breadth-first-search" class="level1">
+<h1>Breadth-first Search</h1>
+<p>Depth-first search is easy to implement and is fast, but some vertices close to the start vertex are not discovered until late in the traversal. The resultant tree has very long paths to some vertices.</p>
+<p>Breadth-first search says to visit all vertices that are 1 hop away from the start vertex, then all that are 2 away, and so on.</p>
+<p>The resultant tree will contain the shortest path to each vertex.</p>
+<section id="python-code" class="level2">
+<h2>Python code</h2>
+</section>
+<section id="properties-1" class="level2">
+<h2>Properties</h2>
+<ul>
+<li>Should get into the habit of proving these things</li>
+<li>Since the number of edges could be O(n^2), this and depth-first search could be O(n^2), depending on the graph.</li>
+</ul>
+</section>
+</section>
+<section id="directed-graphs" class="level1">
+<h1>Directed Graphs</h1>
+<ul>
+<li><p>Use an ordered pair for each edge instead of a set</p></li>
+<li><p>Now the max number of edges is <code>n * (n-1)</code>, because there can now be two edges between each pair (one in each direction)</p></li>
+</ul>
+<section id="traversals" class="level2">
+<h2>Traversals</h2>
+<ul>
+<li>Have to change the definition of connected component now</li>
+</ul>
+</section>
+</section>
+<section id="transitive-closure-of-a-graph" class="level1">
+<h1>Transitive Closure of a Graph</h1>
+<ul>
+<li>The vertices you can get to from each vertex</li>
+</ul>
+<section id="computing-transitive-closure" class="level2">
+<h2>Computing Transitive Closure</h2>
+<ul>
+<li>could also use breadth-first search (doesn’t matter if it’s an undirected graph)</li>
+</ul>
+<section id="v2-floyd-warshall-algorithm-to-compute-the-transitive-closure" class="level3">
+<h3>V2 (Floyd-Warshall Algorithm to compute the transitive closure)</h3>
+<ul>
+<li>This looks complicated but we’ll see why it’s useful later with a certain problem</li>
+<li>Adding intermediate vertices that are allowed in the path with each iteration</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-10-28</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="subqueries-cont." class="level1">
+<h1>Subqueries (cont.)</h1>
+<section id="multi-column-subqueries" class="level2">
+<h2>Multi-column subqueries</h2>
+<p>We can use subqueries instead of tables in the FROM clause.</p>
+<p>E.g.:</p>
+<blockquote>
+<p>SELECT MAX(num_films)<br />
+FROM<br />
+( SELECT actorid, COUNT(movieid) AS ‘num_films’</p>
+<p>FROM castings<br />
+GROUP BY actorid</p>
+<p>) AS film_counts;</p>
+</blockquote>
+</section>
+<section id="find-the-name-of-the-most-prolific-actor" class="level2">
+<h2>Find the name of the most prolific actor</h2>
+<blockquote>
+<p>SELECT name, COUNT()<br />
+FROM actors AS a<br />
+JOIN castings AS c<br />
+ON a.id = c.actorid<br />
+GROUP BY a.id<br />
+HAVING COUNT(*) =</p>
+<p>SELECT MAX(num_films)<br />
+FROM<br />
+( SELECT actorid, COUNT(movieid) AS ‘num_films’</p>
+<p>FROM castings<br />
+GROUP BY actorid</p>
+<p>) AS film_counts;</p>
+<p>So we use a join to get the actors whose count = the max number of films.</p>
+</blockquote>
+</section>
+<section id="a-complex-example" class="level2">
+<h2>A complex example</h2>
+<p>Find all films in which both Meryl Streep and Clint Eastwood appeared:</p>
+<blockquote>
+<p>/* name of films with both actors */<br />
+SELECT title, yr FROM movies<br />
+WHERE id IN<br />
+( /* ids of movies with both actors */</p>
+<p>SELECT movieid FROM castings<br />
+WHERE</p>
+<p>actorid =<br />
+( /* Meryl Streep’s id */</p>
+<p>SELECT id FROM actors<br />
+WHERE name = ‘Meryl Streep’</p>
+<p>)<br />
+AND<br />
+movieid IN<br />
+( /* ids of movies with Clint Eastwood */</p>
+<p>SELECT movieid FROM castings<br />
+WHERE actorid =<br />
+(</p>
+<p>SELECT id FROM actors<br />
+WHERE name = ‘Clint Eastwood’</p>
+<p>)</p>
+<p>)</p>
+<p>);</p>
+</blockquote>
+<p>We use a subquery to list all of Clint Eastwood’s films, another to get Meryl Streep’s id, and select the movies that are in this list and have this id, and then get the names of the films (working upward).</p>
+</section>
+</section>
+<section id="database-dependent-websites" class="level1">
+<h1>Database-Dependent Websites</h1>
+<p>Most SQL written by programs rather than people.</p>
+<section id="typical-e-commerce-architecture" class="level2">
+<h2>Typical e-commerce architecture</h2>
+<p>Most e-commerce sites are built around a DB. Typically this houses info on stock, customers, billing, etc.</p>
+<p>The user’s interaction with the site is mediated by scripts (e.g. in PHP, Python, any other programming language) executing on the server.</p>
+<p>These scripts can talk to the DB to extract/insert/modify information.</p>
+<p>The combination of a Linux OS, Apache web server, MySQL, and PHP is referred to as LAMP.</p>
+</section>
+<section id="php-and-sql" class="level2">
+<h2>PHP and SQL</h2>
+<p>We can embed SQL queries within PHP scripts.</p>
+<section id="example-a-suggestion-box" class="level3">
+<h3>Example: A suggestion box</h3>
+<p>A simple suggestion box for on a website, coupled with a script record_suggestion.php to process the suggestions on the server, e.g. collect the comments in a DB table named suggestions.</p>
+<p>We would get the details for recording from a html form, execute an INSERT query in a PHP script, and return a html page thanking the customer for the suggestion.</p>
+</section>
+<section id="how-this-works" class="level3">
+<h3>How this works</h3>
+<ul>
+<li><p>User submits suggestion on the form in suggestion_box.html</p></li>
+<li><p>A script called record_suggestion.php will be run</p>
+<ul>
+<li><p>This extracts the form data</p></li>
+<li><p>embeds the data in SQL command to insert the details in the DB table ‘suggestions’</p></li>
+<li><p>submits SQL command to the DB server</p></li>
+<li><p>generates a response page thanking the user for the suggestion</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="an-example-of-website-database-interaction" class="level2">
+<h2>An example of website-database interaction</h2>
+<p>An airline needs an online reservation system:</p>
+<ul>
+<li><p>needs a database to house the data (services, availability, prices, bookings, etc.)</p></li>
+<li><p>needs scripts to handle various stages of the booking process</p></li>
+</ul>
+<p>We’ll look at this in detail the next day.</p>
+</section>
+</section>
+</body>
+</html>

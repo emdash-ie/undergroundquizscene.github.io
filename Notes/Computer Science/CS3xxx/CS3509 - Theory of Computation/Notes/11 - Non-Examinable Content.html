@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>NP-Completeness</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">NP-Completeness</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>This material will not be on the exam.</p>
+</section>
+<section id="efficient-certification-and-the-definition-of-np" class="level1">
+<h1>Efficient Certification and the Definition of NP</h1>
+<p>The input to a computational problem is a finite binary string S, which encodes the input (e.g. binary representation of Godel).</p>
+<p>A decision problem X is identified with a set of binary strings on which the answer is “Yes”.</p>
+<p>An algorithm <span class="math inline"><em>A</em></span> solves the problem <span class="math inline"><em>X</em></span> when <span class="math inline">$A(S) = &quot;yes&quot; \leftrightarrow S \in X$</span>.</p>
+<p><span class="math inline"><em>P</em></span> is the class for which <span class="math inline"><em>A</em></span> has polynomial running time. <span class="math inline"><em>N</em><em>P</em></span> is the class for which a solution can be efficiently verified.</p>
+</section>
+<section id="definition-of-p" class="level1">
+<h1>Definition of <span class="math inline"><em>P</em></span></h1>
+<p><span class="math inline"><em>P</em></span> is the set of all problems <span class="math inline"><em>X</em></span> for which there exists a polynomial time algorithm <span class="math inline"><em>A</em></span> that solves <span class="math inline"><em>X</em></span>.</p>
+<p>A polynomial-time algorithm is one which terminates on input <span class="math inline"><em>S</em></span> in <span class="math inline"><em>O</em>(<em>P</em>(|<em>S</em>|))</span> steps (where <span class="math inline"><em>P</em></span> here is a polynomial in <span class="math inline">|<em>S</em>|</span>).</p>
+</section>
+<section id="definition-of-np" class="level1">
+<h1>Definition of <span class="math inline"><em>N</em><em>P</em></span></h1>
+<p>In order to check a solution, we need an input <span class="math inline"><em>S</em></span> and a separate “certificate” string <span class="math inline"><em>t</em></span> that contains evidence that <span class="math inline"><em>S</em></span> is a “Yes” instance of problem <span class="math inline"><em>X</em></span>.</p>
+<section id="efficient-verifier" class="level2">
+<h2>Efficient Verifier</h2>
+<p><span class="math inline"><em>B</em></span> is an efficient verifier for a problem <span class="math inline"><em>X</em></span> if the following 2 properties hold:</p>
+<ol type="1">
+<li><span class="math inline"><em>B</em></span> is a polynomial-time algorithm that takes 2 arguments: <span class="math inline"><em>S</em></span> and <span class="math inline"><em>t</em></span></li>
+<li><p>There is a polynomial function <span class="math inline"><em>P</em></span> such that, given an input string <span class="math inline"><em>S</em></span>:</p>
+<p><span class="math inline"><em>S</em> ∈ <em>X</em> ↔ ∃<em>t</em>||<em>t</em>|≤<em>P</em>(|<em>S</em>|)<em>A</em><em>N</em><em>D</em><em>B</em>(<em>S</em>, <em>t</em>)=“ <em>y</em><em>e</em><em>s</em>”</span></p></li>
+</ol>
+</section>
+<section id="definition-of-np-1" class="level2">
+<h2>Definition of <span class="math inline"><em>N</em><em>P</em></span></h2>
+<p><span class="math inline"><em>N</em><em>P</em></span> is the set of all problems <span class="math inline"><em>X</em></span> for which there exists an efficient certifier.</p>
+</section>
+</section>
+<section id="sat-and-3-sat-problems" class="level1">
+<h1>SAT and 3-SAT Problems</h1>
+<p>Suppose we have <code>N</code> boolean variables <span class="math inline"><em>x</em><sub>1</sub>, …, <em>x</em><sub><em>N</em></sub></span>.</p>
+<p><span class="math inline"><em>X</em> = <em>x</em><sub>1</sub>, …, <em>x</em><sub><em>N</em></sub></span></p>
+<p>A term is a variable <span class="math inline"><em>x</em><sub><em>i</em></sub></span>, or its negation <span class="math inline">$\overline{x_{i}}$</span>.</p>
+<p>A clause it a disjunction (sequence of ORs) of terms.</p>
+<p>Finally, we consider conjunctions of clauses, e.g. <span class="math inline">$x_{1} \land (x_{2} \lor \overline{x_{3}})$</span>.</p>
+<p>We look at these because DeMorgan’s laws show that any logic problem can be represented in this form.</p>
+<p>A truth assignment for <span class="math inline"><em>X</em></span> is a function assigning a value to each variable <span class="math inline"><em>x</em><sub><em>i</em></sub></span>.</p>
+<p>A truth assignment satisfies a conjunction of clauses if the conjunction of clauses evaluates to 1.</p>
+<p>The SAT problem is whether you can make a program that will compute in polynomial time a truth assignment for a conjunction of clauses.</p>
+<p>It turns out that if you can find a polynomial-time solution for this problem, you can find a polynomial-time solution for a lot of problems (e.g. the independent subset problem).</p>
+</section>
+<section id="np-complete-problem" class="level1">
+<h1>NP-Complete Problem</h1>
+<p>Note: skipping 3SAT <span class="math inline">≤_<em>P</em></span> Independent Set</p>
+<p>We can’t solve <span class="math inline"><em>P</em> = <em>N</em><em>P</em></span>, and we know that P is contained in NP.</p>
+<p>So we focus on the hardest problems in NP.</p>
+<p>An NP-complete problem X is:</p>
+<ol type="1">
+<li>A problem in NP</li>
+<li>For every problem Y in NP:
+<ul>
+<li><span class="math inline"><em>Y</em>≤<sub><em>P</em></sub><em>X</em></span> (Y is easier than X)</li>
+</ul></li>
+</ol>
+<section id="comments" class="level2">
+<h2>Comments</h2>
+<ol type="1">
+<li>If X is an NP-complete problem, then X is solvable in polynomial-time if and only if <span class="math inline"><em>P</em> = <em>N</em><em>P</em></span>.</li>
+</ol>
+<p>Then, if any problem in NP cannot be solved in poly-time, no NP-complete problem can be solved in polynomial-time.</p>
+<p>But do NP-complete problems exist? Why can’t there be two problems X’ and X’’ such that <span class="math inline"><em>X</em>′≰<sub><em>P</em></sub><em>X</em>″</span> and <span class="math inline"><em>X</em>″≰<sub><em>P</em></sub><em>X</em>′</span>? Why can’t there be infinitely many problems that keep growing harder?</p>
+<p>In fact, NP-complete problems <em>do</em> exist.</p>
+</section>
+<section id="circuit-satisfiability" class="level2">
+<h2>Circuit Satisfiability</h2>
+<p>Circuit satisfiability is an NP-complete problem.</p>
+<p>A circuit in our context is a hardware circuit consisting of logic gates <span class="math inline">∧</span>, <span class="math inline">∨</span>, and <span class="math inline">¬</span>.</p>
+<p>More formally, a circuit is a directed acyclic graph (a tree), where:</p>
+<ol type="1">
+<li><p>The leaves are labeled either with constants 1 or 0, or with boolean variables (e.g. x, y, etc.)</p>
+<ul>
+<li>the constants are to specify the datastructure, and the variables are to specify the inputs</li>
+</ul></li>
+<li><p>Every node is labeled with a boolean operator: <span class="math inline">¬</span>, <span class="math inline">∧</span>, or <span class="math inline">∨</span>.</p></li>
+<li><p>There is a single node (the root or output node) which represents the result computed by the circuit. If this result is 1, then the circuit is satisfiable.</p></li>
+</ol>
+<p>It’s not surprising that this is NP-complete – a program that could compute this for any circuit can do a lot.</p>
+</section>
+<section id="intuitive-reason-for-np-completeness-of-circuit-satisfiability" class="level2">
+<h2>Intuitive Reason for NP-Completeness of Circuit Satisfiability</h2>
+<p>Goal: pick X in NP and show X <span class="math inline">≤<sub><em>P</em></sub></span> Circuit Satisfiability.</p>
+<p>Any algorithm that takes a fixed number of bits as input (say <span class="math inline"><em>n</em></span>), and produces a yes or no answer can be represented as a circuit of the type we’ve just defined.</p>
+<p>Given S (input), we want to decide whether <span class="math inline"><em>S</em> ∈ <em>X</em></span> using a black box that can solve instances of circuit satisfiability.</p>
+<section id="proof-ish" class="level3">
+<h3>Proof (ish)</h3>
+<p>We know <span class="math inline"><em>X</em> ∈ <em>N</em><em>P</em></span>, so X has an efficient certifier <span class="math inline"><em>B</em>(<em>S</em>, <em>t</em>)</span>. So to determine whether <span class="math inline"><em>S</em> ∈ <em>X</em></span> for a particular size of S, we need to find whether there is a t such that <span class="math inline"><em>B</em>(<em>S</em>, <em>t</em>)=1</span>. (Remember $|t| P(O(|S|)), from certifier definition.)</p>
+<p>If we can find this, we have resolved that Circuit Satisfiability is NP-complete.</p>
+<p>View B(S, t) as an algorithm with <span class="math inline"><em>N</em> + <em>P</em>(<em>N</em>)</span> inputs. Now encode it as a circuit, and then determine the satisfiability of the circuit in polynomial time using the black box.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

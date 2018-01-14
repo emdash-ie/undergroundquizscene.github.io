@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Testing</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="design-of-a-user-study" class="level1">
+<h1>Design of a User Study</h1>
+<ul>
+<li><p>have a prediction</p></li>
+<li><p>choose subjects</p></li>
+</ul>
+<p>[…]</p>
+</section>
+<section id="quality-of-data" class="level1">
+<h1>Quality of Data</h1>
+<p>When designing a test or questionnaire, careful thought should be given to the kind of data it will generate.</p>
+<p>If our aim (for example) is to gather ideas on how to improve a system, then a qualitative questionnaire will be suitable.</p>
+<p>However, if we hope to demonstrate that our system is better than existing systems in some way, we may want to use a statistical test to prove this.</p>
+<p>In the latter case we will need to design our test or questionnaire carefully to ensure it yields testable data.</p>
+<p>Statisticians classify data under the following headings:</p>
+<ul>
+<li><p>nominal-scaled data</p>
+<ul>
+<li><p>lowest quality (very noisy)</p></li>
+<li><p>there is no numerical relationship between scores</p></li>
+<li><p>e.g. a score of 2 is not necessarily higher than a score of 1</p></li>
+<li><p>possibly useful for checking if a certain error (represented by a certain score) has happened a lot</p></li>
+</ul></li>
+<li><p>ordinal-scaled data</p>
+<ul>
+<li><p>a score of 2 is higher than a score of 1, but not necessarily twice as high</p></li>
+<li><p>data obtained from questionnaires is usually ordinal-scaled</p></li>
+<li><p>better quality</p></li>
+</ul></li>
+<li><p>interval-scaled data</p>
+<ul>
+<li><p>a score of 2 is exactly twice as high as a score of 1</p></li>
+<li><p>timing data is usually interval-scaled</p></li>
+<li><p>better quality (less noisy – can see trends with fewer subjects)</p></li>
+</ul></li>
+<li><p>parametric data</p>
+<ul>
+<li><p>data must be interval scaled</p></li>
+<li><p>The scores must be drawn from a population that has:</p>
+<ul>
+<li><p>a normal distribution</p>
+<ul>
+<li>if subjects measured on factors relevant to the study, result would follow a normal distribution</li>
+</ul></li>
+<li><p>a normal variance</p>
+<ul>
+<li>the spread of scores must be the same as that found in the general population</li>
+</ul></li>
+</ul></li>
+<li><p>best quality (least noisy)</p></li>
+</ul></li>
+</ul>
+<p>Most test in usability engineering use ordinal-scaled data or interval-scaled data. Parametric data is usually too expensive / too much effort for the benefit it gives.</p>
+<p>Rather than counting errors, can count time lost due to errors, giving interval-scaled data.</p>
+<p>The higher the quality of the data we gather, the fewer samples we will need to draw valid conclusions.</p>
+<p>In some cases, it’s not possible to design a test that yields parametric or interval-scaled data. In such cases there is no option but to gather nominal or ordinal-scaled data and take a large number of samples.</p>
+</section>
+<section id="data-analysis" class="level1">
+<h1>Data Analysis</h1>
+<p>Say we have conducted a study to evaluate an interactive training system.</p>
+<p>The design is as follows:</p>
+<ul>
+<li><p>2 groups of 20 subjects</p></li>
+<li><p>randomly assign the subjects to groups</p></li>
+<li><p>one group performs a set task using our system (experimental condition), the other group […]</p></li>
+</ul>
+<section id="frequency-distribution" class="level2">
+<h2>Frequency Distribution</h2>
+<ul>
+<li><p>presents the data without loss</p></li>
+<li><p>presents it in a form that allows the characteristics of the data to be understood more easily than is possible using just the raw data</p></li>
+</ul>
+</section>
+<section id="average" class="level2">
+<h2>Average</h2>
+<ul>
+<li>especially for small groups, one outlier can significantly affect the average</li>
+</ul>
+<p>## Standard Deviation</p>
+<ul>
+<li><p>measure of dispersion in the scores</p></li>
+<li><p>adds info over just presenting the average</p></li>
+</ul>
+</section>
+</section>
+<section id="normal-distribution" class="level1">
+<h1>Normal Distribution</h1>
+<ul>
+<li><p>research has shown that many […]</p></li>
+<li><p>because it’s symmetrical, mean, mode, and median all have the same value</p></li>
+<li><p>can be defined using only the mean and the standard deviation</p></li>
+<li><p>the percentage of scores falling above or below a given value of standard deviation is fixed.</p></li>
+</ul>
+</section>
+<section id="statistical-inference" class="level1">
+<h1>Statistical Inference</h1>
+<p>All the techniques described so far are intended to describe or summarise data.</p>
+<p>Sometimes we need to go further and attempt to prove that:</p>
+<ul>
+<li><p>there is a significant difference between two sets of experimental data</p></li>
+<li><p>there is a significant difference in a particular direction, e.g. that data-set a is better in some way than data-set b</p></li>
+</ul>
+<p>This is known as drawing statistical inference.</p>
+</section>
+<section id="significance" class="level1">
+<h1>Significance</h1>
+<p>When designing experiments, we try to keep all possible factors stable with the exception of one, the independent variable, which we deliberately manipulate in some way.</p>
+<p>We then measure another variable, the dependent variable, to see how the change in the independent variable has affected it.</p>
+<p>However, we can’t assume that all changes in the dependent variable are due to our manipulation of the independent variable.</p>
+<p>Some changes will almost certainly occur by chance.</p>
+<p>The purpose of statistical testing is to determine the likelihood that the results occurred by chance.</p>
+<p>We can never prove beyond doubt that any differences observed are the result of changes in the independent variable rather than mere chance occurrences.</p>
+<p>However, we can determine just how likely is it that a given result […]</p>
+<p>Before testing, we formulate two hypotheses:</p>
+<ul>
+<li><p>any difference arise purely as a result of chance variations (the null hypothesis).</p></li>
+<li><p>any differences arise – at least in part - as a result of the change in the independent variable</p>
+<ul>
+<li>the alternate or experimental hypothesis</li>
+</ul></li>
+</ul>
+<p>Statistical tests allow us to determine the likelihood of our results having occurred purely by chance. They allow us to decide whether we should accept the null hypothesis or the alternate hypothesis.</p>
+<p>We usually express probability on a scale from 0 to 1. We can’t prove anything for certain, but we can express our result to a level of probability.</p>
+<p>The significance level (e.g. p &lt;= 0.05) indicates that the likelihood of the observed difference having occurred as a result of chance factors is less than some amount (e.g. one in 20).</p>
+<p>We choose a level of significance in advance, then test for it:</p>
+<ul>
+<li><p>if the outcome is greater than our chosen significance level, we accept the null hypothesis</p></li>
+<li><p>if the outcome is equal to or less than our chosen significance level we accept the alternate hypothesis</p></li>
+</ul>
+<section id="level-of-significance" class="level2">
+<h2>Level of Significance</h2>
+<p>What’s an appropriate level to test for?</p>
+<ul>
+<li><p>if we choose a relatively high value of significance (e.g. 1 in 10), we are more likely to obtain results, but the results will be wrong more often</p>
+<ul>
+<li>this is known as a type 1 error</li>
+</ul></li>
+<li><p>if we choose a very low value, we can place more confidence, but we may fail to find a correlation when it does in fact exist</p>
+<ul>
+<li>this is known as a type 2 error</li>
+</ul></li>
+</ul>
+<p>There is no correct value for significance, but the value p &lt;= 0.05 is commonly used and is regarded as a good compromise.</p>
+<p>When a more stringent test is required (e.g. because the result is controversial or the findings may be used in a critical application), a value of p &lt;= 0.01 is sometimes used.</p>
+<p>In industry, a study is usually only done once, but in research, studies are replicated and repeated.</p>
+</section>
+<section id="choice-of-test" class="level2">
+<h2>Choice of Test</h2>
+<p>When choosing a test, the following factors should be taken into account:</p>
+<ul>
+<li><p>two-sample or k-sample (more than two)</p>
+<ul>
+<li><p>most tests compare two groups of samples, e.g. the results obtained from comparative tests on two different systems</p>
+<ul>
+<li>wherever possible design for a two-sample test</li>
+</ul></li>
+<li><p>some tests can be used to compare more than two groups of samples, e.g. the results obtained from comparative tests on three or four different systems</p></li>
+</ul></li>
+<li><p>related measures or independent measures</p>
+<ul>
+<li><p>different tests are used depending upon whether the two (or more) groups from which the data is drawn are related or not</p></li>
+<li><p>repeated measures is best, because if you’ve just matched your subjects, you may not match them on all relevant criteria</p></li>
+</ul></li>
+<li><p>nominal, ordinal, interval, or parametric data</p></li>
+</ul>
+<p>These three factors are the principal factors to be taken into account when designing a study and choosing a statistical test.</p>
+<p>There are tests available to suit every combination of those factors. Various software packages are available to carry out these and similar tests.</p>
+<p>The main task facing […].</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2 - Requirements</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="requirements-engineering" class="level1">
+<h1>Requirements Engineering</h1>
+<p>This is the first step in software engineering, and is a large and important subject.</p>
+<section id="system" class="level2">
+<h2>System</h2>
+<p>A system is a collection of components which co-operate in an organised way to achieve some desired result.</p>
+<ul>
+<li><p>Components may be machine, software, or human (e.g. air traffic controllers)</p></li>
+<li><p>The desired result is specified by the requirements.</p></li>
+</ul>
+</section>
+<section id="requirements" class="level2">
+<h2>Requirements</h2>
+<p>A requirement is a statement which identifies an attribute, capability, characteristic, or quality of a system that is necessary for it to have value or utility.</p>
+</section>
+<section id="stakeholder" class="level2">
+<h2>Stakeholder</h2>
+<p>A person (or group of people) with a direct or indirect interest/stake in the system.</p>
+<ul>
+<li>Different stakeholders usually have different concerns and so will give rise to different requirements.</li>
+</ul>
+</section>
+</section>
+<section id="classifying-requirements" class="level1">
+<h1>Classifying Requirements</h1>
+</section>
+<section id="smart-requirements" class="level1">
+<h1>SMART Requirements</h1>
+<section id="identifying-requirements" class="level2">
+<h2>Identifying Requirements</h2>
+<p>Problem 1: customers don’t know what they want.</p>
+<p>In market-targeted software, marketing department serves as a customer proxy, but may still not know what they want.</p>
+<p>Problem 2: Requirements change.</p>
+<section id="direct-stakeholder-interaction" class="level3">
+<h3>Direct Stakeholder Interaction</h3>
+<ol type="1">
+<li><p>Interviews</p>
+<ul>
+<li><p>open or closed interviews with stakeholders to understand their needs</p>
+<ul>
+<li>open or closed questions (closed are yes/no answers, open are answers that can be anything)</li>
+</ul></li>
+<li><p>can ask e.g. “describe your day-to-day job”</p></li>
+<li><p>need to interview a lot of people</p></li>
+<li><p>time-intensive</p></li>
+</ul></li>
+<li><p>Questionnaires</p>
+<ul>
+<li><p>open or closed questions that are well-defined</p></li>
+<li><p>typically online now</p></li>
+<li><p>asynchronous, so it may take time to get answers (unlike interviews)</p></li>
+<li><p>can reach a large audience</p></li>
+<li><p>no follow-up (e.g. if you don’t understand answers)</p></li>
+</ul></li>
+<li><p>Brainstorming</p>
+<ul>
+<li><p>informal discussion in group setting with different stakeholders to capture as many ideas as possible</p></li>
+<li><p>good for generating ideas</p></li>
+<li><p>need to overcome people’s shyness</p></li>
+</ul></li>
+<li><p>Focus groups</p>
+<ul>
+<li><p>group discussion that is led by a moderator following a structured approach</p></li>
+<li><p>moderator &lt;- difference with brainstorming</p></li>
+</ul></li>
+</ol>
+</section>
+<section id="domain-analysis" class="level3">
+<h3>Domain Analysis</h3>
+<p>Study the application domain to understand typical features. Figure out main concepts and work out how they fit together.</p>
+<ul>
+<li>May be useful for first graded task (e-voting)</li>
+</ul>
+<p>Sources:</p>
+<ul>
+<li><p>Existing documentation/research</p></li>
+<li><p>Legacy systems</p></li>
+<li><p>Reusable concepts &amp; components</p></li>
+</ul>
+<p>Example: developing a compiler – first compiler took a lot of effort, but nowadays we know (e.g.) what components we need</p>
+</section>
+<section id="user-stories-scenarios" class="level3">
+<h3>User Stories &amp; Scenarios</h3>
+<section id="user-stories" class="level4">
+<h4>User Stories</h4>
+<p>A user story is a brief statement that identifies a user and his/her need.</p>
+<pre><code>* originated in Extreme Programming</code></pre>
+<p>Template: “As a <role> I want <feature> so that <reason>”</p>
+<p>Example: “As a user, I want to upload photos, so that I can share photos with others.”</p>
+<p>Example: “ As an administrator, I want to approve photos before they are posted, so that I can make sure they are appropriate.”</p>
+<p>User stories are very common in agile programming methods.</p>
+</section>
+<section id="scenario" class="level4">
+<h4>Scenario</h4>
+<p>A scenario is a real-life example that illustrates a concrete system interaction. More extensive than a user story.</p>
+<p>Includes:</p>
+<ul>
+<li><p>initial assumptions &amp; expectations</p></li>
+<li><p>normal flow of events</p></li>
+<li><p>exceptions and errors</p></li>
+<li><p>other parallel/background activities</p></li>
+<li><p>system state after scenario is finished</p>
+<ul>
+<li>e.g. database system – once a user has been added there should be one more record than there was</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="ethnography" class="level3">
+<h3>Ethnography</h3>
+<p>The researcher is immersed in a culture (e.g. a hospital), taking the point of view of the study subject. Good for very complicated systems.</p>
+<p>Develop understanding through:</p>
+<ul>
+<li>Interviews</li>
+<li>Observation</li>
+<li>Participation</li>
+<li>Longitudinal immersion</li>
+</ul>
+</section>
+<section id="prototyping" class="level3">
+<h3>Prototyping</h3>
+<p>Can be good for early feedback, checking what the customer might want. Prototyping is another agile method, and we’ll be talking about it again.</p>
+<ul>
+<li>See reading.</li>
+</ul>
+<p>Prototype based on:</p>
+<ul>
+<li>Preliminary requirements</li>
+<li>Existing examples/similar systems</li>
+</ul>
+<p>Useful for:</p>
+<ul>
+<li>User-interfaces</li>
+<li>Greenfield development</li>
+<li>Overcome IKIWISI syndrome (I know it when I see it)</li>
+</ul>
+</section>
+<section id="summary" class="level3">
+<h3>Summary</h3>
+<p>No one way is the best way, it depends on the context. The right approach is the one that works.</p>
+</section>
+</section>
+<section id="requirement-specification" class="level2">
+<h2>Requirement Specification</h2>
+<section id="srs-structure" class="level3">
+<h3>SRS Structure</h3>
+<ul>
+<li><p>Preface</p>
+<ul>
+<li>define readership, version history</li>
+</ul></li>
+<li><p>Introduction</p>
+<ul>
+<li>context and need for system including business/strategic objectives</li>
+</ul></li>
+<li><p>Glossary</p>
+<ul>
+<li>Define technical terms used in document</li>
+</ul></li>
+<li><p>User requirements</p>
+<ul>
+<li>Services / functionality provided to user</li>
+</ul></li>
+<li><p>System architecture</p>
+<ul>
+<li>High level overview of expected system architecture</li>
+</ul></li>
+<li><p>System requirements specification</p></li>
+</ul>
+<p>[…]</p>
+</section>
+<section id="requirement-notations" class="level3">
+<h3>Requirement Notations</h3>
+<p>Can be expressed in various ways:</p>
+<ul>
+<li><p>Natural language</p></li>
+<li><p>Structured language</p></li>
+<li><p>Graphical notations</p></li>
+</ul>
+<p>There are others we won’t discuss, e.g.:</p>
+<ul>
+<li><p>Formal languages (e.g. Z)</p>
+<ul>
+<li>Used in specific domains, e.g. embedded</li>
+</ul></li>
+</ul>
+<p>Whatever notation, S.M.A.R.T. requirements are good.</p>
+<section id="natural-language" class="level4">
+<h4>Natural Language</h4>
+<p>Expressive and universal, but also potentially vageu and ambiguous.</p>
+<p>Suggested guidelines:</p>
+<ul>
+<li>standardised format</li>
+</ul>
+<p>[…]</p>
+<p>#### Structured Language</p>
+<p>Natural language with a template, e.g. specific categories like Inputs, Source, Precondition, Postcondition, Description.</p>
+<p>Can also use tables, which may be good in very narrow, computational domains.</p>
+<p>#### Graphical Notation</p>
+<p>Best known is UML, unified modelling language.</p>
+<ul>
+<li>In the 80s, there were many different methods, and UML is the standard which was created later.</li>
+</ul>
+<p>UML version 1.0 in 1997.</p>
+<p>As UML originated in methods for OO analysis and design, so it’s strongly focused on OO.</p>
+<ul>
+<li>Not as useful e.g. for C or FORTRAN</li>
+</ul>
+<p>It is suitable for:</p>
+<ul>
+<li>Visualising</li>
+<li>Specifying</li>
+<li>Constructing</li>
+<li>Documenting (all artefacts, including requirements)</li>
+</ul>
+<p>UML is a standard, but most people don’t use it formally, just choose bits of it they want.</p>
+</section>
+</section>
+</section>
+<section id="requirement-prioritisation" class="level2">
+<h2>Requirement Prioritisation</h2>
+<section id="simple-ranking" class="level3">
+<h3>Simple Ranking</h3>
+<p>Rank requirements in order of decreasing priority.</p>
+</section>
+<section id="moscow" class="level3">
+<h3>MoSCoW</h3>
+<p>Group:</p>
+<ul>
+<li><p>Must have</p></li>
+<li><p>Should have</p></li>
+<li><p>Could have</p></li>
+<li><p>Won’t have (this time)</p>
+<ul>
+<li>Would like, but can’t do now</li>
+</ul></li>
+</ul>
+</section>
+<section id="planning-poker" class="level3">
+<h3>Planning Poker</h3>
+<p>Comes from Extreme Programming (discussed later).</p>
+<p>Simple way to reach consensus on effort estimation.</p>
+<p>A team estimate the effort from 1 to 100, and come to an agreement/consensus.</p>
+<ul>
+<li>Can be interesting if different team members give very different effort values.</li>
+</ul>
+<p>When 2 features have the same value, prioritise the one with the least effort.</p>
+</section>
+<section id="method" class="level3">
+<h3>$100 Method</h3>
+<p>Give all stakeholders an imaginary $100.</p>
+<p>They need to distribute these over the requirements – higher ones get higher value.</p>
+<p>For each requirements count the sums – put the results in prioritised order.</p>
+</section>
+<section id="bubble-sort" class="level3">
+<h3>Bubble Sort</h3>
+<p>Sort the requirements using bubble sort (according to their priority).</p>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>String Searching</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="challenge" class="level1">
+<h1>Challenge</h1>
+<ul>
+<li><p>given source text file, want to search for the first occurrence of a character string</p></li>
+<li><p>can’t do similar thing to making a binary search tree before because we’re looking for an arbitrary character string, not a word</p></li>
+</ul>
+</section>
+<section id="first-attempt" class="level1">
+<h1>First Attempt</h1>
+<p>Brute force:</p>
+<ul>
+<li><p>look for the first character</p>
+<ul>
+<li><p>if you find it, check if the next character is the second character, etc</p>
+<ul>
+<li>if not, move on</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Need to check a couple of things:</p>
+<ul>
+<li><p>make sure we haven’t gone off the end of the string we’re searching</p></li>
+<li><p>[…]</p></li>
+</ul>
+<section id="complexity" class="level2">
+<h2>Complexity</h2>
+<p>If searching for a string of 7 ‘a’s (’aaaaaaa’) in a string (‘aaaaaabaaaaaab…’), we waste a lot of time checking ’a’s when we know (after the first check of each set of 6 ’a’s) that the string can’t be found here.</p>
+<p>If <code>n</code> is the length of the source text and <code>m</code> is the length of the target, we may need <code>0.5 * m * (m + 1)</code> checks, repeated <code>n/m</code> times, which is <code>O(n * m)</code>.</p>
+</section>
+</section>
+<section id="second-attempt" class="level1">
+<h1>Second Attempt</h1>
+<ul>
+<li><p>jump forward every time you match some letters to the letter that failed</p>
+<ul>
+<li>this misses some matches, though, so doesn’t work</li>
+</ul></li>
+</ul>
+<section id="computing-the-maximum-jump" class="level2">
+<h2>Computing the Maximum Jump</h2>
+<ul>
+<li><p>don’t need to look at the source, can just look at the target for repetitions</p></li>
+<li><p>since we’re not looking at the source, we can compute the jumps based only on the target, and do it offline before we begin</p></li>
+<li><p>look at each position: what happens if I fail here</p></li>
+</ul>
+<p>### Computing the π Table</p>
+</section>
+</section>
+<section id="knuth-morris-pratt-algorithm-for-string-matching" class="level1">
+<h1>Knuth Morris Pratt Algorithm for String Matching</h1>
+<p>This is what we have when we use the π table.</p>
+<section id="complexity-1" class="level2">
+<h2>Complexity</h2>
+<p>Inside the loop there are only O(1) operations.</p>
+<p>We continue round the loop when j increases by 1, or i decreases (since i is assigned to π(i-1) […])</p>
+<p>The worst we can do is always change i each time round the loop. Since i only increases when j increases, it has a maximum of n steps up. Therefore it has a maximum of n steps down.</p>
+<p>Therefore the loop is executed a maximum of 2n times, which is O(n). The initialisation was O(m), therefore the algorithm is O(n + m).</p>
+<p>This is optimal for the worst case, since you have to look at every character in the source at least once, and every character in the target at least once.</p>
+</section>
+</section>
+<section id="longest-common-subsequence" class="level1">
+<h1>Longest Common Subsequence</h1>
+<ul>
+<li><p>used in molecular biology and forensics</p></li>
+<li><p>used in the UNIX <code>diff</code> command</p></li>
+</ul>
+<p>We’ll define the distance between two strings as the minimal number of additions or deletions that transforms the first string into the second.</p>
+<pre><code>* only allow additions and deletions – replacing a letter with another counts as one addition and one deletion
+
+* can&#39;t re-order letters except by additions and deletions</code></pre>
+<p>Characters identified as unchanged are called a common subsequence (allows spaces).</p>
+<p>We want to identify the length of the longest common subsequence.</p>
+<section id="rules" class="level2">
+<h2>Rules</h2>
+<p>If you add the same character to the end of two sequences, the length of the longest common subsequence increases by one.</p>
+<p>If you add two different characters to the end of the two sequences, you may get an improvement, which will only be an improvement of 1.</p>
+<p>[…]</p>
+<p>Represented differently, these become:</p>
+<ol type="1">
+<li><p><code>if s[j] == t[k] then L_j+1_k+1 = 1 + L_j_k</code></p></li>
+<li><p>`if s[j] != t[k] then L_j+1_k+1 = max(L_j+1_k , L_j_k+1)``</p></li>
+</ol>
+</section>
+<section id="method" class="level2">
+<h2>Method</h2>
+<p>Fill in a table with all possible L values. Know all the left and top values, because one subscript is 0, which means the result is 0.</p>
+<p>From that we can work out L_1_1, and work along the second row, then the third row, etc.</p>
+<p>The bottom right cell in the result table is the answer.</p>
+</section>
+<section id="rebuilding" class="level2">
+<h2>Rebuilding</h2>
+<p>We have the length of the longest common subsequence – how do we find a common subsequence with the right length?</p>
+<p>As we go down the table diagonally, if there’s an increase of 1, then we added two matching characters.</p>
+<ul>
+<li><p>Start in the bottom right corner and move up or left until we reach [0,0].</p>
+<ul>
+<li><p>Only move to a lower value if it is a diagonal as above</p></li>
+<li><p>otherwise, prefer to move up – if you can’t move up without going to a lower value, go left instead</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="dynamic-programming" class="level1">
+<h1>Dynamic Programming</h1>
+<p>This solution method is dynamic programming. Trying to find some optimal answer to a problem, we break the problem into smaller chunks, find the optimal answers for the chunks, recombine them in deterministic ways.</p>
+<p>To work efficiently, we should be able to use the subproblem solutions more than once.</p>
+<p>We’ve seen other examples of dynamic programming already.</p>
+</section>
+</body>
+</html>

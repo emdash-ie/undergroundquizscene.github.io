@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-25</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="lab-times" class="level1">
+<h1>Lab Times</h1>
+<p>Labs will start on Thursday 1st October, there are two slots (9—11 and 16—18).</p>
+<p>Lab groups are available on the website.</p>
+<p>I am in the 9—11 group. Must find someone to swap with if possible.</p>
+</section>
+<section id="more-sql-basics-cont." class="level1">
+<h1>More SQL Basics (cont.)</h1>
+<p>SQL has a NOT operator, which negates a condition, and comes before it, e.g. (silly example):</p>
+<blockquote>
+<p>WHERE NOT points &gt;= 475;</p>
+</blockquote>
+<p>If using with IN, could do WHERE hometown NOT IN(); or WHERE NOT hometown IN();.</p>
+<section id="reordering-results" class="level2">
+<h2>Reordering Results</h2>
+<p>You can control the appearance of the result table of your queries.<br />
+ORDER BY presents results in order of some attribute:</p>
+<blockquote>
+<p>SELECT *<br />
+FROM students<br />
+ORDER BY points;</p>
+</blockquote>
+<p>You can use ORDER BY points DESC will order from high to low instead of low to high.</p>
+<p>Can also specify alternative column headings for greater readability:</p>
+<blockquote>
+<p>SELECT<br />
+id_number AS ‘Student ID’,<br />
+points AS ‘CAO Points’<br />
+FROM students<br />
+ORDER BY points;</p>
+</blockquote>
+<p>Can use SQL functions to modify values appearing in results. For example, DATE_FORMAT(date_of_birth, ‘%W, %d %m %Y’) lists dates as (e.g.): Monday, 13 June 1994</p>
+<p>Also UPPER(last_name) puts last_name entries in uppercase.</p>
+<p>There are ways of making your own functions, but it’s not easy and we won’t cover it in this course.</p>
+<p>Missed a question here. Answer was that the uncertainty around the order things come back in (if not specified) comes from the complicated way databases work under the hood, where there are exotic implementations in order to make things efficient.</p>
+</section>
+</section>
+<section id="sql-data-manipulation-basics" class="level1">
+<h1>SQL Data Manipulation Basics</h1>
+<p>SELECT statement extracts info but leaves the DB unchanged. Examples of manipulation statements are:</p>
+<ul>
+<li><p>INSERT: adds new rows to existing table</p></li>
+<li><p>DELETE: removes some rows from table</p></li>
+<li><p>UPDATE: changes some values within the table</p></li>
+</ul>
+<p>These can destroy DBs if used incorrectly.</p>
+<section id="insert" class="level2">
+<h2>INSERT</h2>
+<p>Example:</p>
+<blockquote>
+<p>INSERT INTO students<br />
+VALUES (‘987654321’, ‘Gráinne’,…);</p>
+</blockquote>
+<p>Not that values supplied must match the table columns in number, order, and type.<br />
+A value for every column must be specified.</p>
+</section>
+<section id="inserting-multiple-rows" class="level2">
+<h2>Inserting Multiple Rows</h2>
+<p>Example:</p>
+<blockquote>
+<p>INSERT INTO students</p>
+<p>VALUES</p>
+<p>(…),</p>
+<p>(…),</p>
+<p>(…);</p>
+</blockquote>
+<p>Note value sets are separated by commas and the last one must have a semicolon after it.</p>
+</section>
+<section id="populating-a-db-from-scratch" class="level2">
+<h2>Populating a DB from Scratch</h2>
+<p>You can use a bunch of INSERTs to set up an empty DB, and this can be done from a file, where the file contains multiple INSERT statements.</p>
+</section>
+<section id="inserting-partial-rows" class="level2">
+<h2>Inserting Partial Rows</h2>
+<p>You can also use an INSERT statement and only supply some of the values. Missing values will be set to a default (typically NULL):</p>
+<blockquote>
+<p>INSERT INTO students (id_number, first_name)<br />
+VALUES (‘987654321’, Gráinne);</p>
+</blockquote>
+</section>
+<section id="null" class="level2">
+<h2>NULL</h2>
+<p>NULL is a special marker that is compatible with any domain/type. It’s technically not a value.</p>
+<p>Can be used in situations where a value isn’t know, or is not applicable/irrelevant.</p>
+<p>Over-reliance on NULLs may suggest poor DB.</p>
+</section>
+<section id="bad-insertions" class="level2">
+<h2>Bad Insertions</h2>
+<p>Insertions may be rejected for:</p>
+<ul>
+<li><p>key is a duplicate of an existing entry</p></li>
+<li><p>values are incompatible with column type etc.</p></li>
+</ul>
+<p>Many bad insertions are legal according to SQL (e.g. mixing up columns or typing errors) and will not be rejected—these can cause lots of trouble.</p>
+<p>Question: “What’s a ‘duplicate key’?”<br />
+Answer: “For every table, one column is specified as the key, and every value in that column must be unique. This ensures that every row has a unique identifier. So, you can’t enter a value for the key column that is already taken.”</p>
+</section>
+</section>
+</body>
+</html>

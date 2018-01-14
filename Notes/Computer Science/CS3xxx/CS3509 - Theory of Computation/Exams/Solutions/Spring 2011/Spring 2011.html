@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Spring 2011</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="question-1-10-marks" class="level1">
+<h1>Question 1 [10 marks]</h1>
+<p>A real-time company develops software that is guaranteed to be ”time-able”. More precisely, the company developed a programming language for which software can be timed in the following way: ahead of executing the software, the worst-case running time of this software can be determined by analyzing the code. The language developed by the company is not as powerful as Java. It can only compute a subset of the problems that Java can compute. Can the company create a language that is as powerful as Java for their safety-critical applications such that this language still has the same property, i.e. the worst-case time of all software can be determined? Justify your answer.</p>
+<section id="answer" class="level2">
+<h2>Answer</h2>
+<p>No, but I’m not sure why.</p>
+</section>
+</section>
+<section id="question-2-20-marks" class="level1">
+<h1>Question 2 [20 marks]</h1>
+<p>Construct the decision tree for the algorithm described by the following pseudo-code:</p>
+<pre><code>For i = 1 to n - 1 do
+    If L[i] &gt; L[i+1] then swap(L[i],L[i+1])
+For i = n-1 down to 2 do
+    If L[i] &lt; L[i-1] then swap(L[i],L[i-1])</code></pre>
+<p>Note that this code does not determine a sorting algorithm. However, on lists of size 3, the code does sort these lists. Produce the decision tree of this algorithm for lists of size 3.</p>
+<section id="answer-1" class="level2">
+<h2>Answer</h2>
+<p>See figure .</p>
+<figure>
+<img src="Decision%20Tree.png" alt="Decision Tree Diagram " /><figcaption>Decision Tree Diagram </figcaption>
+</figure>
+</section>
+</section>
+<section id="question-3-10-marks" class="level1">
+<h1>Question 3 [10 marks]</h1>
+<section id="a-5-marks" class="level2">
+<h2>a) (5 marks)</h2>
+<p>State a semi-modularity inequality that holds for the best-case time for the sequential composition of programs P and Q.</p>
+<section id="answer-2" class="level3">
+<h3>Answer</h3>
+<p>The best-case time for the composition is if the best-case input for <span class="math inline"><em>P</em></span> produces an output that is a best-case input for <span class="math inline"><em>Q</em></span>, but this won’t always happen.</p>
+<p>This inequality describes that:</p>
+<p><span class="math inline"><em>T</em><sub><em>P</em>; <em>Q</em></sub><sup><em>B</em></sup>(<em>A</em>)≠<em>T</em><sub><em>P</em></sub><sup><em>B</em></sup>(<em>A</em>)+<em>T</em><sub><em>Q</em></sub><sup><em>B</em></sup>(<em>O</em><sub><em>P</em></sub>(<em>A</em>))</span></p>
+<p>(Here <span class="math inline"><em>A</em></span> is a set of possible inputs, and <span class="math inline"><em>O</em><sub><em>P</em></sub>(<em>A</em>)</span> is the output that <span class="math inline"><em>P</em></span> produces on that set.)</p>
+</section>
+</section>
+<section id="b-5-marks" class="level2">
+<h2>b) (5 marks)</h2>
+<p>When does equality hold? State a condition on P or Q that guarantees equality to hold for the inequality you stated under a). Justify your answer.</p>
+<section id="answer-3" class="level3">
+<h3>Answer</h3>
+<p>If either <span class="math inline"><em>P</em></span> or <span class="math inline"><em>Q</em></span> is a constant-time algorithm, then equality will hold.</p>
+<p>If <span class="math inline"><em>P</em></span> is a constant-time algorithm, then the running time for the composition only varies with the running time of <span class="math inline"><em>Q</em></span>. So, the worst-case time for the composition will be the worst-case time of <span class="math inline"><em>Q</em></span> when run on the outputs of <span class="math inline"><em>P</em></span>.</p>
+<p>Here is an equality that describes that:</p>
+<p><span class="math inline"><em>T</em><sub><em>P</em>; <em>Q</em></sub><sup><em>B</em></sup>(<em>A</em>)=<em>T</em><sub><em>P</em></sub>(<em>A</em>)+<em>T</em><sub><em>Q</em></sub><sup><em>B</em></sup>(<em>O</em><sub><em>P</em></sub>(<em>A</em>))</span></p>
+<p>The same argument can be made for if <span class="math inline"><em>Q</em></span> is a constant time algorithm.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

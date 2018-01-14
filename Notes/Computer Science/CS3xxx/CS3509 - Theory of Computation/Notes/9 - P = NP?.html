@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>P = NP?</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title"><span class="math inline"><em>P</em> = <em>N</em><em>P</em></span>?</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<section id="polynomial-time-computable-algorithms" class="level2">
+<h2>Polynomial Time Computable Algorithms</h2>
+<p>Algorithms whose running time is bounded on every input of size n by cn^d (where c and d are constants).</p>
+<p>Polynomial time algorithms are reasonably efficient relative to exponential time algorithms.</p>
+<p>The P–NP distinction is between polynomial-time and exponential-time algorithms.</p>
+</section>
+<section id="polynomial-time-reductions" class="level2">
+<h2>Polynomial Time Reductions</h2>
+<p>(Note: this work is from a book “Polynomial Time Reductions”, section 8.1 – detailed reference in his notes, apparently copies are available in the library.)</p>
+<p>We need some concept of things being “equivalent” to one another. Given two problems X and Y (e.g. sorting problems), we want to say that they are equally hard to compute. We’ll express that if (and only if) one can be solved in polynomial time, so can the other.</p>
+<p>We consider a black-box solution for a problem X, where we assume that the solution runs in polynomial time.</p>
+<p>We write <span class="math inline"><em>Y</em>≤<sub><em>P</em></sub><em>X</em></span> to say that X is at least as hard to solve as Y – meaning that Y can be solved using X, but not necessarily that X can be solved using Y.</p>
+<p>Given a black box solution to X, we’re saying an arbitrary instance of Y (e.g. any particular list to sort) can be solved with a polynomial number of standard computation steps, plus a polynomial number of calls to X.</p>
+<p>If (and only if) <span class="math inline"><em>Y</em>≤<sub><em>P</em></sub><em>X</em></span> and <span class="math inline"><em>X</em>≤<sub><em>P</em></sub><em>Y</em></span>, then <span class="math inline"><em>Y</em>=<sub><em>P</em></sub><em>X</em></span> – the two problems are polynomially equivalent.</p>
+</section>
+</section>
+<section id="two-problems" class="level1">
+<h1>Two Problems</h1>
+<p>Consider two problems:</p>
+<ol type="1">
+<li>Max independent subset of a graph.</li>
+<li>Find the smallest vertex cover of a graph.</li>
+</ol>
+<p>We looked at finding a max independent subset of a graph before.</p>
+<p>A vertex cover is a subset (A) of the vertices (V) in a graph, such that the vertices in A cover the edges of the graph. I.e. every edge in the graph touches a vertex in the subset A.</p>
+<p>These problems are polynomial-time equivalent. You can see the relation by noticing (or proving) that if you have a smallest vertex cover, all the vertices not included in the cover form a max independent subset.</p>
+</section>
+<section id="p-np" class="level1">
+<h1><span class="math inline"><em>P</em> = <em>N</em><em>P</em></span>?</h1>
+<p><span class="math inline"><em>P</em></span> is the set of polynomial-time computable algorithms, and <span class="math inline"><em>N</em><em>P</em></span> is the set of problems with polynomial-time checkable solutions.</p>
+<p>The independent set problem <span class="math inline">∈<em>N</em><em>P</em></span>.</p>
+<section id="formal-definition-of-np" class="level2">
+<h2>Formal Definition of NP</h2>
+<p>An algorithm <code>A</code> for a decision problem <code>X</code> receives an input string <code>S</code> and returns <code>1</code> in the case that <span class="math inline"><em>s</em> ∈ <em>X</em></span> and <code>0</code> otherwise.</p>
+<p><code>A</code> is polynomial-time if it terminates on each input <code>S</code> in <span class="math inline"><em>O</em>(<em>P</em>(|<em>S</em>|))</span>, where <code>P</code> is a polynomial in <code>|S|</code>.</p>
+<p><code>P</code> is the set of all problems <code>X</code> for which there is a polynomial time algorithm <code>A</code> that solves <code>X</code>.</p>
+</section>
+<section id="efficient-certifiers" class="level2">
+<h2>Efficient Certifiers</h2>
+<p><span class="math inline"><em>B</em></span> is called an <em>efficient certifier</em> for problem <span class="math inline"><em>X</em></span> if the following holds:</p>
+<ol type="1">
+<li><span class="math inline"><em>B</em></span> is a polynomial-time algorithm and takes two inputs: <span class="math inline"><em>S</em></span> and <span class="math inline"><em>t</em></span>.</li>
+<li><p>There is a polynomial-time function <span class="math inline"><em>P</em></span> such that for any input string <span class="math inline"><em>S</em></span>:</p>
+<p><span class="math inline"><em>S</em> ∈ <em>X</em> ⇔ ∃<em>t</em></span> such that <span class="math inline">|<em>t</em>|≤<em>P</em>(|<em>S</em>|)</span> and <span class="math inline"><em>B</em>(<em>S</em>, <em>t</em>)=</span> “yes”</p></li>
+</ol>
+</section>
+<section id="definition" class="level2">
+<h2>Definition</h2>
+<p><span class="math inline"><em>N</em><em>P</em></span> is the set of all problems for which there exists an efficient certifier.</p>
+</section>
+</section>
+<section id="p-subset-np" class="level1">
+<h1><span class="math inline"><em>P</em> ⊂ <em>N</em><em>P</em></span></h1>
+<p>Consider: Problem <span class="math inline"><em>X</em></span> in <span class="math inline"><em>P</em></span>.</p>
+<p><span class="math inline"><em>X</em></span> has a polynomial-time algorithm <span class="math inline"><em>A</em></span> that solves <span class="math inline"><em>X</em></span>.</p>
+<p>Design <span class="math inline"><em>B</em></span> as follows:</p>
+<p>[…]</p>
+</section>
+<section id="np-completeness" class="level1">
+<h1>NP-Completeness</h1>
+<p>An NP-complete problem <span class="math inline"><em>X</em></span> satisfies:</p>
+<ol type="1">
+<li><span class="math inline"><em>X</em> ∈ <em>N</em><em>P</em></span></li>
+<li><span class="math inline">∀<em>Y</em> ∈ <em>N</em><em>P</em> : <em>Y</em>≤<sub><em>P</em></sub><em>X</em></span></li>
+</ol>
+</section>
+</body>
+</html>

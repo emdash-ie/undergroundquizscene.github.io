@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>5-Stacks</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="stacks" class="level1">
+<h1>Stacks</h1>
+<hr />
+<p>A stack is a collection of objects where:</p>
+<ul>
+<li>If we want to take an item, we take it from the top.</li>
+<li>If we want to add an item, we add it to the top.</li>
+</ul>
+<p>A stack is last-in, first-out (LIFO).</p>
+<section id="uses" class="level2">
+<h2>Uses</h2>
+<p>Stacks are useful:</p>
+<ul>
+<li>A stack of actions in a text editor allows an undo option.</li>
+<li>Similarly, the back button in a web browser can use a stack.</li>
+<li>Many languages (including Python) are implemented using a stack of active function calls.</li>
+<li>Evaluating arithmetic expressions without the need for brackets (via postfix notation) can be done with a stack.</li>
+<li>A stack can provide a quick method for reversing a sequence of input characters.</li>
+</ul>
+</section>
+<section id="adt-abstract-data-type" class="level2">
+<h2>ADT (Abstract Data Type)</h2>
+<p>ADTs are a way of specifying data structures (such as stacks) precisely, without going into details of how they are implemented underneath.</p>
+</section>
+<section id="stack-adt" class="level2">
+<h2>Stack ADT</h2>
+<ul>
+<li><code>push</code> – place an element onto the top of the stack</li>
+<li><code>pop</code> – get the first element off the top of the stack (and remove it from the stack)</li>
+<li><code>top</code> – report the top element of the stack (but don’t remove it)</li>
+<li><code>length</code> – report how many elements are in the stack</li>
+<li><code>is empty</code> – report whether or not the stack is empty</li>
+</ul>
+</section>
+<section id="implementation" class="level2">
+<h2>Implementation</h2>
+<p>The elements in the stack have an order to them, so using a sequence makes sense. We can use a Python list. Due to the way Python manages memory for lists, we should add and delete at the end of the list to do it most efficiently.</p>
+<section id="code" class="level3">
+<h3>Code</h3>
+<pre><code>class Stack(object):
+    def__init__(self):
+        self._alist = []
+        
+    def push(self, element):
+        self._alist.append(element)
+        
+    def pop(self):
+        if len(self._alist) == 0:
+            return None
+        return self._alist.pop()
+        
+    def top(self):
+        if len(self._alist) == 0:
+            return None
+        return self._alist[-1]
+        
+    def length(self):
+        return len(self._alist)
+        
+    def is_empty(self):
+        return len(self._alist) == 0</code></pre>
+</section>
+<section id="complexity" class="level3">
+<h3>Complexity</h3>
+<ul>
+<li><code>List.append</code> and <code>List.pop</code> are O(1) on average (due to Python’s memory reshuffling).
+<ul>
+<li>Our <code>push</code> and <code>pop</code> methods are O(1) on average.</li>
+</ul></li>
+<li>List index lookup is O(1).
+<ul>
+<li>Our <code>top</code> method is O(1).</li>
+</ul></li>
+<li>List length is O(1).
+<ul>
+<li>Our <code>length</code> method is O(1).</li>
+<li>Our <code>is_empty</code> method is O(1).</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sample Exam Material</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="true-false-questions" class="level1">
+<h1>True-False Questions</h1>
+<p>There tend to be true-false questions, like:</p>
+<ul>
+<li><p>A router is classified as an edge or core device?</p>
+<ul>
+<li>core</li>
+</ul></li>
+<li><p>HTTP is an application layer protocol.</p>
+<ul>
+<li>true</li>
+</ul></li>
+<li><p>DNS is mainly used to find the IP address corresponding to a hostname.</p>
+<ul>
+<li><p>true</p></li>
+<li><p>also does some geolocation-type features</p></li>
+</ul></li>
+<li><p>Link bandwidth is measured in ms.</p>
+<ul>
+<li>false</li>
+</ul></li>
+<li><p>Checksum in UDP allows the receiver to detect errors in the received segment.</p>
+<ul>
+<li>true</li>
+</ul></li>
+<li><p>SNMP is a protocol for internet email delivery.</p>
+<ul>
+<li><p>false</p></li>
+<li><p>actually network management</p></li>
+</ul></li>
+<li><p>10,000 kbps &gt; 100 mbps?</p>
+<ul>
+<li>false</li>
+</ul></li>
+<li><p>DSL uses the existing phoneline rather than a dedicated fibre link.</p>
+<ul>
+<li>true</li>
+</ul></li>
+<li><p>UDP uses port numbers to identify the destination host computer.</p>
+<ul>
+<li><p>false</p></li>
+<li><p>port numbers identify the process on the destination computer</p></li>
+</ul></li>
+<li><p>there are 5 layers in the internet protocol architecture</p>
+<ul>
+<li><p>true</p></li>
+<li><p>7 layers in the OSI model</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="autumn-2013" class="level1">
+<h1>Autumn 2013</h1>
+<section id="q1-b" class="level2">
+<h2>Q1 (b)</h2>
+<ul>
+<li><p>bandwidth […]</p></li>
+<li><p>throughput […]</p></li>
+<li><p>queueing delay measure in ms, amount of time packets spend in queue between the sender and destination (queues are in routers)</p></li>
+<li><p>congestion is when the queues in routers are overflowing and packets are getting dropped. A router is congested if it drops a packet because the queue is full.</p></li>
+<li><p>statistical multiplexing is about sharing links – sender is given access to the whole link for the duration of sending its packet. Copes very well when there isn’t a fixed number of senders, and when you don’t know what the traffic demand of the senders is. Can have congestion though.</p></li>
+</ul>
+</section>
+<section id="q2-a" class="level2">
+<h2>Q2 (a)</h2>
+<ul>
+<li><p>technical attributes: latency, contention, security, bandwidth, symmetric/asymmetric</p></li>
+<li><p>latency related to throughput</p></li>
+<li><p>contention: connection shared or do you have it all to yourself?</p>
+<ul>
+<li><p>e.g. ADSL not shared with neighbours</p></li>
+<li><p>at some point you share the link (after the access point)</p></li>
+<li><p>cable modems shared with neighbours</p></li>
+<li><p>fibre to the home should have no contention</p>
+<ul>
+<li>depends on the type of fibre</li>
+</ul></li>
+<li><p>cellular is shared</p></li>
+</ul></li>
+<li><p>security</p>
+<ul>
+<li><p>wireless is the easiest for someone to capture your packets</p></li>
+<li><p>more difficult for other technologies</p></li>
+</ul></li>
+<li><p>bandwidth</p>
+<ul>
+<li><p>fibre to the home is the gold standard (based on the technology)</p></li>
+<li><p>ADSL limited by distance from central office</p></li>
+<li><p>cable modems limited by contention</p></li>
+<li><p>cellular is the lowest</p></li>
+</ul></li>
+<li><p>symmetric</p>
+<ul>
+<li><p>ADSL is asymmetric</p></li>
+<li><p>cable modems also asymmetric</p></li>
+<li><p>fibre to the home usually symmetric</p></li>
+<li><p>cellular usually asymmetric</p></li>
+</ul></li>
+</ul>
+<p>## Q2 (b)</p>
+<ul>
+<li>calculation question</li>
+</ul>
+<ol type="i">
+<li><p>1 Mb/s is the bottleneck</p></li>
+<li><p>calculation</p>
+<ul>
+<li><p>think about queueing delay, transmission delay, and propagation delay</p></li>
+<li><p>normally would need to calculate propagation delay yourself</p></li>
+<li><p>propagation delay on each link</p></li>
+<li><p>need to calculate transmission delay for each link</p></li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="general-points" class="level1">
+<h1>General Points</h1>
+<ul>
+<li><p>less is more and bullet points are appropriate</p></li>
+<li><p>this year’s exam will be roughly the same (structure-wise) as previous years</p></li>
+<li><p>these things will not be on the <em>summer</em> exam:</p>
+<ul>
+<li><p>ftp / email</p></li>
+<li><p>network management</p></li>
+<li><p>lab material (socket programming etc.)</p></li>
+<li><p>network security and network history</p></li>
+</ul></li>
+<li><p>lecturer is open to emails and also you can send him sample answers for feedback</p></li>
+</ul>
+</section>
+</body>
+</html>

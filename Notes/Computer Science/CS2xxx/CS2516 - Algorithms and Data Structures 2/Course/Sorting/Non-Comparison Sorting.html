@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Non-Comparison Sorting</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="limits-to-comparison-sorting" class="level1">
+<h1>Limits to Comparison Sorting</h1>
+<p>We can’t do any better than O(n log n).</p>
+<p>All the algorithms so far are based on repeated comparisons between pairs of elements. These comparisons provide the biggest chunk of the complexity.</p>
+<p>How many do we need to do?</p>
+<ul>
+<li>Consider an arbitrary sorting algorithm that uses <em>only</em> comparisons to decide on the relative placement of elements.</li>
+<li>Consider an arbitrary input list consisting of some permutation of n distinct elements</li>
+<li>Build a binary tree to represent all possible sequences of comparisons that out algorithm does to the input list.
+<ul>
+<li>At each node in the tree, branch left if the test is true, branch right if not</li>
+</ul></li>
+<li>[…]</li>
+</ul>
+<p>E.g. consider any comparison sort of a list of three elements V1, V2, and V3. At the start, we know nothing about their relative ordering. With each node, write down everything we have learned in the current path. Pick the questions randomly.</p>
+<p>Suppose we do the same for input lists of n distinct items. Every permutation of the input given will end a different leaf node.</p>
+<p>Proof by contradiction:</p>
+<ul>
+<li>Suppose two different input permutations end up at the same leaf</li>
+<li>The leaf determines the final order of the input elements by their initial position</li>
+<li>But in the inputs there must have been some case where Vi &lt; Vj in one list and Vi &gt; Vj in the other</li>
+<li>For those two positions, the leaf will definitely choose one of the two orderings</li>
+<li>So one of the two input lists must end up with an incorrectly sorted output</li>
+<li>But each leaf in our tree correctly sorts the input -&gt; contradiction</li>
+<li>So two different inputs must end up at different leaves.</li>
+</ul>
+<p>So there must be one leaf for every possible permutation of the n distinct items – n! different permutations.</p>
+<p>There are n! different leaf nodes. There must be at least n! nodes in the tree.</p>
+<p>The tree must have at least depth log(n!).</p>
+<p>n! = n * (n-1) * … * 1</p>
+<p>At least n/2 factors in that product are &gt;= n/2.</p>
+<p>n! &gt;= (n/2)<sup>n/2</sup></p>
+<p>[…]</p>
+<p>so log(n!) = Ω(n log n).</p>
+<p>So the depth of the tree is Ω(n log n).</p>
+<p>So there is at least one path to a leaf of length Ω(n log n), which means at least one sequence requires that many comparisons.</p>
+<p>So you cannot get a worst-case running time that’s less than n log n.</p>
+<p>This is a lower bound for all comparison-based sorting. We cannot get a comparison-based sorting algorithm which has worst-case complexity significantly better than heapsort or mergesort.</p>
+<p>(Therefore heapsort and mergesort are Theta(n log n) in the worst case.)</p>
+<p>There are now only two options for improving sorting algorithms:</p>
+<ol type="1">
+<li>Accept that we are not going to get anything significantly better, and just look at improving the expected case, or making small improvements to the worst case.
+<ul>
+<li>Quicksort did this.</li>
+</ul></li>
+<li>Find some way of sorting that is not based on comparing pairs of input elements.</li>
+</ol>
+</section>
+<section id="non-comparison-sorting" class="level1">
+<h1>Non-Comparison Sorting</h1>
+<p>Suppose we knew that all the elements in our input list had values (or keys) within a limited range (e.g. [0, N-1]).</p>
+<p>Use a bucket array with a bucket for each value in the range.</p>
+<ul>
+<li>Iterate through the list, and enqueue each item in the bucket for its value</li>
+<li>Once the list has been processed, take each bucket in turn and dequeue its items into the list in sequence</li>
+</ul>
+<p>This takes 2n steps, and then the list is sorted.</p>
+<section id="pseudocode" class="level2">
+<h2>Pseudocode</h2>
+<p>[…]</p>
+<ul>
+<li>N steps to create each bucket</li>
+<li>2n steps to read each element and add to the correct bucket</li>
+<li>N steps to process each bucket</li>
+<li>n assignments of elements back into the list</li>
+</ul>
+<p>This is O(N + n).</p>
+<p>If N is not big compared to n (i.e. if N is O(n)), the the complexity is O(n).</p>
+<p>If N is O(n^2) or worse, then the complexity is O(n^2) or worse.</p>
+<p>You can get linear-time sorting if you know the range.</p>
+<p>The space requirement is also O(N + n).</p>
+</section>
+<section id="stable-sorting" class="level2">
+<h2>Stable Sorting</h2>
+<p>A sort is stable if items that are equal in the sort appear in their original order.</p>
+<p>A stable sorting algorithm is one that keeps the original order of any pair of items that have equivalent keys.</p>
+<p>Stable sort is preferable because then we know something about the order in the output.</p>
+<p>Formal definition:</p>
+<ul>
+<li>Let x0, x1, … xn be the items in the list in original order.</li>
+<li>Let the key for each item xi be xi.k, and resort the list by the key.</li>
+<li>[…]</li>
+</ul>
+<section id="previous-algorithms" class="level3">
+<h3>Previous Algorithms</h3>
+<ul>
+<li>Our bubblesort, insertionsort, mergesort, and (because we used a queue for each bucket) bucketsort were stable</li>
+<li>Our selectionsort, heapsort, quicksort were not</li>
+</ul>
+</section>
+</section>
+<section id="lexicographic-ordering" class="level2">
+<h2>Lexicographic Ordering</h2>
+<ul>
+<li>Add ‘a’ characters to the smaller string so that they are the same length</li>
+<li>Compare first position
+<ul>
+<li>If they’re equal, compare the second position</li>
+<li>etc.</li>
+</ul></li>
+</ul>
+<section id="lexicographic-sort-of-2-tuples" class="level3">
+<h3>Lexicographic Sort of 2-Tuples</h3>
+<ul>
+<li>Use a stable sort</li>
+<li>Sort by the second element of each tuple</li>
+<li>Resort by the first element of each tuple</li>
+</ul>
+</section>
+</section>
+<section id="radix-sort" class="level2">
+<h2>Radix Sort</h2>
+<p>Apply the last technique using bucket sort.</p>
+<p>O(N + n) for the first sort. O(N + n) for the second sort.</p>
+<section id="with-integers" class="level3">
+<h3>With Integers</h3>
+<p>Sort by the last digit, then the next, and so on until you get to the first digit.</p>
+<p>This cuts N down to 9 for each sort, giving O(9 + n) for each sort.</p>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2>Summary</h2>
+<p>Bubblesort:</p>
+<ul>
+<li>stable</li>
+<li>slower than other O(n^2) algorithms</li>
+<li>never used</li>
+</ul>
+<p>Selectionsort:</p>
+<ul>
+<li>Unstable</li>
+<li>Slow, rarely used</li>
+</ul>
+<p>Insertionsort:</p>
+<ul>
+<li>Good on input that’s close to being sorted</li>
+<li>Can be easily adapted to sort an online stream of incoming data</li>
+<li>Usually better than other O(n^2) algorithms, reasonably fast on smaller inputs</li>
+<li>Often used inside recursive algorithms when the input list gets below a certain size</li>
+</ul>
+<p>Heapsort:</p>
+<ul>
+<li>Complex to write</li>
+<li>Can be written in-place</li>
+<li>Not stable</li>
+<li>Worse-case time complexity is O(n log n)</li>
+<li>Generally slower in practice than other O(n log n) algorithms</li>
+</ul>
+<p>Mergesort:</p>
+<ul>
+<li>Easy to write for linked lists, difficult for a bottom-up array sort</li>
+<li>Difficult to write in-place</li>
+<li>Most implementations are stable</li>
+<li>Worst-case time complexity is O(n log n)</li>
+</ul>
+<p>Quicksort:</p>
+<ul>
+<li>Idea is simple, but need to be careful when implementing</li>
+<li>Can be written as in-place</li>
+<li>Not stable</li>
+<li>Normally faster than O(n log n) algorithms
+<ul>
+<li>Worst case O(n^2) but average is O(n log n)</li>
+</ul></li>
+<li>For a long time, thought to be the best practical algorithm</li>
+</ul>
+<p>Bucketsort:</p>
+<ul>
+<li>Not a comparison sort</li>
+<li>Simple to understand and implement</li>
+<li>Normally implemented to be stable</li>
+<li>Worst case is O(N + n), where N is the range of values to be sorted</li>
+<li>Requires O(N) additional space</li>
+</ul>
+<p>Radix:</p>
+<ul>
+<li>Distribution sort</li>
+<li>Multiple iterations of bucket sort on different keys</li>
+<li>Stable</li>
+<li>Worst case time complexity not clear – based on number of items in the key words, and the number of items</li>
+<li>Not in-place</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Intro & Overview</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="brief-history" class="level1">
+<h1>Brief History</h1>
+<section id="early-computers" class="level2">
+<h2>Early Computers</h2>
+<p>The earliest computers were experimental, and were programmed and operated by the people who designed and built them. It was impossible to use them without knowing a lot about their internal structure.</p>
+<p>Binary code was used for input and for output (bright light is a 1, dull light is a 0).</p>
+<p>There was very little distinction between operation and programming – no long-term storage of programs.</p>
+</section>
+<section id="mainframes" class="level2">
+<h2>Mainframes</h2>
+<p>Large mainframes were the next generation – they were programmed and operated by highly trained staff. No-one except them had access to the computer.</p>
+<p>A command language was used for control, and printed output could be formatted as required.</p>
+<ul>
+<li><p>Computers were expensive and relatively rare, so it was important to use them at maximum potential. You couldn’t afford to let them be idle.</p></li>
+<li><p>Entering code online would be too slow, so they were batch-programmed.</p>
+<ul>
+<li><p>Tasks were prepared offline</p></li>
+<li><p>Batches loaded and run in sequence</p></li>
+<li><p>Operator intervention was just running batches and getting things back working.</p></li>
+<li><p>No interaction while a batch was running</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="terminal-and-server-or-desktop-systems" class="level2">
+<h2>Terminal-and-Server or Desktop Systems</h2>
+<p>These were programmed and operated by trained staff.</p>
+<ul>
+<li><p>A command language used for control</p></li>
+<li><p>Printed output could be formatted as required, and the screen display could be formatted to some extent.</p></li>
+<li><p>Lots of training was involved for office workers to use them.</p></li>
+</ul>
+<p>In order to use a command language effectively, the operator must know a large number of commands and the correct syntax for use with each of them. Psychologists were employed to help create command-sets that were easy to remember. They developed the first guidelines for user-interface design:</p>
+<ul>
+<li>Use memorable command names</li>
+<li>Keep command names short</li>
+<li>Use consistent syntax where possible</li>
+</ul>
+<p>While command languages within a company were pretty consistent, UNIX at the time was very inconsistent, because the whole idea was that different organisations could contribute commands.</p>
+</section>
+<section id="difficulty" class="level2">
+<h2>Difficulty</h2>
+<p>Still, even well-designed command-languages are difficult to learn. In the 1960s, a number of researchers set out to improve this.</p>
+<p>A key problem with command languages is that they rely heavily on recall. Psychological research suggests that humans are better at recognition than recall.</p>
+<p>Recognition requires less mental effort than recall, and is about twice as fast and three times as accurate (Nobel, 2001). This has been well-known since about the 1930s.</p>
+<p>We can see this in facial recognition, or recognition of things in photos.</p>
+</section>
+<section id="short-term-memory" class="level2">
+<h2>Short-Term Memory</h2>
+<p>Human short-term memory is also quite limited. We can only hold a few items in memory at any one time. This makes it difficult to perform mental operations that involve more than a few pieces of data. Think of comparing different computers with all their info and prices.</p>
+<p>However, such tasks become much easier if we write the data down or display it on a screen.</p>
+</section>
+<section id="spatial-memory" class="level2">
+<h2>Spatial Memory</h2>
+<p>Human beings have excellent spatial memory. It’s hard to define, but for example if we’re distracted from reading something, when we come back we can easily remember which part of the page we were on. This is tied into pattern recognition (a mix of upper and lowercase letters makes this easier).</p>
+<p>Recalling where an item is displayed typically requires less memory than recalling what information it contains.</p>
+<p>So the challenge facing researchers was to:</p>
+<ul>
+<li>Reduce reliance on recall</li>
+<li>Support recognition wherever possible
+<ul>
+<li>e.g. by using the screen as a form of external memory</li>
+</ul></li>
+</ul>
+</section>
+<section id="direct-manipulation" class="level2">
+<h2>Direct Manipulation</h2>
+<p>Ben Shneiderman (in 1982) analysed a number of graphical interfaces and concluded that the features that made them successful were:</p>
+<ul>
+<li>Visibility of objects</li>
+<li>Replacement of complex command-languages with actions to manipulate visible objects directly</li>
+<li>Incremental action at the interface with rapid feedback
+<ul>
+<li>E.g. something moving as you drag it</li>
+</ul></li>
+<li>Reversibility of actions
+<ul>
+<li>We expect an “undo” for everything, but it wasn’t common in the past</li>
+<li>Follows from incremental action with rapid feedback</li>
+<li>Once you know there’s no danger and you can undo everything, you’re encouraged to explore, and learn by playing</li>
+</ul></li>
+<li>Syntactic correctness of actions (every action is legal)
+<ul>
+<li>Illegal actions were made difficult to do, and things were greyed out to show that they weren’t desirable actions</li>
+</ul></li>
+<li>Few/no changes of mode
+<ul>
+<li>E.g. different modes in a text editor</li>
+<li>When modes existed, they should be visually signalled (e.g. with a different cursor)</li>
+</ul></li>
+</ul>
+<p>He coined the term Direct Manipulation to describe the style of interaction supported by such interfaces.</p>
+</section>
+<section id="modern" class="level2">
+<h2>Modern</h2>
+<p>GUIs supporting Direct Manipulation are still the basis of most contemporary computing.</p>
+<p>Direct Manipulation has also been extended to accommodate new interaction technologies such as touch-screens and 3D navigation and display.</p>
+<p>However, we’re moving into new eras – speech, auditory, and gestural interaction don’t suit the concept of Direct Manipulation as well.</p>
+<p>Efforts to use such technologies effectively are driving the development of new interaction styles.</p>
+</section>
+<section id="summary" class="level2">
+<h2>Summary</h2>
+<ul>
+<li>Early Computers
+<ul>
+<li>Minimal interaction</li>
+<li>Little distinction between operation and programming
+<ul>
+<li>Lots of expertise required for all use</li>
+</ul></li>
+<li>All interaction based on computer’s requirements
+<ul>
+<li>e.g. binary output</li>
+</ul></li>
+</ul></li>
+<li>Modern Computers
+<ul>
+<li>Extensive interaction</li>
+<li>Control, authoring, scripting, programming, etc.
+<ul>
+<li>Many different levels of expertise supported</li>
+</ul></li>
+<li>Interaction increasingly based on user’s requirements</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="evolution-of-interaction" class="level1">
+<h1>Evolution of Interaction</h1>
+<p>Driving Factors:</p>
+<ol type="1">
+<li>Reductions in cost and size</li>
+<li>Need to support a wide range of users</li>
+<li>Application to a wider range of tasks</li>
+<li>Development of new interaction techniques</li>
+</ol>
+<section id="reductions-in-cost-and-size" class="level2">
+<h2>Reductions in Cost and Size</h2>
+<p>Early computers were expensive, and so had to be used to full potential. There was little need or opportunity for interaction.</p>
+<p>Modern computers are small and cheap, which allows each user to have many computers. Computers are mostly idle.</p>
+</section>
+<section id="need-to-support-a-wide-range-of-users" class="level2">
+<h2>Need to support a wide range of users</h2>
+<p>Early computers could only be operated by highly-trained staff.</p>
+<p>Modern computers are used by a wide range of people with varying needs:</p>
+<ul>
+<li>novices and experts</li>
+<li>frequent and occasional users</li>
+<li>users with special needs</li>
+</ul>
+<p>Improvements in accessibility are increasingly being driven by legal requirements, e.g. the Americans with Disabilities Act, the UN Convention on the Rights of Persons with Disabilities.</p>
+</section>
+<section id="application-to-a-wider-range-of-tasks" class="level2">
+<h2>Application to a wider range of tasks</h2>
+<p>Early computers were used for a limited range of tasks.</p>
+<p>Modern computers used for a wider range of tasks:</p>
+<ul>
+<li><p>Casual/occasional tasks for which training is not feasible</p>
+<ul>
+<li><p>It’s not reasonable to expect people to become expert at using every application they encounter, particularly applications they use infrequently.</p>
+<ul>
+<li><p>It is easy enough to support occasional/non-expert users in simple tasks.</p></li>
+<li><p>It is more difficult to support occasional/non-expert users in complex tasks.</p></li>
+</ul></li>
+<li><p>Web applications and smartphone apps are becoming as sophisticated as stand-alone applications.</p>
+<ul>
+<li><p>However, users have little commitment to individual applications.</p></li>
+<li><p>They are unlikely to read complex instructional material, and if they find a site complex or difficult they’ll go elsewhere</p></li>
+</ul></li>
+</ul></li>
+<li><p>We’re increasingly using software in place of people.</p></li>
+<li><p>Safety-critical control applications</p>
+<ul>
+<li><p>Computers are widely used in military/aircraft systems, medical systems, plant control (nuclear/chemical/etc.)</p></li>
+<li><p>Even highly trained staff make mistakes, so software has to be designed to prevent mistakes wherever possible.</p></li>
+</ul></li>
+<li><p>Games and other entertainment applications</p></li>
+<li><p>Hands-free applications</p></li>
+</ul>
+</section>
+<section id="development-of-new-interaction-techniques" class="level2">
+<h2>Development of new interaction techniques</h2>
+<ul>
+<li>touch screens (including multi-touch screens), 3D displays</li>
+<li>joysticks, 3D mice, and other input devices</li>
+<li>speech synthesis and recognition</li>
+<li>tactile feedback devices</li>
+<li>spatial and other auditory displays</li>
+<li>image recognition, eye-tracking, movement tracking, etc.</li>
+</ul>
+</section>
+</section>
+<section id="the-future" class="level1">
+<h1>The Future</h1>
+<p>In the future, it is likely that human-computer interaction will become more like human-human interaction:</p>
+<ul>
+<li>proactive rather than reactive
+<ul>
+<li>e.g. if you’re speaking to someone, they’re usually anticipating your needs at that moment</li>
+<li>we don’t tell people things we think they already know</li>
+<li>in speech, both sides are equal participants</li>
+</ul></li>
+<li>context-aware
+<ul>
+<li>if you make the same mistake several times with a computer you get the same message</li>
+<li>with a person, they’ll realise they’re not getting through to you and will change what they’re saying</li>
+</ul></li>
+<li>adaptive
+<ul>
+<li>rather than work the same way for everyone, software changes to deal with different people</li>
+<li>e.g. e-learning – does this learner work better with pictures or text?</li>
+</ul></li>
+</ul>
+<section id="reactive-vs.proactive-systems" class="level2">
+<h2>Reactive vs. Proactive Systems</h2>
+<section id="proactive" class="level3">
+<h3>Proactive</h3>
+<ul>
+<li>systems or user can initiate actions</li>
+<li>user attention is elsewhere (hands-free, eyes-free)</li>
+<li>context-aware</li>
+<li>adaptivity essential for effective operation</li>
+</ul>
+</section>
+<section id="reactive" class="level3">
+<h3>Reactive</h3>
+<ul>
+<li>user always initiates actions</li>
+<li>computer is focus of user attention</li>
+<li>context-free</li>
+<li>little need for adaptability</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="usability-engineering" class="level1">
+<h1>Usability Engineering</h1>
+<section id="accessibility" class="level2">
+<h2>Accessibility</h2>
+<p>Some users may have special needs. Software should be designed so that users with special needs can use it as easily as other users can, but this is difficult to achieve.</p>
+<p>For example, people who are blind/visually-impaired can operate GUIs with the help of a screen reader. However, screen-reader users tend to:</p>
+<ul>
+<li>work more slowly</li>
+<li>make more errors</li>
+<li>report higher levels of fatigue</li>
+</ul>
+<p>Giving users with special needs the same level of access as other users is a major challenge.</p>
+<p>Wherever possible, users should be able to enter data and receive feedback in a form that is natural and appropriate to the task at hand.</p>
+</section>
+<section id="summary-1" class="level2">
+<h2>Summary</h2>
+<p>A good interface should:</p>
+<ul>
+<li>be as easy to learn and remember as possible
+<ul>
+<li>but sometimes learning new skills is unavoidable or desirable</li>
+</ul></li>
+<li>contain functions that are genuinely useful
+<ul>
+<li>exclude functions that increase complexity without improving utility</li>
+<li>offer sufficient flexibility to cope with changing work-patterns</li>
+</ul></li>
+<li>enable users to work efficiently
+<ul>
+<li>it should be possible to achieve goals quickly and with few errors</li>
+<li>may want low throughput but low number of errors made</li>
+</ul></li>
+<li>be easy and pleasant to use
+<ul>
+<li>not place a high cognitive load on the user</li>
+<li>allow the user to feel in control</li>
+</ul></li>
+</ul>
+<p>Users:</p>
+<ul>
+<li><p>may have a very different view of that task/application domain from our own</p></li>
+<li><p>may differ considerably - we may have to design with several distinct groups of users in mind</p></li>
+<li><p>may change in their abilities/requirements while using the software</p></li>
+<li><p>may give all of only part of their attention to a task</p></li>
+<li><p>may vary in their motivation</p></li>
+<li><p>may be using a system for themselves of on behalf of somebody else</p></li>
+<li><p>will find the system more efficient and pleasant to use if we minimise the amount of translation required at the interface</p></li>
+</ul>
+</section>
+</section>
+<section id="key-skillsknowledge-in-hci" class="level1">
+<h1>Key Skills/Knowledge in HCI</h1>
+<ul>
+<li>Interaction styles
+<ul>
+<li>e.g. direct manipulation</li>
+</ul></li>
+<li>Interaction technology
+<ul>
+<li>e.g. a mouse is the best compromise</li>
+</ul></li>
+<li>Human psychology/perception/etc.
+<ul>
+<li>memory</li>
+<li>perception of colours</li>
+</ul></li>
+<li>Design/Evaluation techniques
+<ul>
+<li>guidelines
+<ul>
+<li>Some people think guidelines are useful, some think they’re unhelpful</li>
+</ul></li>
+<li>metrics
+<ul>
+<li>used as soon as possible in the creation of something</li>
+</ul></li>
+<li>modelling
+<ul>
+<li>can be done before investing time and effort into something</li>
+</ul></li>
+<li>iterative design and evaluation</li>
+</ul></li>
+</ul>
+<section id="interaction-styles" class="level2">
+<h2>Interaction Styles</h2>
+<ul>
+<li>Command language</li>
+<li>Form filling</li>
+<li>Menu selection</li>
+<li>Function keys</li>
+<li>Question and answer</li>
+<li>Direct manipulation</li>
+<li>Anthropomorphic / natural language</li>
+</ul>
+</section>
+<section id="interaction-technologies" class="level2">
+<h2>Interaction Technologies</h2>
+<ul>
+<li>Input
+<ul>
+<li>pointing/selection (mouse, joystick, touchscreen, eye-gaze)</li>
+<li>text entry (keyboard, keypad, speech)</li>
+</ul></li>
+<li>Output
+<ul>
+<li>Visual</li>
+<li>Audio</li>
+<li>Tactile</li>
+</ul></li>
+</ul>
+</section>
+<section id="human-psychology-and-perception" class="level2">
+<h2>Human Psychology and Perception</h2>
+<ul>
+<li>Visual Perception</li>
+<li>Auditory perception</li>
+<li>Tactile</li>
+<li>Memory
+<ul>
+<li>will start with this</li>
+</ul></li>
+</ul>
+</section>
+<section id="guidelines" class="level2">
+<h2>Guidelines</h2>
+<ul>
+<li>Web content accessibility guidelines</li>
+<li>eight golden rules (Shneiderman)</li>
+<li>Smith &amp; Mosier Guidelines for UI software</li>
+<li>OSF Style Guide</li>
+<li>Johnson’s GUI Bloopers</li>
+<li>Human interface guidelines (Apple)</li>
+<li>Speech interface guidelines (Larson)</li>
+</ul>
+</section>
+<section id="metrics" class="level2">
+<h2>Metrics</h2>
+<p>These are used once you have a system, to measure it – kind of a counterpart to guidelines</p>
+<ul>
+<li>SUMI, WAMMI</li>
+<li>Accessibility validators</li>
+</ul>
+</section>
+<section id="modelling-techniques" class="level2">
+<h2>Modelling Techniques</h2>
+<p>Won’t go into these in any detail, just a flavour of them</p>
+<ul>
+<li><p>Task Analysis</p>
+<ul>
+<li><p>hierarchical task analysis</p></li>
+<li><p>knowledge-based analysis</p></li>
+<li><p>entity-relationship techniques</p></li>
+</ul></li>
+<li><p>Cognitive Modelling</p>
+<ul>
+<li><p>task-goal hierarchies</p></li>
+<li><p>linguistic/grammatical models</p></li>
+<li><p>device-level models</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="design-evaluation-techniques" class="level2">
+<h2>Design &amp; Evaluation Techniques</h2>
+<ul>
+<li><p>Questionnaire design</p></li>
+<li><p>Experimental design</p></li>
+<li><p>Statistical analysis</p>
+<ul>
+<li>Was the difference relevant?</li>
+</ul></li>
+<li><p>Iterative design and evaluation</p>
+<ul>
+<li>Part of a design cycle</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</body>
+</html>

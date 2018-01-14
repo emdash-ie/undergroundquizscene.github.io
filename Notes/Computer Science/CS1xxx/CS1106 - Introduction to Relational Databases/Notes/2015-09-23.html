@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-23</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sql-basics-cont." class="level1">
+<h1>SQL Basics (cont.)</h1>
+<p>Question: “If you put in an imaginary date, say a 13 in the month column, would SQL give an error?”<br />
+Answer: “It depends. Mostly it should, but different SQL engines will respond differently. Typically this is a point you would look up, rather than remember.</p>
+<section id="conditions-involving-text" class="level2">
+<h2>Conditions Involving Text</h2>
+<p>Example:</p>
+<blockquote>
+<p>SELECT *</p>
+<p>FROM students</p>
+<p>WHERE first_name = ‘Kieran’;</p>
+</blockquote>
+<p>Note:</p>
+<ul>
+<li><p>‘Kieran’, ‘kieran’ and ‘KiErAn’ treated as equal</p></li>
+<li><p>‘Kieran’, ‘Kieran’ and ‘Kieran’ treated as unequal (spaces)</p></li>
+<li><p>There is a way of making SQL case-sensitive, but we’ll leave that alone for the moment.</p></li>
+</ul>
+</section>
+<section id="case-sensitivity" class="level2">
+<h2>Case-sensitivity</h2>
+<p>Linux filenames are case sensitive, while Windows filenames aren’t (examples)</p>
+<p>SQL technically isn’t case-sensitive, but not all implementations respect this, especially with table name and database names.</p>
+<p>It is safest to work as if SQL is case-sensitive and to be consistent.</p>
+</section>
+<section id="comparing-strings" class="level2">
+<h2>Comparing Strings</h2>
+<p>In everyday life we use dictionary ordering to order words:</p>
+<p>e.g. aardvark &lt; anaconda &lt; armadillo &lt; baboon &lt; cat &lt; zebra</p>
+<p>Note: computer &lt; computers (space &lt; a)</p>
+<p>SQL expands on this by giving symbols their own letter positions.</p>
+</section>
+<section id="comparisons-involving-different-types" class="level2">
+<h2>Comparisons Involving Different Types</h2>
+<p>Comparing integers to strings (e.g.) satisfies SQL’s rules, but makes no sense.</p>
+<p>Most of the time you’ll get an empty results table, but the results can be unpredictable.</p>
+<p>Avoid these kinds of comparisons.</p>
+</section>
+<section id="escape-characters" class="level2">
+<h2>Escape Characters</h2>
+<p>If you have a name with an apostrophe in it (e.g. O’Reilly), you need to take precautions to avoid syntax errors.</p>
+<p>Precede the apostrophe in the word with a “\”, e.g.:</p>
+<p>SELECT… = ‘O\’Reilly’</p>
+<p>For a backslash, type “\\”.</p>
+</section>
+</section>
+<section id="more-sql-basics" class="level1">
+<h1>More SQL Basics</h1>
+<section id="conditions" class="level2">
+<h2>Conditions</h2>
+<p>The SQL conditions “hometown = ‘Cork’” and “points &gt;= 500” are either true or false for each row in the table students.</p>
+<p>They are expressions with true/false value.</p>
+<p>What if we want both to be true?</p>
+<p>Use the keyword AND:</p>
+<blockquote>
+<p>SELECT …<br />
+FROM …<br />
+WHERE hometown = ‘Cork’ AND points &gt;= 500;</p>
+</blockquote>
+<p>PHP also includes and/or operators (subtle differences)</p>
+<p>There is also the OR keyword, which operates as a normal logical or.</p>
+<p>Note we can’t simplify “hometown = ‘Cork’ OR hometown = ‘Limerick’” to “hometown = ‘Cork’ OR ‘Limerick’”.</p>
+<p>Have to put in the “hometown =” for each one.</p>
+<p>Also, can use brackets for grouping.</p>
+</section>
+<section id="andor-precedence" class="level2">
+<h2>AND/OR Precedence</h2>
+<p>AND is evaluated before OR, except where brackets are used appropriately.</p>
+</section>
+<section id="in-keyword" class="level2">
+<h2>IN Keyword</h2>
+<p>…WHERE points &gt;= 500 AND</p>
+<p>hometown IN (‘Cork’, ‘Limerick’, ‘Tralee’);</p>
+<p>If the value in the hometown entry is a member of the set specified after IN, the IN operation returns true.</p>
+</section>
+</section>
+</body>
+</html>

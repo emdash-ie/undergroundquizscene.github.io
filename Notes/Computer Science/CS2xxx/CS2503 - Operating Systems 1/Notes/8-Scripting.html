@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>8-Scripting</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="scripting" class="level1">
+<h1>Scripting</h1>
+<hr />
+<p>Normally prefix bash programs with <code>#!/bin/bash</code>.</p>
+<section id="simple-commands" class="level2">
+<h2>Simple Commands</h2>
+<ul>
+<li><code>date</code> – prints today’s date</li>
+<li><code>echo</code> – prints to screen</li>
+<li><code>who</code> – prints who is currently on</li>
+</ul>
+<p>You can put commands all on one line:</p>
+<pre><code>echo -e &quot; `date` \n \t\tWe&#39;re all here now!\n `who` \n\n&quot;</code></pre>
+<p>Here the backticks around date and who cause them to be interpreted as commands.</p>
+</section>
+<section id="path" class="level2">
+<h2>PATH</h2>
+<p>The PATH variable holds the directories searched to find commands. Earlier folders are checked first.</p>
+</section>
+<section id="running-a-script" class="level2">
+<h2>Running a Script</h2>
+<ol type="1">
+<li><code>bash myscript</code></li>
+<li><code>./myscript</code></li>
+<li>Put the script in the path, or in your own folder in the path.</li>
+</ol>
+<p>Putting scripts in the path has some risk.</p>
+</section>
+<section id="echo" class="level2">
+<h2>Echo</h2>
+<p>Echo prints its arguments separated by single spaces, followed by a newline.</p>
+<p>If an echoed variable contains characters listed in <span class="math inline">$IFS, it'll be split along those variables. If you quote it when calling it (`echo &quot;$</span>list“`), it’ll prevent that from happening.</p>
+<section id="n" class="level3">
+<h3><code>-n</code></h3>
+<p>The <code>-n</code> option will prevent a terminating newline, as will putting <code>\c</code> at the end of the string. Putting <code>\c</code> before the end of the line will also drop any other characters after it.</p>
+</section>
+<section id="inconsistency" class="level3">
+<h3>Inconsistency</h3>
+<p>Echo is implemented differently from platform to platform, which can cause problems – it’s better to use <code>printf</code> instead, as it’s derived from C. This still differs between Linux and BSD though.</p>
+</section>
+</section>
+<section id="shell-variables" class="level2">
+<h2>Shell Variables</h2>
+<p>To store values in a shell variable, write the name of the variable followed by an <code>=</code> followed by the value (no spaces).</p>
+<p>The shell treats all variables as strings, and adding spaces around the <code>=</code> sign causes problems because the spaces are included in the strings.</p>
+<p>To refer to the value of a variable, use a <code>$</code> before the variable name:</p>
+<pre><code>echo count      #gives &quot;count&quot;
+echo $count     #gives the value stored in count</code></pre>
+<section id="file-name-substitution-and-variables" class="level3">
+<h3>File Name Substitution and Variables</h3>
+<p>You can define a variable as <code>*</code>:</p>
+<pre><code>x=*</code></pre>
+<p>Now <code>ls $x</code> will produce a directory list. The shell stores the <code>*</code> in x, as the shell doesn’t perform filename substitution when assigning values to variables.</p>
+<p>When you use the command, the shell scans <code>ls $x</code> and substitutes <code>*</code> for <code>$x</code>.</p>
+<p>It then rescans the line and replaces the <code>*</code> with the list of directories.</p>
+</section>
+</section>
+<section id="quotes" class="level2">
+<h2>Quotes</h2>
+<section id="backtick" class="level3">
+<h3>Backtick</h3>
+<p>Backticks execute a command and insert standard output at that point.</p>
+</section>
+<section id="single-quotes" class="level3">
+<h3>Single Quotes</h3>
+<p>Single quotes remove the special meaning of all enclosed characters, including backticks.</p>
+</section>
+<section id="double-quotes" class="level3">
+<h3>Double Quotes</h3>
+<p>Double quotes remove the special meaning of all enclosed characters, except <code>$</code>, backtick, and <code>\</code>.</p>
+</section>
+</section>
+<section id="backquoting" class="level2">
+<h2>Backquoting</h2>
+<pre><code>echo Your current directory is `pwd`</code></pre>
+<p>This outputs your current directory by using the pwd command and putting the result inside the echo output.</p>
+<pre><code>echo &quot;You have `ls | wc -l` files in your directory&quot;</code></pre>
+</section>
+<section id="environment" class="level2">
+<h2>Environment</h2>
+<p>If you create a variable in the shell and then run a script which uses it, it won’t pick up the value by default. You have to use <code>$export x</code> before running <code>bash myscript</code>.</p>
+</section>
+<section id="passing-arguments" class="level2">
+<h2>Passing Arguments</h2>
+<p>Arguments passed are automatically assigned to variables <code>$0</code> (initially the name of the function) to <code>$9</code>, and you can access the first 10 variables like that.</p>
+<p>To access further variables, you need to use the <code>shift</code> command, which performs a left shift of the variables, so <code>$9</code> now contains what was the 11th variable, and <code>$0</code> now contains what was in <code>$1</code>.</p>
+<p><code>$*</code> is expanded to <code>$0 $1 $2…</code>, separated by the Internal Field Separator.</p>
+<p><code>$@</code> does the same but is always separated by spaces – it doesn’t use the IFS.</p>
+<p>If you use <code>&quot;$@&quot;</code>, then it’s equivalent to <code>&quot;$0&quot; &quot;$1&quot; &quot;$2&quot;…</code></p>
+</section>
+<section id="example-scripts" class="level2">
+<h2>Example Scripts</h2>
+<pre><code>#!/bin/bash
+for arg in *
+do
+    echo $arg
+done
+exit 0</code></pre>
+<p>This script echoes the arguments to the script. Note <code>exit 0</code> is a successful exit – exit with any other value is unsuccessful, and you can use different value to mark different errors.</p>
+</section>
+<section id="set" class="level2">
+<h2><code>set</code></h2>
+<p>You can use the <code>set</code> command in a script to set the command-line arguments. This can be useful for testing programs, when you don’t want to keep entering the arguments when you call the script.</p>
+<pre><code>set and baker charlie</code></pre>
+<p>This will set <code>$0</code> to “and”, <code>$1</code> to “baker”, and <code>$2</code> to “charlie”.</p>
+<p><code>set -s</code> is also useful. This will cause the script to exit on any shell command that gives an error. Any command returning a non-zero value will cause it to exit.</p>
+<p>To use <code>set -e</code> with loops, you need to use <code>set +e</code> before your loop and <code>set -e</code> afterwards. (He said this, but the bit above was written on his slides – they seem to contradict each other.)</p>
+<p>Set is useful for turning debugging on and off when you need it with <code>set -v -x</code> and <code>set +v +x</code>.</p>
+<p>If you use <code>sudo</code> and <code>set -e</code> causes the script to exit, you will retain root access when the script exits.</p>
+</section>
+<section id="debugging" class="level2">
+<h2>Debugging</h2>
+<p>You can use the <code>-x</code> flag with bash to give you a trace as bash runs the script. <code>+</code> shows that a line is a trace, <code>++</code> shows that it’s one level deeper. One example:</p>
+<pre><code>filelist=&quot;`ls`&quot;</code></pre>
+<p>gives</p>
+<pre><code>++ ls</code></pre>
+<p>in the trace.</p>
+</section>
+<section id="user-input" class="level2">
+<h2>User Input</h2>
+<p>Data is taken from the user using <code>read</code> or <code>line</code>. <code>line</code> will take an entire line fron STDIN and write it to STDOUT.</p>
+</section>
+<section id="testing-conditions" class="level2">
+<h2>Testing Conditions</h2>
+<p>You can test success of shell commands using <code>while</code>, <code>until</code>, <code>if</code>, <code>&amp;&amp;</code>, <code>||</code>, etc.</p>
+<p><code>0</code> represents <code>true</code> – the program was successful. Any value besides <code>0</code> represents failure.</p>
+<p>You can make a logical expression using <code>test</code> and similar commands. You can also use square brackets, but must have spaces between the brackets and anything else to be parsed correctly.</p>
+<p>You can use <code>-a</code> and <code>-o</code> for AND and OR operators.</p>
+<p>You can use <code>&amp;&amp;</code> and <code>||</code> as a substitute for <code>if/then/else/fi</code>. They are the short-circuit logical operators, so as soon as a series of <code>&amp;&amp;</code>s hits a false condition, it knows that the result is false, so it won’t execute any more of the commands. As soon as a series of <code>||</code>s hits a true condition, it knows that the result is true, so it won’t execute any more of the commands.</p>
+<section id="test-command" class="level3">
+<h3><code>test</code> Command</h3>
+<p>You can write as <code>test …</code>, or as <code>[ … ]</code>. The second is cryptic but traditional, so we need to know it. Reminder that there must be spaces between the brackets and any contents.</p>
+</section>
+</section>
+<section id="string-operators" class="level2">
+<h2>String Operators</h2>
+<ul>
+<li><code>-z</code> to check if a string is zero (empty string) with <code>test</code>.</li>
+<li><code>-n</code> to check it a string is non-zero (not the empty string) with <code>test</code>.</li>
+<li><code>string1 = string2</code> checks if they’re the same (still with <code>test</code>).</li>
+<li><code>string1 != string2</code> checks if they’re different (still with <code>test</code>).</li>
+<li><code>\&lt;</code> and <code>\&gt;</code> to check alphabetical ordering (still with <code>test</code>).</li>
+</ul>
+<p>Note: You can use <code>$?</code> to check the exit status of the last command.</p>
+</section>
+<section id="integer-operators" class="level2">
+<h2>Integer Operators</h2>
+<ul>
+<li><code>-eq</code> – equal</li>
+<li><code>-ne</code> – not equal</li>
+<li><code>-le</code> – less than or equal</li>
+<li><code>-ge</code> – greater than or equal</li>
+<li>…</li>
+</ul>
+</section>
+<section id="file-tests" class="level2">
+<h2>File Tests</h2>
+<ul>
+<li><code>test ! -r &quot;$times&quot;</code> – returns true if the file <code>times</code> is not readable by the user.</li>
+<li><code>test ! -f &quot;$times&quot;</code> – returns true if the file <code>times</code> doesn’t exist or is not an ordinary file (e.g. is a directory).</li>
+<li><code>test -f &quot;$times&quot; -a -r &quot;$times&quot;</code> – returns true if <code>times</code> exists, is an orinary file, and is readable by the user.</li>
+</ul>
+</section>
+<section id="shell-arithmetic" class="level2">
+<h2>Shell Arithmetic</h2>
+<p>By default, variables are assumed to be strings.</p>
+<pre><code>number=2
+number=$number + 4</code></pre>
+<p>This code will give number the string value <code>2 + 4</code> by concatenating it with the string <code>+ 4</code>.</p>
+<p>Note that you need to use <code>=</code> without spaces around it.</p>
+<section id="expr-check-this" class="level3">
+<h3><code>expr</code> [check this]</h3>
+<p><code>expr</code> only works with integers, and you have to use spaces around the operands.</p>
+</section>
+</section>
+<section id="section" class="level2">
+<h2><code>[[ … ]]</code></h2>
+<p>This is another form of <code>test</code> that has some non-standard enhancements (so you can’t rely on these existing on any machine).</p>
+<p>If the argument to the right of <code>=</code> or <code>!=</code> is unquoted, it’s treated as a pattern, e.g. a regex.</p>
+</section>
+<section id="section-1" class="level2">
+<h2><code>(( … ))</code></h2>
+<p>This is a non-standard way of representing <code>expr</code>. However, the logic operates opposite to the shell – it returns false if the arithmetic expressions evaluates to zero, and true otherwise.</p>
+<p>Avoid this if you can, because it’s non-standard.</p>
+</section>
+<section id="ifthenelsefi" class="level2">
+<h2><code>if/then(/else)/fi</code></h2>
+<pre><code>if condition
+    then
+        do some stuff
+    else
+        something else
+fi</code></pre>
+<p><code>fi</code> marks the end of the if section.</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2016-02-17</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="writing-the-ascii-table-to-the-vdu" class="level1">
+<h1>Writing the ASCII Table to the VDU</h1>
+<p>The following code will eventually overwite the contents of the program, as BL overflows past FF:</p>
+<pre><code>mov al, 00
+mov bl, 00
+start:
+inc al
+mov [bl], al
+inc bl
+jmp start
+end</code></pre>
+<p>Note that we can’t alter RAM values directly, e.g. <code>inc c0</code>, so we alter values in registers and move them into memory.</p>
+<section id="fixing-the-code-with-the-compare-instruction" class="level3">
+<h3>Fixing the Code with the Compare Instruction</h3>
+<pre><code>cmp bl, value</code></pre>
+<p>The <code>cmp</code> instruction will subtract ‘value’ from the value in bl. If the contents of bl are equal to value, the zero flag will be set, which we can check on using <code>jz</code>.</p>
+<section id="conditional-jump" class="level5">
+<h5>Conditional Jump</h5>
+<p>We use <code>jz</code> in this case. With this command, a jump is made if the 0 flag is set when we reach the <code>jz</code> instruction.</p>
+<p>So our code now becomes:</p>
+<pre><code>mov al, 00
+begin:
+mov bl, c0
+start:
+inc al
+mov [bl], al
+inc bl
+cmp bl, 00
+jz begin
+jmp start
+end</code></pre>
+<p>We have now added another label. Lots of labels can make a program difficult to read and understand.</p>
+<p>Note also that we could omit the <code>cmp bl, 00</code> line if we wanted, as the <code>inc bl</code> instruction will set the 0 flag once bl gets to 00.</p>
+</section>
+</section>
+</section>
+<section id="taking-input-from-the-keyboard" class="level1">
+<h1>Taking Input from the Keyboard</h1>
+<section id="in-instruction" class="level3">
+<h3>IN Instruction</h3>
+<p>The following code will take input from port 00 (the keyboard port), and place it automatically into the al register:</p>
+<pre><code>in 00</code></pre>
+<p>Input coming from the keyboard will be ASCII data. So, if the user presses the ‘0’ key in reponse to the <code>in 00</code> instruction, the value 30 will be placed into the AL register.</p>
+<p>This makes it easy to reflect keyboard input back onto the VDU:</p>
+<pre><code>    mov bl, c0
+loop:
+    in 00
+    mov [bl], al
+    inc bl
+    jmp loop
+end</code></pre>
+<p>The user’s input is stored in al and displayed also on the VDU, but as the ASCII hex value. E.g. if the user enters ‘1’, the stored value is ‘31’.</p>
+</section>
+<section id="the-out-instruction" class="level3">
+<h3>The Out Instruction</h3>
+<p>We can use the following code to output the value in al to the traffic lights on port 01:</p>
+<pre><code>mov al, fe
+out 01</code></pre>
+<p>Note that the <code>out</code> instruction automatically outputs from a1.</p>
+<p>There are other outputs available on different ports, e.g. a thermometer, a digit display, etc.</p>
+</section>
+<section id="the-stack-pointer" class="level3">
+<h3>The Stack Pointer</h3>
+<p>The stack pointer is an area in the memory where you can temporarily put a value or address that you want to have easy access to.</p>
+<p>The command to put something on the stack is <code>push</code>:</p>
+<pre><code>push al</code></pre>
+<p>You can only push the contents of registers onto the stack. To take something from the stack, use <code>pop</code>:</p>
+<pre><code>pop bl</code></pre>
+<p><code>Pop</code> can also only be used with a register.</p>
+<p>Values in the stack will accumulate back towards 0. When you use the <code>pop</code> instruction, you get the value closest to 0, which is the value most recently put on the stack that has not already been popped.</p>
+<p>This is abbreviated as ‘LIFO’ – ‘Last In, First Out’.</p>
+</section>
+<section id="converting-ascii-values-to-integers" class="level3">
+<h3>Converting ASCII Values to Integers</h3>
+<p>Subtract 30 from an ASCII number digit to give the integer value.</p>
+<p>Here’s an example code to perform an addition based on user input:</p>
+<pre><code>in 00           # Input first operand
+push al         # Move the first operand to the bl register
+pop bl          # using the stack (remember you can&#39;t do &#39;mov al, bl&#39;)
+sub bl, 30      # Convert bl from ASCII
+in 00           # Input second operand
+sub al, 30      # Convert al from ASCII
+add al, bl      # Add operands, leaving result in al
+add al, 30      # Convert back to ASCII
+mov [c0], al    # Display to VDU</code></pre>
+</section>
+</section>
+</body>
+</html>

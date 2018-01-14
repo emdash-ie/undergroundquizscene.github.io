@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>ADTs</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="the-stack" class="level1">
+<h1>The Stack</h1>
+<p>The stack is LIFO (last in, first out) – we add items to the top and we take them from the top.</p>
+<ol type="1">
+<li><code>push(item)</code> – place <code>item</code> on the stack</li>
+<li><code>pop()</code> – remove and return the top element from the stack</li>
+<li><code>top()</code> – report the top element on the stack</li>
+<li><code>length()</code> – report the number of elements on the stack</li>
+<li><code>is_empty()</code> – report whether or not the stack is empty</li>
+</ol>
+</section>
+<section id="the-queue" class="level1">
+<h1>The Queue</h1>
+<p>The queue is FIFO (first in, first out) – when we add an item, we add to the back, and when we take one, we take from the front.</p>
+<ol type="1">
+<li><code>enqueue(item)</code> – place <code>item</code> in the queue</li>
+<li><code>dequeue()</code> – remove and return the next element from the queue</li>
+<li><code>front()</code> – report the next element from the queue</li>
+<li><code>length()</code> – report the number of elements in the queue</li>
+<li><code>is_empty()</code> – report whether or not the stack is empty</li>
+</ol>
+</section>
+<section id="the-priority-queue" class="level1">
+<h1>The Priority Queue</h1>
+<p>The priority queue is similar to a queue, but items are stored with their priority. The element with the highest priority is always removed next.</p>
+<ol type="1">
+<li><code>add(item, key)</code> – place <code>item</code> on the queue with key <code>key</code></li>
+<li><code>remove_min()</code> – remove and return the element in the queue with minimum key (highest priority)</li>
+<li><code>min()</code> – report the element with minimum key (highest priority)</li>
+<li><code>length()</code> – report the number of elements in the queue</li>
+<li><code>is_empty()</code> – report whether or not the queue is empty</li>
+</ol>
+</section>
+<section id="the-list" class="level1">
+<h1>The List</h1>
+<p>Lists are mutable, sequential data structures that can be navigated using index positions, and possibly iterated over.</p>
+<ol type="1">
+<li><code>add(pos, item)</code> – add a new element containing <code>item</code> after position <code>pos</code></li>
+<li><code>add_current(item)</code> – add a new element containing <code>item</code> after the cursor</li>
+<li><code>add_first(item)</code> – add a new element containing <code>item</code> to the start of the list</li>
+<li><code>add_last(item)</code> – add a new element containing <code>item</code> to the end of the list</li>
+<li><code>remove(pos)</code> – remove the element after position <code>pos</code></li>
+<li><code>remove_current()</code> – remove the element at the cursor</li>
+<li><code>remove_first()</code> – remove the first element from the list</li>
+<li><code>remove_last()</code> – remove the last element from the list</li>
+<li><code>replace(pos, item)</code> – replace the element at <code>pos</code> with <code>item</code></li>
+<li><code>replace_current(item)</code> – replace the element at the cursor with <code>item</code></li>
+<li><code>replace_first(item)</code> – replace the first element of the list with <code>item</code></li>
+<li><code>replace_last(item)</code> – replace the last element of the list with <code>item</code></li>
+<li><code>clear()</code> – remove all elements<br />
+———————————————————————–</li>
+<li><code>next()</code> – move the cursor forward 1 place</li>
+<li><code>prev()</code> – move the cursor backward 1 place</li>
+<li><code>move_to_front()</code> – move the cursor to the first element</li>
+<li><code>move_to_last()</code> – move the cursor to the last element<br />
+———————————————————————–</li>
+<li><code>get(pos)</code> – return the element at position <code>pos</code></li>
+<li><code>get_current()</code> – return the element at the cursor</li>
+<li><code>get_first()</code> – return the first element in the list</li>
+<li><code>get_last()</code> – return the last element in the list<br />
+———————————————————————–</li>
+<li><code>find(item)</code> – report the position of the first occurrence of <code>item</code>, if it is in the list</li>
+<li><code>has_next()</code> – report whether or not there are more elements after the cursor</li>
+<li><code>length()</code> – report how many elements are in the list</li>
+<li><code>is_empty()</code> – report whether or not the list is empty</li>
+</ol>
+</section>
+<section id="the-set" class="level1">
+<h1>The Set</h1>
+<p>A set is a collection of elements, with no duplicates, and with no particular order among the elements.</p>
+<ol type="1">
+<li><code>add(item)</code> – add <code>item</code> to this set, if it is not already there</li>
+<li><code>delete(item)</code> – delete <code>item</code> from this set, if it is there</li>
+<li><code>pop()</code> – remove and return an aribitrary element</li>
+<li><code>clear()</code> – remove all elements from the set</li>
+<li><code>contains(item)</code> – report whether or not the set contains <code>item</code></li>
+<li><code>length()</code> – report the number of elements in the set</li>
+<li><code>is_empty()</code> – report whether or not the set is empty<br />
+————————————————————————–</li>
+<li><code>union(other)</code> – return the set containing all elements in this set and all elements in <code>other</code></li>
+<li><code>intersection(other)</code> – return the set containing all elements in this set that are also in <code>other</code></li>
+<li><code>subset(other)</code> – report whether or not this set is a subset of <code>other</code></li>
+<li><code>proper_subset(other)</code> – report whether or not this set is a proper subset of <code>other</code></li>
+<li><code>is_disjoint(other)</code> – report whether or not this set contains no elements that are also in <code>other</code><br />
+————————————————————————–</li>
+<li><code>next()</code> – move the cursor to the next element, in some order</li>
+<li><code>move_to_first()</code> – move the cursor to the first element, in some order</li>
+<li><code>current()</code> – return the element at the cursor</li>
+<li><code>has_next()</code> – report whether or not there is another element in the order after the cursor</li>
+</ol>
+</section>
+<section id="the-position" class="level1">
+<h1>The Position</h1>
+<p>A position represents a node or index in some data structure, and maintains a reference to an element.</p>
+<ol type="1">
+<li><code>element()</code> – return the element at this position</li>
+</ol>
+</section>
+<section id="the-binary-tree" class="level1">
+<h1>The Binary Tree</h1>
+<p>This is a tree in which each node has at most two children. The left child of a node contains an element which is less than the element in the parent node, and the right child of a node contains an element which is greater than the element in the parent node.</p>
+<ol type="1">
+<li><code>add(item)</code> – add <code>item</code> as a new node in the tree</li>
+<li><code>remove(item)</code> – remove <code>item</code> from the tree</li>
+<li><code>search(item)</code> – return the Position of <code>item</code> in the tree</li>
+<li><code>root()</code> – return the Position of the root node of the tree</li>
+<li><code>positions()</code> – return a list of all Positions in the tree</li>
+<li><code>elements()</code> – return a list of all items in the tree</li>
+<li><code>inorder()</code> – return a string in-order traversal of the tree</li>
+<li><code>depth()</code> – report the depth of the tree<br />
+</li>
+<li><code>size()</code> – report the number of items in the tree</li>
+<li><code>is_empty()</code> – report whether or not the tree is empty<br />
+————————————————————————–</li>
+<li><code>parent(p)</code> – return the parent of <code>p</code></li>
+<li><code>left(p)</code> – return the left child of <code>p</code></li>
+<li><code>right(p)</code> – return the right child of <code>p</code></li>
+<li><code>children(p)</code> – return a list of <code>p</code>’s children</li>
+<li><code>is_root(p)</code> – report whether or not <code>p</code> is the root Position</li>
+<li><code>is_leaf(p)</code> – report whether or not <code>p</code> is a leaf</li>
+<li><code>has_left(p)</code> – report whether or not <code>p</code> has a left child</li>
+<li><code>has_right(p)</code> – report whether or not <code>p</code> has a right child</li>
+<li><code>height(p)</code> – report the height of Position <code>p</code></li>
+<li><code>num_children(p)</code> – report the number of children of <code>p</code></li>
+</ol>
+</section>
+<section id="the-map" class="level1">
+<h1>The Map</h1>
+<p>A dictionary or map is a storage and look-up structure maintaining (key, value) pairs. Each value has a unique key. Specifying the key allows us to retrieve the value from the structure.</p>
+<ol type="1">
+<li><code>setitem(key, value)</code> – assign <code>value</code> to the element paired with <code>key</code>, or create a new element with value <code>value</code> and key <code>key</code></li>
+<li><code>delitem(key)</code> – remove the element with key <code>key</code> and return its value</li>
+<li><code>getitem(key)</code> – return the value paired with <code>key</code></li>
+<li><code>contains(key)</code> – report whether or not the map has an element with the key <code>key</code></li>
+<li><code>length()</code> – report the number of elements in the map</li>
+<li><code>is_empty()</code> – report whether or not the map is empty</li>
+</ol>
+</section>
+</body>
+</html>

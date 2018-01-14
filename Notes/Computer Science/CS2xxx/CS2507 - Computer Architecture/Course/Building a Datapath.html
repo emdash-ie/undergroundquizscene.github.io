@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Building a Datapath</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="the-processor" class="level1">
+<h1>The Processor</h1>
+<p>The CPU performance factors are:</p>
+<ul>
+<li>The instruction count
+<ul>
+<li>this is determined by the ISA and the compiler</li>
+</ul></li>
+<li>CPI and cycle time
+<ul>
+<li>This is determined by the CPU hardware</li>
+</ul></li>
+</ul>
+<p>To investigate these we’ll examine two MIPS implementations:</p>
+<ul>
+<li>A simplified version
+<ul>
+<li>This is a simple subset that shows most aspects:
+<ul>
+<li>memory reference</li>
+<li>arithmetic/logical</li>
+<li>control transfer</li>
+</ul></li>
+</ul></li>
+<li>A more realistic pipelined version</li>
+</ul>
+<section id="instruction-execution" class="level2">
+<h2>Instruction Execution</h2>
+<p>There are two basic steps for all instructions:</p>
+<ol type="1">
+<li>Program counter -&gt; instruction memory [?]
+<ul>
+<li>fetch the instruction</li>
+</ul></li>
+<li>Register numbers -&gt; register file
+<ul>
+<li>load data</li>
+<li>read/write registers</li>
+</ul></li>
+</ol>
+<p>Depending on the instruction class, then:</p>
+<ul>
+<li>Use ALU to calculate:
+<ul>
+<li>arithmetic result</li>
+<li>memory address […]</li>
+</ul></li>
+</ul>
+</section>
+<section id="building-a-datapath" class="level2">
+<h2>Building a Datapath</h2>
+<p>A datapath is a set of elements that process data and addresses in the CPU.</p>
+<section id="instruction-fetch" class="level3">
+<h3>Instruction Fetch</h3>
+<ul>
+<li>requires two state elements
+<ul>
+<li>instruction memory</li>
+<li>program counter</li>
+</ul></li>
+<li>increments PC with an added</li>
+</ul>
+</section>
+<section id="r-format-instructions" class="level3">
+<h3>R-Format Instructions</h3>
+<ul>
+<li>The MIPS instructions with 3 registers (source1, source2, and destination).</li>
+</ul>
+<ol type="1">
+<li>Read two register operands</li>
+<li>Perform arithmetic/logical operation</li>
+<li>Write register result</li>
+</ol>
+</section>
+<section id="loadstore-instructions" class="level3">
+<h3>Load/Store Instructions</h3>
+<ol type="1">
+<li>Read register operands</li>
+<li>Calculate address using 16-bit offset
+<ul>
+<li>use ALU, but extend</li>
+</ul></li>
+<li>For:
+<ul>
+<li>Load – read memory and update register</li>
+<li>Store – write register value to memory</li>
+</ul></li>
+</ol>
+</section>
+<section id="branch-instructions" class="level3">
+<h3>Branch Instructions</h3>
+<ol type="1">
+<li>Read register operands</li>
+<li>[check]</li>
+</ol>
+</section>
+</section>
+</section>
+<section id="alu-control" class="level1">
+<h1>ALU Control</h1>
+<p>the ALU is used for:</p>
+<ul>
+<li>Load/Store – uses the add function</li>
+<li>Branch – uses the subtract function</li>
+<li>R-Type instructions – uses a function depending on the funct field</li>
+</ul>
+</section>
+<section id="datapath-control" class="level1">
+<h1>Datapath Control</h1>
+<p>A datapath needs a control because it has sequential circuits which must be clocked.</p>
+</section>
+<section id="implementing-jumps" class="level1">
+<h1>Implementing Jumps</h1>
+<p>Jumps use word addresses.</p>
+<ul>
+<li>Update the PC with concatenation of (in order):
+<ul>
+<li>top 4 bits of old PC value</li>
+<li>26-bit jump address</li>
+<li>00</li>
+</ul></li>
+<li><p>So there’s an upper and lower limit to how far you can jump.</p></li>
+<li>Need an extra control signal decoded from the opcode
+<ul>
+<li>called a jump control</li>
+<li>set only when opcode has the value of 2</li>
+</ul></li>
+</ul>
+</section>
+<section id="performance-issues" class="level1">
+<h1>Performance Issues</h1>
+<p>The longest delay (longest path) determines the clock period. The longest path is the load instruction:</p>
+<ul>
+<li>instruction memory -&gt; register file -&gt; ALU -&gt; data memory -&gt; register file</li>
+</ul>
+<p>It is not feasible to vary the clock period for different instructions, because it becomes too complicated.</p>
+<p>So all instructions are delayed to fit the longest, which violates the design principle of making the common case fast.</p>
+<p>Pipelining can be used to improve performance.</p>
+<section id="pipelining-at-the-instruction-level" class="level2">
+<h2>Pipelining (At the Instruction Level)</h2>
+<p>Overlap execution to give parallelism.</p>
+</section>
+<section id="mips-pipeline" class="level2">
+<h2>MIPS Pipeline</h2>
+<p>Five stages, one step per stage:</p>
+<ol type="1">
+<li>Instruction fetch from memory (IF)</li>
+<li>Instruction decode &amp; register read (ID)</li>
+<li>Execute operation or calculate address (EX)</li>
+<li>Access memory operand (MEM)</li>
+<li>Write result back to register (WB)</li>
+</ol>
+<p>Assume the time for the stages is:</p>
+<ul>
+<li>100 ps for register read or write</li>
+<li>200 ps for other stages</li>
+</ul>
+<p>This gives a total time of 800 ps for the load word instruction:</p>
+<ol type="1">
+<li>200 ps for instruction fetch</li>
+<li>100 ps for register read</li>
+<li>200 ps for ALU operation</li>
+<li>200 ps for memory access</li>
+<li>100 ps for register write</li>
+</ol>
+<p>Whereas the <code>beq</code> instruction had now memory access or register write, and so only takes 500 ps.</p>
+<p>Pipelining works by allowing e.g. the instruction fetch operation for the second instruction to start while the rest of the first instruction happens.</p>
+<section id="pipeline-speedup" class="level3">
+<h3>Pipeline Speedup</h3>
+<p>If all stages are balanced (take the same time), then the time between instructions for pipeline is = time between instructions without a pipeline / number of stages.</p>
+<p>If things aren’t balanced, then the speedup is less.</p>
+<p>Note that the speedup is due to increased throughput – the latency (time for each instruction) does not decrease.</p>
+</section>
+</section>
+<section id="pipelining-and-isa-design" class="level2">
+<h2>Pipelining and ISA Design</h2>
+<p>MIPS is designed for pipelining:</p>
+<ul>
+<li>All instructions are 32-bits
+<ul>
+<li>this makes it easier to fetch and decode in one cycle</li>
+<li>compare with x86, which has 1- to 17-byte instructions</li>
+</ul></li>
+<li>Small number of regular instruction formats (R-format, I-format, jump)
+<ul>
+<li>can decode and read registers in one step</li>
+</ul></li>
+<li>load/store addressing
+<ul>
+<li>can calculate address in 3rd stage, access memory in 4th stage</li>
+</ul></li>
+<li>Alignment of memory operands (word alignment)
+<ul>
+<li>memory access takes only one cycle</li>
+</ul></li>
+</ul>
+</section>
+<section id="hazards" class="level2">
+<h2>Hazards</h2>
+<p>Some situations prevent starting the next instruction in the next cycle.</p>
+<ul>
+<li>structure hazards
+<ul>
+<li>a required resource is busy</li>
+</ul></li>
+<li>data hazards
+<ul>
+<li>need to wait for previous instruction to complete its data read/write</li>
+</ul></li>
+<li>control hazard
+<ul>
+<li>deciding on control action depends on previous instruction</li>
+<li>can’t make the decision what to run next till that instruction has finished</li>
+</ul></li>
+</ul>
+<section id="structure-hazards" class="level3">
+<h3>Structure Hazards</h3>
+<p>Conflict for use of a resource.</p>
+<p>In MIPS pipeline with a single memory:</p>
+<ul>
+<li>load/store requires data access</li>
+<li>instruction fetch would have to stall for that cycle
+<ul>
+<li>this would cause a pipeline “bubble”</li>
+</ul></li>
+</ul>
+<p>So pipelined datapaths require separate instruction/data memories (or separate instruction/data caches). This way you can fetch an instruction and access data (from different instructions) at the same time.</p>
+<p>[missed a lecture on Monday] - week 6?</p>
+</section>
+</section>
+</section>
+<section id="multi-cycle-pipeline" class="level1">
+<h1>Multi-Cycle Pipeline</h1>
+<ul>
+<li>At each stage, different sections (instruction fetch, instruction decode, execution, memory, write back) are being used by/for different instructions.</li>
+</ul>
+<section id="pipelined-control" class="level2">
+<h2>Pipelined Control</h2>
+<p>The control signals are derived from each instruction. Control lines start with execution stage.</p>
+<p>Control signals are passed along from stage to stage with the instruction until they’re used – each stage uses the control signal that’s for it and passes the others along.</p>
+<p>Instruction fetch doesn’t need control signals, because it’s always either fetching the next instruction or fetching a branch instruction.</p>
+</section>
+<section id="hazards-cont." class="level2">
+<h2>Hazards (cont.)</h2>
+<section id="data-hazards" class="level3">
+<h3>Data Hazards</h3>
+<p>Consider this sequence which has dependencies (the same number needs to be used in subsequent stages):</p>
+<pre class="sourceCode mips" id="cb1"><code class="sourceCode mips"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">sub</span> <span class="dt">$2</span>, <span class="dt">$1</span>, <span class="dt">$3</span></div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">and</span> <span class="dt">$12</span>, <span class="dt">$2</span>, <span class="dt">$5</span></div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">or</span> <span class="dt">$13</span>, <span class="dt">$6</span>, <span class="dt">$2</span></div>
+<div class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">add</span> <span class="dt">$14</span>, <span class="dt">$2</span>, <span class="dt">$2</span></div>
+<div class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">sw</span> <span class="dt">$14</span>, <span class="dv">100</span>(<span class="dt">$2</span>)</div></code></pre>
+<p>We can resolve hazards with forwarding. How do we detect when to forward?</p>
+<p>Assuming $2 has the value 10 before the subtraction and -20 after the subtraction.</p>
+<section id="detecting-the-need-to-forward" class="level4">
+<h4>Detecting the Need to Forward</h4>
+<p>Pass register numbers along the pipelines.</p>
+<ul>
+<li><p>e.g. <code>ID/EX.RegisterRs</code> = register number for Rs sitting in ID/EX pipeline register</p></li>
+<li><p>ALU operand register numbers in EX stage are given by: <code>ID/EX.RegisterRs</code>, <code>ID/EX.RegisterRt</code></p></li>
+</ul>
+<p>There is a data hazard when:</p>
+<ul>
+<li><code>EX/MEM.RegisterRd</code> = <code>ID/EX.RegisterRs</code></li>
+<li>or <code>EX/MEM.RegisterRd</code> = <code>ID/EX.RegisterRt</code></li>
+</ul>
+<p>So at these points we need to forward from EX/MEM pipeline register.</p>
+<p>There’s also a data hazard when:</p>
+<ul>
+<li><code>MEM/WB.RegisterRd</code> = <code>ID/EX.RegisterRs</code> or <code>= ID/EX.RegisterRt</code></li>
+</ul>
+<p>At these points we need to forward from MEM/WB pipeline register.</p>
+<p>But these conditions only require forwarding when the forwarding instruction will write to a register, so we check:</p>
+<ul>
+<li>If <code>EX/MEM.RegWrite</code> or <code>MEM/WB.RegWrite</code> is set.</li>
+<li>That <code>Rd</code> for that instruction is not <code>$zero</code>.</li>
+</ul>
+<p>Remember that in MIPS every use of <code>$zero</code> as operand yields an operand value of 0, so every instruction that uses <code>$zero</code> as the destination register will always output a 0.</p>
+</section>
+</section>
+</section>
+<section id="double-data-hazard" class="level2">
+<h2>Double Data Hazard</h2>
+<p>You can also have a double data hazard, which needs different treatment. Consider this sequence:</p>
+<pre class="sourceCode mips" id="cb2"><code class="sourceCode mips"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">add</span> <span class="dt">$1</span>, <span class="dt">$1</span>, <span class="dt">$2</span></div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">add</span> <span class="dt">$1</span>, <span class="dt">$1</span>, <span class="dt">$3</span></div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">add</span> <span class="dt">$1</span>, <span class="dt">$1</span>, <span class="dt">$4</span></div></code></pre>
+<p>Both hazards occur.</p>
+<p>We want to use the most recent result at the MEM stage.</p>
+<p>So we have revise the MEM hazard condition – only forward if EX hazard condition isn’t true (make sure execution hazard is taken care of before we handle the memory hazard).</p>
+</section>
+<section id="data-hazard-and-stalls" class="level2">
+<h2>Data Hazard and Stalls</h2>
+<p>Data forwarding doesn’t work when instruction tries to read a register following a load instruction that writes the same register.</p>
+<p>Something must stall in the pipeline for a combination of load followed by an instruction that reads its result.</p>
+<p>Therefore, we need a hazard detection unit to tell when to stall.</p>
+<section id="load-use-hazard-detection" class="level3">
+<h3>Load-Use Hazard Detection</h3>
+<p>Check when using instruction is decoded in ID stage.</p>
+<p>ALU operand register numbers in ID stage are given by <code>IF/ID.RegisterRs</code> and <code>Rt</code>.</p>
+<p>We have a load-use hazard when:</p>
+<ul>
+<li><code>ID/EX.MemRead and ((ID/EX.RegisterRt = IF/ID.RegisterRs) or (ID/EX.RegisterRt = IF/ID.RegisterRt))</code></li>
+</ul>
+<p>If we detect a load-use hazard, we need to stall and insert a bubble.</p>
+</section>
+<section id="how-to-stall-the-pipeline" class="level3">
+<h3>How to Stall the Pipeline</h3>
+<ul>
+<li>Force control values in ID/EX register to 0
+<ul>
+<li>EX, MEM, and WB do <em>nop</em> (no operation)</li>
+</ul></li>
+<li>prevent update of PC and IF/ID register
+<ul>
+<li>using instruction is decoded again</li>
+<li>following instruction is fetched again</li>
+<li>1-cycle stall allows MEM to read data for <code>lw</code>
+<ul>
+<li>can subsequently forward to EX stage</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="hazards-cont.-1" class="level1">
+<h1>Hazards (cont.)</h1>
+<p>We saw that stalls reduce performance, but that we need them to enable pipelining.</p>
+<p>The compiler can arrange code to avoid hazards and stalls, but this requires knowledge of the pipeline structure (it’s difficult).</p>
+<section id="branch-hazard" class="level2">
+<h2>Branch Hazard</h2>
+<p>We don’t know the result of a branch until after the memory access step.</p>
+<p>Before we know, the instructions following the branch are executed in the meantime (static prediction). If we are branching, the intermediate instructions need to be discarded.</p>
+<p>The number of cycles lost waiting for the branch instruction is called the <code>branch delay</code>.</p>
+<section id="reducing-branch-delay" class="level3">
+<h3>Reducing Branch Delay</h3>
+<p>Try moving the hardware that determines the outcome to the ID stage (previously it was in the ALU). This comprises:</p>
+<ul>
+<li>a target address adder</li>
+<li>a register comparator</li>
+</ul>
+<p>This will allow us to forward the result and branch earlier.</p>
+<ul>
+<li>intermediate instructions are made into a bubble – they will not change anything, though the calculations will be performed.</li>
+</ul>
+</section>
+<section id="data-hazard" class="level3">
+<h3>Data Hazard</h3>
+<p>If a branch instruction uses a register that’s the destination register from previous instructions, then that result might not be ready in time for the branch instruction – this gives us a data hazard within the branch hazard.</p>
+<p>If the branch instruction requires a value from (e.g.) an <code>add</code> instruction immediately before it, then we have to stall the branch instruction for one cycle.</p>
+<p>If the branch instruction comes right after a load instruction, we have to stall the branch for 2 cycles.</p>
+</section>
+<section id="dynamic-branch-prediction" class="level3">
+<h3>Dynamic Branch Prediction</h3>
+<p>In deeper and superscalar pipelines, branch penalty is more significant. Dynamic branch prediction is used for this.</p>
+<ul>
+<li>record every branch that’s taken in a table or buffer
+<ul>
+<li>if we encounter a branch again, we guess that we’ll do the same thing as last time (if we took it then, we’ll predict that it’ll be taken this time)</li>
+<li>this makes sense for loops in programs, where it’ll repeat multiple times from a branch condition</li>
+</ul></li>
+<li>The table is indexed by recent branch instruction addresses</li>
+<li>If the guess is wrong, we flush the pipeline and flip the prediction</li>
+</ul>
+<section id="bit-predictor" class="level4">
+<h4>1-Bit Predictor</h4>
+<ul>
+<li>Only looks at the last branch condition outcome to make prediction</li>
+<li>This mispredicts things a little with nested loops (at the starts and ends of inner loops)</li>
+</ul>
+</section>
+<section id="bit-predictor-1" class="level4">
+<h4>2-Bit Predictor</h4>
+<ul>
+<li>Only changes prediction on two successive mispredictions</li>
+</ul>
+</section>
+<section id="calculating-the-branch-target" class="level4">
+<h4>Calculating the Branch Target</h4>
+<p>Even with a predictor, we need to calculate the target address (the address jumped to if the branch is taken). This gives a 1-cycle penalty for a taken branch.</p>
+<p>We can use a branch target buffer (a cache of target addresses) to overcome this. It’s indexed by the PC when instructions are fetched. If there’s a cache hit and the instruction is predicted as taken, we can fetch the target immediately.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="instruction-level-parallelism" class="level1">
+<h1>Instruction-level Parallelism</h1>
+<ul>
+<li>Deeper pipeline
+<ul>
+<li>make the pipeline longer (more stages)
+<ul>
+<li>break up the longest stage</li>
+<li>less work per stage -&gt; shorter clock cycle</li>
+</ul></li>
+</ul></li>
+<li>multi-issue
+<ul>
+<li>replicate pipeline stages to give multiple pipelines.</li>
+</ul></li>
+</ul>
+<section id="multiple-issue" class="level2">
+<h2>Multiple Issue</h2>
+<ul>
+<li>two types:
+<ul>
+<li>static</li>
+<li>dynamic</li>
+</ul></li>
+</ul>
+<p>Compiler does most of the work in static multiple issue. Detects and avoids hazards by packaging issue slots in different ways.</p>
+<p>In dynamic multi-issue, the CPU does more of the work. Resolves hazards using techniques we’ve seen at runtime.</p>
+</section>
+<section id="speculation" class="level2">
+<h2>Speculation</h2>
+<ul>
+<li>another form of prediction</li>
+<li>used so subsequent instructions can be started quickly</li>
+</ul>
+<section id="compilerhardware-speculation" class="level3">
+<h3>Compiler/Hardware Speculation</h3>
+<ul>
+<li>compiler speculation known as static speculation</li>
+<li>hardware speculation known as dynamic speculation</li>
+</ul>
+</section>
+<section id="speculation-and-exceptions" class="level3">
+<h3>Speculation and Exceptions</h3>
+<p>In static speculation, we can add ISA support for deferring exceptions to a later stage. (Is this a real exception or a false one caused by the re-ordering of instructions?).</p>
+<p>In dynamic speculation, we buffer the exception until instruction completion to determine if it is real. If the exception still exists at a later stage, it’s a real exception.</p>
+</section>
+<section id="static-multiple-issue" class="level3">
+<h3>Static Multiple Issue</h3>
+<ul>
+<li>compiler needs info about pipeline.</li>
+</ul>
+<section id="scheduling-static-multiple-issue" class="level4">
+<h4>Scheduling Static Multiple Issue</h4>
+<p>Compiler must remove some/all hazards while reordering instructions into issue packets with no dependencies within a packet.</p>
+</section>
+</section>
+</section>
+<section id="example-mips-with-static-dual-issue" class="level2">
+<h2>Example: MIPS with Static Dual Issue</h2>
+<ul>
+<li>two-issue packets (each packet has two instructions)</li>
+<li><p>empty things padded with <code>nop</code>s</p></li>
+<li>have to duplicate the hardware</li>
+<li><p>new ALU is not used for normal arithmetic operations, and so is simpler (is still needed for load word instructions)</p></li>
+</ul>
+<section id="hazards-in-dual-issue-mips" class="level3">
+<h3>Hazards in Dual-Issue MIPS</h3>
+<ul>
+<li>load-use hazard
+<ul>
+<li>include a nop to stall</li>
+</ul></li>
+</ul>
+</section>
+<section id="scheduling-example" class="level3">
+<h3>Scheduling Example</h3>
+<ul>
+<li>it looks like the multi-issue code will put the result in the wrong array position to me, but he insists that it’s right</li>
+<li>performance is poor, so we use loop unrolling (see below)</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="loop-unrolling" class="level1">
+<h1>Loop Unrolling</h1>
+<ul>
+<li>replicates loop body to achieve more parallelism
+<ul>
+<li>does it also predict decrements?</li>
+</ul></li>
+<li>have to use different registers for each replication, to avoid different replications using the same register (looks like a dependency to the compiler even though it isn’t)</li>
+</ul>
+</section>
+<section id="dynamic-multiple-issue" class="level1">
+<h1>Dynamic Multiple Issue</h1>
+<section id="dynamic-pipeline-scheduling" class="level2">
+<h2>Dynamic Pipeline Scheduling</h2>
+<ul>
+<li>allow out-of-order execution but writeback has to be in order (to give correct result)</li>
+</ul>
+</section>
+<section id="dynamically-scheduled-cpu" class="level2">
+<h2>Dynamically Scheduled CPU</h2>
+</section>
+<section id="register-renaming-in-dynamic-scheduling" class="level2">
+<h2>Register Renaming in Dynamic Scheduling</h2>
+</section>
+</section>
+</body>
+</html>

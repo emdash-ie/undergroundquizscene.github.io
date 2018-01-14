@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4-Taking User Input</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="taking-user-input" class="level1">
+<h1>Taking User Input</h1>
+<p>(E.g. the currency converter from before)</p>
+<section id="the-form" class="level3">
+<h3>The form</h3>
+<p>The user submits data through a form, then the program runs on the server, and the response to the user comes from the program.</p>
+<p>Example form:</p>
+<pre><code>&lt;form action=&quot;response.py&quot; method=&quot;get&quot;&gt;        &lt;input type=&quot;text&quot; name=&quot;firstname&quot; id=&quot;firstname&quot;&gt;     &lt;input type=&quot;text&quot; name=&quot;surname&quot; id=&quot;surname&quot;&gt;     &lt;input type=&quot;submit&quot; value=&quot;Go!&quot;&gt;   &lt;/form&gt;</code></pre>
+This produces this result:
+<form action method="get">
+<input type="text" name="firstname"> <input type="text" name="surname"> <input type="submit" value="Go!">
+</form>
+<section id="notes" class="level5">
+<h5>Notes:</h5>
+<ul>
+<li>You can label the boxes using <code>&lt;label&gt;</code>, but you need an id attribute for each input so you can make a label for it.</li>
+<li>You can use the placeholder attribute to display label text in the box, that is then overwritten on input. This is useful for small screens.</li>
+<li>You can use set the disabled attribute to prevent a user from entering text into that input. This can be handy for displaying output in a form.</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

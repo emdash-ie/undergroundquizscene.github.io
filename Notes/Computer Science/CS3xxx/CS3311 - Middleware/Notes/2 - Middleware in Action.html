@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2: Middleware in Action</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">2: Middleware in Action</h1>
+</header>
+<section id="example-content-download-on-a-mobile-device" class="level1">
+<h1>Example: Content Download on a Mobile Device</h1>
+<p>The client browser contacts the web server and issues a download request for a page.</p>
+<p>There are a number of interacting devices involved:</p>
+<ul>
+<li>the mobile device</li>
+<li>network devices
+<ul>
+<li>access points</li>
+<li>routers</li>
+</ul></li>
+<li>the web server</li>
+</ul>
+<p>There are also a number of supporting services:</p>
+<ul>
+<li>DHCP
+<ul>
+<li>gives the device an IP address</li>
+</ul></li>
+<li>DNS
+<ul>
+<li>name resolution</li>
+</ul></li>
+<li>Content adaptation</li>
+<li>Caching</li>
+<li>Mobility management
+<ul>
+<li>handles the device moving between access points</li>
+</ul></li>
+</ul>
+<p>These services are considered to be middleware services, because they:</p>
+<ul>
+<li>Support many applications/clients/devices</li>
+<li>Hide heterogeneity</li>
+<li>Remain hidden from the user</li>
+</ul>
+</section>
+<section id="content-adaptation" class="level1">
+<h1>Content Adaptation</h1>
+<p>Changing the delivered content for different users. May happen for a variety of reasons:</p>
+<ul>
+<li>Poor quality of the wireless link</li>
+<li>Limited resources of the mobile device</li>
+<li>User preference
+<ul>
+<li>E.g. users may want to decrease data usage so they don’t hit a cap</li>
+</ul></li>
+<li>Protocols supported by the mobile device</li>
+</ul>
+<p>There are a number of techniques for content adaptation:</p>
+<ul>
+<li>Distillation and refinement</li>
+<li>Summarisation</li>
+<li>Filtering</li>
+<li>Trans-coding</li>
+</ul>
+<section id="distillation-and-refinement" class="level2">
+<h2>Distillation and Refinement</h2>
+<p>Distillation tries to eliminate unnecessary data while preserving the most important data.</p>
+<p>Examples:</p>
+<ul>
+<li>scaling down images in each dimension</li>
+<li>reduction of the colour depth in images and video</li>
+</ul>
+<p>Refinement involves selecting certain parts of the data in its original quality, and is often used with distillation.</p>
+<p>## Summarisation and Filtering</p>
+<p>In summarisation, selected parts of the original data are used, aiming for the least possible loss of information.</p>
+<p>For example, to summarise a video you might use a sequence of still or moving pictures, with or without audio, that preserves the original message.</p>
+<p>In filtering, you transform, drop, or delay data delivery by applying filters on the data path, according to network or device requirements.</p>
+<p>## Trans-Coding</p>
+<p>Trans-coding involves transforming the format and representation of content. It is commonly used for converting video formats (e.g. QuickTime to MPEG), or adjusting HTML and graphics files to mobile devices.</p>
+</section>
+<section id="architectural-solutions" class="level2">
+<h2>Architectural Solutions</h2>
+<p>Server-side adaptation - All processing on the server and the client receives adapted content. - Device detection library is required - Full adaptation possible, fine-grained control</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Review Lecture</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="review-lecture" class="level1">
+<h1>Review Lecture</h1>
+<hr />
+<p>The assignments have been pretty much entirely graded, we’ll see the results soon. None were complete disasters.</p>
+<p>We should have them this afternoon. We can email him with any questions we have.</p>
+<section id="model-view-controller" class="level2">
+<h2>Model View Controller</h2>
+<section id="what-it-is" class="level3">
+<h3>What It Is</h3>
+<p>MVC is a design pattern. It’s a way of organising code.</p>
+<p>It simplifies the coding pocess by having a name for a particular structure, rather than exhaustively describe the entire architecture. People can just say e.g. “I used an MVC design pattern for this code”, instead of explaining the whole thing.</p>
+<p>MVC is mainly for UIs. It separates an application into a Model, a View, and a Controller.</p>
+<section id="the-model" class="level4">
+<h4>The Model</h4>
+<p>The model contains all of the data-related logic of a program. The calculate class in the calculator assignment was the model. It knew about operands and operators, and knew how to use these values to generate answers to simple calculations.</p>
+</section>
+<section id="the-view" class="level4">
+<h4>The View</h4>
+<p>The view is everything the user sees – the buttons and so on.</p>
+</section>
+<section id="the-controller" class="level4">
+<h4>The Controller</h4>
+<p>The model should never interact directly with the view. The controller knows about the model and view and how they should interact in a particular application.</p>
+</section>
+<section id="advantages" class="level4">
+<h4>Advantages</h4>
+<p>When we organise code like this, we can replace the view (if we want to change the layout) without breaking the model. If we also keep all method calls in the view the same, we won’t have to rewrite the controller either.</p>
+<p>Using MVC makes our code simpler, modularised, and reusable.</p>
+</section>
+</section>
+<section id="what-you-need-to-know" class="level3">
+<h3>What You Need to Know</h3>
+<p>You won’t be asked at any point to write code that implements the MVC design pattern. Rather, they’ll be questions looking for explanations about MVC.</p>
+<p>Everything above this point is stuff we need to know, everything below isn’t.</p>
+<section id="what-you-might-like-to-know" class="level4">
+<h4>What You Might Like to Know</h4>
+<p>A typical way of arranging a program using an MVC design pattern is with a class for the model, a class for the view, and a class for the controller.</p>
+<p>These classes would often be stored in separate files, so that you could replace import statements with new import statements in order to change the view or model or controller.</p>
+</section>
+</section>
+</section>
+<section id="regular-expressions" class="level2">
+<h2>Regular Expressions</h2>
+<p>There are two parts to it that we need to know:</p>
+<ul>
+<li>The regular expression itself</li>
+<li>The Python implementation of regex</li>
+</ul>
+<section id="regex" class="level3">
+<h3>Regex</h3>
+<p>The regex itself won’t be super complicated. A good resource would be tutorialspoint.com.</p>
+</section>
+<section id="the-python-part" class="level3">
+<h3>The Python Part</h3>
+<p>The Python part would be very similar to the examples we’ve seen, if it came up.</p>
+<p>Compiling the regular expressions is recommended because it gives nice exceptions if there are errors.</p>
+<section id="example" class="level4">
+<h4>Example</h4>
+<p>Find all words ending in “ly”.</p>
+<pre><code>import re
+
+line = &#39;He was cautiously disguised but found rapidly by the authorities&#39;
+
+pattern = re.compile(r&#39;\w+ly\b&#39;)
+matches = pattern.findall(line)
+
+for match in matches:
+    print(match)
+    </code></pre>
+<p>Note: the ‘r’ before the string in the <code>compile</code> call makes it a raw string – special meanings (in Python) for characters are ignored.</p>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

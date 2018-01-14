@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Revision</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<ul>
+<li><p>don’t just focus on what we’re revising now – everything is important</p></li>
+<li><p>slides might not be online, to prevent people from focusing on them too much</p></li>
+</ul>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<ul>
+<li><p>fundamentals of computer design</p></li>
+<li><p>hardware/software interface</p></li>
+<li><p>program performance and how it can be improved</p></li>
+<li><p>hardware techniques to improve performance</p></li>
+<li><p>hardware techniques to improve energy efficiency</p></li>
+<li><p>instruction set principles</p></li>
+<li><p>pipelining</p></li>
+<li><p>memory hierarchy</p></li>
+<li><p>parallel processors</p></li>
+</ul>
+</section>
+<section id="computer-architecture-8-great-ideas" class="level1">
+<h1>Computer Architecture – 8 Great Ideas</h1>
+<ol type="1">
+<li><p>Design for Moore’s Law</p>
+<ul>
+<li><p>design for rapid change</p></li>
+<li><p>design process for computer takes a long time, so predict rapid change</p></li>
+</ul></li>
+<li><p>Use abstraction to simplify design</p>
+<ul>
+<li>representing hardware and software at different levels</li>
+</ul></li>
+<li><p>Make the common case fast</p>
+<ul>
+<li>easier to improve on simple cases than complex ones</li>
+</ul></li>
+<li><p>Performance via parallelism</p>
+<ul>
+<li>parallel operations are faster</li>
+</ul></li>
+<li><p>Performance via pipelining</p>
+<ul>
+<li>sequential pattern of parallelism</li>
+</ul></li>
+<li><p>Performance via prediction</p>
+<ul>
+<li><p>operating based on healthy guess</p></li>
+<li><p>cost of misprediction important</p></li>
+</ul></li>
+<li><p>Hierarchy of memories</p>
+<ul>
+<li><p>arranging memory according to cost/fastness</p></li>
+<li><p>memory the main limitation on the program speed (since the processor is faster)</p></li>
+</ul></li>
+<li><p>Dependability via redundancy</p>
+<ul>
+<li><p>including redundant components for addressing failure</p></li>
+<li><p>parallel processors</p></li>
+</ul></li>
+</ol>
+</section>
+<section id="hardwaresoftware-program-translation" class="level1">
+<h1>Hardware/Software – Program Translation</h1>
+<ul>
+<li><p>application software (top)</p>
+<ul>
+<li>written in high-level languages (far from machine language)</li>
+</ul></li>
+<li><p>system software</p>
+<ul>
+<li><p>compiler: translates HLL code to machine code</p>
+<ul>
+<li>assembler the first type of translator (not compiler?)</li>
+</ul></li>
+<li><p>operating system: service code</p>
+<ul>
+<li><p>handling I/O</p></li>
+<li><p>managing memory and storage</p></li>
+<li><p>scheduling tasks &amp; sharing resources</p></li>
+</ul></li>
+</ul></li>
+<li><p>hardware (bottom)</p>
+<ul>
+<li>processor, memory, I/O controllers</li>
+</ul></li>
+</ul>
+<section id="levels-of-program-code" class="level2">
+<h2>Levels of Program Code</h2>
+<ul>
+<li><p>high-level language</p>
+<ul>
+<li><p>level of abstraction closer to problem domain</p></li>
+<li><p>provides for portability and productivity</p></li>
+</ul></li>
+<li><p>assembly language</p>
+<ul>
+<li><p>symbolic representation of machine instructions</p></li>
+<li><p>human-understandable</p></li>
+</ul></li>
+<li><p>hardware representation</p>
+<ul>
+<li><p>bits</p></li>
+<li><p>encoded instructions and data</p></li>
+</ul></li>
+</ul>
+<p>Note: diagram with assembler, compiler, linker, loader important – learn to reproduce it.</p>
+</section>
+</section>
+<section id="computer-components" class="level1">
+<h1>Computer Components</h1>
+<ul>
+<li><p>classic components:</p>
+<ul>
+<li><p>inputs</p></li>
+<li><p>outputs</p></li>
+<li><p>memory</p></li>
+<li><p>processor (datapath and control units)</p></li>
+</ul></li>
+</ul>
+<p>Same components for all kinds of computer (desktop, server, supercomputer, embedded system).</p>
+<section id="inside-the-processor" class="level2">
+<h2>Inside the Processor</h2>
+<ul>
+<li><p>datapath</p>
+<ul>
+<li>performs operations on data</li>
+</ul></li>
+<li><p>control</p>
+<ul>
+<li>sequences datapath, memory access</li>
+</ul></li>
+<li><p>cache memory</p>
+<ul>
+<li>small fast SRAM memory for immediate access to data</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="understanding-performance" class="level1">
+<h1>Understanding Performance</h1>
+<p>Number of things matter:</p>
+<ul>
+<li><p>algorithm</p>
+<ul>
+<li>determines number of operations executed</li>
+</ul></li>
+<li><p>programming languages, compiler, architecture</p>
+<ul>
+<li>determine the number of machine instructions executed per operation</li>
+</ul></li>
+<li><p>I/O system (including OS)</p>
+<ul>
+<li>determines how fast I/O operations are executed</li>
+</ul></li>
+<li><p>processor and memory system</p>
+<ul>
+<li>determine how fast instructions are executed</li>
+</ul></li>
+</ul>
+<section id="system-performance" class="level2">
+<h2>System Performance</h2>
+<ul>
+<li><p>response time:</p>
+<ul>
+<li><p>how long it takes to do a task</p></li>
+<li><p>aka. execution time</p></li>
+<li><p>important for personal mobile device</p></li>
+</ul></li>
+<li><p>throughput</p>
+<ul>
+<li><p>total work done per unit time</p>
+<ul>
+<li><p>e.g. tasks/transactions per hour</p></li>
+<li><p>focus of servers</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>How are response time and throughput affected by:</p>
+<ul>
+<li><p>replacing the processor with a faster version?</p></li>
+<li><p>adding more processors?</p></li>
+</ul>
+</section>
+<section id="measuring-performance" class="level2">
+<h2>Measuring Performance</h2>
+<ul>
+<li><p>elapsed time</p>
+<ul>
+<li><p>total time to complete a task, including all aspects (processing, I/O, OS overhead, idle time)</p></li>
+<li><p>determines system performance</p></li>
+</ul></li>
+<li><p>CPU time</p>
+<ul>
+<li><p>time spent processing a given job</p>
+<ul>
+<li>does not include I/O time or other jobs’ shares</li>
+</ul></li>
+<li><p>user CPU time and system CPU time</p></li>
+<li><p>different programs are affected differently by CPU and system performance</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="cpu-performance" class="level2">
+<h2>CPU Performance</h2>
+<p><code>CPU time = CPU clock cycles * clock cycle time = CPU clock cycles / clock rate</code></p>
+<ul>
+<li>important to be able to reproduce this</li>
+</ul>
+<p>Performance is improved by:</p>
+<ul>
+<li><p>reducing number of clock cycles</p></li>
+<li><p>increasing clock rate</p></li>
+</ul>
+<p>Hardware designer must often trade off clock rate against cycle count.</p>
+</section>
+</section>
+<section id="mips" class="level1">
+<h1>MIPS</h1>
+<ul>
+<li><p>Stanford MIPS commercialised by MIPS Technologies (www.mips.com)</p></li>
+<li><p>Large share of embedded core market</p>
+<ul>
+<li>[…]</li>
+</ul></li>
+<li><p>typical of many modern ISAs</p>
+<ul>
+<li><p>Intel x86</p></li>
+<li><p>ARMv7</p>
+<ul>
+<li>this and v8 mostly mobile devices</li>
+</ul></li>
+<li><p>ARMv8</p></li>
+</ul></li>
+</ul>
+<section id="arithmetic-operations" class="level2">
+<h2>Arithmetic Operations</h2>
+<ul>
+<li><p>add and subtract, three operands</p>
+<ul>
+<li><p>two sources and one destination</p></li>
+<li><p><code>add a, b, c      # a gets b + c</code></p></li>
+</ul></li>
+<li><p>all arithmetic operations have above form</p></li>
+<li><p>design principle 1: simplicity favours regularity</p>
+<ul>
+<li><p>regularity make implementation simpler</p></li>
+<li><p>simplicity enables higher performance at lower cost</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="register-operands" class="level2">
+<h2>Register Operands</h2>
+<ul>
+<li><p>arithmetic instructions use register operands</p>
+<ul>
+<li>every operand must first be in a register</li>
+</ul></li>
+<li><p>MIPS has a 32 x 32-bit register file</p>
+<ul>
+<li><p>used for frequently accessed data</p></li>
+<li><p>numbered 0-31</p></li>
+<li><p>32-bit data called a word</p></li>
+</ul></li>
+<li><p>assembler names</p>
+<ul>
+<li><p>$t0 – $t9 for temporary values</p></li>
+<li><p>$s0 - $s7 for saved variables</p>
+<ul>
+<li><p>for saving state (on stack) when calling another procedure</p></li>
+<li><p>automatically saved when you call another procedure (or possibly just when <code>push</code> command is used?)</p></li>
+</ul></li>
+</ul></li>
+<li><p>design principle 2: smaller is faster</p>
+<ul>
+<li><p>MIPS has a small number of registers, and they’re not that big</p></li>
+<li><p>desire to maintain fast clock cycle time</p></li>
+</ul></li>
+</ul>
+<p>Translation of C code to MIPS (and vice-versa) will be on the exam.</p>
+</section>
+<section id="memory-operands" class="level2">
+<h2>Memory Operands</h2>
+<p>Main memory is used for composite data (arrays, structures, dynamic data).</p>
+<p>To apply arithmetic operations:</p>
+<ul>
+<li><p>load values from memory into registers</p></li>
+<li><p>store result from register to memory</p></li>
+</ul>
+<p>Important to note that memory is byte-addresses in MIPS (each address identifies an 8-bit byte).</p>
+<p>Words are aligned in memory:</p>
+<ul>
+<li>address must be a multiple of 4</li>
+</ul>
+<p>MIPS is big-endian:</p>
+<ul>
+<li>most-significant byte at least address of a word</li>
+</ul>
+<pre class="sourceCode mips" id="cb1"><code class="sourceCode mips"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">lw</span> <span class="dt">$t0</span>, <span class="dv">32</span>(<span class="dt">$s3</span>)</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">add</span> <span class="dt">$s1</span>, <span class="dt">$s2</span>, <span class="dt">$t0</span></div></code></pre>
+</section>
+<section id="mips-r-format-instructions" class="level2">
+<h2>MIPS R-Format Instructions</h2>
+<p>Fields for register-format instrutions:</p>
+<ul>
+<li><p><code>op</code>: 6 bits</p>
+<ul>
+<li>operation code</li>
+</ul></li>
+<li><p><code>rs</code>: 5 bits</p>
+<ul>
+<li>first source register number</li>
+</ul></li>
+<li><p><code>rt</code>: 5 bits</p>
+<ul>
+<li>second source register number</li>
+</ul></li>
+<li><p><code>rd</code>: 5 bits</p>
+<ul>
+<li>destination register number</li>
+</ul></li>
+<li><p><code>shamt</code>: 5 bits</p>
+<ul>
+<li>[…]</li>
+</ul></li>
+<li><p><code>funct</code>: 6 bits</p>
+<ul>
+<li>[…]</li>
+</ul></li>
+</ul>
+</section>
+<section id="mips-i-format-instructions" class="level2">
+<h2>MIPS I-Format Instructions</h2>
+<ul>
+<li><p>immediate arithmetic and load/store instructions</p>
+<ul>
+<li><p><code>rt</code> is destination or source register number</p></li>
+<li><p><code>constant</code> can be positive or negative in two’s complement</p>
+<ul>
+<li>allows <code>addi</code> to do subtraction</li>
+</ul></li>
+</ul></li>
+<li><p><code>op</code>: 6 bits</p></li>
+<li><p><code>rs</code>: 5 bits</p></li>
+<li><p><code>rt</code>: 5 bits</p></li>
+<li><p><code>constant or address</code>: 16 bits</p></li>
+</ul>
+</section>
+<section id="procedure-calling" class="level2">
+<h2>Procedure Calling</h2>
+<ul>
+<li><p>procedure allows programmers to concentrate on a portion of a task at a time</p>
+<ul>
+<li>includes parameter to interface to the rest of the program</li>
+</ul></li>
+<li><p>steps required for calling procedure</p>
+<ol type="1">
+<li><p>place parameters in registers</p></li>
+<li><p>transfer control to procedure</p>
+<ul>
+<li>backs up saved registers first</li>
+</ul></li>
+<li><p>acquire storage for procedure</p></li>
+<li><p>perform procedure’s operations</p></li>
+<li><p>place result in register for caller</p></li>
+<li><p>return to place of call</p></li>
+</ol></li>
+</ul>
+<p>A leaf procedure is one that doesn’t call another.</p>
+<p>A non-leaf procedure calls others (or can call others).</p>
+</section>
+</section>
+<section id="floating-point" class="level1">
+<h1>Floating Point</h1>
+<ul>
+<li><p>representation for non-integer numbers</p>
+<ul>
+<li>including very small and very large numbers</li>
+</ul></li>
+</ul>
+<p>Like scientific notation:</p>
+<ul>
+<li>-2.34 x 10^56</li>
+</ul>
+<p>In binary:</p>
+<ul>
+<li><p>±1.xxxxx_2 * 2^yyyy</p></li>
+<li><p>x’s called binary points (rather than decimal points)</p></li>
+<li><p>normalised form has only one digit in front of the decimal point, and that digit isn’t a zero</p></li>
+</ul>
+<p>Used for <code>float</code> and <code>double</code> types.</p>
+<section id="ieee-floating-point-format" class="level2">
+<h2>IEEE Floating Point Format</h2>
+<p><code>x = (-1)^s * (1 + Fraction) * 2^(Exponent - Bias)</code></p>
+<ul>
+<li><p>exponent affects range</p></li>
+<li><p>fraction affects precision</p></li>
+</ul>
+<p>Operations always a tradeoff between precision and range.</p>
+<p>Exponent: excess representation: actual exponent + bias</p>
+<ul>
+<li>bias makes exponents all unsigned</li>
+</ul>
+<p>Important to know how to convert floating point numbers to binary.</p>
+</section>
+<section id="floating-point-addition-multiplication" class="level2">
+<h2>Floating-point Addition &amp; Multiplication</h2>
+<ul>
+<li>numbered steps</li>
+</ul>
+</section>
+</section>
+<section id="instruction-execution" class="level1">
+<h1>Instruction Execution</h1>
+<ul>
+<li>two basic steps:</li>
+</ul>
+<ol type="1">
+<li><p>PC -&gt; instruction memory</p>
+<ul>
+<li>fetch instruction</li>
+</ul></li>
+<li><p>Register numbers -&gt; register file</p>
+<ul>
+<li>[…]</li>
+</ul></li>
+</ol>
+<p>Depending on instruction class, use ALU to calculate:</p>
+<ul>
+<li><p>arithmetic result</p></li>
+<li><p>memory address to load/store</p></li>
+<li><p>branch target address</p></li>
+</ul>
+<p>Also access data memory for load/store</p>
+<p>Put the target address or the address of the next instruction on the program counter.</p>
+</section>
+<section id="building-a-datapath" class="level1">
+<h1>Building a Datapath</h1>
+<p>Datapath is the elements that process data and addresses in the CPU</p>
+<ul>
+<li>e.g. registers, ALUs, muxes, memories</li>
+</ul>
+<p>We will build a MIPS datapath incrementally</p>
+<ul>
+<li><p>[…]</p></li>
+<li><p>the longest execution path determines the clock period</p>
+<ul>
+<li><p>critical path: load instruction</p>
+<ul>
+<li>instruction memory -&gt; register file -&gt; ALU -&gt; data memory -&gt; register file</li>
+</ul></li>
+</ul></li>
+<li><p>not feasible to vary period for different instructions</p></li>
+<li><p>pipelining improves throughput but not latency</p></li>
+</ul>
+</section>
+<section id="hazards" class="level1">
+<h1>Hazards</h1>
+</section>
+<section id="multiple-issue" class="level1">
+<h1>Multiple Issue</h1>
+</section>
+<section id="memory" class="level1">
+<h1>Memory</h1>
+<ul>
+<li>principle of locality (temporal &amp; spatial)</li>
+</ul>
+<section id="memory-hierarchy-levels" class="level2">
+<h2>Memory Hierarchy Levels</h2>
+<ul>
+<li>block is the unit of copying – may be multiple words</li>
+</ul>
+</section>
+<section id="dram-technology" class="level2">
+<h2>DRAM Technology</h2>
+<ul>
+<li>tries to couple refreshing, reading, and writing together to be more efficient</li>
+</ul>
+</section>
+<section id="direct-mapped-cache" class="level2">
+<h2>Direct Mapped Cache</h2>
+</section>
+<section id="n-way-associative" class="level2">
+<h2>N-Way Associative</h2>
+</section>
+<section id="fully-associative" class="level2">
+<h2>Fully Associative</h2>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>CS3509 Tutorial 1</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">CS3509 Tutorial 1</h1>
+<p class="author"></p>
+<p class="date">Tuesday 17th October, 2017</p>
+</header>
+<p>Q: Demonstrate that there is no program that decides whether input programs terminate on input 0.</p>
+<ol type="a">
+<li><p>Assume the program does exist.</p>
+<ul>
+<li>Call the program H0. We’ll show that we could use it to solve the halting problem.</li>
+</ul></li>
+<li><p>Define a new program Q.</p>
+<ul>
+<li>Q is identical to P, except that whatever input it’s given, it always runs P on i, ignoring its own input.</li>
+</ul></li>
+<li><p>[Q has solved the halting problem]</p></li>
+</ol>
+<p>Q: Demonstrate there is no program … on input 10.</p>
+<ol type="a">
+<li><p>Assume the program does exist.</p>
+<ul>
+<li>Call it H0</li>
+</ul></li>
+<li><p>Define Q.</p>
+<ul>
+<li><p>Q ignores its input, and runs P(i)</p></li>
+<li><p>Q(10) terminates if and only if P(i) terminates</p></li>
+<li><p>Since H0 can tell if Q(10) terminates, H0 can tell if P(i) terminates, which means it has solved the problem</p></li>
+</ul></li>
+<li><p>H0 has solved the halting problem, which is impossible – contradiction.</p></li>
+</ol>
+<section id="problem-1-page-64" class="level1">
+<h1>Problem 1 (page 64)</h1>
+<ol type="a">
+<li><p>Assume T exists.</p></li>
+<li><p>T can solve the halting problem.</p>
+<ul>
+<li><p>If T can show how many 5s are output, then it can show whether any number of 5s is output.</p></li>
+<li><p>So T can solve the problem above.</p></li>
+<li><p>So T can solve the halting problem (by our reasoning above).</p></li>
+</ul></li>
+</ol>
+</section>
+</body>
+</html>

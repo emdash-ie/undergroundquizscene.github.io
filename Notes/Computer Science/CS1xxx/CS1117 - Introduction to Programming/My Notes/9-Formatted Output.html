@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>9-Formatted Output</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="formatted-output" class="level1">
+<h1>Formatted Output</h1>
+<hr />
+<p>The % operator is used for formatting output for display on the screen:</p>
+<pre><code>print(&#39;The value of n was %i&#39; % (n))</code></pre>
+<p>You use <code>%i</code> for displaying an integer, <code>%s</code> for a string, and <code>%f</code> for a float.</p>
+<p>With a string or integer, you can specify how much space to put around the item:</p>
+<pre><code>print(&#39;%15s&#39; % (&#39;Chelsea&#39;))</code></pre>
+<ul>
+<li>This code will print Chelsea preceeded by 8 spaces, for a total length of 15 characters.</li>
+<li><p>You can use negative values to align it left instead of right, e.g.</p>
+<p><code>print('%-15s' % (Chelsea))</code></p></li>
+</ul>
+<p>With floats you can specify the precision:</p>
+<pre><code>print(&#39;%.3f&#39; % (3.141592654)) =&gt; 3.142</code></pre>
+<hr />
+<section id="handouts-assignments" class="level6">
+<h6>Handouts &amp; Assignments</h6>
+<ul>
+<li>Handout 14 - Formatted Output</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

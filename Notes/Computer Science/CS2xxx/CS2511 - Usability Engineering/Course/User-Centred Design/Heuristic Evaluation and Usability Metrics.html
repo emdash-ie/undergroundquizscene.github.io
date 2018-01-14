@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Heuristic Evaluation and Usability Metrics</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Might use guidelines in the early stages, whereas heuristics and metrics assume you have some design already done, even if it’s just a basic prototype.</p>
+<p>Both approaches involve analysing a prototype to see how usable it is.</p>
+</section>
+<section id="heuristics" class="level1">
+<h1>Heuristics</h1>
+<ul>
+<li><p>techniques based on experience that help in problem solving</p></li>
+<li><p>tend to be quick and rough – a means of arriving at a ‘good enough’ solution</p></li>
+<li><p>rules of thumb, educated guesses, intuitive judgments, common sense</p></li>
+</ul>
+<section id="approach" class="level2">
+<h2>Approach</h2>
+<p>A number of evaluators examine an interface and assess its compliance with a set of recognised usability principles (the heuristics).</p>
+<p>Heuristics are general rules (usually around 10 of them are used) which describe common properties of usable interfaces.</p>
+<p>Similar to guidelines but framed to be used in an analytical rather than generate manner (assessing existing things rather than creating new things).</p>
+<ul>
+<li><p>each evaluator is asked to assess the interface in the light of the heuristics</p></li>
+<li><p>each evaluator should work through the interface several times</p></li>
+<li><p>evaluators should either write down their comments or verbalise them, so they can be recorded or noted by an observer</p></li>
+<li><p>if an evaluator encounters problems with the interface the experimenter should offer assistance, but not until the evaluator has assessed and commented upon the problem</p>
+<ul>
+<li>don’t offer assistance immediately, so that you can see how bad the problem is</li>
+</ul></li>
+</ul>
+<p>Evaluators work alone so they can’t influence one another. Only when all the evaluators have assessed the system individually should the results be aggregated and the evaluators allowed to communicate with one another.</p>
+<p>This communication may be useful at this point.</p>
+<p>The number of evaluators is typically between 3 and 10, and they should have no prior knowledge of the interface or of the goals of the project.</p>
+<p>Using a single evaluator - even an experienced one - may not identify all the usability problems in an interface because different people identify different problems.</p>
+<p>Nielsen (1992) conducted a study:</p>
+<ul>
+<li><p>19 evaluators were asked to assess an interface against a set of heuristics</p></li>
+<li><p>between them they identified 16 usability problems</p></li>
+<li><p>some evaluators identified a far higher percentage of problems than others</p></li>
+<li><p>some problems were only identified by one or two evaluators, who were not necessarily the evaluators who found a higher percentage of problems</p></li>
+</ul>
+<p>Using a large number of evaluators increases the likelihood of identifying problems but may also increase costs.</p>
+<p>Nielsen concluded that four evaluators is the best compromise between cost and effectiveness.</p>
+</section>
+</section>
+<section id="metrics" class="level1">
+<h1>Metrics</h1>
+<ul>
+<li><p>more expensive</p></li>
+<li><p>more time-consuming</p></li>
+<li><p>more reliable</p></li>
+<li><p>give quantitative results</p>
+<ul>
+<li>can compare, e.g. “this one got 80% and the other got 75%, so let’s go with the first”</li>
+</ul></li>
+<li><p>distinguish from Usability Testing, where we’re comparing (e.g.) two products from two companies</p>
+<ul>
+<li>here we’re testing against a known standard embedded in the rules</li>
+</ul></li>
+</ul>
+<section id="techniques" class="level2">
+<h2>Techniques</h2>
+<p>Usually involve asking a group of users to perform a specified task (or set of tasks).</p>
+<p>The data gathered may include:</p>
+<ul>
+<li><p>success rate (task completion/non-completion, % of task completed)</p></li>
+<li><p>time</p></li>
+<li><p>errors (number of errors, time wasted by errors)</p></li>
+<li><p>use of help/documentation (number of instances, time spent)</p></li>
+<li><p>failed commands (number, how often repeated)</p></li>
+<li><p>user satisfaction (a subjective measure)</p></li>
+</ul>
+<p>Once gathered, the data may be presented in a number of ways:</p>
+<ul>
+<li><p>aggregated to yield either a set of scores, each reflecting a different aspect of usability, or a single overall usability rating</p></li>
+<li><p>analysed statistically to yield values that can be expressed to known level of uncertainty</p></li>
+</ul>
+</section>
+</section>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<p>## Cognitive Walkthrough</p>
+<ul>
+<li><p>Doesn’t really belong in either category, but is often grouped with metrics</p></li>
+<li><p>aims to evaluate the steps required to complete a task and identify mismatches between the way the user thinks about the task and the way the designer thinks about the task</p></li>
+</ul>
+<p>Involves the following stages:</p>
+<ul>
+<li><p>user selects a task to be performed</p></li>
+<li><p>user writes down all the steps required to complete the task</p></li>
+<li><p>for each action in the task, the user:</p>
+<ul>
+<li><p>explores the prototype, notes, available information</p></li>
+<li><p>selects the action that appears to match the required action most closely</p></li>
+<li><p>interprets the system’s responses and assesses if any progress has been made towards completing the task</p></li>
+</ul></li>
+</ul>
+<p>As the user is doing this, evaluators attempt to answer the following questions for each step:</p>
+<ul>
+<li><p>how does the user know what to do next?</p></li>
+<li><p>can the user connect the description of an action with what they are trying to do?</p></li>
+<li><p>can the user tell if they have made the right choice on the basis of the feedback supplied by the system?</p></li>
+</ul>
+<p>## SUMI (Software Usability Measurement Inventory)</p>
+<p>A number of subjects are asked to use a system and then complete a questionnaire about it. At least 12 subjects are required, preferably far more.</p>
+<p>This is quite expensive, and usually happens late in the process, not as early as heuristics.</p>
+<p>The questionnaire typically contains 50 questions, of which the following are examples:</p>
+<ul>
+<li><p>This software responds too slowly to inputs</p></li>
+<li><p>the instructions and prompts are helpful</p></li>
+<li><p>the way that system information is presented is clear and understandable</p></li>
+<li><p>I would not like to use this software every day</p></li>
+</ul>
+<p>Questionnaires are machine-assessed – can notice if people contradict themselves, assign a weighting to answers where people were paying attention / thinking about the questions.</p>
+<p>Note the mix of positive and negative questions. People will too easily fall into the pattern of (e.g.) deciding they like the product and so not really reading the specific questions, just selecting the positive responses.</p>
+<ul>
+<li><p>50 questions is a lot of questions</p>
+<ul>
+<li>people will follow a large question if they’re paid</li>
+</ul></li>
+</ul>
+<section id="results" class="level3">
+<h3>Results</h3>
+<p>The results are analysed to give scores on the following scales:</p>
+<ul>
+<li><p>efficiency</p></li>
+<li><p>affect</p></li>
+<li><p>helpfulness</p></li>
+<li><p>control</p></li>
+<li><p>learnability</p></li>
+</ul>
+<p>The designers of SUMI claim that it has a high level of reliability.</p>
+<p>Reliability is measured by asking several different groups of subjects to fill in questionnaires for the same system. If the scores for each group are similar, it can be assumed that the questionnaire is revealing information about the system, not the subjects.</p>
+<p># Automated Testing</p>
+<p>Since webpages follow an open-source standard, it’s possible to test some of their features automatically.</p>
+<p>Some automated testers only check the validity of the code, but others test for conformance with usability and accessibility guidelines.</p>
+<p>Examples:</p>
+<ul>
+<li><p>paid-for services such as IBM’s Rational Policy Tester Accessibility Edition</p></li>
+<li><p>free, online checkers such as:</p>
+<ul>
+<li><p>WAVE (http://wave.webaim.org)</p>
+<ul>
+<li>possibly more sophisticated than the other free examples</li>
+</ul></li>
+<li><p>TotalValidator (http://www.totalvalidator.com)</p></li>
+<li><p>Cynthia Says (http://www.cynthiasays.com)</p>
+<ul>
+<li>quite popular</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>They automatically check many of the accessibility issues listed in the WCAG, e.g.:</p>
+<ul>
+<li><p>inclusion of alt text, summaries, table header information, etc.</p></li>
+<li><p>contrast between foreground and background colours</p></li>
+</ul>
+<p>Where a page is found to violate the guidelines, most testers identify the type of error and the line of html code on which it occurs.</p>
+<p>Many accessibility issues cannot be checked automatically, so testers usually issue a number of warnings for things to check manually.</p>
+</section>
+</section>
+</body>
+</html>

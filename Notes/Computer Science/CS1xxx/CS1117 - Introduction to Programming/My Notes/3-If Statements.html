@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>3-If Statements</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="if-statements" class="level1">
+<h1>If Statements</h1>
+<hr />
+<p>The <em>if</em> statement allows you to write programs that make a choice about which bit of code to run.</p>
+<p>Example format:</p>
+<pre><code>if CONDITION:
+    STATEMENTS
+    </code></pre>
+<p>In this code, if ‘CONDITION’ evaluates to <em>True</em>, the section of code called ‘STATEMENTS’ will be run.</p>
+<p>If ‘CONDITION’ evaluates to <em>False</em>, that section of code will not be run.</p>
+<section id="if-else" class="level3">
+<h3>If-Else</h3>
+<p>You can follow an if statement by an else statement, which marks code that will be run if the condition is false:</p>
+<pre><code>if CONDITION:
+    STATEMENTS
+else:
+    OTHER STATEMENTS
+    </code></pre>
+<p>In this code, if CONDITION is <em>True</em>, STATEMENTS will be run, but if it is <em>False</em>, OTHER STATEMENTS will be run instead.</p>
+<ul>
+<li>If and else are both reserved words.</li>
+</ul>
+</section>
+<section id="elif" class="level3">
+<h3><a href="id:elif">Elif</a></h3>
+<p>If you need a choice with three options (e.g. too hot, too cold, and just right), then you nest conditions:</p>
+<pre><code>if temperature &gt; 60:
+    print(&#39;too hot&#39;)
+else:
+    if temperature &lt; 40:
+        print(&#39;too cold&#39;)
+    else:
+        print(&#39;just right&#39;)
+        </code></pre>
+<p><em>Elif</em> is a shorthand for this structure. Wherever you have an <em>if</em> immediately followed by an <em>else</em>, you can replace the two with an <em>elif</em>: <a href="id:code"></a></p>
+<pre><code>if temperature &gt; 60:
+    print(&#39;too hot&#39;)
+elif temperature &lt; 40:
+    print(&#39;too cold&#39;)
+else:
+    print(&#39;just right&#39;)
+    </code></pre>
+<p>You can have as many <em>elif</em>s as you like, once there is at least one initial <em>if</em>.</p>
+</section>
+<section id="syntax-note" class="level3">
+<h3>Syntax Note</h3>
+<p>To check if two values are the same, you use the ‘==’ operator, as ‘=’ means assignment:</p>
+<pre><code>if a == b:
+    print(&#39;a and b have the same value&#39;)
+    </code></pre>
+</section>
+<section id="if-expressions" class="level3">
+<h3>If Expressions</h3>
+<p>Similar to If Statements, <em>If Expressions</em> are expressions rather than statements – they give back a value rather than doing something.</p>
+<p>Format:</p>
+<pre><code>print(&#39;too hot&#39; if t &gt; 60 else &#39;too cold&#39; if t &lt; 40 else &#39;just right&#39;)</code></pre>
+<ul>
+<li>This code is equivalent to the <a href="#code">above</a> code in the Elif section.</li>
+</ul>
+<hr />
+<section id="handouts-assignments" class="level5">
+<h5>Handouts &amp; Assignments</h5>
+<ul>
+<li>Handout 2: The ‘if’ Statement</li>
+<li>Assignment 2: The ‘if’ Statement</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

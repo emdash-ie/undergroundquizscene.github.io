@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>13-Revision Lecture</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="revision" class="level1">
+<h1>Revision</h1>
+<hr />
+<section id="why-are-we-doing-this" class="level2">
+<h2>Why Are We Doing This?</h2>
+<p>The skill of being able to build large-scale systems that can handle large amounts of data efficiently is an essential skill for software developers.</p>
+<ul>
+<li>Software design patterns are the established ways of implementing solutions for common tasks, for efficiency, easy maintenance, and easy extension.</li>
+</ul>
+<p>The main emphasis is on efficiency, as scaling up to real applications requires efficient code.</p>
+</section>
+<section id="this-module" class="level2">
+<h2>This Module</h2>
+<p>This module covers the foundational knowledge that marks us as computer scientists or professional software engineers. You can learn to program, but without this knowledge, there’s something lacking when it comes to scaling things up.</p>
+<p>We want to understand:</p>
+<ul>
+<li>How to implement each pattern.</li>
+<li>What the space requirements are.</li>
+<li>What the time complexity is.</li>
+<li>Which uses are appropriate for each different data structure or algorithm.</li>
+</ul>
+<p>These are transferrable techniques that can be used for almost any programming language or hardware.</p>
+<p>In many cases, what we see is not the best way to do it in Python, but is a fundamental technique which will work in multiple different languages.</p>
+</section>
+<section id="complexity" class="level2">
+<h2>Complexity</h2>
+<p>We measure complexity in terms of the number of steps, where a step is a basic operation expected to take constant time regardless of the input parameters.</p>
+<p>This is useful because it isn’t limited to a specific language or computer architecture.</p>
+<p>We use Big-O notation.</p>
+<section id="big-o-notation" class="level3">
+<h3>Big-O Notation</h3>
+<p>This is a formal notation for expressing worst-case complexity in terms of known mathematical functions.</p>
+<p>Sometimes we use it informally averaged over many operations.</p>
+<p>Sometimes we use it for the <em>expected</em> average.</p>
+<p>[missed a bit here]</p>
+<section id="definition" class="level4">
+<h4>Definition</h4>
+<ul>
+<li>f(x) is O(g(x)) is and only if, for some constant k, there is another constant C so that for all values of x bigger than k, f(x) &lt; Cg(x).</li>
+</ul>
+</section>
+</section>
+<section id="useful-examples" class="level3">
+<h3>Useful Examples</h3>
+<pre><code>1 + 2 + 3 + … + n = (0.5)(n)(n + 1)</code></pre>
+<p>This is O(n squared).</p>
+<pre><code>2**0 + 2**1 + … + 2**n = 2**(n + 1) - 1</code></pre>
+<p>A complete binary tree with n nodes has depth of:</p>
+<pre><code>floor(log n)</code></pre>
+</section>
+</section>
+<section id="array-based-sequences" class="level2">
+<h2>Array-Based Sequences</h2>
+<p>An array is a contiguous block of memory holding items of the same size.</p>
+<p>Any item can be accessed using its index i by jumping to the memory address which is the starting address + i*(size of the items).</p>
+<p>This is constant time access.</p>
+<p>We can increase the size of an array by reserving new space for the larger array, and copying items across. * Doubling the array when needed means O(n) to build an array of n items, so O(1) to add each item <em>on average</em>.</p>
+<section id="python-lists" class="level3">
+<h3>Python Lists</h3>
+<p>Python lists are array-based. All data items in Python are objects, and Python stores references to those objects in the arrays – since a reference is just a memory address, these are of constant size, no matter what you’re referring to.</p>
+<p>To add a new item to a full Python list, Python increases the underlying size and internally marks the extra cells as available.</p>
+<p>You need to know the complexity of adding items in different positions, searching for items, and removing items.</p>
+<p>E.g. Python arrays don’t like gaps, so if you remove something from the middle of a list, every item after it needs to be moved up to fill the gap, which is O(n).</p>
+</section>
+</section>
+<section id="linked-lists" class="level2">
+<h2>Linked Lists</h2>
+<p>We store a collection of nodes in memory, wherever we want. Each node points to the value it contains, the next node in the chain, and the previous node</p>
+<p>We use dummy head and tail nodes (with a value of <code>None</code>) to make operations easier.</p>
+<p>[missed a bit]</p>
+</section>
+<section id="linked-trees" class="level2">
+<h2>Linked Trees</h2>
+<p>These are binary trees, so now each node points to its value, its left child, its right child, and its parent.</p>
+<p>We’ve only looked at binary trees, but we will look at more general trees next year.</p>
+<section id="tree-traversals-and-array-representation" class="level3">
+<h3>Tree Traversals and Array Representation</h3>
+<ul>
+<li>Preorder:
+<ol type="1">
+<li>Parent</li>
+<li>Left child</li>
+<li>Right child</li>
+</ol></li>
+<li>Postorder:
+<ol type="1">
+<li>Left child</li>
+<li>Right child</li>
+<li>Parent</li>
+</ol></li>
+<li>Inorder:
+<ol type="1">
+<li>Left child</li>
+<li>Parent</li>
+<li>Right child</li>
+</ol></li>
+<li>Breadth-first:
+<ol type="1">
+<li>Root node</li>
+<li>Children of the root node</li>
+<li>Grandchildren of the root node</li>
+<li>etc</li>
+</ol></li>
+</ul>
+</section>
+<section id="binary-search-trees" class="level3">
+<h3>Binary Search Trees</h3>
+<p>A tree representation of a sorted list, which allows binary searches on linked structures.</p>
+<p>For all nodes, all left descendants must have lower values, and all right descendants must have higher values.</p>
+<p>To add a new value:</p>
+<pre><code>find where it should be
+if it isn&#39;t there
+    add a new node with value</code></pre>
+<p>The complexity of adding a new value is O(height of tree).</p>
+<section id="removing-a-value" class="level4">
+<h4>Removing a Value</h4>
+<pre><code>if it is a leaf
+    wipe the node
+else if it is a semileaf
+    join parent to child, then wipe
+else if it is internal
+    1. Find the biggest element less than our current node
+    2. Move that value into our current node
+    3. Then remove the node we have copied, by this procedure</code></pre>
+<p>Note: This is how to change the sketch; the implementation details might be different.</p>
+</section>
+</section>
+<section id="avl-trees" class="level3">
+<h3>AVL Trees</h3>
+<p>AVL trees are binary search trees with no node unbalanced. We define a node to be unbalanced if:</p>
+<ul>
+<li>the heights of its children differ by 1 or more</li>
+<li>the node is a semileaf, with a child of height of one or more</li>
+</ul>
+<p>[insert rotation details here]</p>
+<p>Searching for anything will be O(log n).</p>
+</section>
+</section>
+<section id="abstract-data-types" class="level2">
+<h2>Abstract Data Types</h2>
+<p>We defined abstract data types for standard containers. Each ADT specifies operations you can do to the container. Each ADT can be implemented [missed the rest]</p>
+<ul>
+<li>Stack</li>
+<li>Queue</li>
+<li>Positional List</li>
+<li>Binary Tree</li>
+<li>Priority Queue</li>
+<li>Dictionary</li>
+<li>Set</li>
+</ul>
+<section id="stack" class="level3">
+<h3>Stack</h3>
+<ul>
+<li>push: place an element onto the top of the stack</li>
+<li>pop: get the first element off the top of the stack (and remove it from the stack)</li>
+<li>top: report the top element form the stack (but leave it on the stack)</li>
+<li>length: report how many elements are in the stack</li>
+<li>is empty: report whether or not the stack is empty</li>
+</ul>
+<p>[check]</p>
+</section>
+<section id="queue" class="level3">
+<h3>Queue</h3>
+<p>[insert ADT]</p>
+<p>Implement with a doubly-linked list: * <code>enqueue()</code>, <code>dequeue()</code>, and <code>front()</code>: O(1)</p>
+<section id="array-based-queue" class="level4">
+<h4>Array-Based Queue</h4>
+<p>Simple implementation is O(n) for dequeue. Avoiding list.pop() and using a head reference wastes space.</p>
+<p>Instead, we maintain head and tail references, and wrap elements around the array. We use modular arithmetic for the cleanest coding.</p>
+<p>Complexity: O(1)* for both enqueue and dequeue</p>
+</section>
+</section>
+<section id="priority-queue" class="level3">
+<h3>Priority Queue</h3>
+<p>Unsorted lists: O(1) or O(1)* to add, O(n) to remove Sorted lists: O(1) or O(1)* for remove, O(n) to add AVL trees: O(log n) to add, remove and find</p>
+</section>
+</section>
+<section id="binary-heap" class="level2">
+<h2>Binary Heap</h2>
+<p>Complete tree where each node has lower value than its children.</p>
+<ul>
+<li>Add a value in last place, then bubble up to restore property.</li>
+<li>Remove the top item, copy last into place, bubble down, always choosing the lowest value child to swap with.</li>
+</ul>
+<p>Complexity: O(log n) to add and remove, but O(1) to find</p>
+<section id="array-representation-of-binary-heap" class="level3">
+<h3>Array Representation of Binary Heap</h3>
+<p>Each value from the binary heap tree appears in the cell corresponding to the breadth-first traversal.</p>
+<p>I.e. the root node corresponds to index 0, its leftchild to 1, the root’s rightchild to 2, and so on.</p>
+<p>For node in cell i: * parent is <code>(i - 1) // 2</code> * leftchild is <code>2i + 1</code> * right child is <code>2i + 2</code></p>
+</section>
+</section>
+<section id="map-or-dictionary" class="level2">
+<h2>Map (or Dictionary)</h2>
+<section id="hash-tables" class="level3">
+<h3>Hash Tables</h3>
+<p>An efficient representation of a map:</p>
+<ul>
+<li>hash function converts key to an integer</li>
+<li>compression converts integer to an array index</li>
+</ul>
+<p>Bucket array stores a list of items in each cell.</p>
+<p>Open addressing stores items in first free cell after index, based on a probing scheme. * We have to be careful when deleting items to maintain correctness – have to mark to say that something was in there, and to continue if searching.</p>
+<p>If the table is resized appropriately, then has tables offer O(1) get, contains, set, and del in the expected case (though worst case is O(n)).</p>
+<p>€€General Advice</p>
+<ul>
+<li>You need to know the ADTs</li>
+<li>Understand the array and linked storage methods
+<ul>
+<li>Learn how to be efficient with space.</li>
+<li>Know the names of the different structures.</li>
+</ul></li>
+<li>Learn the tree-based methods for storing sorted lists and priority queues
+<ul>
+<li>Learn the add, remove, rotate, bubble procedures.</li>
+</ul></li>
+<li>Understand how hash tables work.</li>
+<li>Either learn complexities, or know how to work them out.</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

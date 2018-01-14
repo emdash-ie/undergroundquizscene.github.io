@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>The Halting Problem</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">The Halting Problem</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>The Halting Problem: Given the code for program <code>P</code> and input <code>i</code> for this program, decide whether <code>P</code> terminates when executed on input <code>i</code>.</p>
+<p>The aim is to design a program <code>H</code> which determines this – returns 1 if <code>P</code> terminates on <code>i</code> and 0 otherwise.</p>
+<p>Alan Turing proved in 1936 that a program solving the halting problem for all possible program-input pairs can’t exist.</p>
+<section id="real-time-languages" class="level2">
+<h2>Real-time Languages</h2>
+<p>Real-time languages guarantee every program to be time-able with respect to the worst-case. They take out parts of the languages (e.g. while loops) to guarantee this.</p>
+<p>These are used in safety-critical applications (e.g. plane autopilot).</p>
+</section>
+<section id="infinite-resources" class="level2">
+<h2>Infinite Resources</h2>
+<p>We assume infinite resources for the halting problem – programs can take arbitrarily long or use arbitrarily much storage space.</p>
+</section>
+<section id="difficulty" class="level2">
+<h2>Difficulty</h2>
+<p>The decision procedure must work for all possible programs and inputs.</p>
+</section>
+<section id="variants" class="level2">
+<h2>Variants</h2>
+<ul>
+<li><p>halts on a specific input?</p></li>
+<li><p>any input that causes it to halt?</p>
+<ul>
+<li>very weak question</li>
+</ul></li>
+<li><p>ever outputs 5?</p></li>
+</ul>
+<p>All of these questions can’t be answered by a program, but these are simple questions that debuggers ask themselves frequently.</p>
+<p>It is impossible to completely automate debugging.</p>
+<ul>
+<li>Though automated debuggers may become better than humans.</li>
+</ul>
+</section>
+</section>
+<section id="gödel-encoding-page-31-of-the-notes" class="level1">
+<h1>Gödel Encoding (page 31 of the notes)</h1>
+<p>Every program is made up of a sequence of symbols.</p>
+<p>You can encode a program as a single natural number by:</p>
+<ol type="1">
+<li><p>Give each possible symbol a numeric value</p></li>
+<li><p>Replace each symbol in the program with its numeric value</p></li>
+<li><p>Raise each prime <code>P_n</code> to the power <code>x_n</code> where <code>x_n</code> is the numeric value of the nth symbol in the program</p></li>
+<li><p>Sum the numbers</p></li>
+</ol>
+<p>This gives every possible program a unique number. Taking the prime decomposition of the number gives the program it represents.</p>
+</section>
+<section id="the-nutshell-approach" class="level1">
+<h1>The Nutshell Approach</h1>
+<ul>
+<li>Note: we’re skipping the more detailed proof</li>
+</ul>
+<p>Represent all programs as numbers using Gödel encoding.</p>
+<ul>
+<li><p>Assume you have a program H which solves the halting problem</p></li>
+<li><p>Create program G which uses H, and does the opposite:</p>
+<ul>
+<li><p>If H says program P_e terminates, then G(e) loops forever</p></li>
+<li><p>If H says program P_e doesn’t terminate, then G(e) terminates</p></li>
+</ul></li>
+<li><p>G must be in the list of programs H can predict</p></li>
+<li><p>We can feed G to H</p></li>
+</ul>
+<section id="contradiction" class="level2">
+<h2>Contradiction</h2>
+<p>There are two cases:</p>
+<ol type="1">
+<li><p>[…]</p></li>
+<li><p>[…]</p></li>
+</ol>
+<p>[…]</p>
+</section>
+</section>
+<section id="for-studying" class="level1">
+<h1>For Studying</h1>
+<ul>
+<li>Look at the solved exercises first, rather than the halting problem solution</li>
+</ul>
+</section>
+</body>
+</html>

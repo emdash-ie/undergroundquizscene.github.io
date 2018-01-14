@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>7-Linked Lists</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="linked-lists" class="level1">
+<h1>Linked Lists</h1>
+<hr />
+<ul>
+<li>Representing sequences as elements linked together</li>
+<li>Implementing Stacks with Linked Lists</li>
+</ul>
+<section id="why-was-the-queue-implementation-so-complex" class="level2">
+<h2>Why Was the Queue Implementation So Complex?</h2>
+<ul>
+<li>We were using the list provided by Python, which reserves a block of memory, and then manages the memory and provides access.</li>
+<li>To make it efficient for what we wanted to do, we had to take control of the memory management.</li>
+</ul>
+<section id="other-options" class="level3">
+<h3>Other Options</h3>
+<ul>
+<li>We create our own array and manage the memory ourselves.
+<ul>
+<li>This will have the same problems. Anything we write would have to be just as complex as using Python’s list structure.</li>
+</ul></li>
+<li>Free storage of list elements</li>
+</ul>
+</section>
+</section>
+<section id="free-storage-of-list-elements" class="level2">
+<h2>Free Storage of List Elements</h2>
+<p>We will store each reference (lists are normally sequences of references to items, where each item is stored individually by Python) individually. We won’t require them to be stored in consecutive memory.</p>
+<p>We’ll let Python decide where to put them, but with each reference, we’ll also store a reference to the next reference. The last reference will be stored with a reference to <code>None</code>, to mark it as the last reference.</p>
+<p>With this implementation we now have no space management issues. As long as there is any memory left for Python to use anywhere, we can create a new element objects, and a new ‘list node’ object.</p>
+<p>However, we have to do the work to read the element. We can’t rely on efficient list lookup anymore.</p>
+</section>
+<section id="singly-linked-lists" class="level2">
+<h2>Singly-Linked Lists</h2>
+</section>
+<section id="class-representation" class="level2">
+<h2>Class Representation</h2>
+<p>To represent the double blocks that hold the reference to an item and the reference to the next reference, we create a class <code>SLLNode</code> (standing for “Singly-Linked List Node”), which will contain <code>item</code> and <code>next</code>, where <code>item</code> is any object, and <code>next</code> is another <code>SLLNode</code> object.</p>
+<p>To represent the whole list, we create an <code>SLL</code> class. This has two pieces of data:</p>
+<ul>
+<li><code>first</code> – an <code>SLLNode</code></li>
+<li><code>size</code> – the number of items</li>
+</ul>
+</section>
+<section id="python-skeleton" class="level2">
+<h2>Python Skeleton</h2>
+<pre><code>class SLLNode:
+    def __init__(self, item, nextnode):
+        self.element = item
+        self.next = nextnode
+
+class SLinkedList:
+    def __init__(self):
+        self.first = None
+        self.size = 0
+
+    def add_first(self, item):
+
+    def add_last(self, item):
+
+    def get_first(self, item):
+
+    def get_last(self, item):
+
+    def remove_first(self):
+
+    def remove_last(self):
+
+    def is_empty(self):</code></pre>
+<p>It’s good to work out what the methods look like (and create a test block) before you write the code for the methods. Then you can do the testing as you go, rather than debugging at the end.</p>
+<section id="methods" class="level3">
+<h3>Methods</h3>
+<ul>
+<li><code>add_first</code>
+<ul>
+<li>Point the <code>next</code> reference of the new element to the current first element of the list.</li>
+<li>Update <code>first</code> to point to the new first element.</li>
+</ul></li>
+<li><code>get_first</code>
+<ul>
+<li>Go to the first node and read the element from it.</li>
+</ul></li>
+<li><code>remove_first</code>
+<ul>
+<li>Point the <code>first</code> reference to the current <code>first</code>’s next.</li>
+<li>Wipe the old first node and return its element.</li>
+</ul></li>
+<li><code>add_last</code>
+<ul>
+<li>Create a new SLLNode which points to the element and to None.</li>
+<li>Step through the list until the last element, and point it to the new last element.</li>
+</ul></li>
+<li><code>get_last</code>
+<ul>
+<li>Step through the list to the last element and return its item.</li>
+</ul></li>
+<li><code>remove_last</code>
+<ul>
+<li>Step through the list to the last node.</li>
+<li>Set the <code>next</code> reference of the node before the last node to <code>None</code>.</li>
+<li>Wipe the old last node and return its value.</li>
+</ul></li>
+<li><code>is_empty</code>
+<ul>
+<li>Return <code>True</code> if size is 0.</li>
+</ul></li>
+</ul>
+</section>
+<section id="code" class="level3">
+<h3>Code</h3>
+<pre><code>def add_first(self, value):
+    if self.first is None:
+        self.first = SLLNode(value, None)
+    else:
+        self.first = SLLNode(value, self.first)
+
+def get_first(self):
+    if self.size == 0:
+        return None
+    return self.first.element
+
+def remove_first(self):
+    if self.size == 0:
+        return None
+    item = self.first.element
+    self.first = self.first.next
+    self.size = self.size - 1
+    return item
+
+def add_last(self, element):
+    newnode = SLLNode(element, None)
+    if self.first == None:
+        self.first = newnode
+    else:
+        node = self.first
+        while node.next:
+            node = node.next
+        node.next = newnode
+    self.size += 1
+
+def get_last(self):
+    if self.size == 0:
+        return None
+    node = self.first
+    while node.next is not None:
+        node = node.next
+    return node.element
+
+def remove_last(self):
+    if self.size == 0:
+        return None
+    node = self.first
+    while node.next is not None:
+        node = node.next</code></pre>
+</section>
+<section id="complexity" class="level3">
+<h3>Complexity</h3>
+<section id="add_first-get_first-and-remove_first" class="level4">
+<h4><code>add_first</code>, <code>get_first</code>, and <code>remove_first</code></h4>
+<p>There’re no inbuilt functions used, so there’s no hidden complexity. Also there are no loops. So these three methods are all O(1), which is good.</p>
+</section>
+<section id="add_last-get_last-and-remove_last" class="level4">
+<h4><code>add_last</code>, <code>get_last</code>, and <code>remove_last</code></h4>
+<p>Now that there’s a loop, these are O(n), which is very high for what should be a basic operation.</p>
+</section>
+</section>
+</section>
+<section id="implementing-a-stack-with-a-linkedlist" class="level2">
+<h2>Implementing a Stack with a LinkedList</h2>
+<p>We decide the front of the linked list should be the top of the stack, because the operations there are O(1).</p>
+<table>
+<thead>
+<tr class="header">
+<th>Stack method:</th>
+<th>Linked List method</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>push()</code></td>
+<td><code>add_first()</code></td>
+</tr>
+<tr class="even">
+<td><code>pop()</code></td>
+<td><code>remove_first()</code></td>
+</tr>
+<tr class="odd">
+<td><code>top()</code></td>
+<td><code>get_first()</code></td>
+</tr>
+</tbody>
+</table>
+<section id="not-using-a-linked-list" class="level3">
+<h3>Not Using a Linked List</h3>
+<p>The linked lists will get more complex as we try to implement other ADTs, so often the functionality will be done inside those ADTs without using a linked list class.</p>
+</section>
+</section>
+<section id="testing-the-linkedlist-method" class="level2">
+<h2>Testing the LinkedList Method</h2>
+<p>Use all the test methods and other functions we wrote in the lab to test this implementation. They should work without modification.</p>
+<p>We are aiming to build a library of different implementations of different ADTs, so that we can call whichever is most appropriate for the situation at hand.</p>
+</section>
+<section id="simplifying-linked-list-operations" class="level2">
+<h2>Simplifying Linked List Operations</h2>
+<p>Other ADTs will want to access both ends of the list. We add a new pointer <code>last</code> that points to the last element, and now we no longer need to step through the list to access that side of the list. This solves the O(n) problem with the end of our linked list.</p>
+</section>
+<section id="exercise" class="level2">
+<h2>Exercise</h2>
+<ul>
+<li>Adapt the code to use a <code>last</code> reference.</li>
+</ul>
+</section>
+<section id="implementing-a-queue-with-a-linkedlist" class="level2">
+<h2>Implementing a Queue with a LinkedList</h2>
+<p>We want to match the efficiency of our previous queue implementation. We want to operate on both ends of the sequence.</p>
+<p>We want to add an element to end of the queue, ideally without searching through the whole list to find the end (our previous <code>add_last</code> and <code>get_last</code> implementations were O(n), which is too slow).</p>
+<p>We can do this by storing a reference to the last object in the list as well as to the first. This gives us O(1) for all our methods.</p>
+<p>Our enqueue method now becomes:</p>
+<pre><code>def enqueue(self, element):
+    self.body.add_last(element)</code></pre>
+</section>
+<section id="moving-on" class="level2">
+<h2>Moving On</h2>
+<p>LinkedLists are a general data structure – we can use them for any sequential storage. What happens if we want to remove an item from the middle of the list?</p>
+<p>To remove the node x, we need to link the node w to the node z, by setting w.next = z. We can find z from x.next, but how can we find w? We have to search through the list. Doubly-Linked Lists are a solution to this problem.</p>
+</section>
+<section id="doubly-linked-lists" class="level2">
+<h2>Doubly-Linked Lists</h2>
+<p>Similar to singly-linked lists, but every node has a reference to the last node as well as the next one.</p>
+<section id="head-tail" class="level3">
+<h3>Head &amp; Tail</h3>
+<p>We add two dummy elements, one at the start and one at the end. These have no data, and serve to mark the start and end of the list. This way, every node that contains data has the same structure, and links to a next node and a previous node.</p>
+<p>The head node points to the first node with its <code>next</code> reference, but points to <code>None</code> with its <code>previous</code> reference.</p>
+<p>The tail node points to the last node with its <code>previous</code> reference, but points to <code>None</code> with its <code>next</code> reference.</p>
+</section>
+<section id="code-skeleton" class="level3">
+<h3>Code Skeleton</h3>
+<p>We will be asked to write this code for the first continuous assessment, which is upcoming. Here’s a skeleton:</p>
+<pre class="sourceCode python" id="cb4"><code class="sourceCode python"><div class="sourceLine" id="cb4-1" data-line-number="1">    <span class="kw">class</span> DLLNode(<span class="bu">object</span>):</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2">        <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, item, prevnode, nextnode):</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3">            <span class="va">self</span>.element <span class="op">=</span> item</div>
+<div class="sourceLine" id="cb4-4" data-line-number="4">            <span class="va">self</span>.<span class="bu">next</span> <span class="op">=</span> prevnode</div>
+<div class="sourceLine" id="cb4-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb4-6" data-line-number="6">    <span class="kw">class</span> DLinkedList(<span class="bu">object</span>):</div>
+<div class="sourceLine" id="cb4-7" data-line-number="7">        <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</div>
+<div class="sourceLine" id="cb4-8" data-line-number="8"></div>
+<div class="sourceLine" id="cb4-9" data-line-number="9">        <span class="kw">def</span> add_after(<span class="va">self</span>, item, before):</div>
+<div class="sourceLine" id="cb4-10" data-line-number="10"></div>
+<div class="sourceLine" id="cb4-11" data-line-number="11">        <span class="kw">def</span> add_first(<span class="va">self</span>, item):</div>
+<div class="sourceLine" id="cb4-12" data-line-number="12"></div>
+<div class="sourceLine" id="cb4-13" data-line-number="13">        <span class="kw">def</span> add_last(<span class="va">self</span>, item):</div>
+<div class="sourceLine" id="cb4-14" data-line-number="14"></div>
+<div class="sourceLine" id="cb4-15" data-line-number="15">        <span class="kw">def</span> get_first(<span class="va">self</span>):</div>
+<div class="sourceLine" id="cb4-16" data-line-number="16"></div>
+<div class="sourceLine" id="cb4-17" data-line-number="17">        <span class="kw">def</span> get_last(<span class="va">self</span>):</div>
+<div class="sourceLine" id="cb4-18" data-line-number="18"></div>
+<div class="sourceLine" id="cb4-19" data-line-number="19">        <span class="kw">def</span> remove_node(<span class="va">self</span>, node):</div>
+<div class="sourceLine" id="cb4-20" data-line-number="20"></div>
+<div class="sourceLine" id="cb4-21" data-line-number="21">        <span class="kw">def</span> remove_first(<span class="va">self</span>):</div>
+<div class="sourceLine" id="cb4-22" data-line-number="22"></div>
+<div class="sourceLine" id="cb4-23" data-line-number="23">        <span class="kw">def</span> remove_last(<span class="va">self</span>):</div>
+<div class="sourceLine" id="cb4-24" data-line-number="24"></div>
+<div class="sourceLine" id="cb4-25" data-line-number="25">        [more here]</div></code></pre>
+<p>Implementing these functions is tricky – you need to be very careful that you don’t create cycles, or dead ends in the middle of the list.</p>
+<section id="add_after" class="level4">
+<h4><code>add_after()</code></h4>
+<p>We add the new node, set its <code>next</code> and <code>previous</code> references to point to the right nodes, update the <code>next</code> and <code>previous</code> references to point to the new node. We also update the size.</p>
+<ul>
+<li>create a new node for item with <code>previous</code> and <code>next</code> referring to <code>None</code></li>
+<li><code>n1.next.prev = newnode</code></li>
+<li><code>newnode.next = n1.next</code></li>
+<li><code>newnode.prev = n1</code></li>
+<li><code>n1.next = newnode</code></li>
+<li><code>size += 1</code></li>
+</ul>
+</section>
+<section id="add_first" class="level4">
+<h4><code>add_first()</code></h4>
+<p>We use <code>add_after()</code> on the head node.</p>
+<pre><code>self.add_after(item, self.head)</code></pre>
+</section>
+<section id="add_last" class="level4">
+<h4><code>add_last()</code></h4>
+<p>We use <code>add_after()</code> on the node before the tail node.</p>
+<pre><code>self.add_after(item, self.tail.prev)</code></pre>
+</section>
+<section id="remove_node" class="level4">
+<h4><code>remove_node()</code></h4>
+<p>Removing node y from a list where x is before it and z is after it.</p>
+<ul>
+<li><code>y.prev.next = y.next</code></li>
+<li><code>y.next.prev = y.prev</code></li>
+<li><code>y.prev = None</code></li>
+<li><code>y.next = None</code></li>
+<li><code>size -= 1</code></li>
+</ul>
+<p>We may also want to return the element and then set it to be <code>None</code>, so that node y will be removed instead of continuing to take up memory. Python will know that it’s no longer usable since nothing is pointing to it and it is pointing to nothing except <code>None</code>.</p>
+</section>
+<section id="exercises" class="level4">
+<h4>Exercises</h4>
+<p>Implement these methods:</p>
+<ul>
+<li>a method to swap two adjacent nodes</li>
+<li>a method to swap two arbitrary nodes</li>
+</ul>
+<p>The simpler way to do these is to just swap the elements of the nodes. There are reasons you may not want to do this (if you’re maintaining more complex data structures and have something else pointing to these nodes because you know what’s in them and you want to be able to jump straight to them), so there’s a second way. This way is more standard, but is messier. It consists of changing the <code>next</code> and <code>previous</code> fields of the four relevant items.</p>
+<p>With the arbitrary nodes, it’s difficult because they may also be adjacent, or adjacent in reverse order. The simplest approach is to only use your pre-existing methods <code>swap_adjacent</code>, <code>remove()</code> and <code>insert_after()</code>. If it’s not going to add much more effort, it’s worth using previously written functions because you’ve already tested them. You reduce the chance of making mistakes and spend less time writing your code.</p>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

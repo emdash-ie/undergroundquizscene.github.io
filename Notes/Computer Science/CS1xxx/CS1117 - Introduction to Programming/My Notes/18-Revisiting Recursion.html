@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>18-Revisiting Recursion</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="revisiting-recursion" class="level1">
+<h1>Revisiting Recursion</h1>
+<hr />
+<section id="variable-scope" class="level2">
+<h2>Variable Scope</h2>
+<p>You can define variables outside of functions that can then be used by the functions:</p>
+<pre><code>def F():
+    print(n)
+
+n = 5
+F()         --&gt; 5</code></pre>
+<p>However, if you have n redefined inside the function, the local variable takes precedence over the global variable inside the function.</p>
+<p>Python also doesn’t allow the following:</p>
+<pre><code>def F():
+    print(n)
+    n = 7
+    print(n)
+    
+n = 5
+F()</code></pre>
+<p>This is because we’re using print(n) the first time to refer to global n, and the second time to refer to local n, which is weird.</p>
+</section>
+</section>
+</body>
+</html>

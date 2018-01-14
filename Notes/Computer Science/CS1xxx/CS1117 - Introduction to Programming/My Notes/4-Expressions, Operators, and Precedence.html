@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4-Expressions, Operators, and Precedence</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="expressions-operators-and-precedence" class="level1">
+<h1>Expressions, Operators, and Precedence</h1>
+<hr />
+<section id="expressions" class="level3">
+<h3>Expressions</h3>
+<p>An expression is something which has a value.</p>
+<p>Here are some examples:</p>
+<pre><code>EXPRESSION          =&gt; RESULT
+
+2 + 3               =&gt; 5
+2 + 3 x 4           =&gt; 14
+12 x feet + inches  =&gt; (some number)
+BoxVolume(3, 4, 8)  =&gt; 96
+247                 =&gt; 247
+7 / 2               =&gt; 3.5</code></pre>
+</section>
+<section id="data-types" class="level3">
+<h3>Data Types</h3>
+<p>A data type is a set of values.</p>
+<section id="int" class="level4">
+<h4><em>int</em></h4>
+<p>The <em>int</em> datatype is used to represent integers.</p>
+<p><em>int</em> = <code>{0, 1, -1, 2, -2, …}</code></p>
+<ul>
+<li>In Python there is no limit to the size of ints.</li>
+<li>To convert something from another datatype to an int (e.g. from a string), you can use the built-in function <code>int()</code>.</li>
+</ul>
+</section>
+<section id="float" class="level4">
+<h4><em>float</em></h4>
+<p>The <em>float</em> datatype is used to represent numbers with decimal points.</p>
+<p><em>float</em> = <code>{3.5, 3.14159265, -27.6, 3.0, …}</code></p>
+<ul>
+<li>3 is an int but 3.0 is a float.</li>
+<li>To convert from another datatype (e.g. a string) into a float, you can use the built-in function <code>float()</code>.</li>
+</ul>
+</section>
+<section id="bool" class="level4">
+<h4><em>bool</em></h4>
+<p>The <em>bool</em> datatype is used to represent boolean values.</p>
+<p><em>bool</em> = <code>{True, False}</code></p>
+<ul>
+<li>True and False are reserved words.</li>
+</ul>
+</section>
+<section id="str" class="level4">
+<h4><em>str</em></h4>
+<p>The <em>str</em> datatype is used to represent series of characters.</p>
+<p><em>str</em> = <code>{'Ann', 'Hi there', 'True', '5471', ' ', '' (the empty string), …}</code></p>
+<ul>
+<li>You can use the built-in function <code>str()</code> to get the string representation of another datatype.</li>
+</ul>
+</section>
+<section id="nonetype" class="level4">
+<h4><em>NoneType</em></h4>
+<p>The <em>NoneType</em> datatype contains only the value <code>None</code>, which is meant to represent nothing.</p>
+<p><em>NoneType</em> = <code>{None}</code></p>
+<ul>
+<li><p>The only operations you can perform with <code>None</code> are to check if something is equal to it, or if it’s not equal to it:</p>
+<p><code>x == None</code> =&gt; <code>True</code> if x is None.<br />
+<code>x != None</code> =&gt; <code>True</code> if x is not None.</p></li>
+</ul>
+</section>
+<section id="type" class="level4">
+<h4>type()</h4>
+<p>You can use the inbuilt function <code>type()</code> to check the type of a variable.</p>
+</section>
+</section>
+<section id="operators" class="level3">
+<h3>Operators</h3>
+<section id="arithmetic-operators" class="level4">
+<h4>Arithmetic Operators</h4>
+<section id="section" class="level5">
+<h5>+</h5>
+<p>The addition operator. Works as you’d expect with numbers.</p>
+<ul>
+<li><p>Adding two floats always gives a float:</p>
+<p><code>1.5 + 1.5  =&gt; 3.0</code></p></li>
+<li><p>Also concatenates strings:</p>
+<p><code>'a' + 'b'  =&gt; 'ab'</code></p></li>
+</ul>
+</section>
+<section id="section-1" class="level5">
+<h5>-</h5>
+<p>Subtraction operator. As you’d expect with numbers.</p>
+<ul>
+<li>Subtracting two floats always gives a float.</li>
+</ul>
+</section>
+<section id="section-2" class="level5">
+<h5>*</h5>
+<p>The multiplication operator, as you’d expect with numbers.</p>
+<ul>
+<li><p>Multiplication only gives an int if both inputs are also ints. If either is a float, the result is a float.</p></li>
+<li><p>Can also be used with strings:</p>
+<p><code>'a' * 5    =&gt; 'aaaaa'</code></p></li>
+</ul>
+</section>
+<section id="section-3" class="level5">
+<h5>/</h5>
+<p>Division.</p>
+<ul>
+<li><p>Always returns a float:</p>
+<p><code>6 / 2  =&gt; 3.0</code></p></li>
+</ul>
+</section>
+<section id="section-4" class="level5">
+<h5>//</h5>
+<p>Floor division.</p>
+<ul>
+<li><p>Ignores remainder:</p>
+<p><code>10 // 3    =&gt; 3</code></p></li>
+<li><p>Returns an int if fed two ints, returns a float if either input is a float.</p></li>
+</ul>
+</section>
+<section id="section-5" class="level5">
+<h5>%</h5>
+<p>Modulo operator. Gives the remainder after division.</p>
+<ul>
+<li><p>Examples:</p>
+<p><code>10 % 3 =&gt; 1</code> <code>50 % 2 =&gt; 0</code> <code>49 % 2 =&gt; 1</code></p></li>
+<li><p>Connected with floor division by this identity:</p>
+<p><code>((x // y) * y) + (x % y)   =&gt; x</code></p></li>
+</ul>
+</section>
+</section>
+<section id="comparative-operaters" class="level4">
+<h4>Comparative Operaters</h4>
+<ul>
+<li><p><code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code></p></li>
+<li><p>Work as you’d expect, return True or False.</p></li>
+<li><p>(<code>&lt;</code>, <code>&gt;</code>, etc.) can be used on strings, to compare them in dictionary order:</p>
+<p><code>'a' &lt; 'b' =&gt; True</code> <code>'1' &lt; '2' =&gt; True</code> <code>'11' &lt; '1000' =&gt; False</code></p></li>
+</ul>
+</section>
+<section id="boolean-operators" class="level4">
+<h4>Boolean Operators</h4>
+<ul>
+<li><p><code>and</code>, <code>or</code>, <code>not</code> — all reserved words</p></li>
+<li><p>Take two bools and return a bool.</p></li>
+</ul>
+<section id="evaluation-of-operands" class="level5">
+<h5>Evaluation of Operands</h5>
+<p>For <code>and</code> and <code>or</code>, the interpreter will only evaluate both operands if it has to:</p>
+<ul>
+<li>With <code>P or Q</code>, if P is <code>True</code>, then Q will not be evaluated, because the result is already known.</li>
+<li>With <code>P and Q</code>, if P is <code>False</code>, then Q will not be evaluated either.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="precedence" class="level3">
+<h3>Precedence</h3>
+<ul>
+<li><p>Comparative operators have higher precedence than arithmetic operators.</p></li>
+<li><p>Arithmetic operators have higher precedence than boolean operators.</p></li>
+<li><p>For boolean operators, <code>not</code> has higher precedence than <code>and</code>, which has higher precedence than <code>or</code></p></li>
+</ul>
+<hr />
+<section id="handouts-assignments" class="level6">
+<h6>Handouts &amp; Assignments</h6>
+<ul>
+<li>Handout 3 - Expressions, Operators, &amp; Precedence</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

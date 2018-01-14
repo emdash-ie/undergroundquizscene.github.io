@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>3: Multiple Access</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">3: Multiple Access</h1>
+<p class="author"></p>
+<p class="date">Thursday 26th of October, 2017</p>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Multiple nodes are trying to access the network at the same time. This only applies on some nodes. Point-to-point nodes never have multiple people transmitting at the same time, but broadcast networks (some ethernet, wifi) will – they need multiple access control.</p>
+<p>Most long-distance connections are point-to-point between two machines and full duplex, so both devices can send and receive freely.</p>
+</section>
+<section id="multiple-access-protocols" class="level1">
+<h1>Multiple Access Protocols</h1>
+<p>In a shared broadcast channel, if two or more nodes transmit at once, we get interference. (A collision is when a node receives two or more signals at the same time.)</p>
+<p>Ideally you want a distributed algorithm. Communication about channel sharing must use the channel itself – there’s no out-of-band channel for co-ordination.</p>
+</section>
+<section id="ideal-multiple-access-protocol" class="level1">
+<h1>Ideal Multiple Access Protocol</h1>
+<ol type="1">
+<li>When one node wants to transmit, they can send at the data rate of the channel.</li>
+<li>When M nodes want to transmit, each can send at an average rate R/M
+<ul>
+<li>R is the data rate</li>
+</ul></li>
+<li>Fully decentralised
+<ul>
+<li>no special node for co-ordination of transmissions</li>
+<li>no synchronisation of clocks</li>
+</ul></li>
+<li>Simple</li>
+</ol>
+<p>In general, we won’t get this, instead having some level of compromise.</p>
+</section>
+<section id="taxonomy-of-mac-protocols" class="level1">
+<h1>Taxonomy of MAC Protocols</h1>
+<p>There are three broad classes:</p>
+<ul>
+<li>Channel Partitioning
+<ul>
+<li>divide channel into smaller pieces (typically time slots)</li>
+<li>allocate piece to node for exclusive use</li>
+</ul></li>
+<li>Random Access
+<ul>
+<li>channel not divided, allow collisions</li>
+<li>recover from collisions</li>
+</ul></li>
+<li>[…]</li>
+</ul>
+<section id="channel-partitioning" class="level2">
+<h2>Channel Partitioning</h2>
+<p>TDMA: time division multiple access</p>
+<p>Conceptually simple:</p>
+<p>Access to channel is done in <em>rounds</em>, which repeat indefinitely. Each station gets a fixed-length slot in each round.</p>
+<p>However, it’s inefficient – if any stations aren’t currently sending, their slots are unused. If only one is sending, it can still only use its own slot.</p>
+<p>It’s distributed, but it needs synchronised clocks. (Usually there’s a guard interval between slots, as it’s hard to get clocks perfectly synchronised).</p>
+<p>Also large latency with large numbers of slots. Also, how do you decide to allocate slots based on the number of connected devices?</p>
+</section>
+<section id="random-access" class="level2">
+<h2>Random Access</h2>
+<p>Originated in the ALOHA satellite system.</p>
+<p>When a node has a packet to send, it transmits at the full channel data rate R. There is no co-ordination among nodes. If two or more nodes transmit at once, there’s a collision. Random access MAC protocol specifies how to detect collisions, and how to recover from them (e.g. with delayed retransmissions).</p>
+<p>There’s a maximum frame length, so that at some point every sender has to move on to a new frame – this facilitates fairness.</p>
+<p>### ALOHA</p>
+<p>Very simple, no co-ordination or synchronisation.</p>
+<p>When a frame arrives at the sender’s MAC layer, transmit it immediately.</p>
+<p>ALOHA suffers from very poor link utilisation for medium to high traffic loads – lots of collisions because there’s no co-ordination.</p>
+<p>Very good if only one sender is sending – gets full data rate.</p>
+<section id="carrier-sensing" class="level3">
+<h3>Carrier Sensing</h3>
+<p>Listen before you transmit. If the channel is idle, transmit the frame. If the channel is busy, defer the transmission.</p>
+<p>Collisions can still occur – propagation delay means two nodes may not hear each other’s transmission in time, and may think the channel is idle. If a collision happens, the entire packet transmission time is wasted.</p>
+<p>Link layer technologies have upper bounds on the length between stations, for this reason.</p>
+</section>
+<section id="collision-detection" class="level3">
+<h3>Collision Detection</h3>
+<p>If you detect a collision, stop sending.</p>
+<p>In wired LANs, it’s easy to detect collisions – you can compare transmitted and received signal strengths. In wireless LANs, it’s much more difficult, because received signals are overwhelmed by transmitted signals. In a wireless network, the distances are harder to define – two people could be in range of an access point but not each other.</p>
+</section>
+<section id="csmacd-in-classic-ethernet" class="level3">
+<h3>CSMA/CD in Classic Ethernet</h3>
+<p>Classic ethernet isn’t used so much anymore.</p>
+<p>Jam signal is to point out that the packet is ending prematurely.</p>
+<p>### Exponential Backoff</p>
+<p>Want to introduce non-determinism to prevent repeated collisions.</p>
+<p>Wait (K * slot duration), where K is chosen at random. After the first collision, choose K from {0, 1}. After a second collision, choose K from {0, 1, 2, 3}. After each collision, double the range from which K values are chosen.</p>
+<p>At some point, if there are still collisions happening, sending will be abandoned, as there are probably problems with the network.</p>
+</section>
+<section id="csmacd-efficiency" class="level3">
+<h3>CSMA/CD Efficiency</h3>
+<p>[…]</p>
+<p>Some collisions still can’t be detected – take A and B sending very small packets. They stop listening once they’re done sending, and the collision happens between when they stop listening and when the packets are received.</p>
+<p>Can solve this with a minimum packet size.</p>
+</section>
+<section id="csma-in-wireless-links" class="level3">
+<h3>CSMA in Wireless Links</h3>
+<p>There are some problems with using CSMA/CD in wireless networks:</p>
+<ul>
+<li>Signal strength decreases proportionally to the square of the distance between the sender and the receiver.</li>
+<li>The sender could apply carrier sensing and collision detection, but collisions happen at the receiver.</li>
+<li>A sender may not be able to hear other transmissions (so carrier sensing not working)</li>
+<li>A sender may not be able to hear collisions (so collision detection not working)</li>
+</ul>
+<section id="hidden-node-problem" class="level4">
+<h4>Hidden Node Problem</h4>
+<p>Nodes A and C are out of range of each other, but within range of the access point B. They each think the medium is free, and send simultaneously – they can’t detect the collision that’s happening at the access point.</p>
+<p>This doesn’t happen in ethernet, because all nodes on an ethernet cable are guaranteed to be within range of one another.</p>
+</section>
+</section>
+<section id="ieee-802.11-wifi" class="level3">
+<h3>IEEE 802.11 (WiFi)</h3>
+<p>Very influenced by ethernet, as it was originally a convenient alternative to it.</p>
+<p>Devices in a cell communicate with an access point. The access point with the connected devices is called a Basic Service Set. Every BSS has an SSID, and several can share SSIDs.</p>
+</section>
+<section id="wireless-differences-from-wired" class="level3">
+<h3>Wireless Differences from Wired</h3>
+<p>Communication across even a point-to-point wireless link is much more difficult than a wired link:</p>
+<ul>
+<li>decreased signal strength</li>
+<li>interference from other sources
+<ul>
+<li>e.g. bluetooth and other devices</li>
+</ul></li>
+<li>multipath propagation
+<ul>
+<li>radio signal reflects off objects and the ground, arriving at the destination at slightly different times</li>
+</ul></li>
+</ul>
+</section>
+<section id="basics" class="level3">
+<h3>802.11 Basics</h3>
+<p>An inter-frame space is a delay prior to transmitting a frame. There are different IFSs, e.g. DIFS for regular data, and SIFS (which is short) for ACKs.</p>
+<p>IFSs can impose a priority – using a shorter space means you get in first.</p>
+</section>
+<section id="csmaca" class="level3">
+<h3>802.11 CSMA/CA</h3>
+<p>Uses collision avoidance instead of detection, as detection isn’t possible.</p>
+<p>Basic mechanism uses Clear Channel Assessment to listen to the medium before transmitting, combined with a random exponential backoff.</p>
+<p>If another stations occupies the medium during the back-off time, the back-off timer is paused until the medium is free again. This promotes fairness, as those who’ve been waiting the longest are most likely to get access to the channel.</p>
+<p>This works well, but requires every node to be in range of every other node. We still haven’t solved the hidden node problem.</p>
+<p>### Reservation</p>
+<p>The sender reserves a channel, rather than using random access of data frames.</p>
+<p>Request-to-send (RTS) packets are broadcast, which are small. They may still collide, but it’s less likely. When received, the access point broadcasts a clear-to-send (CTS) packet, showing that someone has reserved the channel. In the hidden node problem, anyone in range of the access point will know that the channel is reserved, so that’s solved.</p>
+</section>
+</section>
+<section id="taking-turns-mac-protocols" class="level2">
+<h2>“Taking Turns” MAC Protocols</h2>
+<p>Channel partitioning MAC protocols share the channel efficiently and fairly at high load, but are inefficient at low load.</p>
+<p>Random access MAC protocols are very efficient at low load, but at high load there’s overhead from collisions.</p>
+<p>“Taking turns” protocols look for the best of both worlds.</p>
+<section id="polling" class="level3">
+<h3>Polling</h3>
+<p>One machine is the controller, and invites/polls other nodes to transmit in turn. Typically the other devices are simple in their logic.</p>
+<p>This is fair, but there are some issues:</p>
+<ul>
+<li>overhead of polling</li>
+<li>latency</li>
+<li>single point of failure (controller)</li>
+</ul>
+<p>Can detect a controller disappearing by noticing that there haven’t been any polling messages in a while, and then use a distributed algorithm to allocate a new controller.</p>
+</section>
+<section id="token-passing" class="level3">
+<h3>Token Passing</h3>
+<p>Uses a ring of connected devices.</p>
+<p>Control token is passed from one node to the next sequentially. Once a packet has been sent, and makes its way around the ring back to you, you release the token and pass it to the next device in the ring.</p>
+<p>Token needs to be regenerated if someone goes offline while holding it, need a distributed algorithm for that. It’s also possible, though unlikely, that the token could get corrupted during transmission.</p>
+</section>
+<section id="summary" class="level3">
+<h3>Summary</h3>
+<p>These do offer kind of the best of both worlds, but are not as efficient at either end as purely random-access or purely […].</p>
+<p>They’re used in some situations: […]</p>
+</section>
+</section>
+</section>
+</body>
+</html>

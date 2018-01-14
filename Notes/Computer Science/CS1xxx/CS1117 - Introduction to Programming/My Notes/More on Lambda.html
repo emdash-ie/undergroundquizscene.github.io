@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>More on Lambda</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="more-on-lambda" class="level1">
+<h1>More on Lambda</h1>
+<hr />
+<p>Take this function:</p>
+<pre><code>def Double(n):
+    return 2*n
+    </code></pre>
+<p>You can call this in a few ways:</p>
+<pre><code>Double(3)       =&gt;  6
+Double(1 + 2)   =&gt;  6
+
+x = 3
+Double(x)       =&gt;  6</code></pre>
+<p>The first thing that happens when you call a function and give it a parameter is that the parameter is evaluated by the interpreter, before the function is called. E.g. 1 + 2 is calculated in the second line before the function is called, or x is replaced by 3 in the fourth line.</p>
+<p>Note that this also happens with the first call, for uniformity. Python checks what the value of 3 is before it calls the function, because it’d be more awkward to not check whenever the value is a number than it would be to always check.</p>
+<section id="evaluation" class="level4">
+<h4>Evaluation</h4>
+<p>This process of figuring out the value of things is known as <strong>evaluation</strong>. It’s the process of taking any expression and simplifying it down to a basic value.</p>
+</section>
+<section id="relevance-to-lambda" class="level2">
+<h2>Relevance to Lambda</h2>
+<p>Here’s an equivalent of Double() written using lambda:</p>
+<pre><code>lambda n : 2*n</code></pre>
+<p>If you wanted to give this a name, you could do this:</p>
+<pre><code>Double = lambda n : 2*n</code></pre>
+<p>Functionally, it now looks very similar to the Double() function above.</p>
+<p>When testing the Map() function in Assignment 19, you could write either of the following lines:</p>
+<pre><code>Map(Double, [1, 2, 3])              =&gt;  [2, 4, 6]
+
+Map(lambda n : 2*n, [1, 2, 3])      =&gt;  [2, 4, 6]</code></pre>
+<p>With the first call, the interpreter evaluates Double, replacing it with the lambda function represented by Double, <em>even if you defined Double using a def</em>.</p>
+</section>
+</section>
+</body>
+</html>

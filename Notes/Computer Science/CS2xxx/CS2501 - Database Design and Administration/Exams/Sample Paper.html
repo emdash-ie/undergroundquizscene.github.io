@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sample Paper</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="question-1" class="level1">
+<h1>Question 1</h1>
+<section id="a" class="level2">
+<h2>(a)</h2>
+<section id="i" class="level3">
+<h3>(i)</h3>
+<ul>
+<li><p>employee SSNs must be unique can be done with a <code>UNIQUE</code> or <code>PRIMARY KEY</code> constraint.</p></li>
+<li><p>supervisor must be an employee can be done with a <code>FOREIGN KEY</code> constraint</p></li>
+<li><p>employee’s department must be valid can be done with a <code>FOREIGN KEY</code> constraint</p></li>
+<li><p>sex must be ‘F’ or ‘M’ can be done with a <code>CHECK</code> constraint</p></li>
+</ul>
+</section>
+<section id="ii" class="level3">
+<h3>(ii)</h3>
+<ul>
+<li><p>names must be in a standard format</p>
+<ul>
+<li>to do this you could limit direct access to the database to just the admin and have everyone else interact with the database through programs, which do their own validation on the inputs</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="b" class="level2">
+<h2>(b)</h2>
+<p>[don’t know]</p>
+</section>
+</section>
+<section id="question-2" class="level1">
+<h1>Question 2</h1>
+<section id="a-1" class="level2">
+<h2>(a)</h2>
+<p>The table descriptor in the database directory will be altered. The specific tables altered will be <code>COLUMNS</code> and <code>SYSCOLUMNS</code> for statements that add, delete, or modify columns.</p>
+</section>
+<section id="b-1" class="level2">
+<h2>(b)</h2>
+<p>For example:</p>
+<pre class="sourceCode sql" id="cb1"><code class="sourceCode sql"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">GRANT</span> <span class="kw">UPDATE</span></div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">ON</span> <span class="kw">table</span></div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">TO</span> username;</div></code></pre>
+<p>This would change <code>SYSTABAUTH</code>, either adding a new row for the user and the table, or modifying the existing row. It may also add an entry to <code>CATALOG</code>/<code>SYSCATALOG</code>.</p>
+</section>
+<section id="c" class="level2">
+<h2>(c)</h2>
+<p>The structure of the tables is complicated and assumes a lot of knowledge from the user for direct interaction. Nowadays interacting through scripts is encouraged instead. [Not sure. Also not sure what he means by an example.]</p>
+</section>
+<section id="d" class="level2">
+<h2>(d)</h2>
+<ol type="1">
+<li><p>Does the table <code>EMPLOYEE</code> exist?</p>
+<ul>
+<li>check <code>SYSCATALOG</code></li>
+</ul></li>
+<li><p>Does the user running the query have grant option for for <code>INSERT</code></p>
+<ul>
+<li>check <code>SYSTABAUTH</code></li>
+</ul></li>
+<li><p>Does <code>User007</code> exist?</p>
+<ul>
+<li>check <code>SYSUSERAUTH</code></li>
+</ul></li>
+</ol>
+<p>If all these conditions are true, the statement will succeed.</p>
+</section>
+<section id="e" class="level2">
+<h2>(e)</h2>
+<p>Create a local copy of the table. If you have resource permissions, you can then put the info into a new table of your own.</p>
+</section>
+</section>
+<section id="question-3" class="level1">
+<h1>Question 3</h1>
+<section id="a-2" class="level2">
+<h2>(a)</h2>
+<ul>
+<li>if the info you want to display in the output comes from multiple tables/views, you can’t use subqueries, and so have to use a join instead</li>
+</ul>
+</section>
+<section id="b-find-the-identity-and-name-of-each-dependent-of-an-employee-working-for-the-research-department" class="level2">
+<h2>(b) Find the identity and name of each dependent of an employee working for the Research department</h2>
+<ul>
+<li><p>not sure what identity means? They don’t have an ID or SSN</p>
+<ul>
+<li>have gone with selecting the employee’s SSN</li>
+</ul></li>
+</ul>
+<section id="i-as-a-join" class="level3">
+<h3>(i) As a Join</h3>
+<pre class="sourceCode sql" id="cb2"><code class="sourceCode sql"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">SELECT</span> Dpnd.ESSN, Dpnd.DEPENDENT_NAME</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">FROM</span> DEPENDENT Dpnd, EMPLOYEE E, DEPARTMENT Dprt</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">WHERE</span> Dpnd.ESSN = E.SSN</div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">    <span class="kw">AND</span> E.DNO = Dprt.DNUMBER</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">AND</span> Dprt.DNAME = <span class="st">&#39;Research&#39;</span>;</div></code></pre>
+</section>
+<section id="ii-as-a-subquery" class="level3">
+<h3>(ii) As a Subquery</h3>
+<pre class="sourceCode sql" id="cb3"><code class="sourceCode sql"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">SELECT</span> ESSN, DEPENDENT_NAME</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">FROM</span> DEPENDENT</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">WHERE</span> ESSN <span class="kw">IN</span> (</div>
+<div class="sourceLine" id="cb3-4" data-line-number="4">    <span class="kw">SELECT</span> SSN <span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb3-5" data-line-number="5">    <span class="kw">WHERE</span> DNO <span class="kw">IN</span> (</div>
+<div class="sourceLine" id="cb3-6" data-line-number="6">        <span class="kw">SELECT</span> DNO <span class="kw">FROM</span> DEPARTMENT</div>
+<div class="sourceLine" id="cb3-7" data-line-number="7">        <span class="kw">WHERE</span> DNAME = <span class="st">&#39;Research&#39;</span></div>
+<div class="sourceLine" id="cb3-8" data-line-number="8">    )</div>
+<div class="sourceLine" id="cb3-9" data-line-number="9">);</div></code></pre>
+<ul>
+<li>Have used <code>WHERE DNO IN</code> rather than <code>WHERE DNO =</code> to allow for multiple departments called ‘Research’.</li>
+</ul>
+</section>
+</section>
+<section id="c-specify-the-definition-of-a-view-that-would-simplify-the-query-of-b-above.-it-should-be-of-the-form-dependempdept-dependent_name-ssn-dno-and-contain-details-of-dependents-employees-and-departments." class="level2">
+<h2>(c) Specify the definition of a view that would simplify the query of (b) above. It should be of the form DependEmpDept (Dependent_Name, SSN, Dno) and contain details of dependents, employees and departments.</h2>
+<pre class="sourceCode sql" id="cb4"><code class="sourceCode sql"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">CREATE</span> <span class="kw">VIEW</span> DependEmpDept (ENAME, ESSN, DPND_NAME, DPRT_NUM, DPRT_NAME) <span class="kw">AS</span></div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">SELECT</span> <span class="fu">CONCAT</span>(E.FNAME, <span class="st">&#39; &#39;</span>, E.LNAME), E.SSN, Dpnd.DEPENDENT_NAME, Dprt.DNUMBER, Dprt.DNAME</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">FROM</span> DEPENDENT Dpnd, EMPLOYEE E, DEPARTMENT Dprt</div>
+<div class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">WHERE</span> Dpnd.ESSN = E.SSN</div>
+<div class="sourceLine" id="cb4-5" data-line-number="5">    <span class="kw">AND</span> E.DNO = Dprt.DNUMBER;</div></code></pre>
+</section>
+</section>
+<section id="question-4" class="level1">
+<h1>Question 4</h1>
+<section id="a-embedded-sql" class="level2">
+<h2>(a) Embedded SQL</h2>
+<section id="ii-why-and-how-is-the-into-clause-employed-in-esql-a-feature-that-is-absent-in-standard-interactive-sql" class="level3">
+<h3>(ii) Why and how is the INTO clause employed in ESQL – a feature that is absent in standard interactive SQL?</h3>
+<p>It’s used to store results from a query into variables, e.g.:</p>
+<pre class="sourceCode sql" id="cb5"><code class="sourceCode sql"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">SELECT</span> Fname, Lname, Address, Tel_No</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">INTO</span> <span class="ch">:FirstName</span>, <span class="ch">:LastName</span>, <span class="ch">:Address</span>, <span class="ch">:Telephone</span></div>
+<div class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">FROM</span> STAFF</div>
+<div class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">WHERE</span> Sno = <span class="ch">:StaffNum</span></div></code></pre>
+</section>
+<section id="iii-why-is-the-for-update-of-clause-sometimes-used-with-the-select-statement-in-esql" class="level3">
+<h3>(iii) Why is the FOR UPDATE OF … clause sometimes used with the SELECT statement in ESQL?</h3>
+<p>To allow updating of a value as a cursor is being used to look through the results of an SQL statement. <code>FOR UPDATE OF</code> maintains linkage between result tables and the original tables.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

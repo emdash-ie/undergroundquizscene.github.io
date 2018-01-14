@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Cloud Computing</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Cloud Computing</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Cloud computing provides scalable, virtualised infrastructure, platforms, and applications as on-demand services, priced by usage.</p>
+<p>This is somewhat similar to an old mainframe-terminal system, where the terminals just handle input/output, and the mainframe is shared between many terminals and users.</p>
+<p>By scalable, we mean that irrespective of the number of clients, the cloud system will meet the resource requirements.</p>
+<p>Cloud computing is always done/accessed over the network.</p>
+<p>With virtualisation, the physical resources are better utilised, as the physical resources can be shared among many virtual machines/service instances.</p>
+</section>
+<section id="service-models" class="level1">
+<h1>Service Models</h1>
+<ul>
+<li><p>Infrastructure as a Service (IaaS)</p>
+<ul>
+<li>You get the hardware as a service, to do with as you will.</li>
+</ul></li>
+<li><p>Platform as a Service (PaaS)</p>
+<ul>
+<li>The entire environment you’re using (e.g. Java, editors, etc.) is provided, and you can use it to make applications.</li>
+</ul></li>
+<li><p>Service/Application as a Service (SaaS)</p>
+<ul>
+<li>E.g. Google Docs</li>
+</ul></li>
+</ul>
+</section>
+<section id="advantages" class="level1">
+<h1>Advantages</h1>
+<p>Cloud computing offers a number of advantages to companies:</p>
+<ul>
+<li><p>Rapid prototyping and manufacturing</p>
+<ul>
+<li>Don’t waste time buying computing resources and developing them when you want to build something new</li>
+</ul></li>
+<li><p>Meeting unpredictable demand</p>
+<ul>
+<li>Cloud infrastructure can expand and collapse as needed, which would be difficult with your own infrastructure.</li>
+</ul></li>
+</ul>
+<p>There are also advantages for IT:</p>
+<ul>
+<li>A robust, highly available platform
+<ul>
+<li>high uptime</li>
+</ul></li>
+<li>Good scalability</li>
+<li>Effective use of resources and energy
+<ul>
+<li>cost-effective</li>
+</ul></li>
+</ul>
+<p># Benefits</p>
+<ol type="1">
+<li><p>Economies of Scale</p>
+<ul>
+<li><p>major cloud suppliers can purchase hardware more cheaply than regular businesses</p></li>
+<li><p>easy to scale up/down the system based on demand</p></li>
+</ul></li>
+<li>Pay as You Go
+<ul>
+<li>more customers/users -&gt; more processing power and storage -&gt; pay more</li>
+<li>when you have more customers you can <em>afford</em> to pay more</li>
+</ul></li>
+<li>Low Entry Costs
+<ul>
+<li>there is no long-term financial commitment</li>
+<li>not e.g. stuck with one company forever</li>
+</ul></li>
+<li><p>[…]</p></li>
+<li><p>[…]</p></li>
+</ol>
+</section>
+<section id="cloud-model" class="level1">
+<h1>Cloud Model</h1>
+<p>Couple of models available:</p>
+<ul>
+<li>public cloud</li>
+<li>private cloud</li>
+<li>hybrid cloud</li>
+</ul>
+<p>A private cloud belongs to an organisation, and only members/employees have access. A public cloud can be accessed by anyone. Hybrid is some combination of public and private, e.g. creating private clouds within public clouds.</p>
+</section>
+<section id="major-players" class="level1">
+<h1>Major Players</h1>
+<p>Commercial:</p>
+<ul>
+<li>Microsoft Azure</li>
+<li>Amazon EC2, S3</li>
+<li>Google AppEngine, BigTable</li>
+<li>IMB Cloud</li>
+<li>Yahoo, Salesforce, etc.</li>
+</ul>
+<p>Open Source:</p>
+<ul>
+<li>OpenStack</li>
+<li>Eucalyptus Systems</li>
+<li>Globus</li>
+</ul>
+</section>
+<section id="virtual-machines" class="level1">
+<h1>Virtual Machines</h1>
+<p>Multiple virtual machines share one hardware resource.</p>
+<p>The hypervisor is run on the host OS, and guest OSes run on the hypervisor.</p>
+</section>
+<section id="openstack" class="level1">
+<h1>OpenStack</h1>
+<p>A cloud operating system that controls pools of resources and provides means of controlling them.</p>
+<p>The OpenStack project consists of 3 components:</p>
+<ol type="1">
+<li>Compute (Nova) is used to manage and offer VMs through hypervisors</li>
+<li>Object Store (Swift) provides redundant storage for static objects.</li>
+<li>[…]</li>
+</ol>
+</section>
+</body>
+</html>

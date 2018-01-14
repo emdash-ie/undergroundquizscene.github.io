@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-22</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>Note that all definitions form the course will be included in a single pdf on the webpage.</p>
+<section id="properties-of-functions" class="level1">
+<h1>Properties of functions</h1>
+<p>There are certain properties functions need to have in order to be reversible/inversible.</p>
+<section id="image-and-range" class="level2">
+<h2>Image and Range</h2>
+<p>If f(a) = b then b is the <em>image</em> of a under f.</p>
+<p>The <em>range</em> of f is the subset of B to which elements of A are mapped.</p>
+<p>The range is the set of all images. Subset of the codomain that contains all images of A under f.</p>
+</section>
+<section id="surjectiveinjectivebijective" class="level2">
+<h2>Surjective/Injective/Bijective</h2>
+<p><em>surjective/onto</em> means range(f) = B.</p>
+<p>So every element in the codomain is an image of a value in the domain.</p>
+<p>Every element of B is mapped onto by something in A.</p>
+<p><em>injective</em> means no elements of A map to the same element.</p>
+<p>For all elements a<sub>1</sub> and a<sub>2</sub>, f(a<sub>1</sub>) /= f(a<sub>2</sub>)</p>
+<p>A function is <em>bijective</em> if it is both surjective and injective.</p>
+<p>Surjective because each ID is owned by a student, and injective because no students share the same ID.</p>
+</section>
+<section id="functions-have-a-direction" class="level2">
+<h2>Functions have a direction</h2>
+<p>f(b) may not be defined. We do not know if b is an element of A. Even if b is an element of A, f(b) isn’t necessarily = a.</p>
+</section>
+<section id="inverse-functions" class="level2">
+<h2>Inverse functions</h2>
+<p>If f maps a to f(a), then f<sup>-1</sup> maps f(a) to a.</p>
+<p>If f is the inverse of g, then g must be the inverse of f.</p>
+<p>A function f has an inverse function f<sup>-1</sup> only if f is a bijection (it is bijective).</p>
+</section>
+</section>
+<section id="composition-of-functions" class="level1">
+<h1>Composition of functions</h1>
+<p>If f:A-&gt;B and g:B-&gt;C, then:</p>
+<p>g after f (g°f) = g(f(a))</p>
+<p>But can we be certain that g is actually a function from A to C?</p>
+<p>Yes, as long as it specifies a single image in C for each element of A.</p>
+<p>He has a proof for this that’s pretty straightforward:</p>
+<ul>
+<li><p>prove each element has an image</p></li>
+<li><p>prove it only has one image</p></li>
+</ul>
+<p>(there’s a lot of stating the obvious)</p>
+<section id="some-other-properties-of-compositions" class="level2">
+<h2>Some other properties of compositions</h2>
+<p>range(g°f) ⊆ range(g)</p>
+<p>If f and g are injective, so is g°f.</p>
+<p>If f and g are surjective, so is g°f.</p>
+<p>If f and g are bijective, so is g°f.</p>
+</section>
+<section id="why-do-we-care" class="level2">
+<h2>Why do we care?</h2>
+<p>If we have a number of bijective functions, we can apply them one after another, and we can always get back the original data.</p>
+<p>E.g. lossless file compression.</p>
+</section>
+</section>
+<section id="functions-between-more-than-2-sets" class="level1">
+<h1>Functions between more than 2 sets</h1>
+<p>The cartesian product of n sets is still just a set. Can define a function between two cartesian products.</p>
+<p>So we might have f((a<sub>1</sub>, a<sub>2</sub>, …)) = (b<sub>1</sub>, b<sub>2</sub>, …).</p>
+<p>Each element of the domain will be an ordered n-tuple from (A<sub>1</sub> x A<sub>2</sub> x … x A<sub>n</sub>) and each element of the image will be an ordered m-tuple from (B<sub>1</sub> x B<sub>2</sub> x … x B<sub>m</sub>).</p>
+</section>
+<section id="set-cardinality" class="level1">
+<h1>Set Cardinality</h1>
+<p>We said it was the number of elements. That only applied to finite sets. We can now extend this definition.</p>
+<p>Two sets A and B have the same cardinality if and only if it is possible to create a bijection from A to B.</p>
+</section>
+</body>
+</html>

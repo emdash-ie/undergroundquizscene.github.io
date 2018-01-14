@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Bitmaps and Bloom Filters</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="bitmaps-and-bloom-filters" class="level1">
+<h1>Bitmaps and Bloom filters</h1>
+<p>Bloom filters are probabilistic (answers aren’t 100% correct), but very space efficient.</p>
+<p>Bitmaps are not practical for large sets.</p>
+<section id="bitmaps" class="level2">
+<h2>Bitmaps</h2>
+<p>A bitmap represents the members of a given index set. May be represented using a boolean array.</p>
+<p>Java doesn’t specify how to represent a boolean (it’s up to each JVM implementation). If the booleans are represented as ints, this would be a waste of memory, especially if the index size is large.</p>
+<p>In practice bitmaps are often represented as int arrays.</p>
+<section id="basic-representation" class="level3">
+<h3>Basic Representation</h3>
+<p><code>Bitmap(int capacity)</code> – create a bitmap</p>
+<section id="implementation" class="level4">
+<h4>Implementation</h4>
+<ul>
+<li><p>probably would be good to make the <code>Bitmap</code> class final</p>
+<ul>
+<li><p>that way public methods can’t be overridden</p></li>
+<li><p>can allow the compiler to optimise</p></li>
+</ul></li>
+<li><p>ternary operator use in <code>add</code> and <code>remove</code> is an optimisation because in theory it would allow the two statements to be done in parallel</p></li>
+<li><p>size handled manually to be more efficient</p></li>
+</ul>
+</section>
+</section>
+<section id="int-representation" class="level3">
+<h3><code>int</code> Representation</h3>
+<section id="manipulating-bits" class="level4">
+<h4>Manipulating Bits</h4>
+<ul>
+<li>arithmetic method is too slow</li>
+</ul>
+</section>
+</section>
+<section id="some-facts" class="level3">
+<h3>Some Facts</h3>
+<ul>
+<li>operations are constant time under the assumption that array access by index is O(1) – this is not always the case</li>
+</ul>
+</section>
+</section>
+<section id="bloom-filters" class="level2">
+<h2>Bloom Filters</h2>
+<ul>
+<li><p>can’t answer questions about size</p></li>
+<li><p>can’t remove from the set</p></li>
+<li><p>can improve quality of the answer by increasing the size of the filter a little bit</p></li>
+</ul>
+<section id="implementation-1" class="level3">
+<h3>Implementation</h3>
+<ul>
+<li>union of bits is numbered from the right</li>
+</ul>
+</section>
+<section id="application-detecting-malicious-websites" class="level3">
+<h3>Application: Detecting Malicious Websites</h3>
+<ul>
+<li><p>assume we want to know whether a given URL is malicious</p></li>
+<li><p>hash the URL into hash codes <code>h_0</code>, … <code>h_n-1</code></p></li>
+<li><p>if bit <code>h_i</code> = 0 for some i, then the URL isn’t known</p></li>
+<li><p>otherwise the URL is known (but this may be a false positive)</p></li>
+</ul>
+<p>At this point there are two possibilities:</p>
+<ul>
+<li><p>trust the answer</p></li>
+<li><p>use a slow database operation to see if the URL is known</p></li>
+</ul>
+<p>This speeds up detection of malicious websites largely if the majority of websites are not malicious. Google uses this.</p>
+</section>
+<section id="application-probabilistic-spell-checker" class="level3">
+<h3>Application: Probabilistic Spell Checker</h3>
+<p>Start with an empty bloom filter B.</p>
+<p>For each allowed word, add the word’s hash code to B.</p>
+<p>[…]</p>
+</section>
+<section id="application-pre-processing-database-joins" class="level3">
+<h3>Application: Pre-Processing Database Joins</h3>
+<ul>
+<li><p>computing the join takes a lot of time, and removing redundant rows also takes a lot of time.</p></li>
+<li><p>using bloom filters takes us from O(|T1| * |T2|) to O(|T1| + |T2|)</p>
+<ul>
+<li>|T1| is the number of rows in table T1</li>
+</ul></li>
+</ul>
+<p>Start with an empty bloom filter.</p>
+<p>For every row in T1, look at the tuples for common attributes, fill bloom filter with it (once per row).</p>
+<p>Look at every row in T2, if they’re not in the bloom filter we can remove the rows (can also do that with T1).</p>
+<p>Note: <code>public int hashCode()</code> is defined in the Object class. It’s generally advised that objects depending on this should override the method to get better performance.</p>
+<p>This is done in e.g. <code>HashSet</code> in Collections.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

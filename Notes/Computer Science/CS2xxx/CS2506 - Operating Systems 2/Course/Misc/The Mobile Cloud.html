@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>The Mobile Cloud</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<ul>
+<li><p>this is about research, and Grigoras’ research area</p></li>
+<li><p>(not on the exam)</p></li>
+</ul>
+<p>Infrastructure made up of two kinds of device:</p>
+<ul>
+<li><p>mobile devices</p></li>
+<li><p>the cloud – large datacenters with lots of resources</p></li>
+</ul>
+<p>Mobile devices are still limited in resources – mobile applications can offload resource intensive work to the cloud for execution.</p>
+<p>The most important resource that’s limited on a mobile device is energy. We have to be very careful of this when designing mobile applications.</p>
+<p>The point of contact between a mobile device and the internet is changing all the time, so mobility is important and needs to be managed.</p>
+<p>Gmail is a simple example of a mobile cloud service.</p>
+<p>The trend now is to develop more and more complex applications that require a lot of computing.</p>
+<p>Mobile enterprise:</p>
+<ul>
+<li><p>don’t keep employees in offices all day long</p></li>
+<li><p>anyone can be mobile, but it’s important to keep connectivity</p></li>
+<li><p>connectivity is for access to enterprise resources (as well as communication)</p>
+<ul>
+<li>file system, computing engine</li>
+</ul></li>
+</ul>
+<p>Context awareness:</p>
+<ul>
+<li><p>if working with PCs, we sit in one place (the environment is the same all the time)</p></li>
+<li><p>with mobile devices the environment/context is constantly changing</p></li>
+<li><p>many mobile applications take advantage of this now</p></li>
+<li><p>context can be about the user as well as the environment – e.g. the kind of activity the user is engaging in now.</p></li>
+<li><p>depending on the activity of the user, the system may react (e.g. with application suggestions)</p></li>
+<li><p>preferences also form part of the context – filters that allow some applications to run or not</p></li>
+<li><p>preference for phone to be on silent when the activity is a meeting (very simple example)</p></li>
+<li><p>context also about the device – memory use, battery level, processes, etc.</p></li>
+</ul>
+<p>Mobile applications are very different from classic applications because they can use this context.</p>
+</section>
+<section id="manet" class="level1">
+<h1>MANET</h1>
+<ul>
+<li><p>mobile ad-hoc networks</p>
+<ul>
+<li><p>used a lot these days, e.g. in war, during natural disasters (when the infrastructure is down)</p></li>
+<li><p>also for drones</p></li>
+<li><p>autonomous vehicles can talk to each other to alert about road conditions, etc.</p></li>
+<li><p>for natural disasters (when infrastructure is down), can deploy a cloudlet, which can be tailored to the specific situation and provides access to mobile devices</p>
+<ul>
+<li><p>in australia there’s work as well, but they’re not using a cloudlet – some other resource-powerful device</p></li>
+<li><p>very important to get access to maps during natural disasters, e.g. where are the gas pipes</p></li>
+</ul></li>
+</ul></li>
+<li><p>e.g. for sharing files, between a few mobile devices</p></li>
+<li><p>up to now, the management of these networks was carried out by the devices themselves</p>
+<ul>
+<li><p>but if the networks split into smaller ones, devices lose connection</p>
+<ul>
+<li>can manage this with the cloud implementation</li>
+</ul></li>
+<li><p>merging networks need to check for duplicate IPs</p>
+<ul>
+<li>this consumes a lot of energy</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="challenges" class="level1">
+<h1>Challenges</h1>
+<ul>
+<li><p>everything’s fine if the network works perfectly</p>
+<ul>
+<li><p>continuous, uninterrupted, high-quality connection to the cloud</p></li>
+<li><p>difficult in case of mobility</p></li>
+</ul></li>
+<li><p>generally these applications require high-volume data transfer, but this is high energy-cost for mobile devices</p></li>
+<li><p>bandwidth on 3G/4G networks is low – get high latency which slows down cloud applications</p></li>
+<li><p>cost of communication infrastructure can be quite high</p></li>
+<li><p>need to reduce communication between the mobile client and the cloud as much as possible</p></li>
+<li><p>also try to do it as asynchronously as possible</p></li>
+</ul>
+</section>
+<section id="computing-models" class="level1">
+<h1>Computing Models</h1>
+<ul>
+<li><p>browse app store, find app, download, install, and use it</p>
+<ul>
+<li><p>after a while you don’t use the application anymore, but it’s still consuming resources</p></li>
+<li><p>in time, number of apps builds up (“maybe I’ll use it someday”)</p></li>
+<li><p>maybe it doesn’t make sense to keep them all on the device</p></li>
+</ul></li>
+<li><p>install mobile clients to servers hosted by companies’ private clouds</p>
+<ul>
+<li><p>mobile client can learn a lot about you and report it to the company, which data can be used for profit</p></li>
+<li><p>lose privacy</p></li>
+</ul></li>
+<li><p>offloading</p>
+<ul>
+<li><p>collected some environment data, after one week want to do some analysis</p></li>
+<li><p>offload all data to the cloud, processing happens there, get results back</p></li>
+</ul></li>
+<li><p>pay-as-you-use middleware support</p>
+<ul>
+<li><p>have access to what you need when you need it, have access through a cloud application</p></li>
+<li><p>gives you control – know what you need and when and only pay for what you use</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="cloud-personal-assistant" class="level1">
+<h1>Cloud Personal Assistant</h1>
+<p>Software entity in the cloud that would work on behalf of the user.</p>
+<ul>
+<li><p>user subscribes to the service, system creates the assistant</p></li>
+<li><p>cloud assistant can find information that can help the user (according to user’s preferences)</p>
+<ul>
+<li><p>e.g. I’m going to China soon and I don’t know anything about where to go, hotels, etc.</p></li>
+<li><p>when it’s ready, returns the results to the user</p></li>
+</ul></li>
+<li><p>benefit: don’t need to be connected all the time</p>
+<ul>
+<li>assistant can notify you when the results are ready, and you can then go and receive the results</li>
+</ul></li>
+</ul>
+</section>
+<section id="reference-architecture" class="level1">
+<h1>Reference Architecture</h1>
+<ul>
+<li><p>user authorisation/verification/authentication unit</p></li>
+<li><p>instance of personal assistant created for each person who subscribes</p>
+<ul>
+<li><p>store task history with the instance – learns the habits of the user</p></li>
+<li><p>prepare repetitive task sequences</p></li>
+</ul></li>
+<li><p>context processor</p>
+<ul>
+<li><p>context history</p>
+<ul>
+<li><p>communicate with assistant before journey when there will be no internet</p></li>
+<li><p>assistant can use history from previous journeys, e.g. last week there were roadworks in this area</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>The personal assistant needs to discover the services/applications the user requires.</p>
+<p>Say the user wants to discover services – how will the service be found? The user and provider may describe a service quite differently.</p>
+<p>Bluetooth has a discovery protocol. Adopted a simple protocol using numbers. Ideally, though, it should be something human-readable.</p>
+<p># CAMCS Layers</p>
+<p>The idea is that as soon as the user has sent the task, they can disconnect.</p>
+</section>
+<section id="some-applications" class="level1">
+<h1>Some Applications</h1>
+<ul>
+<li><p>synchronise files on different clouds</p>
+<ul>
+<li>only have to tell the assistant to do it, then it handles authentication on all different clouds</li>
+</ul></li>
+<li><p>asynchronous data processing in the cloud</p>
+<ul>
+<li><p>“find this math library, do this processing, and here’s the database you should use to get the data”</p></li>
+<li><p>calculation happens while you’re travelling, when you arrive at the destination, you receive the results</p></li>
+</ul></li>
+<li><p>group-based collaboration</p>
+<ul>
+<li><p>in companies, when there’s a new project, management try to see what skills they need</p></li>
+<li><p>then try to find these people – maybe there are a few but they’re already engaged in projects</p></li>
+<li><p>big companies have offices everywhere, so the set of skills is what is important, not the location</p></li>
+<li><p>personal assistants can talk to each other, figure out who’s appropriate</p></li>
+<li><p>this is very time-consuming to do manually, so doing it in the background is very beneficial</p></li>
+</ul></li>
+</ul>
+</section>
+</body>
+</html>

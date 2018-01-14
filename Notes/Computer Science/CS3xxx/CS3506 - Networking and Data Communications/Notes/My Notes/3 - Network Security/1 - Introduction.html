@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Network Security: Introduction</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Network Security: Introduction</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>We’ll mostly be looking at how you design protocols with security in mind.</p>
+</section>
+<section id="key-requirements-for-security" class="level1">
+<h1>Key Requirements for Security</h1>
+<p>Confidentiality: only the sender and the intended recipients should be able to read/understand the message contents. Note that the contents could include the headers (as opposed to just the payload).</p>
+<p>Authentication: sender and receiver need to confirm each other’s identities.</p>
+<p>Message Integrity: the sender and receiver want to ensure that the message hasn’t been altered without detection.</p>
+<p>Access and Availability: prevent activity that makes services inaccessible or unavailable to users.</p>
+<p>Note you may not want all of these all the time – you may just want message integrity in a given instance, for example.</p>
+</section>
+<section id="friends-and-enemies" class="level1">
+<h1>Friends and Enemies</h1>
+<p>Bob and Alice want to communicate securely over an unsafe channel. Trudy (an intruder) may intercept, delete, and/or add messages to the channel.</p>
+</section>
+<section id="network-security-threats" class="level1">
+<h1>Network Security Threats</h1>
+<p>Depending on the context, not all threats matter. Here are some potentially relevant ones:</p>
+<ul>
+<li>eavesdropping – someone is intercepting messages
+<ul>
+<li>this can be very hard to detect if the messages aren’t being modified</li>
+</ul></li>
+<li>actively inserting messages</li>
+<li>impersonation – pretend to be somebody else
+<ul>
+<li>can construct arbitrary packets/frames with false addresses</li>
+</ul></li>
+<li>hijacking – take over ongoing connection by removing sender or receiver and replacing them with yourself</li>
+<li>denial of service – prevent the service from being used by others</li>
+</ul>
+</section>
+<section id="cryptography" class="level1">
+<h1>Cryptography</h1>
+<p>Cryptography refers to techniques for secure communication in the presence of third-parties.</p>
+<p>It involves encryption, where a message is converted to an encoded message which is useless to an adversary.</p>
+<p>It should be easy for a recipient to decode a message but very hard to a third-party.</p>
+</section>
+</body>
+</html>

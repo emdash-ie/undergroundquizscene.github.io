@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>xml_crib_sheet</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="xml-crib-sheet" class="level1">
+<h1>XML Crib Sheet</h1>
+<section id="xml-doctype" class="level2">
+<h2>XML Doctype</h2>
+<pre><code>&lt;!DOCTYPE people SYSTEM &quot;personnel2.dtd&quot;&gt;</code></pre>
+</section>
+<section id="version-type" class="level2">
+<h2>Version Type</h2>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</code></pre>
+</section>
+<section id="stylesheet-tag-for-outputting-xhtml" class="level2">
+<h2>Stylesheet Tag (for outputting XHTML)</h2>
+<pre><code>&lt;xsl:stylesheet xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot; version=&quot;1.0&quot;
+     xmlns=&quot;http://www.w3.org/1999/xhtml&quot;&gt;  
+     </code></pre>
+</section>
+<section id="output-tag-for-outputting-xhtml" class="level2">
+<h2>Output Tag (for outputting XHTML)</h2>
+<pre><code>&lt;xsl:output method=&quot;xml&quot; doctype-system=&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;
+    doctype-public=&quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; indent=&quot;yes&quot; media-type=&quot;text/html&quot;/&gt;
+    </code></pre>
+</section>
+<section id="sort-tag" class="level2">
+<h2>Sort Tag</h2>
+<pre><code>&lt;xsl:sort
+    select = string-expression
+    lang = {nmtoken}
+    data-type = {&quot;text&quot;|&quot;number&quot;|qname-but-not-ncname}
+    order = {ascending|descending}
+    […]
+/&gt;</code></pre>
+</section>
+<section id="call-templates" class="level2">
+<h2>Call Templates</h2>
+<pre><code>&lt;xsl:call-template name=&quot;show_item&quot;&gt;
+    [parameters]
+&lt;/xsl:call-template&gt;</code></pre>
+<section id="parameters" class="level3">
+<h3>Parameters</h3>
+<p>This goes in the call-template instruction:</p>
+<pre><code>&lt;xsl:with-param name=&quot;thisNum&quot; select=&quot;./@num&quot;/&gt;</code></pre>
+<p>This goes at the start of the template:</p>
+<pre><code>&lt;xsl:param name=&quot;num&quot;/&gt;</code></pre>
+<p>Names are irrelevant – parameters are specified positionally.</p>
+</section>
+</section>
+<section id="attributes" class="level2">
+<h2>Attributes</h2>
+<pre><code>&lt;xsl:attribute name=&quot;href&quot;&gt;
+    [value of attribute]
+    […]
+&lt;/xsl:attribute&gt;</code></pre>
+<p>The attribute tag must come before any other content in its parent.</p>
+<section id="alternative" class="level3">
+<h3>Alternative</h3>
+<p>Escape braces:</p>
+<pre><code>&lt;a href=&quot;{href}&quot;&gt;
+    […]
+&lt;/a&gt;</code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

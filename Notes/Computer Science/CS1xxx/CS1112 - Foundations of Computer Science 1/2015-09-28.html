@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-28</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>There will be two in-class tests. Those will probably be in week 6 (two weeks time) and week 10. Each will be worth 10% of the final grade.</p>
+<p>There a Course Handout on the webpage, which has all the definitions that are in the course.</p>
+<p>We won’t be asked for definitions in tests, but we will need to understand and be able to apply the definitions.</p>
+<section id="an-introduction-to-relations" class="level1">
+<h1>An Introduction to Relations</h1>
+<p>A relation is a connection between sets of objects.</p>
+<section id="networking" class="level2">
+<h2>Networking</h2>
+<p>Networks (connecting various devices) have topologies.</p>
+<p>E.g. Ring, Star, etc.</p>
+<p>For facebook, it’s a graph of users, with relations indicating who is friends with who.</p>
+</section>
+<section id="relational-databases" class="level2">
+<h2>Relational Databases</h2>
+<p>Main questions:</p>
+<ul>
+<li><p>How to avoid redundant info?</p></li>
+<li><p>How to ensure updates are consistent?</p></li>
+<li><p>How to distinguish between different entities, or recognise that two are the same?</p></li>
+</ul>
+<p>Use multiple tables. Each one is a relation, e.g. “is a mentor of”.</p>
+<p>For the moment we’ll only consider relations between two sets, e.g. title and genre.</p>
+</section>
+<section id="representing-relations" class="level2">
+<h2>Representing Relations</h2>
+<p>Can use a matrix, with the (e.g.) module codes on one axis, students on another, and an X where the student is taking that module.</p>
+<p>Can use a table, with one column of codes and one of students, but there’s a lot of repetition of module codes then.</p>
+<p>Can use a set of ordered pairs.</p>
+<p>Can use an arrow diagram.</p>
+<p>We will mostly use ordered-pair notation. This allows us to use set notation.</p>
+<p>R is a relation between two sets A and B if and only if<br />
+R ⊆ A x B.</p>
+<p>“is_the_square_of” ⊆ {0,1,2,3,4,5,6,7,8,9} x {0,1,2,3,4,5,6,7,8,9}</p>
+<p>“is_the_square_of” = { (0,0), (1,1), (4,2), (9,3) }</p>
+</section>
+<section id="notations" class="level2">
+<h2>Notations:</h2>
+<p>Infix notation: a R b e.g. 2 is_a_divisor_of 6</p>
+<p>Prefix notation: R(a, b)</p>
+<p>Element notation: (a, b) ∈ R</p>
+<p>Examples of binary relations are: (&lt;, =, etc.)</p>
+<p>Note that relations are ordered.<br />
+(2,6) ∈ “is_a_divisor_of” but (6,2) isn’t.</p>
+<p>Every relation has an inverse.</p>
+<p>If R ⊆ A x B, then (a, b) ∈ R if and only if (b, a) ∈ R<sup>-1</sup></p>
+<p>A function is a special type of relation.</p>
+</section>
+<section id="functional-relations" class="level2">
+<h2>Functional Relations</h2>
+<p>A binary relation is a <em>function relation</em> if and only if for each a ∈ A there is exactly one b ∈ B such that (a,b) ∈ R.</p>
+<p>A relation with the properties of a function, more or less.</p>
+</section>
+</section>
+</body>
+</html>

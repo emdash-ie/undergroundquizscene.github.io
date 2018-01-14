@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Report</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<ul>
+<li><p>16-bit addressing &amp; 8-bit data</p></li>
+<li><p>address is unidirectional but data is bidirectional</p></li>
+<li><p>multiplexed address and data is because the data is folded into the address bus</p></li>
+<li><p>data is buffered out to where it needs to go</p></li>
+</ul>
+<ol start="3" type="1">
+<li><p>For interrupt vectoring see diagram in practical 3</p>
+<ul>
+<li><p>RAM jump table</p></li>
+<li><p>comes back to the last instruction + 1 at the end</p></li>
+</ul></li>
+<li><p>Simple diagram</p>
+<ul>
+<li><p>parallel interface</p></li>
+<li><p>block of logical elements that convert parallel to serial when writing out</p></li>
+<li><p>simplify</p></li>
+<li><p>show the USARTs place in the system and what it might have inside (converts serial to parallel and vice-versa)</p></li>
+</ul></li>
+<li><p>Crystal</p>
+<ul>
+<li>value selected to give nice count values for baud rates</li>
+</ul></li>
+<li><p>So we can more accurately determine the bit sample (centre of the thing)</p>
+<ul>
+<li>want to make sure you’re at the centrepoint of the data</li>
+</ul></li>
+<li><p>CTS crosses over RTS</p></li>
+</ol>
+<ul>
+<li>DTR used as foldback for DSR (?)</li>
+</ul>
+<ol start="8" type="1">
+<li>Software vs. hardware</li>
+</ol>
+<ul>
+<li><p>one is more time-efficient (wired)</p></li>
+<li><p>software may get overrun (latency between buffer filling and sender receiving XOFF)</p></li>
+</ul>
+<ol start="9" type="1">
+<li></li>
+</ol>
+<ul>
+<li>DSR is trying to detect if a piece of data is ready for input</li>
+</ul>
+<ol start="10" type="1">
+<li>Polling</li>
+</ol>
+<p>If you didn’t have interrupts you’d have to constantly poll things to see if things need to be done (is there data for me?)</p>
+<ul>
+<li>very inefficient – probably spend most of your time looping instead of progressing data</li>
+</ul>
+</body>
+</html>

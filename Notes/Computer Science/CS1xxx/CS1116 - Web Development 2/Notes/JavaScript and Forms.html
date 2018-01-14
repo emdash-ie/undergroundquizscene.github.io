@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>JavaScript and Forms</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="javascript-and-forms" class="level1">
+<h1>JavaScript and Forms</h1>
+<hr />
+<section id="span-tag" class="level3">
+<h3>&lt;span&gt; Tag</h3>
+<p>Similar to div but used on bits of text, rather than bits of space. Its use in HTML 5 is supposed to be just for when no other tag (e.g. em, strong) seems appropriate.</p>
+</section>
+<section id="combining-server--and-client-side" class="level2">
+<h2>Combining Server- and Client-Side</h2>
+<p>We use a python program on the server side, and a javascript program on the client side.</p>
+<p>We have to do the validation on both the client and server sides.</p>
+<ul>
+<li>The user could have javascript disabled, which is why we need to check again on the server side.</li>
+<li>They could also screw with the javascript, since it’s stored on their end.</li>
+<li>Finally, they could send data by typing into the URL, which will not be handled by the javascript.</li>
+<li>It’s advantageous to do it client-side to prevent excess communication/traffic to our server. Speeds it up, too.</li>
+</ul>
+<p>The python code is as normal, except that we also include a &lt;script&gt; tag in the page that is output through the print statement.</p>
+<section id="the-javascript-version-2" class="level3">
+<h3>The JavaScript (Version 2)</h3>
+<p>We use an event listener on the form (<code>form_element.addEventListener('submit', validate_input, false);</code>) to detect when the user submits the data through the form, at which point we run a function to check the input.</p>
+<p>Checking for an integer in JS is very difficult. His two lines of code work, but it’s awful. We don’t need to understand this (and he didn’t really explain it, except that it’s the best he’s got - he hates javascript):</p>
+<pre><code>var number = ~~Number(trimmed_text);
+if (String(number) !== trimmed_text) {
+    return &quot;Must be a whole number&quot;;</code></pre>
+<p>The following code prevents the form from being submitted, as we don’t want erroneous data to be sent to the server:</p>
+<pre><code>if (feet_msg || inches_msg) {    
+        event.preventDefault();
+    }
+    </code></pre>
+<p>The <code>preventDefault()</code> method can be run on any event, e.g. to stop the user from scrolling by preventing the scrolling events from causing scrolling, or prevent clicking on hyperlinks from opening the page.</p>
+</section>
+<section id="version-3" class="level3">
+<h3>Version 3</h3>
+<p>We now use event listeners to do the validation as you type. When the user clicks into the next box, the validation is run:</p>
+<pre><code>feet_input.addEventListener(&#39;change&#39;, validate_input, false);
+inches_input.addEventListener(&#39;change&#39;, validate_input, false);</code></pre>
+<p>The event ‘change’ is when the data is put into the box.</p>
+</section>
+<section id="version-4" class="level3">
+<h3>Version 4</h3>
+<p>We can get rid of the python program and do all the calculations (and validation) on the client side in the javascript program.</p>
+<p>Note that we use <code>preventDefault()</code> all the time now, because we no longer want to send any data using the form. We also have no action, so we could probably leave this line out.</p>
+<p>Cost/benefit:</p>
+<ul>
+<li>Compared to version 2, we now send more data if we use the form once, because we have to send the program, which is bigger than the data.</li>
+<li>However, if we use the form multiple times, we don’t retrieve the form each time, so we make a huge save here.</li>
+</ul>
+<p>We must use a server-side approach:</p>
+<ul>
+<li>If we need to work with a database, which will be stored on the server.</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

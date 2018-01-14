@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Modularity</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Modularity</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>If we know information about the running time of two programs, what can we say about the running time of a program made by combining them?</p>
+</section>
+<section id="exact-time-modularity" class="level1">
+<h1>Exact Time Modularity</h1>
+<p>Given two programs <span class="math inline"><em>P</em><sub>1</sub></span> and <span class="math inline"><em>P</em><sub>2</sub></span> and an input <span class="math inline"><em>I</em></span>, we run <span class="math inline"><em>P</em><sub>1</sub></span> on <span class="math inline"><em>I</em></span>, and then run <span class="math inline"><em>P</em><sub>2</sub></span> on the output from <span class="math inline"><em>P</em><sub>1</sub></span>.</p>
+<p>The time for the whole operation must be the sum of the time <span class="math inline"><em>P</em><sub>1</sub></span> takes and the time <span class="math inline"><em>P</em><sub>2</sub></span> takes. Here’s the equation which describes that:</p>
+<p><span class="math inline"><em>T</em><sub><em>P</em><sub>1</sub>; <em>P</em><sub>2</sub></sub>(<em>I</em>)=<em>T</em><sub><em>P</em><sub>1</sub></sub> + <em>T</em><sub><em>P</em><sub>2</sub></sub>(<em>P</em><sub>1</sub>(<em>I</em>))</span></p>
+</section>
+<section id="worst-case-time-modularity" class="level1">
+<h1>Worst-case Time Modularity</h1>
+<p>Worst-case running time doesn’t obey the same equation as above, because the worst-case output of <span class="math inline"><em>P</em><sub>1</sub></span> won’t necessarily produce a worst-case input for <span class="math inline"><em>P</em><sub>2</sub></span>.</p>
+<p>That is, if <span class="math inline"><em>I</em></span> is an input that gives the worst-case running time for <span class="math inline"><em>P</em><sub>1</sub></span>, then the result of <span class="math inline"><em>P</em><sub>1</sub>(<em>I</em>)</span> won’t always be an input that gives the worst-case running time for <span class="math inline"><em>P</em><sub>2</sub></span>. Here’s an equation that describes that:</p>
+<p><span class="math inline"><em>T</em><sub><em>P</em><sub>1</sub>; <em>P</em><sub>2</sub></sub><sup><em>W</em></sup>(<em>A</em>)≠<em>T</em><sub><em>P</em><sub>1</sub></sub><sup><em>W</em></sup>(<em>A</em>)+<em>T</em><sub><em>P</em><sub>2</sub></sub><sup><em>W</em></sup>(<em>O</em><sub><em>P</em><sub>1</sub></sub>(<em>A</em>))</span></p>
+<p>(Here <span class="math inline"><em>A</em></span> is a set of possible inputs, and <span class="math inline"><em>O</em><sub><em>P</em><sub>1</sub></sub>(<em>A</em>)</span> is the output that <span class="math inline"><em>P</em><sub>1</sub></span> produces on this set.)</p>
+<section id="semi-modularity-of-worst-case-time" class="level2">
+<h2>Semi-Modularity of Worst-case Time</h2>
+<section id="output-based-version" class="level3">
+<h3>Output-based Version</h3>
+<p>Even though the worst-case time for the combination isn’t equal to the sum of the worst-case times for <span class="math inline"><em>P</em><sub>1</sub></span> and <span class="math inline"><em>P</em><sub>2</sub></span>, it <em>is</em> less than or equal to it, which is still useful.</p>
+<p>The longest the combination can possibly take is if the worst-case times line up, and the worst-case input for <span class="math inline"><em>P</em><sub>1</sub></span> produces a worst-case input for <span class="math inline"><em>P</em><sub>2</sub></span> – the worst-case time for the combination will be less than or equal to this value.</p>
+<p>Here’s an equation describing that:</p>
+<p><span class="math inline"><em>T</em><sub><em>P</em><sub>1</sub>; <em>P</em><sub>2</sub></sub><sup><em>W</em></sup>(<em>A</em>)≤<em>T</em><sub><em>P</em><sub>1</sub></sub><sup><em>W</em></sup>(<em>A</em>)+<em>T</em><sub><em>P</em><sub>2</sub></sub><sup><em>W</em></sup>(<em>O</em><sub><em>P</em><sub>1</sub></sub>(<em>A</em>))</span></p>
+<p>(Here again, <span class="math inline"><em>A</em></span> is a set of possible inputs and <span class="math inline"><em>O</em><sub><em>P</em><sub>1</sub></sub>(<em>A</em>)</span> is the output that <span class="math inline"><em>P</em><sub>1</sub></span> produces on this set.)</p>
+</section>
+<section id="size-based-version" class="level3">
+<h3>Size-based Version</h3>
+<p>Rather than talking about the worst-case time of <span class="math inline"><em>P</em><sub>2</sub></span> run on the <em>output</em> of <span class="math inline"><em>P</em><sub>1</sub></span>, we can look at the worst-case time of <span class="math inline"><em>P</em><sub>2</sub></span> on the <em>size of output</em> produced by <span class="math inline"><em>P</em><sub>1</sub></span>.</p>
+<p>If <span class="math inline"><em>P</em><sub>1</sub></span> runs on inputs of size <span class="math inline"><em>m</em></span> and produces outputs of size <span class="math inline"><em>n</em></span>, then the longest the combination can take is the sum of the worst-case time for <span class="math inline"><em>P</em><sub>1</sub></span> on inputs of size <span class="math inline"><em>m</em></span> and the worst-case time for <span class="math inline"><em>P</em><sub>2</sub></span> on inputs of size <span class="math inline"><em>n</em></span>.</p>
+<p>Here’s an equation which describes that:</p>
+<p><span class="math inline"><em>T</em><sub><em>P</em><sub>1</sub>; <em>P</em><sub>2</sub></sub><sup><em>W</em></sup>(<em>m</em>)≤<em>T</em><sub><em>P</em><sub>1</sub></sub><sup><em>W</em></sup>(<em>m</em>)+<em>T</em><sub><em>P</em><sub>2</sub></sub><sup><em>W</em></sup>(<em>n</em>)</span></p>
+<section id="proof" class="level4">
+<h4>Proof</h4>
+<p>To prove this, use the output-based equation from above. Let <span class="math inline"><em>A</em></span> be the collection of inputs of size <span class="math inline"><em>m</em></span>, and then the output of <span class="math inline"><em>P</em><sub>1</sub></span> on <span class="math inline"><em>A</em></span> will be a subset of the possible inputs for <span class="math inline"><em>P</em><sub>2</sub></span> of size <span class="math inline"><em>n</em></span>. The longest the combination can take is if this subset contains the worst-case input of size <span class="math inline"><em>n</em></span> for <span class="math inline"><em>P</em><sub>2</sub></span>.</p>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

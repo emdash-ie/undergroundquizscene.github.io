@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-10-16</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="joins-cont." class="level1">
+<h1>Joins (cont.)</h1>
+<section id="who-likes-pizza-and-beer" class="level2">
+<h2>Who likes pizza <em>and</em> beer?</h2>
+<p>Try a three way join (persons x favourite_foods x favourite_foods) with the ON condition ensuring:</p>
+<ul>
+<li><p>all three person_ids match</p></li>
+<li><p>favourite_foods.food (first copy) should equal ‘Pizza’</p></li>
+<li><p>favourite_foods.food (second copy) should equal ‘Beer’</p></li>
+</ul>
+<section id="example" class="level3">
+<h3>Example:</h3>
+<blockquote>
+<p>SELECT first_name, last_name, f1.food, f2.food<br />
+FROM</p>
+<p>persons AS p<br />
+JOIN favourite_foods AS f1<br />
+JOIN favourite_foods AS f2<br />
+ON</p>
+<p>p.person_id = f1.person_id<br />
+AND f1.person_id = f2.person_id<br />
+AND f1.food = ‘Pizza’<br />
+AND f2.food = ‘Beer’;</p>
+</blockquote>
+<p>Note no quotes with AS when used like this, because we’re using it in a different way.</p>
+</section>
+</section>
+<section id="types-of-join" class="level2">
+<h2>Types of JOIN</h2>
+<p>We have been using the INNER JOIN (implicitly, by leaving out inner). There are a few other types of JOIN, like OUTER, LEFT, RIGHT, and we may see these later.</p>
+</section>
+<section id="movies-example" class="level2">
+<h2>Movies example</h2>
+<p>Three tables:</p>
+<ul>
+<li><p>movies</p></li>
+<li><p>actors (info about each actor in the database)</p></li>
+<li><p>castings (actor-movie combinations)</p></li>
+</ul>
+<section id="list-the-max-score-obtained-by-any-film-released-during-the-60s" class="level3">
+<h3>List the max score obtained by any film released during the 60s:</h3>
+<blockquote>
+<p>SELECT MAX(score)</p>
+<p>FROM movies</p>
+<p>WHERE yr BETWEEN 1960 AND 1969;</p>
+</blockquote>
+</section>
+<section id="list-for-each-year-the-number-of-films-released-that-year-and-the-max-min-and-average-score-obtained" class="level3">
+<h3>List for each year the number of films released that year and the max, min, and average score obtained:</h3>
+<blockquote>
+<p>SELECT yr, COUNT(*), MIN(score), AVG(score), MAX(score)</p>
+<p>FROM movies</p>
+<p>GROUP BY yr;</p>
+</blockquote>
+</section>
+<section id="list-the-ids-of-all-films-starring-cary-grant" class="level3">
+<h3>List the ids of all films starring Cary Grant:</h3>
+<p>We will need to use a join here, since we need both the actors and castings tables.</p>
+<blockquote>
+<p>SELECT movieid<br />
+FROM</p>
+<p>actors JOIN castings<br />
+ON id = actorid</p>
+<p>WHERE name = ‘Cary Grant’;</p>
+</blockquote>
+</section>
+</section>
+</section>
+</body>
+</html>

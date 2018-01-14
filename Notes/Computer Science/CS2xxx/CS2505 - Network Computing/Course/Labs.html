@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Labs</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="labs" class="level1">
+<h1>Labs</h1>
+<p>Labs start next Thursday (the 23rd February) and last for five weeks. We’ll be divided into two groups, 15:00–16:30 and 16:30–18:00. You can swap from your assigned group into the other group permanently if there’s space – notify the demonstrators.</p>
+<ul>
+<li>No networking lectures next week.</li>
+</ul>
+<section id="network-programming-using-the-socket-api" class="level2">
+<h2>Network Programming Using the Socket API</h2>
+<p>The Socket API has been around since the 80s, and hasn’t evolved a lot since then. It’s used everywhere.</p>
+<p>The socket is between the application layer and the transport layer. Generally everything from the socket down exists in the kernel space, and everything above exists in the user space.</p>
+<p>Two popular transport services available via the socket API:</p>
+<ul>
+<li>TCP</li>
+<li>UDP</li>
+</ul>
+<p>Server has a socket through which it receives and sends. Each client also needs a socket.</p>
+<p>Sockets are bound to port numbers – the client needs to know the address of the server and also the port number of the server’s socket.</p>
+<section id="example-application" class="level3">
+<h3>Example Application</h3>
+<ol type="1">
+<li>Client reads a line of characters from its keyboard and sends the data to a server</li>
+<li>Server converts it to uppercase and sends it back […]</li>
+</ol>
+</section>
+<section id="socket-programming-with-udp" class="level3">
+<h3>Socket Programming with UDP</h3>
+<p>[…]</p>
+</section>
+<section id="socket-programming-with-tcp" class="level3">
+<h3>Socket Programming with TCP</h3>
+<p>[…]</p>
+<ul>
+<li><p>server creates a new socket for each client</p></li>
+<li><p>want to use parallelism to deal with multiple clients at once</p></li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

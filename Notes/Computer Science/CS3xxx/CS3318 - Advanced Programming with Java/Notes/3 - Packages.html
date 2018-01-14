@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>3 - Packages</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="packages" class="level1">
+<h1>Packages</h1>
+<p>Packages enable code to be managed by separating diverse classes from each other.</p>
+<p>Packages aren’t an ideal solution, and Java 9 will bring in modules, which address the problems with packages.</p>
+<p>A package enables the creation of a unique namespace for types (classes &amp; interfaces).</p>
+<p>All code belongs to a package, but the package doesn’t need to be explicitly named. Namespaces express semantic categories of code.</p>
+<section id="accessing-names" class="level2">
+<h2>Accessing Names</h2>
+<p>Names from packages are accessed by prefixing the package name.</p>
+<p>[…]</p>
+<p>## Import Statement</p>
+<p>Import statement is a convenience, allowing you to write e.g. <code>Scanner</code> rather than <code>java.util.Scanner</code>.</p>
+<p>The java.lang package is implicitly imported.</p>
+<p>You can either import things using single-type imports (where you specify a type directly) or type-import-on-demand declarations (where you use a wildcard). Use of wildcards can slow down compilation, but is resolved at compilation time and so won’t affect runtime performance.</p>
+<p>You can also import static members of a class.</p>
+<section id="best-practices" class="level3">
+<h3>Best Practices</h3>
+<p>Import-on-demand can cause existing code to fail (e.g. if you import from multiple packages that define the same name and your code initially refers to one and then starts referring to the wrong one).</p>
+<p>Best practice is to use single-type import only.</p>
+</section>
+</section>
+<section id="naming-new-packages" class="level2">
+<h2>Naming New Packages</h2>
+<p>For private development, a package can be unnamed or have a simple name.</p>
+<ul>
+<li>It’s recommended that you shouldn’t use the unnamed package at all.</li>
+</ul>
+<p>If code is for distributing, a unique package name is necessary to avoid name collisions.</p>
+<p>## Generating Unique Identifiers</p>
+<p>A few options:</p>
+<ul>
+<li><p>Serial numbers, assigned incrementally or sequentially</p></li>
+<li><p>Random number, chosen from a number space much larger than the expected number of identifiers</p></li>
+<li><p>Names allocated from a central registry</p></li>
+</ul>
+<p>None of these are used for java packages.</p>
+</section>
+<section id="package-naming-conventions" class="level2">
+<h2>Package Naming Conventions</h2>
+<p>The <code>java</code> and <code>javax</code> packages are reserved for use for the Java language.</p>
+<p>Organisations use their reverse internet domain name to begin their package names (or altered versions if the domain name isn’t a valid Java name).</p>
+</section>
+<section id="no-hierarchical-structure" class="level2">
+<h2>No Hierarchical Structure</h2>
+<p>You can put packages inside one another to communicate information about them, but the java language doesn’t treat packages as having a structure.</p>
+</section>
+<section id="mapping-packages" class="level2">
+<h2>Mapping Packages</h2>
+<p>A package can be stored in a file system or in a database.</p>
+<p>Packages in file systems may be required to be organised in specific ways to allow classes to be easily found. This is needed for compilation and also for running code.</p>
+<p>Each host system determines how packages and compilation units are created and stored.</p>
+<p>Packages may be represented by e.g. the directory structure the files are placed in.</p>
+</section>
+<section id="package-access" class="level2">
+<h2>Package Access</h2>
+<p>Access specifiers have implications for access to packages.</p>
+<p>Members specified as <code>private</code> can only be accessed from the class – all others can be accessed by every class in the same package, along with possibly some from different packages.</p>
+</section>
+</section>
+</body>
+</html>

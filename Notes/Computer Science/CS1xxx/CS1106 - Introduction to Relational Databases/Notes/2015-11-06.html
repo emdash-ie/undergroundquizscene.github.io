@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-11-06</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>Missed the lecture on Wednesday, need to go back over that.</p>
+<section id="er-diagram" class="level1">
+<h1>ER Diagram</h1>
+<p>Framework for sketching design ideas before actually creating any tables.</p>
+<p>ER = entity relationship.</p>
+<ul>
+<li><p>Rectangles for entity sets</p></li>
+<li><p>Ovals for attached info (which will be columns)</p>
+<ul>
+<li>Keys are underlined</li>
+</ul></li>
+<li><p>Diamond shapes for relationships between entity sets</p></li>
+</ul>
+</section>
+<section id="more-on-er-modelling" class="level1">
+<h1>More on ER Modelling</h1>
+<p>For our movies DB, castings was a relationship and movies and actors were entity sets.</p>
+<section id="db1106-consultants-our-example" class="level2">
+<h2>DB1106 Consultants (our example)</h2>
+<p>You need to establish first what you want your database to do and keep track of.</p>
+<section id="entity-set-or-relationship" class="level3">
+<h3>Entity set or relationship?</h3>
+<p>Roughly:</p>
+<ul>
+<li><p>Entity sets often conveniently describable using nouns, e.g. employees, departments, etc.</p></li>
+<li><p>Relationships often conveniently describable using verbs, e.g. supervises, works on, etc.</p></li>
+</ul>
+</section>
+<section id="entities" class="level3">
+<h3>Entities</h3>
+<ul>
+<li><p>Employees</p></li>
+<li><p>Departments</p></li>
+<li><p>Projects</p></li>
+<li><p>Locations</p></li>
+<li><p>Dependents</p></li>
+</ul>
+</section>
+<section id="relationships" class="level3">
+<h3>Relationships</h3>
+<ul>
+<li><p>Manages: employees -&gt; departments</p></li>
+<li><p>WorksIn: employees -&gt; departments</p></li>
+<li><p>WorksOn: employees -&gt; projects</p></li>
+<li><p>Supervises: employees -&gt; employees</p></li>
+<li><p>HasLocation: departments -&gt; locations</p></li>
+<li><p>IsDependentOf: dependents -&gt; employees</p></li>
+</ul>
+</section>
+<section id="relationships-with-attributes" class="level3">
+<h3>Relationships with attributes</h3>
+<p>Often nice to associate attributes with relationships rather than entity sets, e.g. WorksOn can have the attribute “hours” which tracks how many hours an employee works on each project they work on.</p>
+<p>This needs to be associated with employees, but each employee may work on multiple projects, so it makes sense to have it in WorksOn.</p>
+</section>
+<section id="implicit-vs-explicit-relationships" class="level3">
+<h3>Implicit vs explicit relationships</h3>
+<p>Could use just attributes to convey them, e.g. employees has an attribute “manages” and departments has an attribute “manager”. This is an implicit relationship.</p>
+<p>Implicit relationships are redundant and error-prone.</p>
+<p>In this case, we would have no way of representing that an employee is managing two departments. Also, if we want to make a change to who’s managing a department, we have to make two changes rather than just one.</p>
+</section>
+<section id="reflexive-relationships" class="level3">
+<h3>Reflexive relationships</h3>
+<p>Supervises is a relationship connected twice to employees, since it’s an employee supervising another.</p>
+</section>
+</section>
+<section id="general-design-principles" class="level2">
+<h2>General design principles</h2>
+<ul>
+<li><p>Faithfulness – the DB should reflect the real-world situation as well as possible</p></li>
+<li><p>Simplicity – the DB should be as simple as possible</p></li>
+<li><p>Avoiding Redundancy – each piece of info should only be represented once. Duplicate info is wasteful of space and makes errors when updating info more likely.</p></li>
+</ul>
+</section>
+</section>
+<section id="exams" class="level1">
+<h1>Exams</h1>
+<p>Since ER diagrams take a lot of time to develop, only quite simple ones could be required in an exam.</p>
+<p>The forthcoming exam, on Friday 13th November, will be mostly SQL-based.</p>
+</section>
+</body>
+</html>

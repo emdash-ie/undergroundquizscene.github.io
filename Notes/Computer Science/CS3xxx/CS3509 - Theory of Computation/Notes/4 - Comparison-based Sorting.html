@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4 - Comparison-based Sorting</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>A comparison-based sorting algorithm is one in which all swaps are based on direct or indirect comparisons. For indirect comparisons, it may be known from earlier comparisons that two elements are out of order (e.g. in quicksort when you compare things to the pivot rather than each other).</p>
+</section>
+<section id="formal-definition" class="level1">
+<h1>Formal Definition</h1>
+<p>This is definition 33 from the lecturer’s notes.</p>
+</section>
+<section id="relevance" class="level1">
+<h1>Relevance</h1>
+<p>Searching and sorting algorithms can take up to 25% of the total computation time of applications.</p>
+</section>
+<section id="binary-comparison-paths" class="level1">
+<h1>Binary Comparison Paths</h1>
+<p>Comparison-based algorithms can be organised into a binary tree, based on all possible outcomes. A comparison path is one branch in this tree – one set of decisions/outcomes.</p>
+<p>The decision trees have one path for each input, and since there are n! inputs for a (distinct) list of size n, then there are n! paths, and n! leaves.</p>
+<p>From this you can show that the paths have a minimum length of nlogn (we will see the proof later).</p>
+</section>
+<section id="exercise-42" class="level1">
+<h1>Exercise 42</h1>
+<p>Draw the binary tree representation for the binary comparison paths of insertion sort for the 6 permutations of three distinct inputs.</p>
+</section>
+<section id="four-main-properties" class="level1">
+<h1>Four Main Properties</h1>
+<ol type="1">
+<li><p>Completeness</p>
+<ul>
+<li><p>For a comparison-based algorithm to properly sort a list, every pair of elements must be compared at least once.</p></li>
+<li><p>Note that these don’t have to be explicit comparisons, as the transitive closure can provide some of the comparisons.</p></li>
+<li><p>Algorithm needs to reach a conclusion about the relative order of each pair at least once.</p></li>
+</ul></li>
+<li><p>Faithfulness</p>
+<ul>
+<li>Input lists in the same relative order are executed on in the same way.</li>
+</ul></li>
+<li><p>Separation</p>
+<ul>
+<li>Input lists not in the same relative order must cause the algorithm to diverge at some point in its computation.</li>
+</ul></li>
+<li><p>Reduction: The 0-1 Principle</p>
+<ul>
+<li><p>To check that a comparison-based algorithm is a sorting algorithm, it’s enough to show that it sorts all binary sequences (e.g. [0, 1, 1, 0, 1]).</p></li>
+<li><p>This brings us from n! cases down to 2^n cases, which is much more manageable.</p></li>
+</ul></li>
+</ol>
+</section>
+<section id="loose-ends" class="level1">
+<h1>Loose Ends</h1>
+<p>Rules:</p>
+<ol type="1">
+<li><p>Boolean conditions are entirely based on comparisons between list elements only.</p></li>
+<li><p>All assignments are based on prior comparisons. [rough wording]</p></li>
+<li><p>All swaps are based on prior comparisons. [rough wording]</p></li>
+</ol>
+</section>
+<section id="four-main-properties-recap" class="level1">
+<h1>Four Main Properties (recap)</h1>
+<ul>
+<li><p>Need to know the contexts in which they are useful</p></li>
+<li><p>Need to know proofs for completeness and faithfulness</p>
+<ul>
+<li>Need to understand proof for reduction</li>
+</ul></li>
+<li><p>Need to know the properties and be able to explain and justify them</p></li>
+</ul>
+<section id="completeness-proof" class="level2">
+<h2>Completeness Proof</h2>
+<p>[…]</p>
+</section>
+<section id="faithfulness-proof" class="level2">
+<h2>Faithfulness Proof</h2>
+<ul>
+<li>follows your intuition</li>
+</ul>
+</section>
+<section id="separation-proof" class="level2">
+<h2>Separation Proof</h2>
+<ul>
+<li>too complicated, won’t cover it in this course</li>
+</ul>
+</section>
+<section id="reduction-proof" class="level2">
+<h2>Reduction Proof</h2>
+<p>Depends on faithfulness – since f is an increasing function and we’ve proven faithfulness, then the relative order is the same before and after application of f. Then the comparison-based algorithm will operate in the same way on both. (Monotonicity lemma)</p>
+<p>Then proof by contradiction. Assume all binary lists are sorted, but there exists a non-binary list that isn’t sorted. Use an increasing function f to transform that non-binary list into a binary list that isn’t sorted.</p>
+</section>
+</section>
+</body>
+</html>

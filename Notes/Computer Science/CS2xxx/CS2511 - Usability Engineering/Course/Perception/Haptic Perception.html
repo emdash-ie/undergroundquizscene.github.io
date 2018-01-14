@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Haptic Perception</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="haptic-perception" class="level1">
+<h1>Haptic Perception</h1>
+<p>General term covering various forms of perception based on touch.</p>
+<p>Visual and auditory perception are associated with specialised organs groups in a small area.</p>
+<p>By contrast, haptic perception takes place all over the body, and the various parts of the body differ considerably in their response to pressure, etc.</p>
+<p>There are three types of sensory receptor in the skin:</p>
+<ul>
+<li>thermoreceptors which respond to heat and cold</li>
+<li>mechanoreceptors which respond to pressure</li>
+<li>nociceptors respond to intense heat, pressure, or pain</li>
+</ul>
+<p>In computing applications, we are mostly concerned with mechanoreceptors.</p>
+<p>We have two types of mechanoreceptors:</p>
+<ul>
+<li>rapidly-adapting
+<ul>
+<li>these react to rapid changes in pressure but do not respond to continuous pressure</li>
+</ul></li>
+<li>slowly-adapting
+<ul>
+<li>these respond to continuous pressure</li>
+</ul></li>
+</ul>
+<p>Sensitivity is greatest when both types of mechanoreceptors are stimulated – you can do this by having a pressure that’s changing slightly.</p>
+<section id="sensory-acuity" class="level2">
+<h2>Sensory Acuity</h2>
+<p>What’s the smallest distance apart you can detect two points of pressure?</p>
+<p>This is measured using the two-point test – press two small points against the body and move them further apart until it becomes possible to feel two distinct pressure points rather than one. The smaller the distance at which both points can be detected, the greater the sensory activity.</p>
+<p>The fingers and thumbs have the greatest acuity. The distance on the fingers is around 10 times smaller than on other parts of the body, such as the arms.</p>
+<p>Sensory acuity varies considerably among individuals – it can be improved with training, within certain limits. Blind people who read Braille generally have better sensory acuity than non-Braille readers.</p>
+</section>
+<section id="kinaesthetic-feedback" class="level2">
+<h2>Kinaesthetic Feedback</h2>
+<p>Kinaesthetic receptors in our joints and muscles tell us where our limbs, fingers, etc. are relative to the rest of our body.</p>
+<p>This is important in many rapid actions, e.g. typing or playing a musical instruments.</p>
+<p>Kinaesthetic receptors are of three types:</p>
+<ul>
+<li>rapidly-adapting
+<ul>
+<li>respond only to changes in the position</li>
+</ul></li>
+<li>slowly-adapting
+<ul>
+<li>respond to both changes in position and to static position</li>
+</ul></li>
+<li>static
+<ul>
+<li>respond only to static position of limbs</li>
+</ul></li>
+</ul>
+</section>
+<section id="haptic-memory" class="level2">
+<h2>Haptic Memory</h2>
+<p>As with auditory perception, we have a short-term sensory memory for haptic experience.</p>
+<p>It functions in a very similar way to the auditory store:</p>
+<ul>
+<li>haptic events are stored as they are experienced</li>
+<li>new experiences replace older ones in the memory</li>
+<li>if no new haptic events are experienced, previous events remain in the store</li>
+</ul>
+</section>
+<section id="some-applications" class="level2">
+<h2>Some Applications</h2>
+<p>The Optacon is a tactile reading device developed for use by blind people:</p>
+<ul>
+<li>144 pins arrange in a 24 x 6 grid</li>
+<li>each pin is driven by a miniature solenoid, allowing it to be raised or lowered</li>
+<li>the source material is scanned using a video camera</li>
+<li>the image is converted into a tactile display on the pins</li>
+</ul>
+<p>The Optacon was very successful, despite the amount of learning required.</p>
+<p>It works best when the camera is moved steadily across a passage of text, thus producing slow but continuous movement of the pins.</p>
+<p>This stimulates both slowly-adapting and rapidly-adapting mechanoreceptors.</p>
+<p>Users find it much harder to identify an image if the camera is held still (though it may be desirable with a complicated image).</p>
+<p>Numerous attempts have been made to use haptics to enable a blind user to explore a GUI.</p>
+<p>One solution is a refreshable, tactile display, comprising a grid of moving pins (e.g. one for each pixel).</p>
+<p>Then the pins could present both images and text (either directly or as Braille).</p>
+<p>Such displays have been developed, but are very expensive and little used.</p>
+<p>They’re good for diagrams and maps, but not great for GUIs that need to be navigated. There’s no colour, and if an event happens on a part of the screen you’re not currently touching, you’ll miss it.</p>
+<p>Tactile displays are dropping in price a lot, and will probably be used in future.</p>
+<section id="braille-mouse" class="level3">
+<h3>Braille Mouse</h3>
+<p>This is an alternative to the big displays – whatever’s under the cursor is presented to the user on the top of the mouse.</p>
+<p>The mouse is usually constrained within a frame which represents the edges of the screen so you can tell where you are on the screen.</p>
+<p>Another option is to separate the mouse and the tactile display – one hand can be used to navigate the display while the other rests on a feedback device. An example of this is the Moose. Alerts etc. can be immediately transferred to the feedback device, as is possible with the braille mouse.</p>
+</section>
+<section id="touch-screens" class="level3">
+<h3>Touch Screens</h3>
+<ul>
+<li>No physical buttons to guide the fingers, only visual buttons/icons
+<ul>
+<li>presents problems for blind people</li>
+</ul></li>
+</ul>
+<p>One solution is to use vibration feedback to indicate movement over virtual boundaries between buttons.</p>
+<p>This approach can also be used to convey information to sighted people in ‘eyes busy’ applications.</p>
+<p>This approach works well – people rapidly adapt to it and feel a keyboard that isn’t there.</p>
+</section>
+<section id="resistance" class="level3">
+<h3>Resistance</h3>
+<ul>
+<li>provision of force-feedback to simulate resistance
+<ul>
+<li>e.g. in servo-controlled systems</li>
+</ul></li>
+</ul>
+<p>Early aircraft used cable of hydraulic controls which provided a two-way link between the joystick and the control surfaces (wing-flaps etc.). In servo-controlled systems, the joystick just sends signals – they are one-way only.</p>
+<p>Mod</p>
+</section>
+<section id="three-dimensional-virtual-objects" class="level3">
+<h3>Three-dimensional Virtual Objects</h3>
+<ul>
+<li>Prices has come down from thousands to a few hundred</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Inductive and High Current Loads</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Inductive and High Current Loads</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>With a DC motor, you can get high voltages as the magnetic field collapses (e.g. 200V), which can damage your circuit if it’s not tolerant of high voltages.</p>
+<p>Stepper motors don’t generate these voltages, but all DC motors need more power than the arduino can deliver, so you need to do two things:</p>
+<ol type="1">
+<li>Isolate the motor from the arduino</li>
+<li>Power the motor independently with a secondary power supply</li>
+</ol>
+<p>Motors can also create power spikes (that are harmful to electronics) due to their inductive nature.</p>
+</section>
+<section id="circuit" class="level1">
+<h1>Circuit</h1>
+<p>The transistor acts as a switch – if there’s input to the base, then current flows from collector to emitter.</p>
+<p>The transistor is run fully off/fully on, and not partway on. If partway on, some heat is generated in the transistor, which we don’t want.</p>
+</section>
+</body>
+</html>

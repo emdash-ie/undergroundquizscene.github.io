@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>6: Exceptions</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">6: Exceptions</h1>
+</header>
+<section id="program-execution" class="level1">
+<h1>Program Execution</h1>
+<p>A <em>program stack</em> is used to manage the execution of a program.</p>
+<p>A <em>stack frame</em> on the program stack corresponds to a method call. Every method call results in the creation of a new stack frame.</p>
+<p>When an exception occurs, there are a number of active program elements that could potentially handle that problem.</p>
+</section>
+<section id="exception-propagation" class="level1">
+<h1>Exception Propagation</h1>
+<p>If exceptions aren’t handled, they propagate back along each method call in the stack. If a method doesn’t catch the exception, its execution is interrupted and its stack frame is removed from the stack.</p>
+<p>If an exception makes it all the way to the top-level, the default behaviour is to generate a stack trace at the terminal and terminate execution.</p>
+</section>
+<section id="try-catch-block" class="level1">
+<h1>Try-Catch Block</h1>
+<p>A try block contains code that might throw an exception, and a catch block specifies an exception handler for a specific exception.</p>
+</section>
+<section id="checked-exceptions" class="level1">
+<h1>Checked Exceptions</h1>
+<p>You can say that a method throws a particular exception:</p>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">private</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">printSpeed</span>(…) <span class="kw">throws</span> <span class="bu">IllegalArgumentException</span> {}</div></code></pre>
+<p>Note: if declaring an exception, it should be as specific as possible.</p>
+<p>To throw an exception manually, you use the <code>throw</code> keyword:</p>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">if</span> (distance &lt; <span class="dv">0</span> || time &lt;= <span class="dv">0</span> ) {</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">    <span class="kw">throw</span> <span class="kw">new</span> <span class="bu">IllegalArgumentException</span>(<span class="st">&quot;Distance and time must be 0 or greater.&quot;</span>);</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">}</div></code></pre>
+</section>
+<section id="problems-with-exceptions" class="level1">
+<h1>Problems with Exceptions</h1>
+<p>It is not always possible to see which exceptions might be thrown from looking at source code.</p>
+<p>Exceptions also create many possible exit points for a function. Data can be left in an inconsistent state.</p>
+<p>Exception handling also carries a performance penalty – avoid placing a try-catch statement inside a loop.</p>
+<p>It can be hard to see whether exception-based code is well-written or poorly-written.</p>
+</section>
+<section id="exceptions-in-java" class="level1">
+<h1>Exceptions in Java</h1>
+<p>It’s recommended that you use exceptions for unlikely, unexpected situations. It’s also recommended to only catch exceptions if your code can fix the problem.</p>
+</section>
+<section id="finally" class="level1">
+<h1>Finally</h1>
+<p>The <code>finally</code> block is for cleanup actions that <em>must</em> be performed – the block is always executed, even if an exception is thrown.</p>
+</section>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 8</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="database-programming" class="level1">
+<h1>Database Programming</h1>
+<ul>
+<li><p>most people interact with databases through programs (parametric users)</p>
+<ul>
+<li>they don’t need to know that they’re interacting with a database</li>
+</ul></li>
+</ul>
+<p>In the past there was typically one mainframe, which contained the DBMS and the applications for interaction. Embedded SQL (ESQL) was used.</p>
+<p>This changed to a client-server model, where the applications run on the client, and communicate with the server. ODBC (a small extension to ESQL) is used for this.</p>
+<p>Then everything moved to the internet. At this point, PHP and ASP were developed specifically for interfacing databases with the internet. Looking at PHP and ASP, you can see how they developed from ESQL.</p>
+<section id="esql" class="level2">
+<h2>ESQL</h2>
+<ul>
+<li><p>note all examples are in pseudocode</p>
+<ul>
+<li>this is to keep the emphasis on how the program interacts with the database, and not coding in a particular language</li>
+</ul></li>
+<li><p><code>INCLUDE SQLCA</code> is for status information – what happened? did it work? etc. It’s a data structure shared between the DBMS (which can write into it) and the program (which can read from it).</p></li>
+<li><p>program needs to log in and be verified using a username and password</p>
+<ul>
+<li><p>if the login was unsuccessful, there’s no point continuing</p></li>
+<li><p>the program checks the SQLCA to determine whether it was successful or not</p>
+<ul>
+<li>the value accessed will be 0 if the command was correct, a negative value if there was an error, and a positive value if there was an exception</li>
+</ul></li>
+<li><p>program also needs to log out at the end</p>
+<ul>
+<li>connection is closed anyway when the program terminates, but need to make sure SQLCA datastructure is deleted</li>
+</ul></li>
+</ul></li>
+<li><p><code>INTO</code> line puts the selected results into the specified variables</p>
+<ul>
+<li>colon prefix is used to indicate a local variable</li>
+</ul></li>
+<li><p>stafflookup program is made easier by the fact that we’re looking up based on a unique key – the result will either be a single row or nothing</p>
+<ul>
+<li>so we know that we only need a single variable for each column in the result</li>
+</ul></li>
+<li><p>Since programs contain SQL and whatever language they’re written in, there needs to be something marking the SQL code (telling the other compiler/interpreter to ignore it)</p>
+<ul>
+<li><p>pre-compilers also used to solve this problem – they validate and compile just the embedded SQL statements (like an interactive interpreter)</p>
+<ul>
+<li><p>extract the individual statements, compile to machine code, put comments around the result code within the host code, which then goes through a normal compiler</p>
+<ul>
+<li>then use a linker to link all the individual machine code segments into a single executable</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<section id="sql-communication-area" class="level3">
+<h3>SQL Communication Area</h3>
+<ul>
+<li><p>a datastructure that contains information on the database interactions</p>
+<ul>
+<li><p>SQLCode is a numeric value, where 0 means success, a negative number means an error happened, and a positive value means an exception happened</p></li>
+<li><p>there are then different positive numbers for different exceptions, e.g. 100 to say that the query ran but retrieved nothing</p>
+<ul>
+<li>same for errors, e.g. -56 says you don’t have permission to execute the query you tried to run</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="example-staffrecord" class="level3">
+<h3>Example: StaffRecord</h3>
+<ul>
+<li><p>Will check that the staff number given doesn’t already exist</p></li>
+<li><p>error feedback isn’t very comprehensive – would need to be more specific in a proper program</p></li>
+</ul>
+</section>
+<section id="example-stafflist" class="level3">
+<h3>Example: StaffList</h3>
+<ul>
+<li>may get multiple results</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

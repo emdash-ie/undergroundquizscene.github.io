@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>7-While Loops and User Input</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="while-loops-user-input" class="level1">
+<h1>While Loops &amp; User Input</h1>
+<hr />
+<section id="while-loops" class="level2">
+<h2>While Loops</h2>
+<p>Format:</p>
+<pre><code>while condition:
+    statement(s)
+    </code></pre>
+<p>The condition will be checked before each execution of the statements. If the condition is <code>True</code>, the statements will be run, and then the condition will be checked again. If the condition is <code>False</code>, the statements will be skipped, and the loop is over.</p>
+<p>Example:</p>
+<pre><code>def IsSquare(n) # Is the number &#39;n&#39; a perfect square? (assume n &gt;= 0)       r = 0       while r * r &lt; n:            r += 1      return r * r == n</code></pre>
+<p>With while loops you can end up in an infinite loop quite easily, so you have to be careful about your conditions.</p>
+</section>
+<section id="break" class="level2">
+<h2>Break</h2>
+<p>You can use the <code>break</code> statement to terminate a loop from within:</p>
+<pre><code>while True:
+    n += 5
+    if n &gt; 10:
+        break</code></pre>
+<p>The <code>break</code> statement in this loop will terminate the loop when n becomes greater than 10.</p>
+</section>
+<section id="continue" class="level2">
+<h2>Continue</h2>
+<p>The <code>continue</code> statement is similar to <code>break</code>, but only terminates the current run of the loop:</p>
+<pre><code>n = 0
+for n in range(10):
+    if n = 5:
+        continue
+    print(n)
+    </code></pre>
+<p>This code will begin printing the numbers from 0 to 9, but once it gets to 5, the <code>continue</code> statement will cause it to move on to the next iteration, so it will not print 5.</p>
+</section>
+<section id="user-input" class="level2">
+<h2>User Input</h2>
+<p>To take input from the user you can use the in-built function <code>input()</code>:</p>
+<pre><code>name = input(&#39;Please enter your name: &#39;)</code></pre>
+<p>The program will wait until the user hits enter, and the line they typed will be put into the variable name, as a string.</p>
+<ul>
+<li><p>To get a number from the user you will need to convert the input:</p>
+<p><code>number = int(input('Please enter an integer: '))</code></p>
+<p><code>number = float(input('Please enter a value: '))</code></p></li>
+</ul>
+<hr />
+<section id="handouts-assignments" class="level6">
+<h6>Handouts &amp; Assignments</h6>
+<ul>
+<li>Assignment 9 - The ‘while’ Statement</li>
+<li>Assignment 11 - Simulating Dice Rolls</li>
+<li>Handout 11 - The ‘while’ Statement</li>
+<li>Handout 13 - Keyboard Input and the ‘break’ Statement</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

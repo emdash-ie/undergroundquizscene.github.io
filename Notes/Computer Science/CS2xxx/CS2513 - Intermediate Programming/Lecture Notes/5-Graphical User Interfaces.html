@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>5-Graphical User Interfaces</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="graphical-user-interfaces" class="level1">
+<h1>Graphical User Interfaces</h1>
+<hr />
+<p>Note: The exams should be corrected by next week (week beginning Monday 6th November).</p>
+<section id="user-interfaces" class="level2">
+<h2>User Interfaces</h2>
+<p>A user interface (in the context of software engineering) is any mechanism which allows a user to interact with a computer program or system.</p>
+<p>An interface could be:</p>
+<ul>
+<li>Command line (CL)</li>
+<li>Graphical user interface (GUI)
+<ul>
+<li>Web-app</li>
+<li>Native GUI</li>
+</ul></li>
+</ul>
+<section id="web-app-or-native-gui" class="level3">
+<h3>Web-app or Native GUI?</h3>
+<p>The difference between the two is narrowing now that we have HTML5, which has support for more advanced graphical features.</p>
+<p>In the past, web-apps were more suited to CRUD type tasks, and native apps were more suited when more sophisticated interaction was required.</p>
+<p>Now, the principles (design patterns (MVC); program architectures (event-based)) used in GUIs are being adapted in web apps too. The same principles are also at play when we develop mobile apps.</p>
+</section>
+</section>
+<section id="gui-frameworks" class="level2">
+<h2>GUI Frameworks</h2>
+<p>We’re taking libraries of code that others have written and constructing our GUIs from those. Those libraries handle the rendering of things on the screen, etc.</p>
+<p>Most programming languages have support for developing GUIs:</p>
+<ul>
+<li>Java -&gt; Swing</li>
+<li>Objective-C -&gt; Cocoa</li>
+<li>Python -&gt; tkinter, PyQ+, others</li>
+</ul>
+<p>All of these frameworks are extensible if we want e.g. extra graphing capabilities.</p>
+<p>All of these frameworks are based on event-based programming, where we’re waiting for events to happen. Events may be button clicks, text entry, etc.</p>
+<p>Every user interaction comes through the framework, which generates an event, we catch the event in our code and define what it means. E.g. a button is given to us, the event when the button is clicked is given to us, and we define what happens when the button is clicked.</p>
+</section>
+<section id="gui-development-tools" class="level2">
+<h2>GUI Development Tools</h2>
+<p>GUI coding creates a lot of interdependent code, and there is a lot of repetition. Adjusting layouts especially is time-consuming and technically unsophisticated.</p>
+<p>Many tools have been created to assist with GUI development to reduce errors and reduce time cost. We will see a number of these tools, but first we need to understand the principles of what’s happening under the hood.</p>
+<p>Xcode is a development tool for OS X and iOS, and using it is very quick. 2–3 minutes vs. 40 minutes.</p>
+</section>
+<section id="tkinter" class="level2">
+<h2>tkinter</h2>
+<p>tkinter is Python’s interface to Tk, a library of GUI languages written to provide GUI support for TCl (which is a very old scripting language).</p>
+<p>tkinter is a defacto standard for portable GUI development in Python (across windows, unix, and macOS.)</p>
+<p>tkinter is extensible – numerous add-on packages such as Tix, tkk etc. provide other widgets that can be added to the standard set.</p>
+<p>As mentioned, there are tools to ease the development burden when using tkinter.</p>
+<p>As it is widely used, it is well-documented and there are plenty of example available.</p>
+<section id="development-process" class="level3">
+<h3>Development Process</h3>
+<p>In tkinter, we add widgets, get them positioned onscreen where we want them to be, and register Python functions (or methods) to handle widget events. (An event is some interaction with the user, e.g. a button press.)</p>
+<p>The functions are called “callbacks”. In effect, these give meaning to the event in the context of our app. They determine what the effect of a user pressing a button will have on the state of our program.</p>
+<p>the widgets are generic, and our callbacks make them specific to our program.</p>
+</section>
+</section>
+<section id="model-view-controller" class="level2">
+<h2>Model-View-Controller</h2>
+<p>Mode-View-Controller (MVC) is a design pattern – a standard approach to solving a common problem.</p>
+<p>MVC separates data representations from control logic and presentation. As a result, different presentations show the same data in different ways.</p>
+<p>It makes our code more maintainable, less error prone, and reusable.</p>
+<p>It can be applied at different levels in the enterprise (e.g. Facebook website and Facebook app).</p>
+<section id="model" class="level3">
+<h3>Model</h3>
+<p>The Model is the information being managed. This could be anything. In our code we will often use classes that we write ourselves to manage this info.</p>
+</section>
+<section id="view" class="level3">
+<h3>View</h3>
+<p>How the info is represented to the user (what the user sees), including data and controls.</p>
+<p>This informs the user about the state of the model, and guides their subsequent actions (by providing controls, notifications, etc.).</p>
+</section>
+<section id="controller" class="level3">
+<h3>Controller</h3>
+<p>What the user uses to manipulate the model.</p>
+<p>This is the logic behind the interface controls. In tkinter we provide this using callback functions.</p>
+</section>
+</section>
+<section id="example-of-a-tkinter-program" class="level2">
+<h2>Example of a tkinter Program</h2>
+<pre><code>from tkinter import *
+
+root = Tk()         # Creates a toplevel container
+lab = Label(root, text=&quot;Hello CS2513&quot;)      # Adds a label
+lab.pack()          # Arranges or lays out widgets
+
+root.mainloop()     # Runs the interface and handles events</code></pre>
+<p>This code creates a label, packs it, and hands control over to the framework, at which point the label is displayed to us in a window.</p>
+<p>This window has all the standard controls, which the framework handles for us.</p>
+<p>When we start the mainloop, we are waiting for user interactions, either mouse or key clicks. Only when an event occurs that we’ve defined an action for will we revert back to our code.</p>
+<section id="analysis" class="level3">
+<h3>Analysis</h3>
+<ul>
+<li>It’s quite functional: we can resize it, minimise, maximise, etc.</li>
+<li>It’s quite ugly and basic.</li>
+</ul>
+</section>
+</section>
+<section id="sample-list-of-widgets" class="level2">
+<h2>Sample List of Widgets</h2>
+<ul>
+<li>Button – allows us to create buttons and associate them with functions</li>
+<li>Canvas – allows us to draw and add graphics</li>
+<li>Entry – allows us to enter text (text field)</li>
+<li>Frame – container for other widgets to assist with layout</li>
+<li>Menu and Menu Button – allows us to create menus</li>
+</ul>
+<p>The Python documentation is a good place to look for more examples.</p>
+<p>There are expansion packs that add more widgets, as well.</p>
+</section>
+<section id="the-importance-of-style" class="level2">
+<h2>The Importance of Style</h2>
+<p>Aesthetics are very important in software.</p>
+<ul>
+<li>Users will mostly judge your program based on the user interface.
+<ul>
+<li>Our interface should look good.</li>
+</ul></li>
+<li>It’s also the main route for erroneous data getting into our programs.
+<ul>
+<li>It should be intuitive to use, and help users understand how to get the best from the program. By doing this, we help users enter the expected values and help our code to run well.</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-with-improved-look-and-feel" class="level2">
+<h2>Example with Improved Look and Feel</h2>
+<p>We’ll make the interface bigger, add a title, and set a background colour.</p>
+<p>We do this by calling <code>root.configure</code>, or using the other appropriate root method:</p>
+<pre><code>from tkinter import *
+
+root = Tk()
+
+root.configure(bg=&#39;lightgray&#39;)
+root.minsize(height=200, width=300)
+
+label = Label(root, text=&quot;Hello CS2513&quot;)
+label.pack()
+root.mainloop()</code></pre>
+<p>Layout managers invoked by pack can override these values and cause them to be ignored.</p>
+<section id="configuring-label" class="level3">
+<h3>Configuring Label</h3>
+<p>We can also configure the label object (or just about any other) in the same way.</p>
+<p>Labels can be configured by arguments to the init method, or by using the configure method.</p>
+<p>E.g.:</p>
+<pre><code>w = Label(master, option=something, option=something, […])</code></pre>
+<p>Here <code>master</code> is the containing window, and we can specify options such as <code>bg</code> (which is for background colour).</p>
+<p>We can also configure a label like this:</p>
+<pre><code>label[&#39;text&#39;] = text</code></pre>
+</section>
+<section id="buttons" class="level3">
+<h3>Buttons</h3>
+<pre><code>button1 = Button(root, text=&quot;Turn Red&quot;, command=callback1)</code></pre>
+<p>This button will call the function <code>callback1</code> when it is clicked, and will contain the text “Turn Red”.</p>
+</section>
+</section>
+<section id="the-entry-field" class="level2">
+<h2>The Entry Field</h2>
+<p>The Entry field is tkinter’s text field, used for data entry. Like <code>input()</code>, it returns a string.</p>
+<p>It’s invoked similarly to other widgets:</p>
+<pre><code>entry = Entry(master, option, option, …)</code></pre>
+<p>As well as the usual configuration options, there are some that are specific to Entry, for example:</p>
+<ul>
+<li>state (Normal/Disabled) – used to enable/disable the component.</li>
+<li>width – the width of the text field in characters</li>
+</ul>
+<p>There are also some specific methods:</p>
+<ul>
+<li><code>get()</code> – to get the text that was set</li>
+<li><code>delete(start, end)</code> – to delete the text from index position start to index position end
+<ul>
+<li>The default value for start is 0, but the default value for end is 1, so that calling <code>delete()</code> will just delete the first character.</li>
+</ul></li>
+<li><code>insert(start, text)</code> – to insert text into the text field, starting at index <em>start</em></li>
+</ul>
+<p>We can also declare commands for text fields, which act if the component is interacted with. We don’t usually want to do this though.</p>
+</section>
+<section id="the-frame" class="level2">
+<h2>The Frame</h2>
+<p>The tkinter Frame widget is a container for other controls. We can use it to form tiles on our screen and populate these with widgets, which is useful when we have a complex layout. We can break the root frame into more discrete areas and do a particular layout for components in those areas.</p>
+<p>Since we’re restricted to using the default layout for widgets (where they stack one under the other) or specifying top, left, right, or bottom, we divide the window into frames until those layout options give us what we want.</p>
+<p>We can assign our frames to a side and tell them to expand if they can:</p>
+<pre><code>frame1.pack(expand=True, fill=&quot;y&quot;, side=&quot;LEFT&quot;)</code></pre>
+<p><code>fill=&quot;y&quot;</code> restricts the frame to expanding in the y-axis.</p>
+<section id="packing-order" class="level3">
+<h3>Packing Order</h3>
+<p>When windows are shrunk, things are sacrificed according to the packing order. The first thing packed will be the last thing sacrificed.</p>
+</section>
+</section>
+<section id="code-length" class="level2">
+<h2>Code Length</h2>
+<p>Our code starts to get very long as we add more components, and quickly becomes difficult to manage.</p>
+<p>When using frames, we’ll often create different classes to deal with our different frames.</p>
+</section>
+<section id="classes-with-guis" class="level2">
+<h2>Classes with GUIs</h2>
+<p>In theory, we could save a lot of code by using classes (through inheritance), but in practice there isn’t enough commonality. Really, it just makes code more maintainable.</p>
+<p>If we have an array containing a name and a location, and we want to create two labels and a button for each entry in the array, we can define a class for each row in our view.</p>
+<pre><code>from tkinter import *
+
+class ListItem(object):
+
+    def __init__(self, item, root):
+        self._item = item
+        self._frame = Frame(root)
+        self._frame.pack()
+        
+        self._label1 = Label(self._frame, text=self._item[0])
+        self._label1.grid(row=1, column=1)
+        self._label2 = Label(self._frame, text=self._item[1])
+        self._label2.grid(row=2, column=2)
+        self._button = Button(self._frame, text=&quot;Press me&quot;,
+                              command=self.handlepress)
+        self._button.grid(row=1, column=3)
+        
+def handlepress(self):
+    print(&#39;{0} {1}&#39;.format(self._item[0], self._item[1]))
+
+root = Tk()
+listItems = [[&#39;Cathal&#39;], [&#39;Cork&#39;],
+             [&#39;Laura&#39;], [&#39;Kerry&#39;],
+             [&#39;Lucy&#39;], [&#39;Waterford&#39;]]
+             
+for item in listItems:
+    ListItem(item, root)
+    
+root.mainloop()</code></pre>
+<p>Now we have bundled the widget with the class, which is nice. We don’t need to pass any info to the <code>handlepress</code> method, as it can just access the instance info.</p>
+<p>We can apply this to the calculator in assignment 4 if we want, but we won’t lose any marks if we don’t.</p>
+</section>
+<section id="master-detail" class="level2">
+<h2>Master-Detail</h2>
+<p>One master view which has more basic information on a bunch of things, and if you click any particular thing, the detail view updates with more detail on that specific thing.</p>
+<p>Through an MVC lens: The master window makes a call to the controller any time something in it is clicked, the controller works out what data to display, and puts it into the detail view.</p>
+<section id="example-with-student-class" class="level3">
+<h3>Example with Student Class</h3>
+<pre><code>from tkinter import *
+
+class Student(object):
+    pass
+    
+class Model(object):
+    pass
+    
+class ListItem(object):
+    def __init__(self, frame, controller, index):
+        pass
+    
+class MasterView(object):
+    pass
+    
+class DetailView(object):
+    pass
+    
+class Controller(object):
+    pass
+    
+def main():
+    root = Tk()
+    Controller(root)
+    root.mainloop()
+    
+main()</code></pre>
+<ul>
+<li>We were given a handout with this example (completed) on it.</li>
+</ul>
+</section>
+</section>
+<section id="mvc" class="level2">
+<h2>MVC</h2>
+<p>If we use a model-view-controller design pattern, we can e.g. replace the view in order to change the layout, without altering the model or the controller.</p>
+</section>
+<section id="drawing-with-tkinter" class="level2">
+<h2>Drawing with tkinter</h2>
+<p>tkinter provides the Canvas component to allow us to draw and animate. It’s often used as the basis for graph drawing and other graphics-based tasks. It can also be used to provide animations for custom widgets that we develop.</p>
+<p>It is created as follows:</p>
+<pre><code>can = Canvas(master, width=n, height=m)</code></pre>
+<section id="creating-objects" class="level3">
+<h3>Creating Objects</h3>
+<p>There are a range of methods to draw on the canvas:</p>
+<pre><code>hand = can.create_line(x0, y0, x1, y1)</code></pre>
+<p>This draws a line from (x0, y0) to (x1, y1).</p>
+<pre><code>hand = can.create_rectangle(x0, y0, x1, y1, fill=&#39;red&#39;, outline=&#39;red&#39;)</code></pre>
+<p>This creates a rectangle with opposite corners (x0, y0) and (x1, y1).</p>
+<pre><code>hand = can.create_oval(x0, y0, x1, y1, fill=&#39;blue&#39;)</code></pre>
+<p>There are others, including creating arcs.</p>
+</section>
+<section id="deletingmoving-objects" class="level3">
+<h3>Deleting/Moving Objects</h3>
+<p>If we’ve kept a reference to an objects (<code>hand</code> in the examples above), we can delete that object like this:</p>
+<pre><code>can.delete(hand)</code></pre>
+<p>Alternatively, we can call the same <code>delete</code> method with the value <code>'all'</code> to delete everything:</p>
+<pre><code>can.delete(&#39;all&#39;)</code></pre>
+<p>We can also use the <code>move</code> canvas method to move the object to a new position:</p>
+<pre><code>canvas.move(hand, newx, newy)</code></pre>
+<p>This will delete the object from the canvas and draw it in the new position.</p>
+<p>By using <code>move</code> with a delay time, we can achieve constant motion.</p>
+<p>To pause the canvas for a number of milliseconds, we call <code>canvas.after()</code>:</p>
+<pre><code>canvas.after(milliseconds)</code></pre>
+</section>
+<section id="example-code" class="level3">
+<h3>Example Code</h3>
+<pre><code>from tkinter import *
+
+root = Tk()
+canvas = Canvas(root, width=500, height=500)
+canvas.pack()
+
+initial_x = 20
+initial_y = 20
+
+rect = canvas.create_rectangle(initial_x, initial_y, 
+                                initial_x + 40, initial_y + 40, 
+                                fill=&#39;red&#39;)
+
+for i in range(0, 20):
+    canvas.after(1000)
+    canvas.move(rect, initial_x + (10 * i), initial_y + (10 * i))
+    canvas.update()
+    
+root.mainloop()</code></pre>
+<p>This code causes a square to move across the screen at intervals of 1s, by a slightly larger distance each time.</p>
+</section>
+</section>
+<section id="custom-events" class="level2">
+<h2>Custom Events</h2>
+<p>We can also bind to user events on the canvas, for example key strokes or click events.</p>
+<p>We can specify for instance a handler to be called on a click of the user’s primary mouse button:</p>
+<pre><code>root.bind(&#39;&lt;Button-1&gt;&#39;, buttonpressed)</code></pre>
+<p>Now when the primary mouse button is pressed, <code>buttonpressed</code> will be called.</p>
+<section id="updated-example" class="level3">
+<h3>Updated Example</h3>
+<pre><code>from tkinter import *
+
+def buttonpressed(event):
+    canvas.delete(&#39;all&#39;)
+    canvas.create_rectangle(event.x, event.y, 
+                             event.x + 40, event.y + 40, fill=&#39;red&#39;)
+
+root = Tk()
+canvas = Canvas(root, width=500, height=500)
+canvas.pack()
+
+initial_x = 20
+initial_y = 20
+
+rect = canvas.create_rectangle(initial_x, initial_y, 
+                               initial_x + 40, initial_y + 40, 
+                               fill=&#39;red&#39;)
+
+root.bind(&#39;&lt;Button-1&gt;&#39;, buttonpressed)
+    
+root.mainloop()</code></pre>
+<p>Now every time we click, the rectangle moves to where we’ve clicked.</p>
+<p>This example is on Moodle.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

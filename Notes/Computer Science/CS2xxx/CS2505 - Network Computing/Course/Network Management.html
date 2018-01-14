@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Network Management</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Network:</p>
+<pre><code>* autonomous system with 100s or 1000s of interacting hardware/software components
+
+* other complex systems requiring monitoring, control
+
+    * jet airplane
+
+    * nuclear power plant
+
+    * others?</code></pre>
+<p>“Network management includes the deployment, integration, and co-ordination of the hardware, software, and human elements to monitor, test, poll, configure, analyse, evaluate, and control the network and element resources to meet the real-time, operational performance, and quality of service requirements at a reasonable cost.”</p>
+<section id="infrastructure-for-network-management" class="level2">
+<h2>Infrastructure for Network Management</h2>
+<ul>
+<li>managed devices contain managed objects whose data is gathered into a Management Information Base (MIB)</li>
+</ul>
+</section>
+<section id="network-management-standards" class="level2">
+<h2>Network Management Standards</h2>
+<p>Main ones:</p>
+<ul>
+<li><p>OSI CMIP</p>
+<ul>
+<li><p>Common Management Information Protocol</p></li>
+<li><p>designed in the 1980s</p></li>
+<li><p>standardised too slowly, became too complex</p></li>
+</ul></li>
+<li><p>SNMP</p>
+<ul>
+<li><p>simple network management protocol</p></li>
+<li><p>internet roots (SGMP)</p></li>
+<li><p>started simple</p></li>
+<li><p>deployed, adopted rapidly</p></li>
+</ul>
+<p>[…]</p></li>
+</ul>
+</section>
+</section>
+<section id="internet-standard-management-framework" class="level1">
+<h1>Internet-standard Management Framework</h1>
+<ul>
+<li><p>SMI (structure of management information) – a language for describing networks</p></li>
+<li><p>MIB (management information base)</p></li>
+<li><p>SNMP Protocol operations and transport mappings</p></li>
+<li><p>Security and administration</p></li>
+</ul>
+</section>
+<section id="smi" class="level1">
+<h1>SMI</h1>
+<p>A language used to define the information stored in MIB.</p>
+<p>Combine basic data types into objects, combine objects into modules.</p>
+<p>No commands.</p>
+<p>Language independent – just have to conform to the message format.</p>
+</section>
+<section id="snmp-mib" class="level1">
+<h1>SNMP MIB</h1>
+<p>MIB module specified via SMI module-identity.</p>
+<ul>
+<li><p>100 standardised MIBs, more vendor-specific ones</p></li>
+<li><p>object ID is unique across all objects</p></li>
+</ul>
+<section id="snmp-naming" class="level2">
+<h2>SNMP Naming</h2>
+<ul>
+<li><p>ISO Object Identifier tree</p>
+<ul>
+<li><p>each branchpoint has name, number</p></li>
+<li><p>hierarchical naming of all objects</p></li>
+<li><p>company can ask for a range of numbers, and can publish the objects they create or keep them secret</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="snmp-protocol" class="level1">
+<h1>SNMP Protocol</h1>
+<ul>
+<li><p>used in two different ways:</p>
+<ul>
+<li><p>request-response</p>
+<ul>
+<li><p>polling</p></li>
+<li><p>doesn’t scale for checking for errors</p></li>
+</ul></li>
+<li><p>trap</p>
+<ul>
+<li><p>interrupt mode</p></li>
+<li><p>agent sends a trap message to the managing entity</p>
+<ul>
+<li>“if that variable exceeds this threshold, send me this message”</li>
+</ul></li>
+<li><p>one alert may not mean anything</p>
+<ul>
+<li>clever bit is the software on the backend that detects patterns in these alerts</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+<section id="message-types" class="level2">
+<h2>Message Types</h2>
+<ul>
+<li><p>GetRequest, GetNextRequest, GetBulkRequest</p>
+<ul>
+<li>“get me data”</li>
+</ul></li>
+<li><p>InformRequest</p>
+<ul>
+<li>manager to manager: “here’s MIB value”</li>
+</ul></li>
+<li><p>SetRequest</p>
+<ul>
+<li>manager to agent: set MIB value</li>
+</ul></li>
+<li><p>Response</p>
+<ul>
+<li>agent to manager: value, response to request</li>
+</ul></li>
+<li><p>Trap</p>
+<ul>
+<li>agent to manager: inform of exceptional event</li>
+</ul></li>
+</ul>
+</section>
+<section id="message-formats" class="level2">
+<h2>Message Formats</h2>
+<ul>
+<li><p>same format used for requests and responses</p></li>
+<li><p>can run on top of TCP or UDP</p>
+<ul>
+<li>hence the request IDs</li>
+</ul></li>
+<li><p>time stamps important in trap mode useful for debugging</p>
+<ul>
+<li><p>assumes devices clocks are pretty synchronised</p></li>
+<li><p>NTP: network time protocol (application-layer protocol to ensure that nodes can figure out what the real time is – assumes some computer on the network knows the real time)</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="security-and-administration" class="level2">
+<h2>Security and Administration</h2>
+<ul>
+<li><p>encryption</p>
+<ul>
+<li>shared-key encryption for ensuring privacy of messages (pre-arranged key)</li>
+</ul></li>
+<li><p>authentication</p>
+<ul>
+<li><p>compute a hash of the message and send it with the message</p></li>
+<li><p>encrypt the hash with the key</p></li>
+<li><p>ensures who the message came from</p></li>
+</ul></li>
+<li><p>protection against playback attacks</p>
+<ul>
+<li><p>playback attacks are where you capture packets and send them again later on</p></li>
+<li><p>use a nonce to protect against this</p>
+<ul>
+<li><p>randomly-generated time-sensitive number</p></li>
+<li><p>common: encrypt the time of day and include with the message</p></li>
+</ul></li>
+</ul></li>
+<li><p>view-based access control</p>
+<ul>
+<li><p>SNMP entity maintains database of access rights, policies for various users</p></li>
+<li><p>database itself […]</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="the-presentation-problem-asn.1" class="level1">
+<h1>The Presentation Problem: ASN.1</h1>
+<ul>
+<li><p>used for sending information in an architecture-independent way</p></li>
+<li><p>would be used for presentation layer in OSI model</p></li>
+<li><p>SNMP agents and manager may have different ways of representing data, leading to misinterpretation of message contents</p></li>
+</ul>
+<section id="potential-solutions" class="level2">
+<h2>Potential Solutions</h2>
+<ol type="1">
+<li><p>Sender learns receiver’s format. Sender translates into receiver’s format. Sender sends.</p>
+<ul>
+<li><p>but what if you add a new receiver? have to update the sender</p></li>
+<li><p>every sender and receiver needs to know all formats</p></li>
+</ul></li>
+<li><p>Sender sends. Receiver learns sender’s format. Receiver translates into receiver-local format.</p>
+<ul>
+<li><p>now every receiver needs to know what format everything’s sent in</p></li>
+<li><p>every sender and receiver needs to know all formats</p></li>
+</ul></li>
+<li><p>Sender translates into host-independent format. Sends. Receiver translates to receiver-local format.</p></li>
+</ol>
+</section>
+<section id="asn.1-abstract-syntax-notation-1" class="level2">
+<h2>ASN.1 Abstract Syntax Notation 1</h2>
+<ul>
+<li><p>defined on Basic Encoding Rules (BER):</p>
+<ul>
+<li><p>specify […]</p></li>
+<li><p>all data encoded as a triple (Type, Length, Value)</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<ul>
+<li><p>network management</p>
+<ul>
+<li><p>very important – 80% of network “cost”</p></li>
+<li><p>ASN.1 for data description</p></li>
+<li><p>SNMP protocol as a tool for conveying information</p></li>
+</ul></li>
+<li><p>network management: more art than science</p>
+<ul>
+<li><p>what to measure/monitor</p></li>
+<li><p>how to respond to failures?</p>
+<ul>
+<li>a lot of machine learning based on patterns of things that have happened</li>
+</ul></li>
+<li><p>alarm correlation/filtering?</p></li>
+</ul></li>
+</ul>
+</section>
+</body>
+</html>

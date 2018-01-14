@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Recap</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="objects" class="level1">
+<h1>Objects</h1>
+<p>Java is an object-oriented language.</p>
+<p>Objects have state and behaviour.</p>
+<p>State: what objects know</p>
+<p>Behaviour: what objects do</p>
+<p>To implement object state we need to define instance attributes (and assign values to them).</p>
+<p>To implement behaviour, we define instance methods.</p>
+<p>Constructor ensures a class is equipped with the proper initial state.</p>
+<p>The class:instance relationship is a 1:n relationship. Instances of a class may have different state by their instance attributes.</p>
+<p>There are also class attributes – every instance of a class have access to the same value. These shouldn’t be used to represent instance state.</p>
+<section id="polymorphism" class="level2">
+<h2>Polymorphism</h2>
+<p>If we have an object reference of type <code>Object</code>, then we can only call methods defined in the <code>Object</code> class, even if the object is, say, an <code>Integer</code>.</p>
+</section>
+</section>
+<section id="call-by-value" class="level1">
+<h1>Call-by-Value</h1>
+<p>Very important to understand the call-by-value mechanism.</p>
+<p>Two types of parameter:</p>
+<ul>
+<li>formal parameters are the parameters inside a method definition</li>
+</ul>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">public</span> <span class="dt">void</span> <span class="fu">function</span>(<span class="dt">int</span> a, <span class="bu">String</span> b) {</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    <span class="co">// a and b are the formal parameters</span></div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">}</div></code></pre>
+<ul>
+<li>actual parameters are the values passed to the method in a method call</li>
+</ul>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">function</span>(<span class="dv">1</span>, <span class="st">&quot;hello&quot;</span>);</div></code></pre>
+<p>To call a method with n parameters:</p>
+<ul>
+<li><p>define n fresh scratch variables (usually on the stack)</p></li>
+<li><p>evaluate the actual parameters from left to right</p>
+<ul>
+<li><p>order is important because the expressions in the parameter list may have side-effects, e.g. <code>blah(var++, var--)</code></p>
+<ul>
+<li>evaluated left-to-right (if var is 2 beforehand), the parameters are (2, 3), evaluated the other way they’re (1, 2)</li>
+</ul></li>
+</ul></li>
+<li><p>the results are assigned to the corresponding scratch variables</p></li>
+<li><p>evaluate the method body using the temporary scratch variables as the formal parameters</p></li>
+<li><p>upon return:</p>
+<ul>
+<li><p>if there’s a result, substitute it for the method call</p></li>
+<li><p>remove the scratch variables from the stack</p></li>
+</ul></li>
+</ul>
+<p>This also happens if you have local variable definitions inside a block:</p>
+<pre class="sourceCode java" id="cb3"><code class="sourceCode java"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">// var doesn&#39;t exist here</span></div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"><span class="dt">int</span> <span class="fu">f</span>() {</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3">    <span class="dt">int</span> var = <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb3-4" data-line-number="4">    <span class="co">// var exists here</span></div>
+<div class="sourceLine" id="cb3-5" data-line-number="5">}</div>
+<div class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">// var doesn&#39;t exist here</span></div></code></pre>
+<section id="common-errors" class="level2">
+<h2>Common Errors</h2>
+<ul>
+<li>using instance attributes instead of temporary variables</li>
+</ul>
+<pre class="sourceCode java" id="cb4"><code class="sourceCode java"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Clazz {</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2">    <span class="kw">private</span> <span class="dt">int</span> result;</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb4-4" data-line-number="4">    <span class="kw">private</span> <span class="dt">int</span> <span class="fu">f</span>(<span class="dt">int</span> arg) {</div>
+<div class="sourceLine" id="cb4-5" data-line-number="5">        result = arg + <span class="dv">3</span> * arg * arg;</div>
+<div class="sourceLine" id="cb4-6" data-line-number="6">        …</div>
+<div class="sourceLine" id="cb4-7" data-line-number="7">        <span class="kw">return</span> result;</div>
+<div class="sourceLine" id="cb4-8" data-line-number="8">    }</div>
+<div class="sourceLine" id="cb4-9" data-line-number="9">}</div></code></pre>
+<ul>
+<li>this won’t work if f is recursive, for example, because the recursive call will share the same value for <code>result</code> instead of having its own variable</li>
+</ul>
+<p>Should look like this:</p>
+<pre class="sourceCode java" id="cb5"><code class="sourceCode java"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Clazz {</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2">    <span class="kw">private</span> <span class="dt">int</span> <span class="fu">f</span> (<span class="dt">int</span> arg) {</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3">        <span class="dt">int</span> result = arg + <span class="dv">3</span> * arg * arg;</div>
+<div class="sourceLine" id="cb5-4" data-line-number="4">        …</div>
+<div class="sourceLine" id="cb5-5" data-line-number="5">        <span class="kw">return</span> result;</div>
+<div class="sourceLine" id="cb5-6" data-line-number="6">    }</div>
+<div class="sourceLine" id="cb5-7" data-line-number="7">}</div></code></pre>
+<ul>
+<li>local variables will also be on the stack, which is faster than the part of memory instance attributes will be stored in</li>
+</ul>
+</section>
+</section>
+<section id="call-by-value-simulation" class="level1">
+<h1>Call-by-Value Simulation</h1>
+<pre class="sourceCode java" id="cb6"><code class="sourceCode java"><div class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">public</span> <span class="dt">int</span> <span class="fu">fib</span>(<span class="dt">int</span> n) {</div>
+<div class="sourceLine" id="cb6-2" data-line-number="2">    <span class="dt">int</span> result;</div>
+<div class="sourceLine" id="cb6-3" data-line-number="3">    <span class="kw">if</span> (n &lt;= <span class="dv">1</span>) {</div>
+<div class="sourceLine" id="cb6-4" data-line-number="4">        result = n;</div>
+<div class="sourceLine" id="cb6-5" data-line-number="5">    } <span class="kw">else</span> {</div>
+<div class="sourceLine" id="cb6-6" data-line-number="6">        result = <span class="fu">fib</span>(n - <span class="dv">1</span>) + <span class="fu">fib</span>(n - <span class="dv">2</span>);</div>
+<div class="sourceLine" id="cb6-7" data-line-number="7">    }</div>
+<div class="sourceLine" id="cb6-8" data-line-number="8">    <span class="kw">return</span> result;</div>
+<div class="sourceLine" id="cb6-9" data-line-number="9">}</div></code></pre>
+<p>Evaluating <code>fib(2)</code>:</p>
+<ul>
+<li><p>define initial state for the stack:</p>
+<ul>
+<li>create a scratch variable on the stack to hold the argument</li>
+</ul></li>
+<li><p>evaluate the argument</p></li>
+<li><p>put the result into the scratch variable on the stack</p></li>
+<li><p>evaluate the function using the value 2 for <code>n</code></p></li>
+<li><p>have to create space for <code>result</code> on the stack as it’s a local variable</p></li>
+<li><p>enter the else clause</p></li>
+<li><p>evaluate <code>fib(n - 1) + fib(n - 2)</code></p></li>
+<li><p>create space on the stack for the parameter for the first call</p></li>
+<li><p>evaluate <code>n - 1</code> and put the result in the parameter on the stack</p></li>
+</ul>
+<p>[…]</p>
+</section>
+<section id="inheritance" class="level1">
+<h1>Inheritance</h1>
+<p>Aim to build a class hierarchy.</p>
+<p>In the hierarchy there are superclasses and subclasses – subclasses inherit from superclasses.</p>
+<p>A subclass can have no more than one superclass (in Java). A superclass may have several subclasses.</p>
+<p>The superclass defines the common behaviour by defining public instance methods, and (usually) providing default implementations for these methods.</p>
+<p>Subclasses may reuse these behaviours or provide new behaviour by overriding the methods.</p>
+<p>Subclasses may also define additional behaviour.</p>
+<section id="usefulness" class="level2">
+<h2>Usefulness</h2>
+<p>This is useful because you can share implementation defined in superclass – don’t have to rewrite the code.</p>
+<ul>
+<li><p>makes sure any errors only have to be fixed in one place, too</p></li>
+<li><p>subclasses can alter behaviour of methods without breaking other classes that depend on the implementation</p></li>
+<li><p>the subclass—superclass relationship should be an “is-a” relationship, e.g. a cat is an animal</p></li>
+</ul>
+</section>
+</section>
+<section id="abstract-classes" class="level1">
+<h1>Abstract Classes</h1>
+<p>Abstract classes can’t be instantiated. This makes sense in an inheritance hierarchy where we want to put common behaviour in a class (e.g. Feline) but we don’t want to be able to create instances of that class. Instead we want to create (e.g.) Cats, which are Felines (Cat is a subclass of Feline).</p>
+</section>
+<section id="abstract-methods" class="level1">
+<h1>Abstract Methods</h1>
+<p>Abstract methods are methods which are not implemented, but must be implemented in subclasses.</p>
+<p>Note: methods that are overridden should be preceded by <code>@Override</code>, which checks to make sure you’re overriding a method (catches typos)</p>
+</section>
+<section id="final-classes" class="level1">
+<h1>Final Classes</h1>
+<p>A final class is a class that can’t be subclassed.</p>
+<p>Many built-in classes are final, so that their behaviour can’t be changed.</p>
+</section>
+<section id="final-method" class="level1">
+<h1>Final Method</h1>
+<p>A final method can’t be overridden.</p>
+</section>
+<section id="interface" class="level1">
+<h1>Interface</h1>
+<p>All method definitions in an interface are abstract. Classes which implement the interface must override all methods defined in the interface.</p>
+<p>A class may implement multiple interfaces.</p>
+<p>Names of interfaces are usually nouns/noun phrases or adjectives/adjective phrases.</p>
+<p>Using interfaces to create class hierarchies makes very clean implementations but takes a lot of work to implement.</p>
+<p>[missed a bit]</p>
+</section>
+<section id="enums" class="level1">
+<h1>Enums</h1>
+<section id="int-enums" class="level2">
+<h2>Int Enums</h2>
+<ul>
+<li><p>flawed design pattern (design anti-pattern)</p>
+<ul>
+<li>can compare apples to oranges</li>
+</ul></li>
+</ul>
+</section>
+<section id="java-enums" class="level2">
+<h2>Java Enums</h2>
+<pre class="sourceCode java" id="cb7"><code class="sourceCode java"><div class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">public</span> <span class="kw">enum</span> Colour {</div>
+<div class="sourceLine" id="cb7-2" data-line-number="2">    RED, YELLOW, GREEN;</div>
+<div class="sourceLine" id="cb7-3" data-line-number="3">}</div></code></pre>
+<ul>
+<li><p>java will automatically create objects for these constants</p></li>
+<li><p>get <code>toString()</code> conversions for free (converts to the name of the constant)</p></li>
+<li><p>use UPPER_SNAKE_CASE as they’re constants</p></li>
+<li><p>get enumeration for free, and a method to return an array of possible values</p></li>
+</ul>
+<pre class="sourceCode java" id="cb8"><code class="sourceCode java"><div class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">public</span> <span class="kw">enum</span> Planet {</div>
+<div class="sourceLine" id="cb8-2" data-line-number="2">    <span class="fu">MARS</span>(<span class="fl">10.0</span>), <span class="fu">EARTH</span>(<span class="fl">5.0</span>);</div>
+<div class="sourceLine" id="cb8-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb8-4" data-line-number="4">    <span class="kw">private</span> <span class="fu">Planet</span>(<span class="dt">final</span> <span class="dt">double</span> mass) {</div>
+<div class="sourceLine" id="cb8-5" data-line-number="5">        <span class="kw">this</span>.<span class="fu">mass</span> = mass;</div>
+<div class="sourceLine" id="cb8-6" data-line-number="6">    }</div>
+<div class="sourceLine" id="cb8-7" data-line-number="7">}</div></code></pre>
+<ul>
+<li><p>here we use a constructor for the enumerated types</p></li>
+<li><p>we can also define public instance methods which use this value</p></li>
+<li><p>you can also override methods for each type:</p></li>
+</ul>
+<pre class="sourceCode java" id="cb9"><code class="sourceCode java"><div class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">public</span> <span class="kw">enum</span> Student {</div>
+<div class="sourceLine" id="cb9-2" data-line-number="2">    <span class="fu">EOIN</span>(<span class="dv">115600700</span>) {<span class="at">@Override</span> <span class="kw">public</span> <span class="dt">int</span> <span class="fu">getMark</span>(<span class="dt">int</span> assignmentNumber) {</div>
+<div class="sourceLine" id="cb9-3" data-line-number="3">        <span class="co">// implementation</span></div>
+<div class="sourceLine" id="cb9-4" data-line-number="4">    }};</div>
+<div class="sourceLine" id="cb9-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb9-6" data-line-number="6">    <span class="kw">public</span> <span class="kw">abstract</span> <span class="dt">int</span> <span class="fu">getMark</span>(<span class="dt">int</span> assignmentNumber);</div>
+<div class="sourceLine" id="cb9-7" data-line-number="7">}</div></code></pre>
+<ul>
+<li>you can also have nested enums</li>
+</ul>
+</section>
+</section>
+<section id="generics" class="level1">
+<h1>Generics</h1>
+<ul>
+<li><p>parameterise a class over one or more types</p></li>
+<li><p>allows us to use the class for, e.g. a set of Integers or a set of Doubles</p>
+<ul>
+<li>only have to define the class once, as a generic</li>
+</ul></li>
+<li><p>creating arrays inside a generic class is non-trivial and we’re not expected to know it</p></li>
+</ul>
+<pre class="sourceCode java" id="cb10"><code class="sourceCode java"><div class="sourceLine" id="cb10-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> <span class="bu">Reference</span>&lt;T&gt; {</div>
+<div class="sourceLine" id="cb10-2" data-line-number="2">    <span class="kw">private</span> T reference;</div>
+<div class="sourceLine" id="cb10-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb10-4" data-line-number="4">    <span class="kw">public</span> <span class="bu">Reference</span>(<span class="dt">final</span> T reference) {</div>
+<div class="sourceLine" id="cb10-5" data-line-number="5">        <span class="kw">this</span>.<span class="fu">reference</span> = reference;</div>
+<div class="sourceLine" id="cb10-6" data-line-number="6">    }</div>
+<div class="sourceLine" id="cb10-7" data-line-number="7"></div>
+<div class="sourceLine" id="cb10-8" data-line-number="8">    <span class="kw">public</span> T <span class="fu">getReference</span>() {</div>
+<div class="sourceLine" id="cb10-9" data-line-number="9">        <span class="kw">return</span> <span class="kw">this</span>.<span class="fu">reference</span>;</div>
+<div class="sourceLine" id="cb10-10" data-line-number="10">    }</div>
+<div class="sourceLine" id="cb10-11" data-line-number="11"></div>
+<div class="sourceLine" id="cb10-12" data-line-number="12">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">setReference</span>(<span class="dt">final</span> T reference) {</div>
+<div class="sourceLine" id="cb10-13" data-line-number="13">        <span class="kw">this</span>.<span class="fu">reference</span> = reference;</div>
+<div class="sourceLine" id="cb10-14" data-line-number="14">    }</div>
+<div class="sourceLine" id="cb10-15" data-line-number="15">}</div></code></pre>
+<ul>
+<li><p>can omit types if they can be inferred (diamond notation):</p>
+<ul>
+<li><code>final Reference&lt;Integer&gt; reference = new Reference&lt;&gt;(1);</code></li>
+</ul></li>
+<li><p>could use a generic implementation by setting all types as <code>Object</code>, but then different types can go in the same class</p>
+<ul>
+<li>also, when getting values, you’ll need to cast whatever you get if you want to use it as another type</li>
+</ul></li>
+</ul>
+</section>
+</body>
+</html>

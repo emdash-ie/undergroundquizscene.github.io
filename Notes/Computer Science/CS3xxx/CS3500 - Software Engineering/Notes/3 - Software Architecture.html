@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>3: Software Architecture</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">3: Software Architecture</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>A lot of attention has been given to requirements engineering, but it’s less interesting than this field – how we make things and put things together.</p>
+</section>
+<section id="civil-engineering-vs.software-architecture" class="level1">
+<h1>Civil Engineering vs. Software Architecture</h1>
+<p>These tend to have a lot in common, and make good metaphors for one another.</p>
+</section>
+<section id="definitions" class="level1">
+<h1>Definitions</h1>
+<p>Architectural drivers:</p>
+<ul>
+<li>The set of quality attributes that shape a system’s software architecture</li>
+</ul>
+</section>
+<section id="documenting" class="level1">
+<h1>Documenting</h1>
+<p>Different views for different stakeholders.</p>
+</section>
+<section id="views" class="level1">
+<h1>Views</h1>
+<p>You need multiple views because you can’t capture everything in 1 view.</p>
+<p>There are 3 questions to ask of the architecture:</p>
+<ol type="1">
+<li><p>How is the system structured in terms of implementation units?</p></li>
+<li><p>How is the system structured in terms of runtime behaviour and interactions?</p></li>
+<li><p>How does the software relate to non-software structures in its environment?</p></li>
+</ol>
+<p>Book recommendation: The Architecture of Open Source Applications</p>
+<p>We want to reason about different diagrams and what they mean.</p>
+<section id="module-views" class="level2">
+<h2>Module Views</h2>
+<p>Modules are units are implementation – a module view documents module structures of a system’s architecture.</p>
+<p>Talk about static structure.</p>
+<p>There are relations among modules:</p>
+<ul>
+<li>is-part-of</li>
+<li>depends-on</li>
+<li>is-a</li>
+</ul>
+<section id="uses" class="level3">
+<h3>Uses</h3>
+<p>Module views are used for:</p>
+<ul>
+<li><p>Construction</p>
+<ul>
+<li>e.g. provide blueprint for source code</li>
+</ul></li>
+<li><p>Analysis</p>
+<ul>
+<li>e.g. requirements traceability, impact analysis (impact of changes)</li>
+</ul></li>
+<li><p>Communication</p>
+<ul>
+<li><p>large systems are written by many people, and you need to communicate to each other how the systems are structured</p></li>
+<li><p>explain system functionality and structure</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="component-connector-views" class="level2">
+<h2>Component &amp; Connector Views</h2>
+<p>A component is a runtime entity that can be deployed independently – a C&amp;C view documents elements that have a runtime presence. E.g. since classes are blueprints for objects and aren’t <em>running</em>, they’re not components.</p>
+<p>How are components implemented?</p>
+<ul>
+<li>Services</li>
+<li>Threads, processes</li>
+<li>Clients, servers</li>
+</ul>
+<p>How are connectors implemented?</p>
+<ul>
+<li>Pipes or queues</li>
+<li>Request/reply protocols</li>
+<li>Direct/indirect/event-driven invocation</li>
+</ul>
+<section id="ports-and-roles" class="level3">
+<h3>Ports and Roles</h3>
+<p>Ports are the interfaces of components.</p>
+<p>Roles are the interfaces of connectors.</p>
+</section>
+<section id="why-use-cc-views" class="level3">
+<h3>Why use C&amp;C views?</h3>
+<ul>
+<li><p>Show how the system works</p></li>
+<li><p>Guide development</p></li>
+<li><p>Analysis</p></li>
+</ul>
+</section>
+<section id="relations" class="level3">
+<h3>Relations</h3>
+<ol type="1">
+<li><p>Attachment</p></li>
+<li><p>Interface Delegation</p></li>
+</ol>
+</section>
+</section>
+<section id="allocation-views" class="level2">
+<h2>Allocation Views</h2>
+<p>Allocation views map software elements to non-software elements.</p>
+<p>Non-software elements are the environment, e.g.:</p>
+<ul>
+<li><p>computing and communication hardware</p></li>
+<li><p>file management systems</p>
+<ul>
+<li>software but not part of your system</li>
+</ul></li>
+</ul>
+<p>Software elements have properties that are required from the environment (e.g. games requiring certain specs from a computer).</p>
+<p>The environmental element has properties that are provided to the software.</p>
+</section>
+</section>
+<section id="architectural-significant-requirements" class="level1">
+<h1>Architectural Significant Requirements</h1>
+<section id="distinguishing-architectural-from-non-architectural-design" class="level2">
+<h2>Distinguishing Architectural from Non-Architectural Design</h2>
+<p>The purpose of architecture is to ensure the satisfaction of a system’s quality attributes. To that end, an architect makes architectural design decisions.</p>
+<p>To distinguish architectural from non-architectural design, ask:</p>
+<ul>
+<li>“Does this permit the system to achieve its quality attributes, or prohibit it from achieving them?”</li>
+</ul>
+</section>
+<section id="how-not-to-distinguish-them" class="level2">
+<h2>How Not to Distinguish Them</h2>
+<p>All architecture is design, but not all design is architectural. Architectural does not mean, for example:</p>
+<ul>
+<li>Lack of detail</li>
+<li>Big designs</li>
+</ul>
+</section>
+<section id="ars-characteristics" class="level2">
+<h2>ARS Characteristics</h2>
+<p>An ASR must have the following characteristics:</p>
+<p>[…]</p>
+</section>
+</section>
+<section id="quality-attributes" class="level1">
+<h1>Quality Attributes</h1>
+<p>Here are 6 important quality attributes:</p>
+<ol type="1">
+<li>Availability</li>
+<li>Modifiability</li>
+</ol>
+<section id="availability" class="level2">
+<h2>Availability</h2>
+<p>Availability is concerned with:</p>
+<ul>
+<li>System failure and its consequences</li>
+<li>Failure detection and prevention</li>
+<li>Frequency of failure and repair time</li>
+</ul>
+<p>System failure is when a system stops delivering a specified service – this is visible to the user.</p>
+<p>Faults are invisible to the user – if not handled correctly, they may cause system failures.</p>
+</section>
+<section id="modifiability" class="level2">
+<h2>Modifiability</h2>
+<p>Concerned with the cost of change.</p>
+<p>Important points are:</p>
+<ul>
+<li>what can change?</li>
+<li>when can changes be made?</li>
+<li>who makes changes?</li>
+</ul>
+</section>
+<section id="performance" class="level2">
+<h2>Performance</h2>
+<p>Concerned with timing: how long does a system take to respond to an event?</p>
+<p>Events are generated by users, external systems, or within the system itself.</p>
+<p>Events can happen:</p>
+<ul>
+<li>periodically (fixed pattern)</li>
+<li>stochastically (probabilistic pattern)</li>
+<li>sporadically (no pattern)</li>
+</ul>
+</section>
+<section id="security" class="level2">
+<h2>Security</h2>
+<p>Concerned with resisting unauthorised usage while servicing legitimate users.</p>
+<p>An attack is an attempt to breach security:</p>
+<ul>
+<li>unauthorised attempt to access the system</li>
+<li>attempt to deny services to legitimate users</li>
+</ul>
+</section>
+<section id="testability" class="level2">
+<h2>Testability</h2>
+<p>Ease with which software can be made to demonstrate its faults […]</p>
+</section>
+<section id="usability" class="level2">
+<h2>Usability</h2>
+<p>Concerned with how easy a user can accomplish a desired task, and the support provided by the system.</p>
+<p>Usability is not just having a nice interface – undo / cancel options, for example.</p>
+<p>Concerns:</p>
+<ul>
+<li>learning system features</li>
+<li>using a system efficiently</li>
+<li>minimising impact of errors</li>
+<li>adapting to users’ needs</li>
+<li>increasing confidence and satisfaction</li>
+</ul>
+</section>
+</section>
+<section id="common-architectural-styles" class="level1">
+<h1>4 Common Architectural Styles</h1>
+<ol type="1">
+<li>Layers</li>
+<li>Client-Server</li>
+<li>Peer-to-Peer</li>
+<li>Pipes &amp; Filters</li>
+</ol>
+<section id="styles-vs.patterns" class="level2">
+<h2>Styles vs. Patterns</h2>
+<p>Architectural styles and patterns are more or less the same thing, but are documented differently.</p>
+<p>Patterns are common solutions to recurring problems in a given context. A set of patterns forms a pattern languages.</p>
+</section>
+<section id="why-study-these" class="level2">
+<h2>Why Study These?</h2>
+<p>Almost all systems use one or more styles.</p>
+</section>
+<section id="architectural-styles" class="level2">
+<h2>Architectural Styles</h2>
+<p>The choice of architectural style has consequences for a system’s quality attributes. The degree of the effect may depend on implementation details.</p>
+<p>These 4 styles have some associated benefits and drawbacks.</p>
+<p>Each system has an architecture, whether it’s documented or not.</p>
+</section>
+<section id="layers" class="level2">
+<h2>1: Layers</h2>
+<p>The layered (or n-tier) style decomposes a system into a set of layers or tiers.</p>
+<p>Each layer represents a different level of abstraction to deal with issues or data.</p>
+<p>Each layer has a clearly defined interface which can be tested and hides implementation details.</p>
+<p>Example: OSI 7-layer reference model</p>
+<p>### Benefits and Drawbwacks</p>
+<p>Layers improve modifiability &amp; portability. Layers having well-designed interfaces, which facilitates maintainability and testability.</p>
+<p>However, performance may suffer due to levels of indirection. It’s also not easy to establish the right levels of granularity.</p>
+</section>
+<section id="client-server" class="level2">
+<h2>2: Client-Server</h2>
+<p>Decomposes a system into a server that provides a service, and 1 or more clients that use that service.</p>
+<p>Both client and server are independent processes.</p>
+<p>Server must handle multiple requests.</p>
+<p>Example: X Window System</p>
+<section id="benefits-and-drawbacks" class="level3">
+<h3>Benefits and Drawbacks</h3>
+<p>You get modularity and separation of concerns. Scalability can be easy be adding more servers. You can also reuse existing connectors.</p>
+<p>However, a server provides a single point of failure if there’s only one. You may also get traffic congestion if too many requests arrive at once.</p>
+</section>
+</section>
+<section id="peer-to-peer" class="level2">
+<h2>3: Peer-to-Peer</h2>
+<p>Similar to client-server, but each client also acts as a server.</p>
+<section id="benefits-and-drawbacks-1" class="level3">
+<h3>Benefits and Drawbacks</h3>
+<p>It’s very scalable – no single node is a bottleneck. You also get resilience (decentralised nature of the network makes it hard to take it down).</p>
+<p>Propagation of updates is not instant. Also, there is no single trusted server.</p>
+</section>
+</section>
+<section id="pipes-and-filters" class="level2">
+<h2>4. Pipes and Filters</h2>
+<p>This style decomposes a large processing task into a sequence of smaller, independent processing steps.</p>
+<p>Each processing step is a filter, with defined input and output interfaces.</p>
+<p>Filters are connected with pipes – a pipe can be (e.g.) a buffer or a file.</p>
+<section id="benefits-and-drawbacks-2" class="level3">
+<h3>Benefits and Drawbacks</h3>
+<ul>
+<li><p>potential performance gain when filters can be run in parallel</p></li>
+<li><p>filters are reusable, as they are loosely-coupled modules with well-defined interfaces</p></li>
+<li><p>Can reuse existing connectors: e.g. Linux pipes</p></li>
+<li><p>security is difficult: must be implemented for each filter</p></li>
+<li><p>usability: usually pipes aren’t interactive, which is a problem</p></li>
+<li><p>error handling is difficult</p></li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

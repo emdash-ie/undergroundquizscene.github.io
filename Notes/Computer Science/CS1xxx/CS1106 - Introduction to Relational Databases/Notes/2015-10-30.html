@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-10-30</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="example-jolly-roger-airlines-jra" class="level2">
+<h2>Example: Jolly Roger Airlines (JRA)</h2>
+<ul>
+<li><p>DB to hold the data (services, availability, prices, bookings etc.)</p></li>
+<li><p>Scripts to handle various stages of the booking process</p></li>
+</ul>
+</section>
+<section id="typical-booking-session" class="level2">
+<h2>Typical booking session</h2>
+<ol type="1">
+<li><p>Customer submits trip details using a form</p></li>
+<li><p>Script “check_services” interrogates DB for suitable services, packages the results as a HTML page, and returns this to the client</p></li>
+<li><p>The customer views the response and chooses desired flights</p></li>
+<li><p>Script “check_availability” interrogates the DB for prices and availability of selected flights and returns the results as a HTML page</p></li>
+<li><p>The customer submits payment details</p></li>
+<li><p>Another script runs to finish the booking</p></li>
+</ol>
+<p>What’s important is that there’s a script to advance each stage, and that they are all triggered by client action, and that they all have DB parts and non-DB parts.</p>
+</section>
+<section id="we-make-some-simplifications" class="level2">
+<h2>We make some simplifications</h2>
+<ul>
+<li><p>Only one-way, point-to-point, single-seat bookings are available</p></li>
+<li><p>Every service operates daily, every day in the year</p></li>
+</ul>
+</section>
+<section id="a-db-design" class="level2">
+<h2>A DB design</h2>
+<p>services (code, origin, destination, departure, duration, schedule)</p>
+<p>flights (code, date, capacity, availability, price)</p>
+<p>airports(code, name, timezone)</p>
+<p>customers(customer_id, first_name, last_name, email, password)</p>
+<p>bookings(booking_code, customer, service, date, credit_card)</p>
+</section>
+<section id="a-query-for-checking-for-suitable-services" class="level2">
+<h2>A query for checking for suitable services</h2>
+<p>Imagine a customer is interested in flights from Cork (ORK) to Paris (CDG) on 01/12/2012:</p>
+<blockquote>
+<p>SELECT *</p>
+<p>FROM services</p>
+<p>WHERE services.origin = ORK AND services.destination = CDG;</p>
+</blockquote>
+<p>A script embeds the customer’s choices (origin and destination here) into a template query.</p>
+<p>The selection of dates comes at a later stage because of the way our DB is structured.</p>
+</section>
+<section id="checking-availability-and-price" class="level2">
+<h2>Checking availability and price</h2>
+<blockquote>
+<p>SELECT price, …</p>
+<p>FROM</p>
+<p>services JOIN flights</p>
+<p>ON services.code = flight.code</p>
+<p>WHERE</p>
+<p>services.origin = ORK</p>
+<p>AND services.destination = CDG</p>
+<p>AND flight.date = 01/12/2012</p>
+<p>AND availability &gt; 0;</p>
+</blockquote>
+<p>This brings in the date, and displays prices just for available flights.</p>
+</section>
+<section id="recording-bookings" class="level2">
+<h2>Recording bookings</h2>
+<p>The script for processing bookings would be built around a number of statements:</p>
+<ul>
+<li><p>Record the customer’s details:<br />
+INSERT INTO customers VALUES (customer’s id,…);</p></li>
+<li><p>Record the details of this booking:<br />
+INSERT INTO bookings VALUES (booking code,…);</p></li>
+<li><p>Update the availability into for this flight:<br />
+UPDATE flights<br />
+SET availability = availability - 1<br />
+WHERE flight.code = JR666<br />
+AND flight.date = 01/12/2012</p></li>
+</ul>
+</section>
+<section id="potential-problem" class="level2">
+<h2>Potential Problem</h2>
+<p>With this simplified system, if two people book the last seat on a flight simultaneously, or at least their bookings overlap slightly, then they can both succesfully book the seat.</p>
+</section>
+</body>
+</html>

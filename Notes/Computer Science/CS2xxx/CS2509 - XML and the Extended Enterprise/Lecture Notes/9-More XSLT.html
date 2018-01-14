@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>9-More XSLT</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="more-xslt" class="level1">
+<h1>More XSLT</h1>
+<hr />
+<section id="more-on-xslt-variables" class="level2">
+<h2>More on XSLT Variables</h2>
+<p>There is a third, more flexible way of defining xsl variables:</p>
+<pre><code>&lt;xsl:variable name=&quot;numberOfPeople&quot;&gt;
+    &lt;xsl:choose&gt;
+        &lt;xsl:when test=&quot;count(/people/person[age&gt;21]) &gt; 1&quot;&gt;too many old people&lt;/xsl:when&gt;
+        &lt;xsl:otherwise&gt;&lt;xsl:value-of select=&quot;count(/people/person)&quot;/&gt;&lt;/xsl:otherwise&gt;
+    &lt;/xsl:choose&gt;
+&lt;/xsl:variable&gt;</code></pre>
+<p>Here the string output from running the code inside the variable tags is what’s stored in the variable.</p>
+<p>This allows us to use the full range of XSLT elements in producing the content for this variable.</p>
+<section id="cumulative-values-for-xsl-variables" class="level3">
+<h3>Cumulative Values for XSL Variables</h3>
+<pre><code>&lt;xsl:variable name=&quot;agesOfPeople&quot;&gt;
+    &lt;xsl:for-each select=&quot;/people/person&quot;&gt;
+        &lt;xsl:text&gt; &lt;/xsl:text&gt;&lt;xsl:value-of select=&quot;age&quot;/&gt;
+    &lt;/xsl:for-each&gt;
+&lt;/xsl:variable&gt;</code></pre>
+</section>
+</section>
+<section id="the-position-function" class="level2">
+<h2>The <code>position()</code> Function</h2>
+<p>When a sequence of elements is being processed, this function returns the position of the current item within the sequence.</p>
+<p>You can use this to (e.g.) not output a comma after the last element in a list:</p>
+<pre><code>[…]
+&lt;xsl:if test=&quot;position() &amp;lt; count(/people/person)&quot;&gt;&lt;xsl:text&gt;, &lt;/xsl:text&gt;&lt;/xsl:if&gt;
+[…]</code></pre>
+</section>
+<section id="the-last-function" class="level2">
+<h2>The <code>last()</code> Function</h2>
+<p>You can shorten this with the <code>last()</code> function, which returns the position of the last item in a list:</p>
+<pre><code>[…]
+&lt;xsl:if test=&quot;position() &amp;lt; last()&quot;&gt;&lt;xsl:text&gt;, &lt;/xsl:text&gt;&lt;/xsl:if&gt;
+[…]</code></pre>
+</section>
+<section id="applying-templates-to-calculate-a-variables-value" class="level2">
+<h2>Applying Templates to Calculate a Variable’s Value</h2>
+<p>You can use <code>&lt;xsl:apply-templates&gt;</code> to compute the value for a variable:</p>
+<pre><code>&lt;xsl:variable name=&quot;agesOfPeople&quot;&gt;
+    &lt;xsl:apply-templates select=&quot;/people/person[age &gt; 21]&quot;/&gt;
+&lt;/xsl:variable&gt;
+
+[…]
+
+&lt;xsl:template match=&quot;person&quot;&gt;
+    &lt;xsl:value-of select=&quot;age&quot;/&gt;
+    &lt;xsl:if test=&quot;position() &amp;lt; last()&quot;&gt;&lt;xsl:text&gt;, &lt;/xsl:text&gt;&lt;/xsl:if&gt;
+&lt;/xsl:template&gt;
+    </code></pre>
+</section>
+<section id="more-sorting" class="level2">
+<h2>More Sorting</h2>
+<p>You can sort elements inside <code>&lt;apply-templates&gt;</code> as well as in <code>&lt;for-each&gt;</code> statements:</p>
+<pre><code>[…]
+&lt;xsl:apply-templates select=&quot;/people/person&quot;&gt;
+    &lt;xsl:sort select=&quot;name&quot;&gt;
+&lt;/xsl:apply-templates&gt;
+[…]</code></pre>
+</section>
+</section>
+</body>
+</html>

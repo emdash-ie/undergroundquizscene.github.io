@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>8 - Events, Alerts, and Notifications</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>A publisher produces an event, and notifies its subscribers. It also includes extra information with the notification, to specify the type of the notification, and its own ID (so the subscriber knows where the notification has come from).</p>
+<p>Subscribers tell publishers they want to subscribe to one or more types of event from that publisher.</p>
+<p>Implementation is not that easy – for example, how can a client learn about publishers? Also, what if there are a lot of subscribers? It can then take a long time to notify them all.</p>
+</section>
+<section id="event-types-attributes" class="level1">
+<h1>Event Types &amp; Attributes</h1>
+<p>Events come in different types, and also have attributes (e.g. the id of the object that generated the event).</p>
+<p>When subscribing to an event, the type can be specified, and criteria for the attribute values can also be specified.</p>
+</section>
+<section id="scalability" class="level1">
+<h1>Scalability</h1>
+<p>Proxy nodes can be used to create scalable notification trees. Now the publisher informs the proxy, and the proxy can handler notification of the subscribers. If you duplicate the proxies, you can also perform load balancing, and distribute the proxies geographically.</p>
+<p>At this point you’ll need a manager to decide where to put the proxies and how best to balance the load.</p>
+<p>A notification manager can be used to register publishers and subscribers – it can be a large database. For reliability, there can be more than one notification manager. This can also help with discovery.</p>
+</section>
+<section id="brokers" class="level1">
+<h1>Brokers</h1>
+<p>Some applications <em>require</em> brokers/proxies.</p>
+<p>A broker decouples the publisher from its subscribers, and can do a few things:</p>
+<ul>
+<li><p>forwarding – the work of sending notifications</p></li>
+<li><p>filtering – reduces load</p>
+<ul>
+<li>according to e.g. content</li>
+</ul></li>
+<li><p>allow subscription to patterns of events</p></li>
+<li><p>notification mailboxes – notifications need to be delayed until the subscriber is ready to receive them</p></li>
+</ul>
+</section>
+<section id="characteristics-of-distributed-event-based-systems" class="level1">
+<h1>Characteristics of Distributed Event-Based Systems</h1>
+<ul>
+<li><p>heterogeneous</p>
+<ul>
+<li>publishers can be very different, but use same communication protocols</li>
+</ul></li>
+<li><p>asynchronous</p>
+<ul>
+<li><p>notifications are sent asynchronously</p></li>
+<li><p>difficult to make this robust</p>
+<ul>
+<li>can’t check if we received all the notifications, or if we missed one</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="rd-party-systems" class="level1">
+<h1>3rd Party Systems</h1>
+<p>You can use third-party systems like APNS (Apple Push Notification Service) or Google CM (Firebase Cloud Messaging).</p>
+<p>How long notifications are valid for is important because space is allocated to them while they’re valid.</p>
+</section>
+<section id="practice" class="level1">
+<h1>Practice</h1>
+<p>Event notification can happen between components on the same computer as well as across different computers (IPC vs. networked communication).</p>
+<section id="analysis" class="level2">
+<h2>Analysis</h2>
+<ul>
+<li><p>Different subscribers may receive event notifications in different orders, or may not receive some at all.</p></li>
+<li><p>The time it takes for a notification to arrive is unpredictable.</p></li>
+<li><p>Sometimes a subscriber may wish to only receive notifications e.g. every hour, rather than as the events happen.</p></li>
+<li><p>Sometimes the subscriber may not be the object to which a notification should be sent.</p>
+<ul>
+<li>E.g. proxies/brokers</li>
+</ul></li>
+</ul>
+</section>
+<section id="jini-distributed-event-notification" class="level2">
+<h2>Jini Distributed Event Notification</h2>
+<p>Requirements:</p>
+<ul>
+<li>Specify an interface that can be used to send notifications</li>
+<li>Specify the information a notification must contain</li>
+<li>Allow various degrees of assurance on delivery of a notification</li>
+<li>Provide support for different notification scheduling policies</li>
+<li>Explicitly allow for brokers that can collect, hold, filter, and forward notifications</li>
+</ul>
+<p>Registration of interest for an event type is typically limited to a specific duration with a lease.</p>
+<p>All of the classes defined in the specification are in the net.jini.core.event package.</p>
+<section id="interfaces-and-classes" class="level3">
+<h3>Interfaces and Classes</h3>
+<p>A <code>RemoteEventListener</code> is defined by an interface with just the method <code>notify()</code>.</p>
+<p>Events are represented by the <code>RemoteEvent</code> class, which contains:</p>
+<ul>
+<li><p>the type of the event</p></li>
+<li>a reference to the source object for the event</li>
+<li>a sequence number identifying the instance of the event type</li>
+<li><p>an object that was passed in when the subscriber registered interest in the event</p></li>
+</ul>
+<p>[…]</p>
+<p>What’s nice about this is that there’s a standardised system.</p>
+</section>
+</section>
+<section id="push-notifications" class="level2">
+<h2>Push Notifications</h2>
+<p>These are associated with remote applications and can be received by the user at any time.</p>
+<section id="model" class="level3">
+<h3>Model</h3>
+<p>Three interacting components:</p>
+<ul>
+<li><p>The OS push notification service (OSPNS)</p></li>
+<li><p>The app publisher (which registers with the push notification service)</p></li>
+<li><p>[…]</p></li>
+</ul>
+</section>
+<section id="how-it-works" class="level3">
+<h3>How It Works</h3>
+<ol type="1">
+<li><p>User installs an app</p></li>
+<li><p>User runs the app – unique ids for the app and the device are registered with the OSPNS</p></li>
+<li><p>The unique identifiers are passed back to the app from the OSPNS, as well as to the app publisher.</p></li>
+<li><p>The app publisher receives and stores this data.</p></li>
+</ol>
+<p>Then the publisher defines:</p>
+<ul>
+<li><p>The audience for a push notification</p></li>
+<li><p>Whether the message should be scheduled or sent immediately</p></li>
+</ul>
+<p>Now the publisher can send notifications via the API according to the schedule.</p>
+</section>
+</section>
+<section id="transactions" class="level2">
+<h2>Transactions</h2>
+<p>It’s possible to allow event subscriptions within the scope of a transaction. Participants within the transaction can see events that are hidden from entities outside the transaction.</p>
+<p>Consider notifications to be part of a transaction. Subscribers send an acknowledgement to confirm receipt of the notification or set of notifications.</p>
+<p>Transactions are for grouping a set of actions into one greater (possibly atomic) action.</p>
+<p>## Questions</p>
+<ul>
+<li><p>What is the “evented web”?</p></li>
+<li><p>What are web notifications?</p></li>
+<li><p>What are the main issues with a distributed event notification system?</p></li>
+</ul>
+</section>
+</section>
+</body>
+</html>

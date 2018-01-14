@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>13-Named Parameters, Default Parameters, and Flexible Numbers of Parameters</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="named-parameters-default-parameters-and-flexible-numbers-of-parameters" class="level1">
+<h1>Named Parameters, Default Parameters, and Flexible Numbers of Parameters</h1>
+<hr />
+<section id="named-parameters" class="level2">
+<h2>Named Parameters</h2>
+<p>Named Parameters allow you to specify parameters in any order when calling a function:</p>
+<pre><code>def PrintInfo(name, age, friends):
+    print(name, age, friends)
+    
+PrintInfo(age = 10, name = &#39;Lucy&#39;, friends = [])</code></pre>
+<p>This is useful for functions with many parameters, where it’s hard to remember the order they have to be in, and in combination with default parameters.</p>
+</section>
+<section id="default-parameters" class="level2">
+<h2>Default Parameters</h2>
+<p>Default parameters allow you to set a default value for if the function is called without providing that parameter.</p>
+<pre><code>def PrintInfo(name = None, age = None, friends = None):
+    print(name, age, friends)
+    
+# You can now call this function with only some of the parameters
+
+PrintInfo(age = 23)     =&gt; None, 23, None
+PrintInfo(&#39;Ann&#39;, 30)    =&gt; &#39;Ann&#39;, 30, None
+PrintInfo(&#39;Bob&#39;)        =&gt; &#39;Bob&#39;, None, None</code></pre>
+</section>
+<section id="flexible-numbers-of-parameters" class="level2">
+<h2>Flexible Numbers of Parameters</h2>
+<p>You can allow a function be called with a completely variable number of parameters (like <code>print()</code>) by giving one parameter a name beginning with an asterisk:</p>
+<pre><code>def PrintMultiple(*items):
+    for item in items:
+        print(item)
+        
+PrintMultiple(1, 2, 3, 4, 5)
+        </code></pre>
+<p>The parameter comes into the function as a tuple.</p>
+</section>
+</section>
+</body>
+</html>

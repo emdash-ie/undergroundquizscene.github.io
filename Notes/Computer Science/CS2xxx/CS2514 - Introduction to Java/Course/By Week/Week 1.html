@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 1</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="info" class="level1">
+<h1>Info</h1>
+<ul>
+<li>24 lectures, 80%-20% split</li>
+<li>CA will be test and lab assignments
+<ul>
+<li>Test in the middle of the year (if at all)</li>
+</ul></li>
+<li>Some lectures will use the blackboard
+<ul>
+<li>At these we have to take our own notes</li>
+</ul></li>
+</ul>
+<p>All assignments have an official deadline and a grace deadline, you can submit until the grace deadline.</p>
+</section>
+<section id="content" class="level1">
+<h1>Content</h1>
+<ul>
+<li>Class definitions</li>
+<li>Procedural and data abstraction</li>
+<li>Associations between objects</li>
+<li>Class hierarchies and inheritance</li>
+<li>Polymorphism and dynamic method binding</li>
+</ul>
+<p>Assignments will never tell you how to implement something – you’re supposed to figure that out.</p>
+</section>
+<section id="book" class="level1">
+<h1>Book</h1>
+<ul>
+<li>Head First Java by Kathy Sierra and Bert Bates. Second edition or newer.</li>
+</ul>
+<section id="optional-extra-books" class="level2">
+<h2>Optional Extra Books</h2>
+<ul>
+<li>Effective Java by Joshua Bloch (get it if you like programming)</li>
+<li>Java Puzzlers by Joshua Bloch and someone else</li>
+<li>Head First OO Analysis and Design</li>
+<li>Design Patterns Elements of Reusable OO Software (very technical, get if you like OO design)</li>
+</ul>
+</section>
+</section>
+<section id="what-is-java" class="level1">
+<h1>What is Java?</h1>
+<ul>
+<li>A programming language</li>
+<li>A compiler (the javac compiler)
+<ul>
+<li>Compiles to java byte code</li>
+</ul></li>
+<li>A virtual machine
+<ul>
+<li>Interprets java byte code</li>
+</ul></li>
+</ul>
+<p>You use the command <code>javac filename.java</code> in the command line to compile a java file. This will produce a file <code>filename.class</code>.</p>
+<p>Run the program by calling the <code>java</code> command on the main class (corresponds to the main function).</p>
+</section>
+<section id="example-java" class="level1">
+<h1>Example Java</h1>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Song {</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">private</span> <span class="bu">String</span> title;</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">  <span class="kw">private</span> <span class="bu">String</span> artist;</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw">public</span> <span class="bu">String</span> <span class="fu">getTitle</span>() {</div>
+<div class="sourceLine" id="cb1-6" data-line-number="6">    <span class="kw">return</span> title;</div>
+<div class="sourceLine" id="cb1-7" data-line-number="7">  }</div>
+<div class="sourceLine" id="cb1-8" data-line-number="8"></div>
+<div class="sourceLine" id="cb1-9" data-line-number="9">  <span class="kw">public</span> <span class="dt">void</span> <span class="fu">playSong</span>() {</div>
+<div class="sourceLine" id="cb1-10" data-line-number="10">    <span class="co">// play song</span></div>
+<div class="sourceLine" id="cb1-11" data-line-number="11">  }</div>
+<div class="sourceLine" id="cb1-12" data-line-number="12">}</div></code></pre>
+<ul>
+<li>comment lines with <code>//</code></li>
+<li>have to declare whether methods and attributes are <code>public</code> or <code>private</code> (or maybe others, but we will only study those two)
+<ul>
+<li>private classes are useful in some situations, but not at the top-level</li>
+</ul></li>
+<li>have to write return type of methods</li>
+<li>use <code>{}</code> to mark blocks</li>
+<li><code>void</code> can only be used as a return type</li>
+<li>don’t forget semi-colons</li>
+</ul>
+</section>
+<section id="main-in-java" class="level1">
+<h1><code>main()</code> in Java</h1>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Main {</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">public</span> <span class="dt">static</span> <span class="dt">void</span> <span class="fu">main</span>(<span class="bu">String</span>[] args) {</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">  <span class="co">// code goes here</span></div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">}</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">}</div></code></pre>
+<ul>
+<li><code>static</code> shows that it is a class method (rather than an instance method), which is needed for the main method</li>
+</ul>
+</section>
+<section id="printing" class="level1">
+<h1>Printing</h1>
+<p>System.out.println(“Hello”);</p>
+<p>You can also print to error:</p>
+<p>System.err.println(“Hello”);</p>
+</section>
+<section id="creating-new-objects" class="level1">
+<h1>Creating New Objects</h1>
+<p>For a class “Dog”:</p>
+<p>Dog john = new Dog();</p>
+<p>This creates a new <code>Dog</code> object and calls it “john”. You need to have the first <code>Dog</code> because you’re declaring the type of the object reference.</p>
+<p>Dot notation used to access public attributes and methods:</p>
+<p>john.size = 2.0; john.bark();</p>
+</section>
+<section id="objects-in-java" class="level1">
+<h1>Objects in Java</h1>
+<p>The java language doesn’t specify how objects are implemented – that’s up to each compiler.</p>
+<p>An object reference is like a remote control that can control different objects – they have a type, and so can only control objects of one type. You can’t do this:</p>
+<pre class="sourceCode java" id="cb3"><code class="sourceCode java"><div class="sourceLine" id="cb3-1" data-line-number="1">Cat remote = <span class="kw">new</span> Cat;</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2">House remote = <span class="kw">new</span> House;</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3">[…]</div></code></pre>
+<p>But you can do this:</p>
+<pre class="sourceCode java" id="cb4"><code class="sourceCode java"><div class="sourceLine" id="cb4-1" data-line-number="1">Cat remote = <span class="kw">new</span> <span class="fu">Cat</span>();</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2">Cat other = <span class="kw">new</span> <span class="fu">Cat</span>();</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3">remote = other;</div></code></pre>
+<p>Two exceptions:</p>
+<ul>
+<li><code>final</code> variables can only take 1 value, they can’t be changed</li>
+<li>When an object reference’s type is <code>Object</code>, it can take any object reference</li>
+</ul>
+<p>Any object reference variable can be assigned the value <code>null</code>, which corresponds to nothing.</p>
+</section>
+<section id="about-public" class="level1">
+<h1>About <code>public</code></h1>
+<p>Here’s a class with some mistakes:</p>
+<pre class="sourceCode java" id="cb5"><code class="sourceCode java"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Balance {</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2">    <span class="kw">private</span> <span class="dt">int</span> value = <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3">    <span class="kw">private</span> <span class="dt">int</span> numberOfTransactions = <span class="dv">0</span>;</div>
+<div class="sourceLine" id="cb5-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb5-5" data-line-number="5">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">add</span>(<span class="dt">int</span> increment) {</div>
+<div class="sourceLine" id="cb5-6" data-line-number="6">      value = value + increment;</div>
+<div class="sourceLine" id="cb5-7" data-line-number="7">      numberOfTransactions = numberOfTransactions + <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb5-8" data-line-number="8">    }</div>
+<div class="sourceLine" id="cb5-9" data-line-number="9">}</div></code></pre>
+<ul>
+<li>Note that attributes (here <code>value</code> and <code>numberOfTransactions</code>) can be initialised in an explicit constructor or just in the class like this.
+<ul>
+<li>An explicit constructor makes sure they’re all in one place though.</li>
+</ul></li>
+</ul>
+<p>The fix is this:</p>
+<pre class="sourceCode java" id="cb6"><code class="sourceCode java"><div class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Balance {</div>
+<div class="sourceLine" id="cb6-2" data-line-number="2">    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">final</span> <span class="dt">int</span> INITIAL_VALUE = <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb6-3" data-line-number="3">    <span class="kw">private</span> <span class="dt">int</span> value = INITIAL_VALUE;</div>
+<div class="sourceLine" id="cb6-4" data-line-number="4">    <span class="kw">private</span> <span class="dt">int</span> numberOfTransactions = <span class="dv">0</span>;</div>
+<div class="sourceLine" id="cb6-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb6-6" data-line-number="6">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">add</span>(<span class="dt">int</span> increment) {</div>
+<div class="sourceLine" id="cb6-7" data-line-number="7">      value = value + increment;</div>
+<div class="sourceLine" id="cb6-8" data-line-number="8">      numberOfTransactions = numberOfTransactions + <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb6-9" data-line-number="9">    }  </div>
+<div class="sourceLine" id="cb6-10" data-line-number="10">}</div></code></pre>
+<p>This way, if the initial value of the first int needs to be changed later, it’ll only have to be changed in one place.</p>
+</section>
+<section id="note-class" class="level1">
+<h1>Note Class</h1>
+<pre class="sourceCode java" id="cb7"><code class="sourceCode java"><div class="sourceLine" id="cb7-1" data-line-number="1">        <span class="co">/**</span></div>
+<div class="sourceLine" id="cb7-2" data-line-number="2">         <span class="co">*</span> one<span class="co">-</span>line description</div>
+<div class="sourceLine" id="cb7-3" data-line-number="3">         <span class="co">* @</span>author</div>
+<div class="sourceLine" id="cb7-4" data-line-number="4">         <span class="co">*/</span></div></code></pre>
+<p>This above is a javadoc comment. The first line should be a one-line description of the class. Since we’re making a note class, that description might be, “A class to represent a short Note.”</p>
+<p>For our assignments, we need to write this, and we should put our name and probably student number in the author section.</p>
+<p>These should be at the top of the class, and before public members.</p>
+<pre class="sourceCode java" id="cb8"><code class="sourceCode java"><div class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">public</span> <span class="kw">class</span> Note {</div>
+<div class="sourceLine" id="cb8-2" data-line-number="2">    <span class="kw">private</span> <span class="dt">static</span> <span class="dt">int</span> MAX_LENGTH = <span class="dv">40</span>;</div>
+<div class="sourceLine" id="cb8-3" data-line-number="3">    <span class="kw">private</span> <span class="dt">final</span> <span class="bu">String</span> comment;</div>
+<div class="sourceLine" id="cb8-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb8-5" data-line-number="5">    <span class="kw">private</span> <span class="fu">Note</span>(<span class="dt">final</span> <span class="bu">String</span> comment) {</div>
+<div class="sourceLine" id="cb8-6" data-line-number="6">        <span class="kw">this</span>.<span class="fu">comment</span> = comment;</div>
+<div class="sourceLine" id="cb8-7" data-line-number="7">    }</div>
+<div class="sourceLine" id="cb8-8" data-line-number="8"></div>
+<div class="sourceLine" id="cb8-9" data-line-number="9">    <span class="kw">public</span> <span class="dt">static</span> Note <span class="fu">createNote</span>(<span class="dt">final</span> <span class="bu">String</span> comment) {</div>
+<div class="sourceLine" id="cb8-10" data-line-number="10">        <span class="dt">final</span> Note result;</div>
+<div class="sourceLine" id="cb8-11" data-line-number="11">        <span class="kw">if</span> (comment.<span class="fu">length</span>() &gt; MAX_LENGTH) {</div>
+<div class="sourceLine" id="cb8-12" data-line-number="12">            result = <span class="kw">null</span>;</div>
+<div class="sourceLine" id="cb8-13" data-line-number="13">        } <span class="kw">else</span> {</div>
+<div class="sourceLine" id="cb8-14" data-line-number="14">            result = <span class="kw">new</span> <span class="fu">Note</span>(comment);</div>
+<div class="sourceLine" id="cb8-15" data-line-number="15">        }</div>
+<div class="sourceLine" id="cb8-16" data-line-number="16">        <span class="kw">return</span> result;</div>
+<div class="sourceLine" id="cb8-17" data-line-number="17">    }</div>
+<div class="sourceLine" id="cb8-18" data-line-number="18"></div>
+<div class="sourceLine" id="cb8-19" data-line-number="19">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">print</span>() {</div>
+<div class="sourceLine" id="cb8-20" data-line-number="20">        <span class="bu">System</span>.<span class="fu">out</span>.<span class="fu">print</span>(comment);</div>
+<div class="sourceLine" id="cb8-21" data-line-number="21">    }</div>
+<div class="sourceLine" id="cb8-22" data-line-number="22">}</div></code></pre>
+<ul>
+<li>Normal comment blocks start with <code>/*</code> and end with <code>*/</code>. You can also comment a single line with <code>//</code>.</li>
+<li>Class names should be nouns, always written uppercase.</li>
+<li>Use spaces for indentation and not tabs.</li>
+<li>We want to guarantee that notes have to be short, have to be under a certain length.</li>
+<li>For this we need a maximum value. Rather than make this an instance variable, which will copy it for every instance, we’re going to make it a class attribute, so all classes will point to the one value.
+<ul>
+<li>We use the identifier <code>static</code> to make class attributes.</li>
+</ul></li>
+<li>Names can contain letters and underscores, and other symbols.
+<ul>
+<li>We’re to use the convention that class attributes are written in all-caps.</li>
+<li>Our names should start with letters.</li>
+<li>Names should be meaningful – one-letter names are not meaningful.</li>
+</ul></li>
+<li>We use <code>final</code> for the comment itself, purely by choice (we don’t want the comments in this class to be changeable).</li>
+<li><code>comment</code> is an instance variable, as each instance needs to have its own note.</li>
+<li>We’re using a private constructor. We’re gonna provide an API for clients, and that way we can easily change the details of our constructor and no-one will be harmed.</li>
+<li>We use <code>final</code> in the constructor to prevent people from making an assignment in the method call, which can be done in Java but is probably a mistake.</li>
+<li>Note that assignment is not equality.</li>
+<li>We’re providing a class method for the service of creating a new note. If it was an instance method, we’d have a chicken-and-egg problem, as we’d need to have a note before we could use the method.</li>
+<li>Reminder that formal parameters are the ones written in class definitions. Actual parameters are the ones passed to a method from the outside.</li>
+<li>If given an invalid comment, we’re going to return a null reference, and otherwise we’ll return the new note.</li>
+<li>Much clearer to have only one return statement at the end of a function, rather than having more than one.
+<ul>
+<li>We’ll use a result variable, and we make it final as a safeguard.</li>
+</ul></li>
+<li>Lines should not exceed about 76 characters, short lines should be used instead.
+<ul>
+<li>line continuations should be indented on the next line</li>
+</ul></li>
+<li>The braces are not needed for if or else blocks if there’s only one statement in the block, but it’s clearer to use them even then.</li>
+<li>We could implement the method for printing a note as a class method, but then we’d have to pass the note as an argument. It makes more sense as an instance method.</li>
+<li>We use <code>System.out.print()</code> rather than <code>System.out.println()</code>, as <code>println</code> adds a newline at the end, which we don’t want.
+<ul>
+<li>In this we could have used <code>this.</code> to be clear, but we don’t need it now, because the name doesn’t conflict with a formal parameter name.</li>
+<li>We usually use <code>System.err</code> instead of <code>System.out</code> to record error rather than print to the user.</li>
+<li>The output and error can be redirected e.g. in bash:
+<ul>
+<li><code>java Note &gt; output 2&gt; errors</code></li>
+<li>note <code>&gt;</code> is shorthand for <code>1&gt;</code></li>
+<li>This allows you to automate your testing, e.g. using <code>cmp</code>.
+<ul>
+<li><code>If cmp output correct_output; then      #  else      ...  fi</code></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li>It is possible to program in Java entirely using class methods, but then you must always pass the objects to the methods.
+<ul>
+<li>e.g. <code>public static void print(final Note note) {}</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="call-by-value-mechanism" class="level1">
+<h1>Call By Value Mechanism</h1>
+<p>There is often a question about this on the exam.</p>
+<p>In Java, method calls use a call by value mechanism.</p>
+<p>You can think about this as each method call making a copy of the actual parameters and using those copies for the formal parameters in the method.</p>
+<p>Here’s how you can think of the process:</p>
+<ul>
+<li>For each formal/actual parameter
+<ul>
+<li>create a fresh variable</li>
+<li>usually stored on the stack at runtime
+<ul>
+<li>this mechanism is also used for blocks</li>
+</ul></li>
+</ul></li>
+<li>From left to right evaluate and assign the actual parameters</li>
+<li>Carry out the statements in the body of the method</li>
+<li>If there’s a return value, substitute it for the method call</li>
+<li>Upon return remove the temporary variables</li>
+</ul>
+<section id="example" class="level2">
+<h2>Example</h2>
+<pre class="sourceCode java" id="cb9"><code class="sourceCode java"><div class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw">public</span> <span class="dt">static</span> <span class="dt">int</span> <span class="fu">fib</span>(<span class="dt">final</span> <span class="dt">int</span> n){</div>
+<div class="sourceLine" id="cb9-2" data-line-number="2">    <span class="kw">if</span> (n &lt;= <span class="dv">1</span>) {</div>
+<div class="sourceLine" id="cb9-3" data-line-number="3">        <span class="kw">return</span> n;</div>
+<div class="sourceLine" id="cb9-4" data-line-number="4">    } <span class="kw">else</span> {</div>
+<div class="sourceLine" id="cb9-5" data-line-number="5">        <span class="dt">final</span> <span class="dt">int</span> result = <span class="fu">fib</span>(n<span class="dv">-1</span>) + <span class="fu">fib</span>(n<span class="dv">-2</span>);</div>
+<div class="sourceLine" id="cb9-6" data-line-number="6">        <span class="kw">return</span> result;</div>
+<div class="sourceLine" id="cb9-7" data-line-number="7">    }</div>
+<div class="sourceLine" id="cb9-8" data-line-number="8"></div>
+<div class="sourceLine" id="cb9-9" data-line-number="9">}</div></code></pre>
+<p>We can simulate a call to this method for an actual parameter of 2:</p>
+<ul>
+<li>put the actual parameter (in this case 2) on the stack, call it n</li>
+<li>now n is not &lt;= 1, so we enter the else clause</li>
+<li>temporary variable <code>result</code> is created and put on the stack</li>
+<li>we now need to evaluate the two calls to fib to figure out the value to give <code>result</code></li>
+<li>the new actual parameter (1) is put on the stack and labelled n</li>
+<li>this time n is &lt;= 1, so we return n</li>
+<li>this value (1) is substituted for the first internal call to <code>fib</code>, and n is removed from the stack</li>
+<li>the next actual parameter (0) is put on the stack and labelled n</li>
+<li>again n is &lt;= 1, so we return n</li>
+<li>0 is substituted for the second internal call to <code>fib</code>, and removed from the stack</li>
+<li>result is evaluated (1), and returned</li>
+<li>the stack is cleared</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

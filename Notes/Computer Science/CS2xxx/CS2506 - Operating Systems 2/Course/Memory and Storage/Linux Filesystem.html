@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Linux Filesystem</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="meta" class="level1">
+<h1>Meta</h1>
+<ul>
+<li><p>will finish the course next week</p></li>
+<li><p>then a week of practice</p></li>
+<li><p>then a week of review</p></li>
+</ul>
+<p>If there’s anything you’d like to be covered/discussed more, let him know.</p>
+</section>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Questions at the beginning are what is covered.</p>
+</section>
+<section id="the-virtual-filesystem" class="level1">
+<h1>The Virtual Filesystem</h1>
+<ul>
+<li>main concept used by linux</li>
+</ul>
+<p>This is a layer of abstraction - sits on top of any physical filesystem.</p>
+<p>Exposes to applications a number of common services and generic file operations.</p>
+<ul>
+<li><p>organised as a collection of base classes, one for each area of file system activity.</p></li>
+<li><p>manages kernel-level file abstractions in one format for all file systems</p></li>
+<li><p>receives system call requests from user level (e.g. write, open, stat, link) and resolves them</p>
+<ul>
+<li>based on the information brought in when a system is mounted</li>
+</ul></li>
+<li><p>interacts with a specific file system based on <code>mount point traversal</code></p></li>
+<li><p>receives requests from other parts of the kernel, mostly from <code>memory management</code> and <code>process management</code></p></li>
+</ul>
+<p>For each VFS service, the specific file system has a structure containing function pointers defining the operations it provides.</p>
+<ul>
+<li><p>keep a datastructure with pointers to the relevant functions in the underlying filesystem</p>
+<ul>
+<li>brought in when mounted</li>
+</ul></li>
+</ul>
+<p>[…]</p>
+<ul>
+<li><p>VFS and underlying filesystems exist in the kernel space</p></li>
+<li><p>requires a lot of memory, which is why it didn’t exist in older operating systems</p></li>
+</ul>
+</section>
+<section id="main-components" class="level1">
+<h1>Main Components</h1>
+<ul>
+<li><p><code>superblock</code></p>
+<ul>
+<li>information about the mounted filesystem (metadata)</li>
+</ul></li>
+<li><p><code>inode</code></p>
+<ul>
+<li>information about a specific file</li>
+</ul></li>
+<li><p><code>file</code></p>
+<ul>
+<li>information about an open file</li>
+</ul></li>
+<li><p><code>dentry</code></p>
+<ul>
+<li>information about a directory entry</li>
+</ul></li>
+</ul>
+<p>All files are part of a directory, and there are entries in a d_node which map the filename onto a specific inode. Superblocks are stored on the disk, and inodes point to them.</p>
+<section id="superblocks" class="level2">
+<h2>Superblocks</h2>
+<p>When a filesystem is mounted, a FS-specific function is called to load an internal representation of the FS metadata. Named after the original UNIX on-disk metadata, this is called the superblock.</p>
+<p>A member of the internal superblock structure points to a structure of type <code>struct super_operations</code>. This structure contains a number of function pointers that are needed to carry out operations on a mounted FS.</p>
+<p>Although the name suggests that these functions are primarily related to superblocks, they’re actually more related to managing inodes. (~)</p>
+<p>Superblock gives info about inodes. (?)</p>
+<section id="superblock-data-structure" class="level3">
+<h3>Superblock Data Structure</h3>
+<ul>
+<li><p>Total number of inodes</p></li>
+<li><p>file system size in blocks</p></li>
+<li><p>free block counter</p></li>
+</ul>
+<p>[…]</p>
+</section>
+</section>
+<section id="inode-structure" class="level2">
+<h2>Inode Structure</h2>
+<p>An inode represents an individual file.</p>
+<p>Some interesting structure members:</p>
+<ul>
+<li><p><code>alloc_inode()</code></p>
+<ul>
+<li>allocate the memory for and initialise an in-memory inode structure</li>
+</ul></li>
+<li><p><code>read_inode()</code></p>
+<ul>
+<li>read an inode from the FS</li>
+</ul></li>
+</ul>
+<p>[…]</p>
+<p>One member points to a structure which contains function pointers for operations with specific files and directories. (~)</p>
+<p>Directories are implemented as lists of directory entries. The VFS maintains in the main memory a cache of directory entries that provides a mapping from file names to inodes. They can be quickly searched to avoid unnecessary disk accesses. (This is a heavy load on memory, along with everything else.)</p>
+<p>In addition to the inode operations, the internal inode structure also points to a structure of type struct file_operations. When a file is opened, an internal structure representing the open file is created. This structure points to file operations […]</p>
+<p>Everything from the diagram at the beginning is brought into memory. For a large filesystem, this is a heavy load on memory.</p>
+</section>
+</section>
+<section id="the-ext3-filesystem" class="level1">
+<h1>The EXT3 Filesystem</h1>
+<p>Probably the most-used in Linux.</p>
+<p>In any disk or partition with this filesystem, the first block is reserved for boot. The next block is a superblock, which is replicated in several places in the FS. (block size can vary from 1024 to 8192 bytes)</p>
+<p>Divides the FS into block groups, each having a copy of the superblock. The following block is a one-block group descriptor table, and then two blocks of free bitmaps – one for free blocks within the group and one for free inodes within the group. Following are inode blocks. the rest of the blocks are for data.</p>
+<p>The strategy is to keep the blocks allocated to a file in the same group together with its inode. (In each group, …)</p>
+<p>Each entry of the directory structure contains the file name and the i-number. To speed up directory searches, there’s an option for adding a hash table to the directory.</p>
+<p>Note: ask about how the hash table speeds up the searches.</p>
+<p>There’s also a journal, which is like a log for what the filesystem has done recently. Used for tracking errors.</p>
+<section id="ext3-name-lookup" class="level2">
+<h2>EXT3 Name Lookup</h2>
+<p>The <code>open()</code> system call enters the kernel with the function <code>sys_open()</code>. The major function is to locate the inode that corresponds to the path name passed by the application.</p>
+<p>The open sys call checks the permission of the operation with the inode and then builds the internal open file data structure.</p>
+<p>After about seven nested function calls, the VFS function <code>_link_path_walk()</code> is invoked, to follow the path name along the directory tree.</p>
+<p>Path can be absolute or relative […]</p>
+</section>
+<section id="write-operation" class="level2">
+<h2>Write Operation</h2>
+<p>When the file is open, the application can call <code>read()</code> and/or <code>write()</code>.</p>
+<p>Writing to a file begins by determining the point where writing starts (part of the open file structure). After that, the control is passed to VFS, where the request is checked to make sure that it doesn’t violate security (e.g. file open read-only) or other limitations. Then the control is passed to the EXT3 specific write function.</p>
+</section>
+</section>
+<section id="linux-io" class="level1">
+<h1>Linux I/O</h1>
+<p>In Linux, all device drivers appear as normal files.</p>
+<p>There are three categories of devices.</p>
+<p>There are block devices, character devices, and network devices. […]</p>
+<section id="block-devices" class="level2">
+<h2>Block Devices</h2>
+<p>Block devices provide the main interface to all disks.</p>
+<p>Unit of transfer is the block – generally corresponds to one sector.</p>
+<p>The request manager manage the reading/writing of the bugger used in a block device transfer. A separate list of requests is stored for each block device driver. This list is maintained in sorted order of increasing starting sector number. A request will be removed from the list after […]</p>
+<p>Merged if they involve neighbour sectors. […]</p>
+</section>
+<section id="disk-organisation" class="level2">
+<h2>Disk Organisation</h2>
+<p>The surface of the disk platter is logically divided into circular tracks that are subdivided into sectors. The set of tracks that are at one arm position makes up a cylinder.</p>
+<p>The disk is addressed as a one-dimensional array of logical blocks. […]</p>
+</section>
+<section id="disk-scheduling" class="level2">
+<h2>Disk Scheduling</h2>
+<p>Important to consider the performance.</p>
+<p>The access time = seek time + rotational latency.</p>
+<p>The disk bandwidth is the number of bytes transferred divided by the total time between the first request for service and the completion of the last transfer.</p>
+<p>Disk scheduling optimises the above metrics by good decisions on the next disk request to be served.</p>
+<section id="strategies" class="level3">
+<h3>Strategies</h3>
+<ul>
+<li><p>First come first served (FCFS)</p>
+<ul>
+<li><p>all requests serviced as they arrive</p></li>
+<li><p>fair but doesn’t provide fastest service</p>
+<ul>
+<li>example: sequence of requests to blocks on cylinders: 42, 211, 234, 19, 87</li>
+</ul></li>
+</ul></li>
+<li><p>Shortest seek time first (SSTF)</p>
+<ul>
+<li><p>Service all the requests close to the current head position before moving far away</p></li>
+<li><p>may cause starvation for some requests, meaning it is non-optimal</p></li>
+</ul></li>
+</ul>
+<section id="scan-scheduling" class="level4">
+<h4>SCAN Scheduling</h4>
+<p>Also known as the elevator algorithm.</p>
+<p>The head moves from one end to the other, servicing requests as it reaches each cylinder, then reverses direction, etc.</p>
+<p>Assuming a uniform distribution of requests, when the head approaches one end, relatively few requests are in front of it (depends on how space is allocated). The heaviest density at this point is at the other end of the disk.</p>
+<p>C-SCAN (Circular SCAN) tries to provide a more uniform wait time. Everything is the same except when the head arrives at one end it returns immediately to the other end without servicing any requests.</p>
+<ul>
+<li>In practice neither algorithm is implemented as above. The arm only goes as far as the final request in each direction. Then it reverses direction without going all the way to the end of the disk. These are called LOOK and C-LOOK.</li>
+</ul>
+</section>
+</section>
+<section id="selection-of-io-scheduling-algorithm" class="level3">
+<h3>Selection of I/O Scheduling Algorithm</h3>
+<p>Pattern of I/O requests has a substantial impact on the overall performance. E.g. if there’s only on erequest, all algorithms behave the same. (Have we many or few requests right now?)</p>
+<p>The file allocation strategy is important – less arm movement if the file is stored contiguously. If the file is indexed (therefore the index is cached in the main memory and it’s easy to locate the blocks that belong to the file), the blocks can be widely spread on the disk.</p>
+<p>The location of directories and index blocks is also important. We can have the directory on the first cylinder, or on the middle cylinder, the latter generally leading to less arm movement.</p>
+<p>Caching directories and index blocks reduces the need for arm movement.</p>
+<p>Other system operations such as demand paging (bringing into the main memory pages that belong to a (user?) process) have higher priorities than application I/O. If these operations occur frequently, they’ll have a significant impact on the operation of the scheduler.</p>
+</section>
+<section id="io-scheduling-in-linux-kernel" class="level3">
+<h3>I/O Scheduling in Linux Kernel</h3>
+<ul>
+<li><p>read queue, write queue, different deadlines</p></li>
+<li><p>Similar to the elevator algorithm but associates a deadline with each request</p></li>
+<li><p>If several requests correspond to neighbour sectors they are merged</p></li>
+</ul>
+<p>[…]</p>
+</section>
+</section>
+<section id="character-devices" class="level2">
+<h2>Character Devices</h2>
+<p>Any character device driver registered to the kernel must also register a set of functions that implement the file I/O […]</p>
+<p>[…]</p>
+</section>
+</section>
+<section id="network-attached-storage" class="level1">
+<h1>Network-attached Storage</h1>
+<p>Accessed remotely over the network. Access is by remote procedure call (RPC).</p>
+<p>The storage is normally implemented as a RAID array with an RPC interface.</p>
+<p>In addition to the physical system, we can have a non-volatile RAM cache for storing data that doesn’t lose information if the power is down.</p>
+</section>
+</body>
+</html>

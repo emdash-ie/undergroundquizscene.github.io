@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4-Exceptions</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="exceptions" class="level1">
+<h1>Exceptions</h1>
+<hr />
+<p>Exceptions are events that can be raised and caught to modify the flow of control through a program.</p>
+<p>They can be raised for errors, or used in other circumstances. They’re meant to be used for unusual circumstances. They can also be used for system interrupts.</p>
+<p>They are triggered automatically on errors, but we can also raise and intercept (catch) any exceptions in our own code.</p>
+<p>There’s a large list of exceptions already in Python.</p>
+<section id="exception-handling" class="level2">
+<h2>Exception Handling</h2>
+<p>When writing code, the way exceptions normally work in Python is useful for debugging. Uncaught exceptions thrown filter up to the default exception handler.</p>
+<p>However, when our code is being used, we need to handle the exceptions. At worst, we want the program to exit gracefully, and at best we want our program to be able to recover. E.g. if a user has entered a lot of data, we will want to save it (if possible) if our program has to exit.</p>
+<p>We seek to minimise data loss and clean up connections. If we can’t try again, we want a stable situation. If we can’t have that, we want a graceful exit.</p>
+<section id="key-mechanisms" class="level3">
+<h3>Key Mechanisms</h3>
+<ul>
+<li><code>try</code>/<code>except</code> – this construct catches and recovers from exceptions</li>
+<li><code>try</code>/<code>finally</code> – provides a block that is always executed, even if an exception is thrown</li>
+<li><code>raise</code> – allows us to trigger exceptions from within our code</li>
+</ul>
+</section>
+<section id="tryexcept" class="level3">
+<h3><code>try</code>/<code>except</code></h3>
+<p>We intercept exceptions with the <code>try</code>/<code>except</code> construct. We wrap operations that are likely to throw an exception in the <code>try</code> block, and provide error handling in the <code>except</code> block.</p>
+<p>This means that any code after the <code>try</code>/<code>except</code> structure can still run even if exceptions have been thrown.</p>
+<p>You can catch multiple exceptions with multiple <code>except</code> blocks. You can also use <code>except Exception</code> as a general exception handler – it will catch any exception thrown (except for some, e.g. system interrupt) that’s not already handled.</p>
+<p>The Google Style Guide recommends against catchall exceptions (unless at the outermost level of error catching where some error is being shown to the user), and says you should only catch specific exceptions. There are some situations where you may choose to use a catchall. We’ll see more of this with GUIs.</p>
+<p>You should never use a block like this:</p>
+<pre><code>…
+except:
+    …
+    </code></pre>
+<p>This will catch some exceptions that aren’t errors, that Python needs to function properly, and can cause unusual effects in your code.</p>
+</section>
+<section id="cleaning-up" class="level3">
+<h3>Cleaning Up</h3>
+<p>We use <code>try</code>/(<code>except</code>/)<code>finally</code> to have some cleanup code that will run whether or not an exception was thrown.</p>
+</section>
+</section>
+<section id="raising-exceptions" class="level2">
+<h2>Raising Exceptions</h2>
+<p>We use the raise construct to raise an exception. We can write our own exceptions classes, which we will see later.</p>
+<p>Here’s the syntax:</p>
+<pre><code>raise TypeError(&quot;Tried to set name with an illegal type&quot;)</code></pre>
+<p>The string is the message that will be shown by the default exception handler.</p>
+<p>We should also document exceptions that our code throws, especially in our class methods. this allows third parties to see what exceptions need to be dealt with when they use our class.</p>
+<section id="example" class="level3">
+<h3>Example</h3>
+<pre><code>class Student(object):
+
+    def __init__(self, name, studentid):
+    
+        if not isinstance(name, str):
+            raise TypeError(&quot;Name is wrong type&quot;)
+        if not isinstance(studentid, str):
+            raise TypeError(&quot;Student ID is wrong type&quot;)
+            
+        if name == &#39;&#39;:
+            raise ValueError(&quot;Name must be non-empty&quot;)
+            
+        self._name = name
+        self._studentid = studentid
+        
+def main():
+    tempname = 12345
+    tempid = &quot;&quot;
+    
+    try:
+        student = Student(tempname, tempid)
+    except TypeError:
+        #Prompt the user for fresh values with feedback
+        print(&quot;Some variable had the wrong type.&quot;)
+    except ValueError:
+        print(&quot;Some variable had an incorrect value.&quot;)
+    
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

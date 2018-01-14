@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-15</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sets-cont." class="level1">
+<h1>Sets (cont.)</h1>
+<section id="cardinality" class="level2">
+<h2>Cardinality</h2>
+<p>Indicated by | | surrounding the set. Is the number of elements in the set.</p>
+</section>
+<section id="extended-example-student-record-system" class="level2">
+<h2>Extended Example (student record system)</h2>
+<p>(Incomplete notes, see lecturer slides)</p>
+<p>Each module is represented by the set of students taking that module e.g. CS101 = {Alice, Darragh, Oliver, Ronan}</p>
+<p>This allows e.g.</p>
+<blockquote>
+<p>CS101 ≠ EC101 ⇔ The modules CS101 and EC101 do not have identical class lists</p>
+</blockquote>
+<p>Using set notation we can now be completely unambiguous and clear, once we understand set notation fully.</p>
+<p>Sets can contain sets as elements.</p>
+<p>Also sets can contain a mix of types of elements.</p>
+<p>For example, a set can contain {b} but not b, which is an important distinction (by definition) in set notation.</p>
+<p>More practically, code will expect this distinction.</p>
+<p>The <em>power set</em> of a set A is the set containing all possible subsets of A.</p>
+<p>Example:</p>
+<blockquote>
+<p>A = {1,2,3}<br />
+P(A) = { {}, {1}, {2}, {3}, {1,2}, {1,3}, {2,3}, {1,2,3} }</p>
+</blockquote>
+<p>For any A;</p>
+<blockquote>
+<p>|P(A)| = 2<sup>|A|</sup></p>
+</blockquote>
+<p>A <em>partition</em> of a set A is a division of all the members of A into non-empty, non-intersecting subsets.</p>
+<p>Graphically (picture a venn diagram) this is dividing it into sections (it’s a very simple image).</p>
+<p>Union and intersection are commutative (you can put them in any order e.g. A∪B = B∪A).</p>
+<p>In general set difference is not commutative, though.</p>
+<p>Union and intersection are associative, e.g. (A∪B)∪C = A∪(B∪C)</p>
+<p>Set difference isn’t.</p>
+<p>Intersection distributes over union, and union distributes over intersection.</p>
+<p>De Morgan’s Laws:</p>
+<ul>
+<li><p>(A ∪ B)‘= (A’ ∩ B’)</p></li>
+<li><p>(A ∩ B)‘= (A’ ∪ B’)</p></li>
+</ul>
+<p>Note De Morgan’s Laws very important in logical circuits and in programming.</p>
+</section>
+<section id="ordered-pairs" class="level2">
+<h2>Ordered Pairs</h2>
+<p>An <em>ordered pair</em> is two objects listed inside round brackets and separated by commas.</p>
+<p>Indicates a connection between two elements.</p>
+<p>The order is important.</p>
+<p>(1, 0) is a different ordered pair to (0, 1).</p>
+<p>You can repeat elements in an ordered pair, and you can have sets as members of an ordered pair.</p>
+<p>The definition extends to ordered n-tuples of any length.</p>
+<p>The <em>Cartesian product (aka cross product)</em> is the set of all possible ordered pairs, where the first element comes from A, and the second element comes from B.</p>
+<p>The <em>projection</em> of B onto A<sub>i</sub> is the subset of elements of A­<sub>i</sub> that appear (in the right position) in one of the tuples of B.</p>
+<p>I’m guessing that’s the dot product. I don’t understand it though.</p>
+<p>All definitions will be in the notes which will be online.</p>
+</section>
+</section>
+</body>
+</html>

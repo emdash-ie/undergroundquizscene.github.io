@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Dijkstra's Algorithm and Prim's Algorithm</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="djikstras-algorithm" class="level1">
+<h1>Djikstra’s Algorithm</h1>
+<ul>
+<li><p>once you’ve found a path, you keep going until you’ve found the cheapest path</p>
+<ul>
+<li>this is when you try to expand from your target vertex (because you’re always expanding from the cheapest current vertex)</li>
+</ul></li>
+<li><p>This will be the final continuous assessment</p></li>
+</ul>
+<section id="heap-vs.unsorted" class="level2">
+<h2>heap vs. unsorted</h2>
+<ul>
+<li>if the graph is dense, m is O(n^2)</li>
+<li>if the graph is sparse, m is O(n)</li>
+</ul>
+</section>
+</section>
+<section id="spanning-trees-prims-algorithm" class="level1">
+<h1>Spanning Trees &amp; Prim’s Algorithm</h1>
+<ul>
+<li><p>spanning tree is a subgraph of G that is a tree and contains every vertex</p></li>
+<li><p>minimum spanning tree is a spanning tree which has the lowest sum of weights of the selected edges</p></li>
+</ul>
+<section id="prims-algorithm" class="level2">
+<h2>Prim’s Algorithm</h2>
+<ul>
+<li>repeatedly include the minimum-weight edge from a vertex that’s in the tree to a new vertex</li>
+</ul>
+<section id="complexity" class="level3">
+<h3>Complexity</h3>
+</section>
+<section id="proof" class="level3">
+<h3>Proof</h3>
+<ul>
+<li>for any algorithm you write, you should be able to prove that it does what you claim</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

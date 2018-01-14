@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2 - Digital Output and Input</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="ground" class="level1">
+<h1>Ground</h1>
+<ul>
+<li><p>if we have multiple supplies, the grounds may be at a different potential – we’ll need to connect them in that case to get a common ground</p></li>
+<li><p>on the breadboard, we can connect the power and the ground to the rails along the side, which gives us many places we can get the power or ground from (along the rails line)</p></li>
+</ul>
+</section>
+<section id="digital-input" class="level1">
+<h1>Digital Input</h1>
+<section id="switch" class="level2">
+<h2>Switch</h2>
+<ul>
+<li><p>use a circuit with just a switch in it, connecting an output pin to an input</p>
+<ul>
+<li>when the circuit’s closed, the input pin detects the voltage as a 1</li>
+</ul></li>
+</ul>
+</section>
+<section id="code" class="level2">
+<h2>Code</h2>
+<ul>
+<li><p><code>#define</code> defines some text-replacement – the defined name is replaced by its value in the pre-processing step</p></li>
+<li><p>all pre-processor instructions start with a <code>#</code> symbol</p></li>
+</ul>
+<pre class="sourceCode c++" id="cb1"><code class="sourceCode cpp"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="pp">#define IN 8</span></div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="pp">#define OUT 13</span></div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb1-4" data-line-number="4"><span class="dt">void</span> setup() {</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">    pinMode(IN, INPUT);</div>
+<div class="sourceLine" id="cb1-6" data-line-number="6">    pinMode(OUT, OUTPUT);</div>
+<div class="sourceLine" id="cb1-7" data-line-number="7">}</div>
+<div class="sourceLine" id="cb1-8" data-line-number="8"></div>
+<div class="sourceLine" id="cb1-9" data-line-number="9"><span class="dt">void</span> loop() {</div>
+<div class="sourceLine" id="cb1-10" data-line-number="10">    <span class="cf">if</span> (digitalRead(IN)) {</div>
+<div class="sourceLine" id="cb1-11" data-line-number="11">        digitalWrite(OUT, HIGH);</div>
+<div class="sourceLine" id="cb1-12" data-line-number="12">    } <span class="cf">else</span> {</div>
+<div class="sourceLine" id="cb1-13" data-line-number="13">        digitalWrite(OUT, LOW);</div>
+<div class="sourceLine" id="cb1-14" data-line-number="14">    }</div>
+<div class="sourceLine" id="cb1-15" data-line-number="15">}</div></code></pre>
+</section>
+<section id="weird-circuit-behaviour" class="level2">
+<h2>Weird Circuit Behaviour</h2>
+<ul>
+<li><p>when you wire up the circuit, the input pin retains its charge and the LED stays on, even when the button isn’t pressed</p>
+<ul>
+<li><p>charge comes from static electricity from the surrounding environment</p></li>
+<li><p>to solve this you can put a connection from the input pin to ground, through a resistor with a highish resistance</p>
+<ul>
+<li><p>when the switch is closed, very little current flows through the resistor, since its value is high.</p></li>
+<li><p>when the switch is open, the charge will drain to ground from the input pin, rather than staying there</p>
+<ul>
+<li>how quickly this happens depends on the resistance of the resistor</li>
+</ul></li>
+<li><p>this is called a pull-down resistor, because we’re pulling the voltage down to ground</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>We can also use a pull-up resistor to do the opposite – connect it to 5V instead of ground, and then the circuit’s behaviour is inverted.</p>
+<p>This only works because the Arduino’s input pins have extremely high impedance (so almost no current flows).</p>
+<p>Interestingly, we’ve now inverted the code-circuit behaviour by changing the circuit, rather than the code. We could also have changed the code. In general, we can either change the circuit or the code to do particular things.</p>
+<p>A <em>floating pin</em> is an input pin that doesn’t have a well-defined state and could be read as either a 0 or a 1 – this is a source of a large number of errors. We prevented this with a pull-down resistor.</p>
+</section>
+<section id="toggling-the-led" class="level2">
+<h2>Toggling the LED</h2>
+<p>Rather than the LED being on when the switch is on, we’d prefer each press of the switch to toggle the LED:</p>
+<pre class="sourceCode c++" id="cb2"><code class="sourceCode cpp"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="pp">#define IN 8</span></div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="pp">#define OUT 13</span></div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb2-4" data-line-number="4"><span class="co">// This line is C++, in C typically you have an integer representing true or</span></div>
+<div class="sourceLine" id="cb2-5" data-line-number="5"><span class="co">// false</span></div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">boolean ledOn = <span class="kw">false</span>;</div>
+<div class="sourceLine" id="cb2-7" data-line-number="7"></div>
+<div class="sourceLine" id="cb2-8" data-line-number="8"><span class="dt">void</span> setup() {</div>
+<div class="sourceLine" id="cb2-9" data-line-number="9">    pinMode(IN, INPUT);</div>
+<div class="sourceLine" id="cb2-10" data-line-number="10">    pinMode(OUT, OUTPUT);</div>
+<div class="sourceLine" id="cb2-11" data-line-number="11">    digitalWrite(OUT, LOW);</div>
+<div class="sourceLine" id="cb2-12" data-line-number="12">}</div>
+<div class="sourceLine" id="cb2-13" data-line-number="13"></div>
+<div class="sourceLine" id="cb2-14" data-line-number="14"><span class="dt">void</span> loop() {</div>
+<div class="sourceLine" id="cb2-15" data-line-number="15">    <span class="cf">if</span> (digitalRead(IN)) {</div>
+<div class="sourceLine" id="cb2-16" data-line-number="16">        <span class="co">// Inverts the boolean and writes its value out</span></div>
+<div class="sourceLine" id="cb2-17" data-line-number="17">        digitalWrite(OUT, (ledOn = !ledOn));</div>
+<div class="sourceLine" id="cb2-18" data-line-number="18">    }</div>
+<div class="sourceLine" id="cb2-19" data-line-number="19">    delay(<span class="dv">5</span>);</div>
+<div class="sourceLine" id="cb2-20" data-line-number="20">}</div></code></pre>
+<p>Note that assignment statements can be used as expressions in C – the value of the expression is the value of the left-hand operand once the statement has finished:</p>
+<pre class="sourceCode c++" id="cb3"><code class="sourceCode cpp"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="co">// b gets the value 2, and a gets the value that b got</span></div>
+<div class="sourceLine" id="cb3-2" data-line-number="2">a = b = <span class="dv">2</span>;</div></code></pre>
+<p>Running this code with the circuit, we’ll see that sometimes the LED won’t switch the way we want. There are two possible reasons for this:</p>
+<ol type="1">
+<li><p>If we hold the switch down for longer than one run of the loop, the LED will toggle continuously.</p></li>
+<li><p>Any mechanical switch has a bounce – one press may result in a number of apparent presses</p></li>
+</ol>
+<p>To overcome the first reason we can use a <em>positive-edge trigger</em>, by detecting the transition from 0 to 1, and switch the LED only then.</p>
+<p>However, the second problem will still cause the LED not to switch the way we want.</p>
+<section id="noisy-switches-bounce" class="level3">
+<h3>Noisy Switches (Bounce)</h3>
+<p>A switch press is a coming together of contacts, and because of the mechanical nature of the switch, the contacts may come together and separate several times in quick succession over the course of a single press.</p>
+<p>We can address this in hardware or software. In hardware we can use a capacitor – when the switch is pressed the capacitor empties, and must fill again before a new switch press can be detected. The capacitor is acting as a smoothing circuit.</p>
+<p>We could also use a latch to fix the problem in hardware. The advantage of this is that no recovery time is needed.</p>
+<section id="software-solution" class="level4">
+<h4>Software Solution</h4>
+<p>Write an algorithm that determines when the input has finished bouncing, and report a state transition at this point.</p>
+<p>Inferior solutions use delays, making assumptions about timings based on the type of switch. The best use timer interrupts (which we’ll deal with later).</p>
+<p>Delay-based solutions are good enough for us for now.</p>
+<pre class="sourceCode c++" id="cb4"><code class="sourceCode cpp"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="pp">#define IN_PIN 8</span></div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="pp">#define OUT_PIN 13</span></div>
+<div class="sourceLine" id="cb4-3" data-line-number="3"><span class="pp">#define MAX_BOUNCE_TIME 5</span></div>
+<div class="sourceLine" id="cb4-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb4-5" data-line-number="5"><span class="dt">void</span> setup() {</div>
+<div class="sourceLine" id="cb4-6" data-line-number="6">    pinMode(IN_PIN, INPUT);</div>
+<div class="sourceLine" id="cb4-7" data-line-number="7">    pinMode(OUT_PIN, OUTPUT);</div>
+<div class="sourceLine" id="cb4-8" data-line-number="8">}</div>
+<div class="sourceLine" id="cb4-9" data-line-number="9"></div>
+<div class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">// functions omitted here</span></div>
+<div class="sourceLine" id="cb4-11" data-line-number="11"></div>
+<div class="sourceLine" id="cb4-12" data-line-number="12"><span class="dt">void</span> debouncedRead(<span class="dt">int</span> pin, boolean state) {</div>
+<div class="sourceLine" id="cb4-13" data-line-number="13">    <span class="cf">if</span> (digitalRead(pin) != state) {</div>
+<div class="sourceLine" id="cb4-14" data-line-number="14">        delay(MAX_BOUNCE_TIME);</div>
+<div class="sourceLine" id="cb4-15" data-line-number="15">        <span class="cf">return</span> digitalRead(pin);</div>
+<div class="sourceLine" id="cb4-16" data-line-number="16">    }</div>
+<div class="sourceLine" id="cb4-17" data-line-number="17">    <span class="cf">return</span> state;</div>
+<div class="sourceLine" id="cb4-18" data-line-number="18">}</div>
+<div class="sourceLine" id="cb4-19" data-line-number="19"></div>
+<div class="sourceLine" id="cb4-20" data-line-number="20"><span class="dt">void</span> toggleOutPinWithInPin(<span class="dt">int</span> outPin, <span class="dt">int</span> inPin, <span class="dt">int</span> from, <span class="dt">int</span> to) {</div>
+<div class="sourceLine" id="cb4-21" data-line-number="21">    <span class="at">static</span> <span class="dt">int</span> currentInputState = LOW;</div>
+<div class="sourceLine" id="cb4-22" data-line-number="22">    <span class="at">static</span> <span class="dt">int</span> prevInputState = LOW;</div>
+<div class="sourceLine" id="cb4-23" data-line-number="23">    <span class="at">static</span> <span class="dt">int</span> state = LOW;</div>
+<div class="sourceLine" id="cb4-24" data-line-number="24"></div>
+<div class="sourceLine" id="cb4-25" data-line-number="25">    currentInputState = debouncedRead(inPin, currentInputState);</div>
+<div class="sourceLine" id="cb4-26" data-line-number="26"></div>
+<div class="sourceLine" id="cb4-27" data-line-number="27">    <span class="cf">if</span> (prevInputState == from &amp;&amp; currentInputState == to) {</div>
+<div class="sourceLine" id="cb4-28" data-line-number="28">        digitalWrite(outPin, (state = !state));</div>
+<div class="sourceLine" id="cb4-29" data-line-number="29">    }</div>
+<div class="sourceLine" id="cb4-30" data-line-number="30"></div>
+<div class="sourceLine" id="cb4-31" data-line-number="31">    prevInputState = currentInputState;</div>
+<div class="sourceLine" id="cb4-32" data-line-number="32">}</div>
+<div class="sourceLine" id="cb4-33" data-line-number="33"></div>
+<div class="sourceLine" id="cb4-34" data-line-number="34"><span class="dt">void</span> loop() {</div>
+<div class="sourceLine" id="cb4-35" data-line-number="35">    toggleOutPinWithInPin(OUT_PIN, IN_PIN, LOW, HIGH);</div>
+<div class="sourceLine" id="cb4-36" data-line-number="36">}</div></code></pre>
+<p>In this code, we’re assuming the switch won’t bounce for more than <code>MAX_BOUNCE_TIME</code> – this won’t work for every switch, so the code isn’t portable.</p>
+</section>
+</section>
+</section>
+<section id="c-sidebar" class="level2">
+<h2>C Sidebar</h2>
+<p>There’s no boolean type in C – all non-zero values are true and only zero is false.</p>
+<p>An assignment statement is an expression, whose value is the value assigned to the variable.</p>
+<section id="static-variables" class="level3">
+<h3>Static Variables</h3>
+<p>Normal local variables are created on the stack when you reach their declaration. When the enclosing function is exited, the stack frame is removed from the stack and the variables are lost/destroyed.</p>
+<p>Static variables are created on the heap when you reach their declaration. They are not destroyed when the enclosing function is exited, but the variable namespace is restricted to the current function – you can’t access them outside the function. Static variables are initialised the first time their declarations are reached, and after that they keep their values between function calls.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

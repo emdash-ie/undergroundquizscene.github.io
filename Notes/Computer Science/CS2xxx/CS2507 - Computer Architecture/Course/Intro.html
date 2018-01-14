@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Intro</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="big-picture" class="level1">
+<h1>Big Picture</h1>
+<p>Designing for application/program performance and energy efficiency on modern computers.</p>
+<ul>
+<li>What determines program performance?</li>
+<li>How are programs translated into machine language?</li>
+<li>How do hardware designers improve performance?</li>
+</ul>
+</section>
+<section id="course-overview" class="level1">
+<h1>Course Overview</h1>
+<ul>
+<li>Fundamentals of computer design</li>
+<li>Hardware/software interface</li>
+<li>Program performance and improvement</li>
+<li>Hardware techniques to improve performance</li>
+<li>Hardware techniques to improve energy efficiency</li>
+<li>Instruction set principles</li>
+<li>Pipelining</li>
+<li>Memory hierarchy</li>
+<li>Parallel processors</li>
+</ul>
+</section>
+<section id="understanding-performance" class="level1">
+<h1>Understanding Performance</h1>
+<ul>
+<li>What algorithm was used?
+<ul>
+<li>Determines the number of operations executed</li>
+</ul></li>
+<li>Programming language, compiler, architecture
+<ul>
+<li>Determines the number of machine instructions executed per operation</li>
+</ul></li>
+<li>I/O System (including OS)
+<ul>
+<li>Determines how fast I/O operations are executed</li>
+</ul></li>
+<li>Processor and memory system
+<ul>
+<li>Determine how fast instructions are executed</li>
+</ul></li>
+</ul>
+</section>
+<section id="great-ideas-of-computer-architecture" class="level1">
+<h1>8 Great Ideas of Computer Architecture</h1>
+<ol type="1">
+<li>Design for Moore’s Law
+<ul>
+<li>Design for rapid change – by the time your computer is ready (3–4 years), it may be outdated</li>
+</ul></li>
+<li>Use abstraction to simplify design
+<ul>
+<li>Represent hardware and software at different levels</li>
+</ul></li>
+<li>Make the common case fast
+<ul>
+<li>Easier to improve on simple cases than complex ones</li>
+</ul></li>
+<li>Performance via parallelism
+<ul>
+<li>Parallel operations are faster</li>
+</ul></li>
+<li>Performance via pipelining
+<ul>
+<li>Sequential pattern of parallelism</li>
+</ul></li>
+<li>Performance via prediction
+<ul>
+<li>Guess the outcome of a branch</li>
+</ul></li>
+<li>Hierarchy of memories
+<ul>
+<li>Arranging memory according to cost/speed</li>
+</ul></li>
+<li>Dependability via redundancy
+<ul>
+<li>Including redundant components for addressing failure</li>
+</ul></li>
+</ol>
+</section>
+<section id="levels-of-program-code" class="level1">
+<h1>Levels of Program Code</h1>
+<ul>
+<li>High-level language
+<ul>
+<li>Level of abstraction is closer to the problem domain
+<ul>
+<li>This makes programmers more productive</li>
+</ul></li>
+<li>Provides for productivity and portability</li>
+</ul></li>
+<li>Assembly language
+<ul>
+<li>The textual representation of instructions</li>
+</ul></li>
+<li>Hardware representation
+<ul>
+<li>Bits</li>
+<li>Encoded instructions and data</li>
+</ul></li>
+</ul>
+</section>
+<section id="computer-components" class="level1">
+<h1>Computer Components</h1>
+<ul>
+<li>Inputs</li>
+<li>Outputs</li>
+<li>Memory</li>
+<li>Processor (datapath and control units)</li>
+</ul>
+<p>All classes of computer share these same components.</p>
+</section>
+<section id="inside-the-processor" class="level1">
+<h1>Inside the Processor</h1>
+<ul>
+<li>Datapath
+<ul>
+<li>performs operations on data</li>
+</ul></li>
+<li>Control
+<ul>
+<li>sequences the datapath, provides memory access</li>
+</ul></li>
+<li>Cache Memory
+<ul>
+<li>small fast SRAM memory for immediate access to data</li>
+</ul></li>
+</ul>
+<p>All input to the processor goes to the (cache) memory first, and then the control determines when things are sent to the datapath.</p>
+</section>
+<section id="memory" class="level1">
+<h1>Memory</h1>
+<p>There are two classes of memory:</p>
+<ul>
+<li>Volatile main memory</li>
+<li>Non-volatile secondary memory</li>
+</ul>
+<p>Volatile memory loses instructions and data when powered off.</p>
+<p>Secondary memory examples:</p>
+<ul>
+<li>Magnetic disk</li>
+<li>Flash Memory</li>
+<li>Optical disk (CDROM, DVD)</li>
+</ul>
+</section>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Database Directory</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="database-directory" class="level1">
+<h1>Database Directory</h1>
+<p>This stores all metadata about a database.</p>
+<ul>
+<li>tables</li>
+<li>views</li>
+<li>users</li>
+<li>permissions</li>
+</ul>
+</section>
+<section id="systabauth" class="level1">
+<h1>SYSTABAUTH</h1>
+<ul>
+<li><p>Y means privilege held without grant option</p></li>
+<li><p>G means privilege held with grant option</p></li>
+<li><p>A = alter</p></li>
+<li><p>D = delete</p></li>
+<li><p>N and I = insert and index?</p></li>
+<li><p>S = select</p></li>
+<li><p>U = update</p></li>
+</ul>
+</section>
+<section id="sysuserauth" class="level1">
+<h1>SYSUSERAUTH</h1>
+<ul>
+<li><p>C = connect (login to DBMS only)</p></li>
+<li><p>R = resource (connect permission + execute DDL)</p></li>
+<li><p>D = DBA (resource permission + grant/revoke permission)</p></li>
+</ul>
+</section>
+<section id="mysql-equivalent" class="level1">
+<h1>MySQL Equivalent</h1>
+<ul>
+<li><p>stored procedures</p>
+<ul>
+<li>more secure, more limited</li>
+</ul></li>
+</ul>
+</section>
+</body>
+</html>

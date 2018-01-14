@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>3-XHTML</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="xhtml" class="level1">
+<h1>XHTML</h1>
+<hr />
+<section id="overview" class="level2">
+<h2>Overview</h2>
+<p>XHTML is one of the many XML-based languages that have been defined. It is a cleaned up version of HTML, reformulated using XML DTD technology.</p>
+<p>There are three XHTML DTDs (corresponding to the three versions of HTML 4):</p>
+<ul>
+<li>Strict (should be used when rendering is controlled by CSS)</li>
+<li>Transitional (to be used for browsers that do not support CSS)</li>
+<li>Frameset (allows the use of <code>&lt;frame&gt;</code> tags due to popular demand)</li>
+</ul>
+<p>It’s designed to be compatible with XML-oriented user-agents, as well as HTML 4-oriented user agents.</p>
+</section>
+<section id="xhtml-vs.html" class="level2">
+<h2>XHTML vs. HTML</h2>
+<ul>
+<li>An XHTML document must be a well-formed XML document and must be valid according to one of the DTDs listed above.
+<ul>
+<li>It must contain one root element.</li>
+<li>The root element must be delimited by <code>&lt;html&gt;</code> and <code>&lt;/html&gt;</code> tags.</li>
+<li>All XHTML tags and attributes must be in lower case.</li>
+<li>Every non-empty element must have start and closing tags.</li>
+<li>The start tag for an empty element must have a final <code>/</code>.</li>
+<li>Elements must be properly nested.</li>
+<li>Attribute values must be quoted.</li>
+<li>Attributes must have values.</li>
+</ul></li>
+<li><p>CSS and JavaScript in the file must be escaped using CDATA tags as they’re not XML:</p>
+<pre><code>  &lt;style&gt;
+  &lt;![CDATA[
+      body {background-color:white;}
+  ]]&gt;
+  &lt;/style&gt;</code></pre></li>
+</ul>
+</section>
+</section>
+</body>
+</html>

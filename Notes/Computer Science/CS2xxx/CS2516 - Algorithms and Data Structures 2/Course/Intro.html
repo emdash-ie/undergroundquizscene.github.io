@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Intro</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="info" class="level1">
+<h1>Info</h1>
+<p>This course will take what we did in CS2515 and expand on it: * Bigger data structures * Harder problems</p>
+<ul>
+<li>All programming examples and assignments will use Python 3.</li>
+<li>80% final exam, 20% CA and in-class tests</li>
+<li>Labs Tuesday morning, 09:00–11:00</li>
+<li>It’s assumed you’re spending at least 8 hours per week per 5 credit module.</li>
+</ul>
+<section id="book" class="level2">
+<h2>Book</h2>
+<p>No required textbook. Recommended textbooks:</p>
+<p>[get from notes]</p>
+</section>
+</section>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<ol type="1">
+<li>Revision of CS2515</li>
+<li>Complexity and analysis</li>
+</ol>
+<ul>
+<li>Will formalise complexity more than last term</li>
+</ul>
+<ol start="3" type="1">
+<li>Sorting and selecting</li>
+<li>Graphs</li>
+</ol>
+<ul>
+<li>e.g. maps or social networks</li>
+</ul>
+<ol start="5" type="1">
+<li>Sample algorithms in text processing, matching, and memory management</li>
+</ol>
+</section>
+<section id="revision-of-cs2515" class="level1">
+<h1>Revision of CS2515</h1>
+<p>Almost everything in Python is an object, stored in some location in memory.</p>
+<p>There are 2 underlying ways of implementing data structures:</p>
+<ul>
+<li>Array-based</li>
+<li>Linked structures</li>
+</ul>
+<section id="array-implementations" class="level2">
+<h2>Array Implementations</h2>
+<p>An array is a sequence of items all of the same type, laid out one after another in a fixed-size chunk of memory (i.e. a sequence of bits). Because we know the size of each item, we can compute the location of any item in the array and jump straight to it in constant time.</p>
+<p>But, if we want to add items beyond the fixed size, we have to create a new array of the right size and copy the data across.</p>
+</section>
+<section id="linked-structure-implementations" class="level2">
+<h2>Linked Structure Implementations</h2>
+<ul>
+<li>A node is an object containing references to an item and to other nodes.</li>
+<li>A collection of nodes referring to each other creates a data structure, but where each node can be placed anywhere in memory.</li>
+<li>To access a particular item, we need to iterate through a chain of references.</li>
+<li>There’s no limit on the size (apart from the total memory in the system).</li>
+</ul>
+</section>
+<section id="main-linked-structures-in-cs2515" class="level2">
+<h2>Main Linked Structures in CS2515</h2>
+<ol type="1">
+<li>Linked list – a linear sequence</li>
+</ol>
+<ul>
+<li>If we are given a location it’s easy to update, but it’s slow to search</li>
+</ul>
+<ol start="2" type="1">
+<li>Binary search tree</li>
+</ol>
+<ul>
+<li>Reasonably fast to update and fast to search (assuming the tree is balanced)</li>
+</ul>
+<ol start="3" type="1">
+<li>AVL tree – a balanced binary tree</li>
+</ol>
+<ul>
+<li>Reasonably fast to update and fast to search because it’s always balanced</li>
+</ul>
+</section>
+<section id="two-types-of-tree-in-cs2515" class="level2">
+<h2>Two Types of Tree in CS2515</h2>
+<ol type="1">
+<li>Binary search tree – use it for search</li>
+</ol>
+<ul>
+<li>for each node, all left descendants are lesser, and all right descendants are greater</li>
+</ul>
+<ol start="2" type="1">
+<li>Binary heap – use it for priority queues</li>
+</ol>
+<ul>
+<li>for each node, all descendants have lower priority (and the tree is full, except possibly for the lowest level, which is full from left up to a point and then empty)</li>
+<li>the most efficient implementation uses an array-based list, not a linked tree</li>
+</ul>
+</section>
+<section id="maps-and-hashing-in-cs2515" class="level2">
+<h2>Maps and Hashing in CS2515</h2>
+<ul>
+<li>Used an array-based list, possibly with other lists in each cell.</li>
+<li>Maps are good for fast lookup and storage
+<ul>
+<li>The key for a value helps tell you where it will be stored.</li>
+<li>Almost always fast lookups by controlling the size of the underlying array, but occasionally can be slow (long chains, large buckets, etc.)</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="cs2515-exam" class="level1">
+<h1>CS2515 Exam</h1>
+<ul>
+<li>Most of the exam was bookwork.</li>
+<li>There were 3 questions
+<ul>
+<li>Question 1 on linked lists and stacks</li>
+<li>Question 2 on binary heaps</li>
+<li>Question 3 on maps and hashing</li>
+<li>In general question 1 was done best.</li>
+</ul></li>
+</ul>
+<section id="main-issues" class="level2">
+<h2>Main Issues</h2>
+<section id="final-part-of-q1" class="level3">
+<h3>Final part of Q1</h3>
+<p>This was the MinStack.</p>
+<p>The best solution is to use two stacks, where the value in the second stack is the minimum value at the time of the corresponding value in the first stack.</p>
+<p>E.g. if you push a value that’s not smaller than the top of the second stack, you push the value on the top of the second stack onto it again. When popping from the main stack, you also pop from the second stack.</p>
+<p>When doing these unseen questions, make sure that your solution works.</p>
+<p>Many people used a variable to track the min, and never explained that you then need to search the stack if you pop the min.</p>
+</section>
+<section id="question-2" class="level3">
+<h3>Question 2</h3>
+<p>Question 2 was about binary heaps rather than binary search trees – some people answered only on binary search trees.</p>
+<p>Either people didn’t read the question carefully enough, or didn’t cover it when revising.</p>
+</section>
+<section id="question-3" class="level3">
+<h3>Question 3</h3>
+<ul>
+<li>This was all bookwork, but from the last couple of lectures.</li>
+<li>This wasn’t done as well as question 1.</li>
+</ul>
+<p>Either people didn’t understand it, or didn’t cover it when revising.</p>
+</section>
+</section>
+</section>
+<section id="recursion" class="level1">
+<h1>Recursion</h1>
+<section id="activation-records" class="level2">
+<h2>Activation Records</h2>
+<p>When Python executes a function, it creates an activation record which stores:</p>
+<ul>
+<li>variables passed in as parameters</li>
+<li>local variables created inside the function</li>
+<li>the point in the function source code it has reached</li>
+</ul>
+<p>It pushes this onto a stack of activation records.</p>
+<p>When it finishes executing the function, it:</p>
+<ul>
+<li>pops the record off the stack and deletes it, remembering any return value</li>
+<li>moves to the record now on top of the stack, and returns to the point in the source code it had reached, and passes in the return value</li>
+</ul>
+<p>Note global variables are stored somewhere other than this stack, and can be accessed at any point.</p>
+<ul>
+<li>If you want to use a value returned from a function, every path through the code must reach a return statement in the function.
+<ul>
+<li>Otherwise the value will be deleted when the function is finished.</li>
+</ul></li>
+</ul>
+</section>
+<section id="recursive-programs" class="level2">
+<h2>Recursive Programs</h2>
+<p>Every recursive function must have two things:</p>
+<ul>
+<li>A base case
+<ul>
+<li>This is a non-recursive code block that returns [check]</li>
+</ul></li>
+<li>A recursive call with parameters that bring you closer to the base case.</li>
+</ul>
+</section>
+<section id="memory" class="level2">
+<h2>Memory</h2>
+<p>With recursive functions on big data structures, you may end up with many activation records, taking up a large amount of memory.</p>
+</section>
+<section id="unbounded-recursion" class="level2">
+<h2>Unbounded Recursion</h2>
+<p>E.g. if you’re not moving towards your base case in a recursive function.</p>
+<p>Unbounded recursion uses a lot of memory very quickly, and behaviour is technically unspecified, as you may overwork the CPU.</p>
+<p>Python avoids this by putting a limit on the call stack. It’s normally set at something like 100 calls, but you can change this if you need to.</p>
+</section>
+</section>
+</body>
+</html>

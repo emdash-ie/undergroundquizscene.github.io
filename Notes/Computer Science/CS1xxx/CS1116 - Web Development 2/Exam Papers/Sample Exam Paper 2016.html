@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sample Exam Paper 2016</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sample-exam-paper" class="level1">
+<h1>Sample Exam Paper</h1>
+<hr />
+<section id="notes" class="level2">
+<h2>Notes</h2>
+<ul>
+<li>There will be two questions in the final exam, and the divide will follow the sample. The first question will be server-side Python and the second question will be client-side Javascript. The first question is more heavily weighted.</li>
+<li>The exam will take the full 90 minutes.</li>
+<li>There is partial credit, so even if you’re not sure, write something.</li>
+<li>For each question, read through the full question before starting. There will be many helpful details.</li>
+<li><strong>Do not write your database details on the exam. This compromises the anonymity of the exam paper and will be reported as an attempt to influence the marker.</strong></li>
+<li>Sketch an answer before you begin the problem, in pseudocode.</li>
+<li>No marks will be given for sketching, only for code, so don’t run out of time while sketching. I.e. rough work will not be marked. If there are bits you can’t do, put in a sketch description of the bits.</li>
+<li>You won’t lose marks for misremembering names of functions etc slightly (e.g. connection.cursor(db.cursors.DictCursor).</li>
+<li>If you run out of space on a line, continue on the next line.</li>
+<li>Good revision would be to do the lab sheets again.</li>
+</ul>
+</section>
+<section id="sample-question-1-server-side" class="level2">
+<h2>Sample Question 1: Server-side</h2>
+<ul>
+<li>This year it’s about someone running a marathon. There’s a database.</li>
+</ul>
+<section id="pseudocodesolution-notes" class="level3">
+<h3>Pseudocode/Solution Notes</h3>
+<pre><code>imports - given
+
+print content type, blank line
+
+initialise variables, including form_data, 
+    empty string: bandname, gig_date, result
+
+if user has submitted data: (since it&#39;s self-processing)  
+    bandname - getfirst (escape)
+    gig_date - getfirst
+    (variable names given by form)
+    
+    if bandname or gig_date: 
+    # only do this stuff if you&#39;ve been sent one of them
+        
+        try:
+            connect to db &amp; create cursor
+            
+            if bandname:
+                cursor.execute(&#39;&#39;&#39;SELECT * FROM gigs WHERE bandname = %s&#39;&#39;&#39;,                                                \ (bandname))
+                
+                if cursor.rowcount == 0:
+                    result = &#39;&lt;p&gt;Unknown band&lt;/p&gt;
+            
+            if gig_date:
+                try:
+                    valid_date = strptime(gig_date, &#39;%Y-%m-%d&#39;)
+                except ValueError:
+                    result = &#39;&lt;p&gt;Invalid date&lt;/p&gt;&#39;
+            
+            if result == &#39;&#39;: 
+                if bandname and not gig_date:
+                    cursor.execute(&#39;&#39;&#39;SELECT * FROM gigs WHERE bandname = %s&#39;&#39;&#39;,                                                \ (bandname))
+                
+                elif gig_date and not band:
+                    execute query
+                else:
+                    execute query
+                    
+                result = &#39;&lt;table&gt;&#39;
+                for row in fetch all:
+                    result += ...
+                result += &#39;&lt;/table&gt;&#39;
+        
+            close db
+        
+        except db.Error:
+            result = apology
+
+else: print form (given)</code></pre>
+</section>
+<section id="note-on-getfirst" class="level3">
+<h3>Note on getfirst</h3>
+<p>Use the two-parameter version <code>getfirst(..., '')</code> to protect against getting Nonetypes (which cause problems with escape) – it will replace it with the empty string.</p>
+</section>
+<section id="python" class="level3">
+<h3>Python</h3>
+<pre><code>imports - given
+
+print content type, blank line
+
+form_data = FieldStorage() 
+bandname, gig_date, result = &#39;&#39;
+
+if len(form_data) != 0:  
+    bandname = escape(form_data.getfirst(&#39;bandname&#39;, &#39;&#39;).strip())
+    gig_date = escape(form_data.getfirst(&#39;bandname&#39;, &#39;&#39;).strip())
+    
+    if bandname or gig_date: 
+    # only do this stuff if you&#39;ve been sent one of them
+        
+        try:
+            connection = db.connect(…)
+            cursor = connection.cursot(db.cursors.DictCursor)
+            
+            validate bandname (requires checking that it&#39;s in the db)
+            if rowcount == 0:
+                result - error message (invalid band)
+            
+            validate gig_date
+            try
+                strptime
+            except
+                result - error message (invalid date)
+            
+            if both are ok: (result is still empty)
+                if band but no date:
+                    execute query
+                elif date but no band:
+                    execute query
+                else:
+                    execute query
+                    
+                result = &#39;&lt;table&gt;&#39;
+                for row in fetch all:
+                    result += ...
+                result += &#39;&lt;/table&gt;&#39;
+        
+            close db
+        
+        except db.Error:
+            result = apology
+
+else: print form (given)</code></pre>
+</section>
+</section>
+<section id="sample-question-2-client-side" class="level2">
+<h2>Sample Question 2: Client-side</h2>
+<ul>
+<li>Much less about logic than question 1. More about the javascript.</li>
+</ul>
+<p>Three things it could be about:</p>
+<ul>
+<li>Drawing on a canvas with javascript (e.g. a game)</li>
+<li>Talking to a form (like this example)</li>
+<li>Changing html and css (e.g. a slideshow)</li>
+</ul>
+<section id="pseudocodesolution-notes-1" class="level3">
+<h3>Pseudocode/Solution Notes</h3>
+<pre><code>(function() {
+    
+    vars
+    
+    document.addEventListener(init...);
+        
+    function init() {
+        querySelectors (#feet, #inches, #metres, #message1, #message2, #form)
+        form.addEventListener(submit, convert)
+        
+    function convert(event):
+        feet error message = &#39;&#39;
+        get what was typed
+        if empty {
+            error
+        } else {
+        if not an integer {
+            error
+        } else if less than 0 {
+            error
+        } else if greater than 10 {
+            error
+        }}
+        
+        validate inches (similar to above)
+        if both are ok {
+            convert to metres &amp; display
+        }
+        event.preventDefault(); 
+
+
+
+})();</code></pre>
+</section>
+<section id="javascript" class="level3">
+<h3>Javascript</h3>
+<pre><code>(function() {
+    
+    var form_element;
+    var feet;
+    var message1;
+    var inches;
+    var message2;
+    var metres;
+    
+    document.addEventListener(&#39;DOMContentLoaded&#39;, init, false);
+        
+    function init() {
+        feet = document.querySelector(&#39;#feet&#39;);
+        inches = document.querySelector(&#39;#inches&#39;);
+        metres = document.querySelector(&#39;#metres&#39;);
+        message1 = document.querySelector(&#39;#message1&#39;);
+        message2 = document.querySelector(&#39;#message2&#39;);
+        form_element = document.querySelector(&#39;form&#39;);
+        
+        form.addEventListener(&#39;submit&#39;, convert, false);        }
+        
+    function convert(event):
+        var feet_error = &#39;&#39;;
+        var feet_text = feet.value.trim();
+        if (feet_text === &#39;&#39;) {
+            feet_error = &#39;Required&#39;;
+        } else {
+            var feet_number = ~~Number(feet_text);
+        if (String(feet_number) !== feet_text) {
+            feet_error = &#39;Must be an integer&#39;;
+        } else if (feet_number &lt; 0) {
+            feet_error = &#39;Must be &gt;= 0&#39;;
+        } else if (feet_number &gt; 10) {
+            feet_error = &#39;Must be &lt;= 10&#39;;
+        }
+        
+        var inches_error = &#39;&#39;;
+        var inches_text = inches.value.trim();
+        if (inches_text === &#39;&#39;) {
+            inches_error = &#39;Required&#39;;
+        } else {
+            var inches_number = ~~Number(inches_text);
+        if (String(inches_number) !== inches_text) {
+            inches_error = &#39;Must be an integer&#39;;
+        } else if (inches_number &lt; 0) {
+            inches_error = &#39;Must be &gt;= 0&#39;;
+        } else if (inches_number &gt; 11) {
+            inches_error = &#39;Must be &lt;= 11&#39;;
+        }
+        
+        message1.innerHTML = feet_error;
+        message2.innerHTML = inches_error;
+        
+        if (inches_error === &#39;&#39; &amp;&amp; feet_error === &#39;&#39;) {
+            // convert to metres
+            metres.value = (conversion stuff)
+        }
+        event.preventDefault(); 
+
+
+
+})();</code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

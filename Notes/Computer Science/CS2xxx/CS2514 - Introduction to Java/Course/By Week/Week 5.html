@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 5</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="interfaces" class="level1">
+<h1>Interfaces</h1>
+<section id="case-study" class="level2">
+<h2>Case Study</h2>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">public</span> <span class="kw">interface</span> Animal {</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">makeNoise</span>(); <span class="co">/* No implementation */</span></div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">    …</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">}</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw">public</span> <span class="kw">class</span> Cat implement Animal {</div>
+<div class="sourceLine" id="cb1-7" data-line-number="7">    …</div>
+<div class="sourceLine" id="cb1-8" data-line-number="8">    <span class="at">@Override</span></div>
+<div class="sourceLine" id="cb1-9" data-line-number="9">    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">makeNoise</span>(); <span class="co">/* Must be implemented */</span></div>
+<div class="sourceLine" id="cb1-10" data-line-number="10">}</div></code></pre>
+</section>
+<section id="delegation" class="level2">
+<h2>Delegation</h2>
+<p>With interfaces we can simulate inheritance. It requires a lot more work but the resulting design may be better.</p>
+<ul>
+<li>The interface has no implementation, so you can’t rely on a non-existing implementation.</li>
+</ul>
+<p>We rely on object composition rather than inheritance.</p>
+<p>We can re-use existing implementation efforts using delegation.</p>
+<p>To implement the interface in a class <code>C</code>:</p>
+<ul>
+<li>We need a concrete class that implements the interface</li>
+<li><code>C</code> implements the interface using a concrete class instance
+<ul>
+<li>A concrete class is one that can be instantiated (see below)</li>
+</ul></li>
+<li><code>C</code> delegates the work to the concrete class instance</li>
+</ul>
+</section>
+<section id="finally" class="level2">
+<h2>Finally</h2>
+<ul>
+<li>A class can only inherit from one superclass</li>
+<li>A class can implement multiple interfaces</li>
+</ul>
+</section>
+</section>
+<section id="abstract-classes" class="level1">
+<h1>Abstract Classes</h1>
+<p>What happens if we create an Animal object (from the running example)? Some implementation is incomplete in that class, and what does it mean to have an object made from that class?</p>
+<p>But we need the class for inheritance and for polymorphism.</p>
+<p>So we make it an abstract class using a keyword <code>abstract</code>. This means that instances of the class can’t be created.</p>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> Animal {</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">    …</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">}</div></code></pre>
+<ul>
+<li>Now <code>Animal animal = new Animal()</code> will give an error.</li>
+</ul>
+<p>Subclasses can also be abstract, e.g. the <code>Canine</code> and <code>Feline</code> classes from before.</p>
+<p>A concrete class is a class that’s not abstract.</p>
+<p>You can still create polymorphic object references from an abstract class, and you can still create an array for a class:</p>
+<p>[…]</p>
+<section id="abstract-methods" class="level2">
+<h2>Abstract Methods</h2>
+<p>You can have abstract methods as well. They are defined in abstract classes and have no body:</p>
+<pre class="sourceCode java" id="cb3"><code class="sourceCode java"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">public</span> <span class="kw">abstract</span> <span class="dt">void</span> <span class="fu">roam</span>();</div></code></pre>
+<ul>
+<li>This allows you to specify a method that must be implemented/overridden in any subclass of the abstract class.</li>
+</ul>
+<p>Abstract classes can have implemented methods as well.</p>
+</section>
+<section id="encapsulate-what-varies" class="level2">
+<h2>Encapsulate What Varies</h2>
+<p>Encapsulate what varies as objects that are passed to the superclass’ constructor by the subclasses.</p>
+</section>
+</section>
+<section id="inheritance-vs.composition" class="level1">
+<h1>Inheritance vs. Composition</h1>
+<p>Inheritance:</p>
+<ul>
+<li>lets us create subclasses – white-box reuse</li>
+<li>subclass inherits superclass behaviour</li>
+<li>subclasses can override superclass behaviour</li>
+<li>get code reuse for free</li>
+<li>cannot change behaviour at runtime</li>
+<li>violates encapsulation
+<ul>
+<li>subclass may rely on superclass implementation</li>
+<li>subclass may break when superclass is changed</li>
+</ul></li>
+</ul>
+<p>Composition:</p>
+<ul>
+<li>lets you compose classes – black-box reuse</li>
+<li>A client class may use an object</li>
+<li>you get code reuse but it takes more effort</li>
+<li>lets you change behaviour at runtime</li>
+<li>respects encapsulation
+<ul>
+<li>helps encapsulated classes focus on a single task</li>
+</ul></li>
+</ul>
+<p>We should favour composition over inheritance, because it gives us more flexible design – we can encapsulate behaviour and we can change behaviour at runtime. This is the third design principle.</p>
+</section>
+<section id="the-strategy-pattern" class="level1">
+<h1>The Strategy Pattern</h1>
+<ul>
+<li>Defines a class of algorithms</li>
+<li>Encapsulates each algorithm</li>
+<li>Makes them interchangeable</li>
+</ul>
+<p>See slides for an example, or google it (I think we may have to google it). Reference is Gamma et al, 2008.</p>
+</section>
+<section id="enumerated-types" class="level1">
+<h1>Enumerated Types</h1>
+<p>Many applications require groups of named constants. For example:</p>
+<ul>
+<li>A suit of cards: HEARTS, SPADES, CLUBS, and DIAMONDS</li>
+<li>Predefined colours: BLACK, WHITE, RED, BLUE, …</li>
+</ul>
+<p>In Java named constants are called <code>enums</code>.</p>
+<p><code>Java enums</code> overcome most of the flaws of a pattern called <code>int enums</code>. <code>Java enums</code> are objects.</p>
+</section>
+<section id="switch-statement" class="level1">
+<h1>Switch Statement</h1>
+<pre class="sourceCode java" id="cb4"><code class="sourceCode java"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">switch</span> (expression) {</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2">    <span class="kw">case</span> (constant <span class="dv">1</span>): statements <span class="dv">1</span></div>
+<div class="sourceLine" id="cb4-3" data-line-number="3">    <span class="kw">case</span> (constant <span class="dv">2</span>): statements <span class="dv">2</span></div>
+<div class="sourceLine" id="cb4-4" data-line-number="4">    …</div>
+<div class="sourceLine" id="cb4-5" data-line-number="5">    <span class="kw">default</span>: <span class="kw">default</span> statements</div>
+<div class="sourceLine" id="cb4-6" data-line-number="6">}</div></code></pre>
+<p>By default cases will fall through into other cases, unless prevented with a <code>break</code> statement. Multiple guards means sharing statements among multiple cases:</p>
+<pre class="sourceCode java" id="cb5"><code class="sourceCode java"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">switch</span> (expression) {</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2">    <span class="kw">case</span> (constant <span class="dv">1</span>):</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3">    <span class="kw">case</span> (constant <span class="dv">2</span>): statements <span class="dv">1</span></div>
+<div class="sourceLine" id="cb5-4" data-line-number="4">    <span class="kw">default</span>: <span class="kw">default</span> statements</div>
+<div class="sourceLine" id="cb5-5" data-line-number="5">}</div></code></pre>
+</section>
+<section id="int-enum-design-pattern" class="level1">
+<h1>Int Enum Design Pattern</h1>
+<ul>
+<li>Use constants with int value to represent subtypes</li>
+</ul>
+<p>Problems with the <code>int enum</code> design pattern:</p>
+<ul>
+<li>Doesn’t provide type safety (can compare things of different type)</li>
+<li>Maintainability:
+<ul>
+<li>programs with int enums are brittle
+<ul>
+<li>int enums are compile-time constants</li>
+<li>they are compiled into clients that use them</li>
+<li>client will break if enum constant changes</li>
+</ul></li>
+</ul></li>
+<li>ease of use:
+<ul>
+<li>int enums are difficult to use
+<ul>
+<li>it is difficult to translate them to Strings</li>
+<li>no reliable iteration over all allowed values</li>
+</ul></li>
+</ul></li>
+<li>namespace
+<ul>
+<li>int enums have no private name space</li>
+</ul></li>
+</ul>
+</section>
+<section id="diy" class="level1">
+<h1>DIY</h1>
+<pre class="sourceCode java" id="cb6"><code class="sourceCode java"><div class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">public</span> <span class="kw">abstract</span> <span class="kw">class</span> Beef {</div>
+<div class="sourceLine" id="cb6-2" data-line-number="2">    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> Beef SHANK = <span class="kw">new</span> <span class="fu">Beef</span>() {</div>
+<div class="sourceLine" id="cb6-3" data-line-number="3">        <span class="at">@Override</span> <span class="kw">public</span> <span class="dt">double</span> <span class="fu">price</span>() {<span class="kw">return</span> <span class="fl">1.0</span>;}</div>
+<div class="sourceLine" id="cb6-4" data-line-number="4">    };</div>
+<div class="sourceLine" id="cb6-5" data-line-number="5">    <span class="kw">public</span> <span class="dt">static</span> <span class="dt">final</span> Beef SIRLOIN = <span class="kw">new</span> <span class="fu">Beef</span>() {</div>
+<div class="sourceLine" id="cb6-6" data-line-number="6">        <span class="at">@Override</span> <span class="kw">public</span> <span class="dt">double</span> <span class="fu">price</span>() {<span class="kw">return</span> <span class="fl">2.0</span>;}</div>
+<div class="sourceLine" id="cb6-7" data-line-number="7">    };</div>
+<div class="sourceLine" id="cb6-8" data-line-number="8">    <span class="kw">public</span> <span class="kw">abstract</span> <span class="dt">double</span> <span class="fu">price</span>();</div>
+<div class="sourceLine" id="cb6-9" data-line-number="9">}</div></code></pre>
+<p>[check this bit, especially about anonymous classes]</p>
+<p>[check the serious problem]</p>
+</section>
+<section id="java-enums" class="level1">
+<h1>Java Enums</h1>
+<pre class="sourceCode java" id="cb7"><code class="sourceCode java"><div class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw">public</span> <span class="kw">enum</span> Apple {FUJI, PIPPIN}</div>
+<div class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw">public</span> <span class="kw">enum</span> Orange {NAVEL, TEMPLE, BLOOD}</div></code></pre>
+<p>Each of these is a class. Each constant in braces is an instance of that class.</p>
+<p>For each constant in any enum class, Java automatically defines one public final class attribute.</p>
+<p>Name of the constant in class is class.constant.</p>
+<p>All Java enum constructors are (implicitly) private.</p>
+<p>All instance methods are final, except for <code>toString()</code>.</p>
+<section id="advantages" class="level2">
+<h2>Advantages</h2>
+<p>Java enums are type-safe.</p>
+<p>Our programs are more maintainable because the enums aren’t compiled as constants into clients. Rearranging values doesn’t break clients.</p>
+<p>Translating to strings is easy – <code>toString()</code>. Iterating over all enums is easy – <code>values()</code>.</p>
+<p>Enum classes have a private name space.</p>
+</section>
+<section id="methods-in-enum-classes" class="level2">
+<h2>Methods in enum classes</h2>
+<ul>
+<li><code>compareTo(that)</code>
+<ul>
+<li>compares this enum with that one for order</li>
+</ul></li>
+<li><code>equals(that)</code>
+<ul>
+<li>shallow equality just compares object reference values</li>
+<li>this allows us to implement deep equality</li>
+</ul></li>
+<li><code>hashCode()</code>
+<ul>
+<li>returns a hash code for this enum</li>
+<li>worth studying</li>
+</ul></li>
+<li><code>toString()</code>
+<ul>
+<li>returns the name of this enum constant</li>
+</ul></li>
+<li><code>name()</code>
+<ul>
+<li>returns the original name of the enum</li>
+<li>e.g. if <code>toString()</code> has been overridden</li>
+</ul></li>
+<li><code>ordinal()</code>
+<ul>
+<li>returns the ordinal of this enum</li>
+<li>e.g. if we have three apples, the first will have the value 0, the second the value 1, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="java-enums-are-objects" class="level2">
+<h2>Java Enums are Objects</h2>
+<p>[…]</p>
+</section>
+<section id="implementing-the-planet-class" class="level2">
+<h2>Implementing the Planet Class</h2>
+<pre class="sourceCode java" id="cb8"><code class="sourceCode java"><div class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">public</span> <span class="kw">enum</span> Planet {</div>
+<div class="sourceLine" id="cb8-2" data-line-number="2">    <span class="fu">MERCURY</span>(<span class="fl">3.303e+23</span>, <span class="fl">2.439e+6</span>),</div>
+<div class="sourceLine" id="cb8-3" data-line-number="3">    <span class="fu">VENUS</span>(…),</div>
+<div class="sourceLine" id="cb8-4" data-line-number="4">    …;</div>
+<div class="sourceLine" id="cb8-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb8-6" data-line-number="6">    <span class="fu">Planet</span>(<span class="dt">double</span> mass, <span class="dt">double</span> radius) {</div>
+<div class="sourceLine" id="cb8-7" data-line-number="7">        …</div>
+<div class="sourceLine" id="cb8-8" data-line-number="8">    }</div>
+<div class="sourceLine" id="cb8-9" data-line-number="9">}</div></code></pre>
+<ul>
+<li>Here we’re calling the Planet constructor for each planet we’re describing.</li>
+</ul>
+<section id="specific-behaviour" class="level3">
+<h3>Specific Behaviour</h3>
+<p>Our Planet application is very well behaved – all method results depend on input and attributes only.</p>
+<p>This is not always the case: consider a calculator application:</p>
+<ul>
+<li>There are four operations PLUS, etc</li>
+<li>we’d like to apply operations to doubles and get the result:
+<ul>
+<li><code>double apply(double first, double second)</code></li>
+</ul></li>
+</ul>
+<p>The result also depends on the enum constant.</p>
+<p>Common implementation is to use a switch on <code>this</code> in <code>apply</code> to match all possible values. However, if we add a new operation, we have to change the implementation of <code>apply</code>.</p>
+<p>Better way to do it is to define an abstract method <code>apply</code> n the <code>Operation</code> class, and then provide an implementation for <code>apply</code> with each constant [see slides].</p>
+<p>[left out a bunch – he’s going very fast]</p>
+</section>
+</section>
+</section>
+</body>
+</html>

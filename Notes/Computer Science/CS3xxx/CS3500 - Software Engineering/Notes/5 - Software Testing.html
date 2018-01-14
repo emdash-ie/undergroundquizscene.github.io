@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>5 - Software Testing</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="goal" class="level1">
+<h1>Goal</h1>
+<p>The goal for testing is to improve confidence in […]</p>
+<p>A test case is a document, which has a set of test data, pre-conditions, expected results and post-conditions, developed […]</p>
+</section>
+<section id="black-box-vs.white-box-testing" class="level1">
+<h1>Black-box vs. White-box Testing</h1>
+<p>In black-box testing, you ignore implementation details and focus on the behaviour, based on specification/interfaces. Typically this is done by dedicated testers.</p>
+<p>In white-box testing, the focus is on the implementation. Typically this is done by software developers.</p>
+</section>
+<section id="quality-assurance-vs.quality-control" class="level1">
+<h1>Quality Assurance vs. Quality Control</h1>
+<p>Quality assurance is doing things that (you believe) will lead to better quality.</p>
+<p>Quality control is checking the actual product to make sure it’s of good quality.</p>
+</section>
+<section id="code-coverage" class="level1">
+<h1>Code Coverage</h1>
+<p>Code coverage is the percentage of your code that is covered by test cases. In practice, 80-90% is a good amount – 100% is not ideal because it takes too much time to write and run tests, and isn’t necessary.</p>
+<section id="types" class="level2">
+<h2>Types</h2>
+<ol type="1">
+<li>Statement coverage
+<ul>
+<li>count each statement that is executed as part of a test</li>
+</ul></li>
+<li>Branch coverage
+<ul>
+<li>considers each branch/decision point</li>
+</ul></li>
+<li>Data flow coverage
+<ul>
+<li>considers the use/assignment of data/variables</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="cyclomatic-complexity" class="level1">
+<h1>Cyclomatic Complexity</h1>
+<p>To tell how many test cases are needed, you can check the cyclomatic complexity of the code.</p>
+<p>To do this, the structure of the code is represented as a graph, and then analysed.</p>
+</section>
+<section id="static-testing-techniques" class="level1">
+<h1>Static Testing Techniques</h1>
+<p>Static analysis techniques don’t execute the software. The analysis is either performed manually by people, or automatically by tools.</p>
+<section id="group-walkthroughs" class="level2">
+<h2>Group Walkthroughs</h2>
+<p>Designed/programmer leads members of the development team through the code. Participants can ask questions and make comments.</p>
+<p>This can be formal or informal, and is typically done in a meeting room with an overhead projector.</p>
+</section>
+<section id="peer-review" class="level2">
+<h2>Peer Review</h2>
+<p>Code is reviewed by a co-worker/peer. Peers may spot errors that the original author didn’t see.</p>
+<ul>
+<li>more common these days than group walkthroughs</li>
+</ul>
+<p>This is an extremely useful activity.</p>
+<p>Ideally this should be done objectively and not between close friends.</p>
+<p>It’s extremely common in open source software development.</p>
+</section>
+<section id="automated-analysis" class="level2">
+<h2>Automated Analysis</h2>
+<p>Tools can conduct static analysis. They are similar to compilers, but rather than translating a program, they perform semantic analysis.</p>
+</section>
+</section>
+<section id="dynamic-testing-techniques" class="level1">
+<h1>Dynamic Testing Techniques</h1>
+<section id="unit-testing" class="level2">
+<h2>Unit Testing</h2>
+<p>Unit testing involves testing individual subprograms, subroutines, or procedures in a program.</p>
+<p>There is a <code>unittest</code> module in python that can be used for this.</p>
+</section>
+<section id="integration-testing" class="level2">
+<h2>Integration Testing</h2>
+<p>Combine components and make sure they still behave according to their specification.</p>
+</section>
+<section id="system-testing" class="level2">
+<h2>System Testing</h2>
+<p>Test the whole system, embedded in its target environment, to verify it behaves as expected.</p>
+</section>
+<section id="regression-testing" class="level2">
+<h2>Regression Testing</h2>
+<p>Re-running of a test-suite after modifying a program, to ascertain that no new faults were introduced.</p>
+<p>Typically, this is a combination of unit testing, integration testing, and system testing, often run automatically after checking in code changes.</p>
+<p>This is very common in agile methods.</p>
+</section>
+</section>
+<section id="assertions" class="level1">
+<h1>Assertions</h1>
+<p>These can be used to check assumptions in your code. When switched off, their performance overhead disappears.</p>
+<p>Assertions make your assumptions clear to other people reading the code, and can make you more aware of potential issues.</p>
+</section>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>7-Specifying Output Attributes in XSL</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="specifying-output-attributes-in-xsl" class="level1">
+<h1>Specifying Output Attributes in XSL</h1>
+<hr />
+<section id="motivating-example" class="level2">
+<h2>Motivating Example</h2>
+<p>Take this XML document:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;
+&lt;people&gt;
+    &lt;person&gt;
+        &lt;name&gt;fred&lt;/name&gt;
+        &lt;url&gt;http://fred.com&lt;/url&gt;
+    &lt;/person&gt;
+    &lt;person&gt;
+        &lt;name&gt;tom&lt;/name&gt;
+        &lt;url&gt;http://tom.com&lt;/url&gt;
+    &lt;/person&gt;
+&lt;/people&gt;</code></pre>
+<p>We want to generate a HTML table where the urls are used as the href attributes in <code>&lt;a&gt;</code> elements.</p>
+<section id="mistaken-approach" class="level3">
+<h3>Mistaken Approach</h3>
+<p>We might use an <code>&lt;xsl:value-of&gt;</code> statement in the href attribute, but this won’t work – text in the quotes required for the href attribute will be treated as plain text and won’t be evaluated. The browser will complain about ill-formed XHTML.</p>
+<pre><code>[…]
+&lt;a href=&quot;&lt;xsl:value-of select=&quot;./url&quot;/&gt;&quot;&gt;
+[…]</code></pre>
+</section>
+</section>
+<section id="first-approach" class="level2">
+<h2>First Approach</h2>
+<p>Use the stylesheet as follows:</p>
+<pre><code>&lt;a&gt;
+    &lt;xsl:attribute name=&quot;href&quot;&gt;
+        &lt;xsl:value-of select=&quot;./url&quot;/&gt;
+    &lt;/xsl:attribute&gt;
+    &lt;xsl:value-of select=&quot;./name&quot;/&gt;
+&lt;/a&gt;</code></pre>
+<p>You use an <code>&lt;xsl:attribute&gt;</code> element for each attribute that you want to specify.</p>
+<p>Any <code>&lt;xsl:attribute&gt;</code> elements used must come before any other content in the parent element.</p>
+</section>
+<section id="alternative-approach" class="level2">
+<h2>Alternative Approach</h2>
+<p>Use escape braces.</p>
+<pre><code>&lt;a href=&quot;{href}&quot;&gt;
+    &lt;xsl:value-of select=&quot;name&quot;/&gt;
+&lt;/a&gt;</code></pre>
+</section>
+</section>
+</body>
+</html>

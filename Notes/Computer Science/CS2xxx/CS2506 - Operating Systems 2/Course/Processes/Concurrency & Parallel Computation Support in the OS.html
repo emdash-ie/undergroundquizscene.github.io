@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Concurrency & Parallel Computation Support in the OS</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<ul>
+<li>The support the OS provides for parallel execution.</li>
+</ul>
+</section>
+<section id="content" class="level1">
+<h1>Content</h1>
+<p>Application: matrix multiplication</p>
+<ul>
+<li><p>clear example of the potential for parallel execution</p></li>
+<li><p>split problem into groups of lines, each group allocated to one process</p></li>
+<li><p>these processes share some data though</p>
+<ul>
+<li>the shared stored will be stored in cache L2 (this is OS support)</li>
+</ul></li>
+</ul>
+<p>Speedup is the execution time sequentially, divided by the execution time in parallel. This is generally less than the number of cores (which is the theoretical potential speedup).</p>
+<ul>
+<li><p>pipeline model</p>
+<ul>
+<li><p>computation split into successive operations, which can be executed by different cores</p></li>
+<li><p>all these operations can overlap</p></li>
+</ul></li>
+</ul>
+<p>Parallel execution of an application:</p>
+<ul>
+<li><p>multiple processes running in parallel</p>
+<ol type="1">
+<li><p>create multiple processes / threads</p>
+<ul>
+<li><p>benefit of threads is that the context of the process is used</p></li>
+<li><p>but data protection is an issue</p></li>
+</ul></li>
+<li><p>data sharing</p></li>
+<li><p>mutual exclusion to data that is updated</p></li>
+<li><p>scheduling / synchronisation</p>
+<ul>
+<li>if we have fewer cores than processes</li>
+</ul></li>
+</ol></li>
+<li><p>shared data</p></li>
+<li><p>communication</p>
+<ul>
+<li>t_comm / t_comp &lt;&lt; 1 – communication should be very efficient</li>
+</ul></li>
+</ul>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<ul>
+<li><p>parallel computing still not prevalent in mass devices, just high-performance computing</p></li>
+<li><p>some operating systems are better than others at providing the means for parallel execution</p></li>
+<li><p>this material is not examinable, but is useful/interesting</p></li>
+</ul>
+</section>
+</body>
+</html>

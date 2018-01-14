@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2 - Coding</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="readability-of-code" class="level1">
+<h1>Readability of Code</h1>
+<ul>
+<li><p>reader should be easily able to correctly interpret what the code does</p></li>
+<li><p>code should be economical, but not to the point where this compromises intelligibility</p></li>
+<li><p>you have control over naming and over coding style</p>
+<ul>
+<li><p>also naming conventions</p></li>
+<li><p>also programming idioms (solutions typical/common to the language)</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="programming-style" class="level1">
+<h1>Programming Style</h1>
+<ul>
+<li><p>programming style is not about self-expression</p></li>
+<li><p>programming style is about reducing errors</p>
+<ul>
+<li>a program must communicate to the computer and to the reader</li>
+</ul></li>
+</ul>
+<p>Use a familiar style unless there’s a benefit in departing from it.</p>
+</section>
+<section id="code-style-and-ides" class="level1">
+<h1>Code Style and IDEs</h1>
+<ul>
+<li>most allow you to apply a predefined code style to your project</li>
+</ul>
+</section>
+<section id="code-checking-tools" class="level1">
+<h1>Code Checking Tools</h1>
+<ul>
+<li><p>e.g. lint</p></li>
+<li><p>statically identify problems with the code (without executing it)</p></li>
+</ul>
+</section>
+<section id="general-principles" class="level1">
+<h1>General Principles</h1>
+<ul>
+<li><p>Make your programs look like what they do.</p></li>
+<li><p>Avoid forms that are difficult to distinguish from common errors.</p></li>
+<li><p>If there is a feature of a language that is sometimes problematic, and if it can be replaced with another feature that is more reliable, then always use the more reliable feature.</p></li>
+</ul>
+</section>
+<section id="java-code-conventions" class="level1">
+<h1>Java Code Conventions</h1>
+<section id="why" class="level2">
+<h2>Why?</h2>
+<ul>
+<li><p>80% of the lifetime cost of a piece of software goes to maintenance</p></li>
+<li><p>hardly any software is maintained for its whole life by the original author</p></li>
+<li><p>code conventions improve the readability of the software, allowing engineers to understand new code more quickly and thoroughly</p></li>
+<li><p>If you ship your code as a product, you need to make sure it is as well packaged and clean as any other product</p></li>
+</ul>
+</section>
+<section id="naming" class="level2">
+<h2>Naming</h2>
+<ul>
+<li><p>make programs more understandable &amp; easier to read</p></li>
+<li><p>can give info about the function of the identifier (e.g. whether it’s a constant or a class)</p></li>
+</ul>
+</section>
+<section id="order-of-keywords" class="level2">
+<h2>Order of Keywords</h2>
+<ul>
+<li><p>using a conventional order makes code easier to read</p></li>
+<li><p>Java has a recommended order (e.g. <code>public static final</code>)</p></li>
+</ul>
+</section>
+</section>
+<section id="issues-with-languages" class="level1">
+<h1>Issues with Languages</h1>
+<p>[…]</p>
+<ul>
+<li><p>Effect Systems</p>
+<ul>
+<li>http://www.eff-lang.org/handlers-tutorial.pdf</li>
+</ul></li>
+<li><p>Extended Static Type Checking</p></li>
+<li><p>Meta-theory</p>
+<ul>
+<li>Most programming languages have no formalisation of their semantics</li>
+</ul></li>
+<li><p>Cost Models</p>
+<ul>
+<li>The complexity bound is calculated on the resources consumed by performing a computation, letting a programmer check the cost of a program: http://www.raml.co</li>
+</ul></li>
+<li><p>Parallelism</p>
+<ul>
+<li><p>Languages providing abstract forms of control flow and data batching/locality, into which a program can cast itself, to permit exploitation of heterogeneous computers</p></li>
+<li><p>Usually hidden in the compilation process</p></li>
+</ul></li>
+<li><p>Parametric Mutability</p></li>
+</ul>
+</section>
+</body>
+</html>

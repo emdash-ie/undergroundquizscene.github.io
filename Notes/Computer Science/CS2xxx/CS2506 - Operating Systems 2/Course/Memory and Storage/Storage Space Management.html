@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Storage Space Management</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="storage-space-management" class="level1">
+<h1>Storage Space Management</h1>
+<ul>
+<li><p>free space on disks similar to main memory but also dealing with sectors</p></li>
+<li><p>need to preserve consistency between main memory, cache, and disk</p></li>
+</ul>
+<p>## File System Metadata</p>
+<p>Most filesystems have a header. This describes the file system as a whole and gives a starting point for locating files in the system. It includes:</p>
+<ul>
+<li>the total size of the filesystem</li>
+<li>the amount of free space</li>
+<li>the date of the last mount</li>
+<li>the location of the free space data structures</li>
+<li>starting point for any name lookup</li>
+</ul>
+<p>The header can be in a fixed location (e.g. the first block of the disk). But we will probably have many copies of the header (to ensure it doesn’t get lost). Locations may store pointers to a common file.</p>
+<p>## Disk Structure</p>
+<p>Disk can be divided into partitions.</p>
+<ul>
+<li><p>RAID is a redundant array of inexpensive disks – this can be created virtually through partitions</p>
+<ul>
+<li>multiple copies of things protects against failure and also speeds up access</li>
+</ul></li>
+</ul>
+<p>A partition can be used raw or formatted with a file system.</p>
+<p>Partitions are also known as minidisks and slices.</p>
+<p>Something containing a file system is known as a volume. […]</p>
+<p>As well as general-purpose filesystems, there are many special purpose filesystems which are customised specifically for embedded systems. They have specific structure corresponding to the type of data managed by applications.</p>
+<pre><code>* optimised for fastest access to data</code></pre>
+<section id="free-space-management" class="level2">
+<h2>Free Space Management</h2>
+<p>Unlike main memory, allocation is done in fixed-size blocks (block is typically a multiple of a sector (where a sector is 512 bytes)). Sectors used by a file may not be contiguous.</p>
+<p>Can use either a free bitmap or linked lists (embedded in the free blocks) for tracking free memory. Where do we store the free bitmap though? Generally keep a copy in the kernel space in main memory, but then we need consistency. Also, we want to have the disk operating completely separately. If we place it in the middle of the disk, then we can reduce the amount of movement of the write head required to check it.</p>
+</section>
+<section id="allocation" class="level2">
+<h2>Allocation</h2>
+<p>Simplest solution is to allocate contiguously. If the file grows, there needs to be enough space after the last block – if there isn’t, the file must be moved to another space.</p>
+<p>Another option is to allow the file to spread out, but keep the blocks as close as possible.</p>
+<p>A linked list can be used to represent the blocks allocated to a file. This list can be a separate data structure, or each pointer to the next block is stored in the current one. If the list is sorted, it should contain only block numbers. It the size of the structure is larger than the block size, the list itself will be distributed on more blocks that point to each other.</p>
+<p>Another approach is to use an array of pointers, one for each data block in the filesystem – each entry gives the next block of the file. This still requires a linear search.</p>
+<p>To speed up the access time, the index blocks can be organised in a tree – with 512-byte blocks, the root will store 128 pointers addressing 128 index blocks that each address 128 data blocks, etc. This gives a logarithmic search.</p>
+<p>These data structures need to be managed all the time as blocks change around.</p>
+<p>## Directories</p>
+<p>A collection of nodes containing information about all files in the filesystem. (?)</p>
+<p>The directory maps a subset of names to file metadata – size of the file, file ownership, security characteristics, […]</p>
+<p>A directory is also a file.</p>
+<p>### Operations Performed on Directories</p>
+<p>Similar to files:</p>
+<ul>
+<li>search for a file</li>
+<li>create a file</li>
+<li>delete a file</li>
+<li>list a directory</li>
+<li>rename a file</li>
+<li>traverse the filesystem</li>
+</ul>
+<section id="directory-models" class="level3">
+<h3>Directory Models</h3>
+<ul>
+<li><p>single-level</p>
+<ul>
+<li>all files are the in the same directory, and must have unique names</li>
+</ul></li>
+<li><p>two-level</p>
+<ul>
+<li><p>a separate directory for each user</p>
+<ul>
+<li>there is the master file directory (MFD) and one user file directory (UFD)</li>
+</ul></li>
+</ul></li>
+<li><p>tree-structured</p>
+<ul>
+<li><p>users can create their own subdirectories</p>
+<ul>
+<li>one bit in each directory entry defines the entry as a file or as a directory</li>
+</ul></li>
+<li><p>path is unique: names don’t have to be</p></li>
+</ul></li>
+<li><p>acyclic-graph</p>
+<ul>
+<li>allows directories to share subdirectories and files [check]</li>
+</ul></li>
+</ul>
+</section>
+<section id="implementation-of-sharing" class="level3">
+<h3>Implementation of Sharing</h3>
+<p>In UNIX a new directory entry called <code>link</code> is created – it’s a pointer (absolute or relative path name) to another file or subdirectory. The link is resolved by using the path name to locate the real file.</p>
+<p>Another implementation is to duplicate the information about the shared resource in all directories sharing it. All directory entries about that file are the same. This solution raises the problem of consistency – a file can have multiple absolute filenames.</p>
+<p>This is not as important at the moment, as many people are using co-operative access things like google docs. Several people can write at the same time (usually on their own copies, which are then integrated in some way).</p>
+</section>
+</section>
+<section id="consistency-checking" class="level2">
+<h2>Consistency Checking</h2>
+<p>The filesystem checks to see if free blocks are indeed free. This is done periodically or when a mount operation is executed.</p>
+<p>As this is time consuming, log files can be used – for example, when a file is deleted:</p>
+<ul>
+<li>remove the directory entry</li>
+<li>free the data blocks</li>
+<li>free the metadata structure</li>
+</ul>
+<p>If the system crashes during any of these operations, the file system is left in an inconsistent state. As in databases, the delete operation should be either entirely executed or not. The journal contains enough information to control the operation.</p>
+</section>
+<section id="block-caching" class="level2">
+<h2>Block Caching</h2>
+<p>Similar to operation between main memory and cache memory (entire cache line brought in at once).</p>
+<p>Transfer between disk and main memory is by whole blocks. The OS reserves memory space for file caches (buffers).</p>
+<p>A kernel thread will take care of data synchronisation – each block in the cache that’s marked modified is queued to be written on the disk and then marked as clean.</p>
+<p>Synchronisation is also forced when a file system is unmounted.</p>
+<p>As the cache space is limited, the problem of block replacement needs to be solved. The strategy used to replace a block is least-recently-used (LRU).</p>
+<p>Two things to take care of (also described in points above):</p>
+<ol type="1">
+<li>Space management (page replacement in main memory)</li>
+<li>Consistency (change will occur in main memory, and should be propagated to the disk)</li>
+</ol>
+</section>
+<section id="summary" class="level2">
+<h2>Summary</h2>
+<p>All data structures involved in storage are copied to the main memory for fast access and processing by the filesystem.</p>
+</section>
+</section>
+</body>
+</html>

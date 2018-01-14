@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Misc</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="misc-info" class="level1">
+<h1>Misc Info</h1>
+<hr />
+<section id="a-note-on-using-xslvalue-of" class="level2">
+<h2>A Note on Using <code>xsl:value-of</code></h2>
+<p>The node-list selected by the select attribute may contain more than one node.</p>
+<p>In this case, only the first node will be evaluated.</p>
+<section id="example" class="level3">
+<h3>Example</h3>
+<pre><code>&lt;xsl:value-of select=&quot;//person&quot;/&gt;</code></pre>
+<p>The select attribute here will match all descendant nodes of the current node which are people nodes. However, only the string value of the first node in the list of descendant person nodes will be output.</p>
+</section>
+</section>
+<section id="and-operators" class="level2">
+<h2><code>&lt;</code> and <code>&lt;=</code> Operators</h2>
+<p>You can’t use <code>&lt;</code> or <code>&lt;=</code> as operators, as they will confuse the parser, which will think they’re a start tag. Instead, you must use the entities <code>&amp;lt;</code> and <code>&amp;le;</code>. <code>&gt;</code> and <code>&gt;=</code> are fine.</p>
+</section>
+<section id="content-types" class="level2">
+<h2>Content-Types</h2>
+<p>If generating xml from a python program, the content-type should be application/xml.</p>
+</section>
+</section>
+</body>
+</html>

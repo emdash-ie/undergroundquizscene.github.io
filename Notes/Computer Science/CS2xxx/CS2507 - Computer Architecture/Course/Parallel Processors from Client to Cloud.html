@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Parallel Processors from Client to Cloud</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Goal: connecting multiple computers to get higher performance</p>
+<ul>
+<li><p>multiprocessors</p></li>
+<li><p>scalability, availability, power efficiency</p>
+<ul>
+<li>power efficiency is the most compelling reason for multiprocessing</li>
+</ul></li>
+</ul>
+<p>Task-level (process-level) parallelism:</p>
+<ul>
+<li>high throughput for independent jobs</li>
+</ul>
+<p>parallel processing program:</p>
+<ul>
+<li>single program run on multiple processors</li>
+</ul>
+<p>multicore microprocessors</p>
+<ul>
+<li>chips with multiple cores/processors</li>
+</ul>
+</section>
+<section id="hardware-and-software-classification" class="level1">
+<h1>Hardware and Software Classification</h1>
+<p>Hardware:</p>
+<ul>
+<li>Serial (pentium 4) and parallel (e.g. intel core i7).</li>
+</ul>
+<p>Software:</p>
+<ul>
+<li><p>sequential, e.g. matrix multiplication</p></li>
+<li><p>concurrent, e.g. operating system</p></li>
+</ul>
+<p>Sequential/concurrent software can run on serial/parallel hardware.</p>
+<p>The challenge is making effective use of parallel hardware.</p>
+</section>
+<section id="message-passing-multiprocessors" class="level1">
+<h1>Message Passing Multiprocessors</h1>
+<ul>
+<li><p>each processor has a private physical address space</p></li>
+<li><p>hardware sends/receives messages between processors</p></li>
+</ul>
+<section id="loosely-coupled-clusters" class="level2">
+<h2>Loosely Coupled Clusters</h2>
+<ul>
+<li><p>network of independent computers</p>
+<ul>
+<li><p>each has its own private memory and OS</p></li>
+<li><p>two level of connection</p></li>
+<li><p>connected using I/O system</p>
+<ul>
+<li>e.g. ethernet/switch, internet</li>
+</ul></li>
+</ul></li>
+<li><p>suitable for applications with independent tasks</p>
+<ul>
+<li>web servers, databases, simulations</li>
+</ul></li>
+<li><p>high availability, scalable, affordable</p></li>
+<li><p>problems:</p>
+<ul>
+<li><p>high administration cost (prefer virtual machines)</p></li>
+<li><p>low interconnect bandwidth</p>
+<ul>
+<li>compare processor/memory bandwidth on an SMP (single-memory processor?)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="grid-computing" class="level2">
+<h2>Grid Computing</h2>
+<ul>
+<li><p>separate computers interconnected by long-haul networks</p>
+<ul>
+<li><p>e.g. internet connections</p></li>
+<li><p>work units farmed out, results sent back</p></li>
+</ul></li>
+<li><p>can make use of idle time on PCs</p>
+<ul>
+<li><p>e.g. SETI@home, World Community Grid</p></li>
+<li><p>Over 5 million computer users in more than 200 countries</p></li>
+</ul></li>
+</ul>
+<p>## Cloud Computing</p>
+<ul>
+<li><p>a new class of network based computing that takes place over the internet</p>
+<ul>
+<li><p>basically storing, processing, and accessing data over the internet</p></li>
+<li><p>uses a collection/group of integrated and networked hardware, software, and internet infrastructure (called a platform)</p></li>
+</ul></li>
+<li><p>these platforms hide the complexity and details of the underlying infrastructure from users and applications by providing a very simple graphical interface or API</p></li>
+<li><p>in addition, the platform provides on-demand services that are always on, anywhere, anytime, anyplace</p></li>
+</ul>
+<p>### Cloud Deployment Models</p>
+<p>4 basic models:</p>
+<ul>
+<li><p>private cloud</p></li>
+<li><p>public cloud</p>
+<ul>
+<li>companies worried about sensitive data</li>
+</ul></li>
+<li><p>hybrid cloud</p>
+<ul>
+<li>keep private cloud, use public for less sensitive data</li>
+</ul></li>
+<li><p>community cloud</p></li>
+</ul>
+</section>
+<section id="interconnection-networks" class="level2">
+<h2>Interconnection Networks</h2>
+<p>Network topologies – arrangements of processors, switches, and links:</p>
+<ul>
+<li><p>bus</p>
+<ul>
+<li>flat communication</li>
+</ul></li>
+<li><p>ring</p>
+<ul>
+<li>uses switches to provide higher bandwidth capacity than the bus</li>
+</ul></li>
+<li><p>2D mesh</p></li>
+<li><p>N-cube</p></li>
+<li><p>fully-connected</p>
+<ul>
+<li><p>too expensive</p></li>
+<li><p>also difficult to alter</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="network-characteristics" class="level2">
+<h2>Network Characteristics</h2>
+<ul>
+<li><p>performance</p>
+<ul>
+<li><p>latency per message (unloaded network)</p></li>
+<li><p>throughput</p>
+<ul>
+<li><p>link bandwidth</p></li>
+<li><p>total network bandwidth</p></li>
+<li><p>bisection bandwidth</p></li>
+</ul></li>
+<li><p>congestion delays (depending on traffic)</p></li>
+</ul></li>
+<li><p>cost</p></li>
+<li><p>power</p></li>
+<li><p>routability in silicon</p></li>
+</ul>
+</section>
+<section id="parallel-benchmarks" class="level2">
+<h2>Parallel Benchmarks</h2>
+<ul>
+<li><p>traditional benchmarks use fixed code and data sets</p></li>
+<li><p>linpack – matrix linear algebra</p>
+<ul>
+<li>performance/latency (world’s fastest computer)</li>
+</ul></li>
+<li><p>SPECrate – parallel run of SPEC CPU programs</p>
+<ul>
+<li><p>determines throughput performance</p></li>
+<li><p>job-level parallelism</p></li>
+</ul></li>
+<li><p>SPLASH: Stanford Parallel Applications for Shared Memory</p>
+<ul>
+<li><p>mix of kernels and applications, strong scaling</p></li>
+<li><p>mainly looks at throughput</p></li>
+</ul></li>
+<li><p>NAS (NASA Advance Supercomputing) suite</p>
+<ul>
+<li><p>computational fluid dynamics kernels, weak scaling</p></li>
+<li><p>weak scaling as in not focused on scaling (or something)</p></li>
+<li><p>focuses on latency, like linpack</p></li>
+</ul></li>
+<li><p>PARSEC (Princeton Application Repository for Shared Memory Computers)</p>
+<ul>
+<li><p>multithreaded applications using Pthreads and OpenMP</p></li>
+<li><p>throughput and latency</p></li>
+</ul></li>
+</ul>
+<p>## Modelling Performance</p>
+<ul>
+<li><p>architectural diversity – multithreading, SIMD, GPUs</p>
+<ul>
+<li>need for simple performance model for all architecture types</li>
+</ul></li>
+<li><p>parallel computers peak floating-point performance</p>
+<ul>
+<li>depends on kernel speed on a given computer</li>
+</ul></li>
+<li><p>arithmetic intensity – a ratio of floating-point operations per byte of memory accessed by a program</p>
+<ul>
+<li>memory system demand</li>
+</ul></li>
+<li><p>stream benchmark provides peak memory performance</p></li>
+</ul>
+<section id="roofline-diagram" class="level3">
+<h3>Roofline Diagram</h3>
+<p>Ties together the peak FP performance, the arithmetic intensity, and the peak memory performance.</p>
+<ul>
+<li>Defines an upper bound to performance</li>
+</ul>
+</section>
+<section id="optimising-performance" class="level3">
+<h3>Optimising Performance</h3>
+<p>Optimise FP performance:</p>
+<ul>
+<li><p>balance adds &amp; multiplications</p></li>
+<li><p>improve superscalar ILP and use of SIMD instructions</p>
+<ul>
+<li>loop unrolling</li>
+</ul></li>
+</ul>
+<p>Optimise memory usage by reducing bottlenecks:</p>
+<ul>
+<li><p>software prefetch</p>
+<ul>
+<li>avoid load stalls</li>
+</ul></li>
+<li><p>memory affinity</p>
+<ul>
+<li><p>allocate thread and data on the same processor</p></li>
+<li><p>avoid non-local data accesses</p></li>
+</ul></li>
+<li><p>choice of optimisation depends on arithmetic intensity of code</p>
+<ul>
+<li><p>arithmetic intensity is not always fixed</p>
+<ul>
+<li><p>may scale with problem size</p></li>
+<li><p>caching reduces memory accesses</p>
+<ul>
+<li>increases arithmetic intensity</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="fallacies" class="level2">
+<h2>Fallacies</h2>
+<ul>
+<li><p>peak performance tracks observed performance</p>
+<ul>
+<li><p>marketers like this approach</p></li>
+<li><p>in multiprocessor, they simply multiply</p></li>
+<li><p>need to be aware of bottlenecks that limit performance</p></li>
+</ul></li>
+<li><p>Amdahl’s law doesn’t apply to parallel computers</p>
+<ul>
+<li><p>since we can achieve linear speedup</p></li>
+<li><p>but only on applications with weak scaling</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="pitfalls" class="level2">
+<h2>Pitfalls</h2>
+<ul>
+<li><p>not developing the software to take account of a multiprocessor architecture</p>
+<ul>
+<li><p>example: using a single lock for a shared composite resource</p>
+<ul>
+<li><p>serialises accesses, even if they could be done in parallel</p></li>
+<li><p>Silicon Graphic Operating System</p></li>
+<li><p>a possible solution: use finer-granularity locking</p></li>
+</ul></li>
+</ul></li>
+</ul>
+<p>## Conclusion</p>
+<ul>
+<li><p>goal of multiprocessors is to achieve higher performance by using multiple processors</p></li>
+<li><p>difficulties:</p>
+<ul>
+<li><p>developing parallel software</p></li>
+<li><p>devising appropriate architectures</p></li>
+</ul></li>
+<li><p>SaaS (software as a service) importance is growing and clusters are a good match</p></li>
+<li><p>performance per dollar and performance per joule drive both mobile and warehouse-scale computing (WSC)</p></li>
+<li><p>SIMD and vector operations match multimedia applications and are easy to program</p>
+<ul>
+<li><p>for x86 we expect:</p>
+<ul>
+<li><p>two cores per chip every two years</p></li>
+<li><p>double SIMD width every four years</p></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>5-Procedural XSL</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="procedural-xsl" class="level1">
+<h1>Procedural XSL</h1>
+<hr />
+<p>Though the underlying structure of XSLT is data-driven, there are some prodeural programming options.</p>
+<section id="the-xslfor-each-element" class="level2">
+<h2>The <code>xsl:for-each</code> Element</h2>
+<pre><code>&lt;xsl:for-each select=&quot;customers/customer&quot;&gt;
+    &lt;tr&gt;&lt;td&gt;&lt;xsl:apply-templates select=&quot;name&quot;/&gt;&lt;/td&gt;&lt;td&gt;
+        &lt;xsl:for-each select=&quot;order&quot;&gt;&lt;xsl:apply-templates/&gt;, &lt;/xsl:for-each&gt;
+    &lt;/td&gt;&lt;/tr&gt;
+&lt;/xsl:for-each&gt;</code></pre>
+<p>This replicates something we could already do with a data-driven model.</p>
+</section>
+<section id="sorting" class="level2">
+<h2>Sorting</h2>
+<p>There’s an element <code>xsl:sort</code> which can be used to sort collections of nodes.</p>
+<p>The format is as follows:</p>
+<pre><code>&lt;xsl:sort
+    select = string-expression
+    lang = {nmtoken}
+    data-type = {&quot;text&quot;|&quot;number&quot;|qname-but-not-ncname}
+    order = {ascending|descending}
+    […]
+/&gt;</code></pre>
+<p>I think it has to be the first thing in the parent <code>for-each</code>.</p>
+<p>You can include this as a child of an <code>xsl:for-each</code> element to sort the result, e.g.:</p>
+<pre><code>[…]
+&lt;xsl:for-each select=&quot;customers/customer&quot;&gt;
+    &lt;xsl:sort select=&quot;name&quot;/&gt;
+    […]
+&lt;/xsl:for-each&gt;</code></pre>
+<p>The sort statement here will only be executed once, not once each time the loop is executed. It sorts the <code>customer</code> elements in the default manner – text-based; ascending; upper case before lower case.</p>
+<p>Note that the sort statement does not restructure the parse tree. When the computer is executing the <code>for-each</code> instruction, the system builds the list of nodes specified in the XPath expression, and the <code>sort</code> instruction sorts that list.</p>
+<section id="multiple-key-sorting" class="level3">
+<h3>Multiple-Key Sorting</h3>
+<p>You can sort by (e.g.) surname and then by first name by putting in multiple <code>xsl:sort</code> elements. The first one will be the primary sort order and the second the secondary:</p>
+<pre><code>[…]
+&lt;xsl:sort select=&quot;name/surname&quot;/&gt; &lt;xsl:sort select=&quot;name/firstname&quot;/&gt;
+[…]</code></pre>
+<p>This will sort by surname (for the appropriately structured XML) and then by first name within that for entries with the same surname.</p>
+</section>
+</section>
+<section id="xslvariable" class="level2">
+<h2><code>xsl:variable</code></h2>
+<p>Even though this language support variables, it’s not the kind of variable we see in Python or Java (or procedural programming languages in general).</p>
+<p>The format is:</p>
+<pre><code>&lt;xsl:variable name=qname select=expression/&gt;</code></pre>
+<p>or</p>
+<pre><code>&lt;xsl:variable name=qname&gt;
+    &lt;-- Content: template --&gt;
+&lt;/xsl:variable&gt;</code></pre>
+<p>or</p>
+<pre><code>&lt;xsl:variable name=qname/&gt;</code></pre>
+<p>XSL variables cannot be changed once they’ve been created. They can only have the value they are first given.</p>
+<ul>
+<li><p>The first format above creates a variable, gives it a name, and gives it the value <code>expression</code>.</p></li>
+<li><p>The second format creates a variable, gives it a name, and gives it the string value that results from executing whatever’s between the open and close tags.</p></li>
+<li><p>The third format creates a variable, gives it a name, and gives it the value of the empty string.</p></li>
+</ul>
+<p>Variables are needed when xml documents are created from databases with a lot of cross-referencing between database tables.</p>
+<section id="example-usage" class="level3">
+<h3>Example Usage</h3>
+<pre><code>[…]
+&lt;xsl:for-each select=&quot;./stock/secondHandBooks/book&quot;&gt;
+    &lt;xsl:variable name=&quot;thisISBN&quot; select=&quot;./@isbn&quot;/&gt;
+    &lt;tr&gt;
+        &lt;td&gt;&lt;xsl:value-of select=&quot;price&quot;/&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;xsl:value-of select=&quot;$thisISBN&quot;/&gt;&lt;/td&gt;
+        &lt;td&gt;&lt;xsl:value-of select=&quot;/stock/publications/book[@isbn=$thisISBN]/title&quot;/&gt;&lt;/td&gt;
+    &lt;/tr&gt;
+&lt;/xsl:for-each&gt;
+[…]
+    </code></pre>
+<p>This XSLT outputs a table row for each <code>book</code> element in <code>secondHandBooks</code>, and uses the ISBN attribute to cross-reference between <code>book</code> elements in <code>secondHandBooks</code> and <code>book</code> elements in <code>publications</code>.</p>
+</section>
+<section id="side-note" class="level3">
+<h3>Side Note</h3>
+<p>Using the <code>.</code> operator in an XPath expression in a position other than the start (e.g. <code>&quot;/stock/.&quot;</code> rather than <code>&quot;./book&quot;</code>) will cause the <code>.</code> to have a meaning other than what we’re used to, and it won’t do what we want. We’ll see later what meaning it has.</p>
+</section>
+<section id="variable-scope" class="level3">
+<h3>Variable Scope</h3>
+<p>XSL variables can only be accessed inside the element they are created in. Outside of that element, they will not be accessible.</p>
+<p>In the example code above, if we try to access <code>thisISBN</code> outside of the <code>&lt;xsl:for-each&gt;</code> block, we will get an error.</p>
+<p>Alternatively, if we define that variable deeper inside the <code>&lt;xsl:for-each&gt;</code> statement (e.g. inside a <code>&lt;td&gt;</code>), we won’t be able to access it outside (e.g.) that <code>&lt;td&gt;</code>.</p>
+</section>
+</section>
+<section id="conditional-processing" class="level2">
+<h2>Conditional Processing</h2>
+<p>Conditional processing is already provided by the <code>select</code> and <code>match</code> attributes, but there are two constructs for explicitly specifying conditional processing:</p>
+<ul>
+<li>The <code>&lt;xsl:if&gt;</code> element.<br />
+</li>
+<li>The <code>&lt;xsl:choose&gt;</code> element.</li>
+</ul>
+<section id="xslif-syntax" class="level3">
+<h3><code>xsl:if</code> Syntax</h3>
+<pre><code>&lt;xsl:if test=&quot;boolean expression&quot;&gt;
+    &lt;!--Content: template--&gt;
+&lt;/xsl:if&gt;</code></pre>
+</section>
+<section id="xslchoose-syntax" class="level3">
+<h3><code>xsl:choose</code> Syntax</h3>
+<pre><code>&lt;xsl:choose&gt;
+    &lt;!--Content: (xsl:when+ xsl:otherwise?) --&gt;
+&lt;/xsl:choose&gt;
+
+&lt;xsl:when test=&quot;boolean expression&quot;&gt;
+    &lt;!--Content: template --&gt;
+&lt;/xsl:when&gt;
+
+&lt;xsl:otherwise&gt;
+    &lt;!--Content: template--&gt;
+&lt;/xsl:otherwise&gt;</code></pre>
+</section>
+</section>
+<section id="xslcall-template-instruction" class="level2">
+<h2><code>&lt;xsl:call-template&gt;</code> Instruction</h2>
+<p>Note that this doesn’t change the current node, unlike <code>&lt;xsl:apply-templates&gt;</code>. Here <code>.</code> refers to the same node before executing the template referred to in <code>&lt;xsl:call-template&gt;</code> as it does during execution.</p>
+<section id="parameters" class="level3">
+<h3>Parameters</h3>
+<p>You can also pass parameters to named templates.</p>
+<pre><code>&lt;xsl:call-template name=&quot;show_item&quot;&gt;
+    &lt;xsl:with-param name=&quot;thisNum&quot; select=&quot;./@num&quot;/&gt;
+&lt;/xsl:call-template&gt;
+
+&lt;xsl:template name=&quot;show_item&quot;&gt;
+    &lt;xsl:param name=&quot;num&quot;/&gt;
+    &lt;xsl:value-of select=&quot;$num&quot;/&gt;
+&lt;/xsl:template&gt;</code></pre>
+<p>The <code>&lt;xls:with-param&gt;</code> element allows you to specify the actual parameters (i.e. the values passed to the function), and the <code>&lt;xsl:param&gt;</code> element allows you to specify the formal parameters (the parameters referred to in the function definition).</p>
+<p>Parameters are specified positionally – the value given in the first <code>&lt;xsl:with-param&gt;</code> element will be given to the first <code>&lt;xsl:param&gt;</code> parameter.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-11-02</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="compound-logical-statements" class="level1">
+<h1>Compound Logical Statements</h1>
+<section id="some-problems" class="level2">
+<h2>Some problems</h2>
+<section id="software-testing" class="level3">
+<h3>Software testing</h3>
+<p>You write a piece of software which is supposed to produce the answer “yes” whenever the input is classified as being in the set A.</p>
+<p>Since we’re not asked to make the software output “no” (or anything other than “yes”) in any case, we only need to test that it produces “yes” for each item in set A.</p>
+</section>
+<section id="two-sided-cards" class="level3">
+<h3>Two-sided cards</h3>
+<p>I’m gonna stop taking notes here for a bit because we’re just doing problems. I’ll give the solutions to the problems.</p>
+<p>Need to turn over cards (i) and (iv).</p>
+</section>
+</section>
+<section id="disjunction" class="level2">
+<h2>Disjunction (∨)</h2>
+<p>Disjunction is the logical OR, which is true if either or both of the inputs is true.</p>
+<section id="example" class="level3">
+<h3>Example</h3>
+<p>Let p be “Dublin is the capital of Ireland”.</p>
+<p>Let q be “7 + 2 = 9”.</p>
+<p>p and q both have the value T, so p∨q must have the value T.</p>
+</section>
+</section>
+<section id="exclusive-or-or-or" class="level2">
+<h2>Exclusive OR (⊕ or ⊗ or ^)</h2>
+<p>Has the value T if one input is T and one is F, has the value F otherwise.</p>
+</section>
+<section id="conditional" class="level2">
+<h2>Conditional (→)</h2>
+<p>The conditional connects two propositions. The resulting statement is true whenever the second proposition is true, or when the first proposition is false. Otherwise, the conditional statement is false.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">p</th>
+<th style="text-align: left;">q</th>
+<th style="text-align: left;">p→q</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">T</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">F</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">T</td>
+<td style="text-align: left;">T</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">F</td>
+<td style="text-align: left;">T</td>
+</tr>
+</tbody>
+</table>
+<section id="how-do-we-interpret-the-conditional" class="level3">
+<h3>How do we interpret the conditional?</h3>
+<p>We want some connective to say “since p is true, q must be true”.</p>
+<p>So we use p→q.</p>
+<p>All this means is that whenever p is true, q is also true.</p>
+<p>It does not mean that p causes q.</p>
+</section>
+<section id="as-a-contract" class="level3">
+<h3>As a contract</h3>
+<p>E.g.</p>
+<p>p = “you get at least 40% in CS1112”</p>
+<p>q = “you get a pass for CS1112 on your student record”</p>
+<p>UCC asserts that p→q is true.</p>
+<p>This is a contract - if you do get at least 40% without cheating for CS1112, you will get a pass.</p>
+<p>If you do not, you may or may not fail, depending on other circumstances (pass by compensation, illness, etc.).</p>
+</section>
+</section>
+<section id="biconditional" class="level2">
+<h2>Biconditional (↔)</h2>
+<p>The biconditional is true whenever the two inputs share the same value. Otherwise, it is false.</p>
+<section id="example-1" class="level3">
+<h3>Example</h3>
+<p>p = “Dublin is the capital of Ireland”</p>
+<p>q = “The lecturer is O’Sullivan”</p>
+<p>Both are true, so p↔q is T.</p>
+</section>
+<section id="how-do-we-interpret-biconditional" class="level3">
+<h3>How do we interpret biconditional?</h3>
+<p>Ofen interpreted as “if and only if”.</p>
+</section>
+<section id="warning" class="level3">
+<h3>Warning</h3>
+<p>It does not mean that p and q are the same thing. It means that they have the same truth values.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

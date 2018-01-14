@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>MIPS and other ISAs</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="instruction-set-architecture-the-language-of-the-computer" class="level1">
+<h1>Instruction Set Architecture: The Language of the Computer</h1>
+<p>The instruction set is the repertoire of instructions of a computer.</p>
+<p>Different computers have different instruction sets, but there are many aspects in common.</p>
+<p>Early computers had very simple instruction sets. Simplified implementation.</p>
+<p>Many modern computers also have simple instruction sets, though expanded.</p>
+<section id="mips-instruction-set" class="level2">
+<h2>MIPS Instruction Set</h2>
+<p>Stanford MIPS commercialised by MIPS Technologies (www.mips.com).</p>
+<p>This has a large share of embedded core market.</p>
+<p>Typical of many modern ISAs: * Intel x86 * ARMv7 * ARMv8</p>
+<section id="arithmetic-operations" class="level3">
+<h3>Arithmetic Operations</h3>
+<p>Add and subtract each have three operands:</p>
+<ul>
+<li>two sources</li>
+<li><p>one destination</p>
+<p>add a, b, c # a gets b + c</p></li>
+<li><p>All arithmetic operations have this form.</p></li>
+<li>Design Principle 1: Simplicity favours regularity
+<ul>
+<li>Regularity makes implementation simpler</li>
+<li>Simplicity enables higher performance at lower cost</li>
+<li>Separation of source and destination is the simplicity (?)</li>
+</ul></li>
+</ul>
+<p>C code:</p>
+<pre class="sourceCode c" id="cb1"><code class="sourceCode c"><div class="sourceLine" id="cb1-1" data-line-number="1">f = (g + h) - (i + j);</div></code></pre>
+<p>Compiled MIPS code:</p>
+<pre class="sourceCode mips" id="cb2"><code class="sourceCode mips"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">add</span> t0, g, h    <span class="co"># temp t0 = g + h</span></div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">add</span> t1, i, <span class="kw">j</span>    <span class="co"># temp t1 = i + j</span></div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">sub</span> f, t0, t1   <span class="co"># f = t0 - t1</span></div></code></pre>
+</section>
+<section id="register-operands" class="level3">
+<h3>Register Operands</h3>
+<p>Arithmetic instructions use register operands/</p>
+<p>MIPS has 32 32-bit registers (32 x 32-bit register file.)</p>
+<ul>
+<li>Each register can store up to 32 bits.</li>
+<li>They’re numbered from 0 to 31.</li>
+<li>32-bit data is called a “word”.</li>
+</ul>
+<p>Assembler names:</p>
+<ul>
+<li>$t0, $t1, … $t9
+<ul>
+<li>temporary variables</li>
+</ul></li>
+<li>$s0, $s1 … $s9
+<ul>
+<li>saved variables</li>
+</ul></li>
+</ul>
+<p>Design Principle 2: Smaller is faster. If we have more registers, the clock time has to increase. If we keep the number of registers low, we can have a faster clock time, but we need to spend more time swapping things. It’s a compromise.</p>
+<p>MIPS code:</p>
+<pre><code>add $t0, $s1, $s2
+add $t1, $s3, $s4
+sub $s0, $t0, $t1</code></pre>
+</section>
+<section id="memory-operands" class="level3">
+<h3>Memory Operands</h3>
+<p>Main memory is used for composite data (arrays, structures, dynamic data).</p>
+<p>To apply arithmetic operations, we need to load values from memory into registers, and then store the result from registers into memory.</p>
+<p>Memory is byte addressed (each address identifies an 8-bit byte).</p>
+<p>Words are aligned in memory (address must be a multiple of 4).</p>
+<p>MIPS is big-endian:</p>
+<ul>
+<li>Most significant byte is at the least address of a word</li>
+<li>Opposite of little-endian</li>
+</ul>
+<section id="example" class="level4">
+<h4>Example</h4>
+<p>C code:</p>
+<pre><code>g = h + A[8];</code></pre>
+<p>Compiled MIPS code:</p>
+<pre><code>* we have the base address of A in $s3, g in $s1, and h in $s2
+* The index of 8 requires an offset from the base address of the array of 32 (4 bytes per word – 4 * 8 = 32)
+
+lw $t0, 32($s0)</code></pre>
+<p>C code:</p>
+<pre><code>A[12] = h + A[8];</code></pre>
+<p>Compiled MIPS code:</p>
+<pre><code>lw $t0, 32(£s3)     # load word
+add $t0, $s2, $t0
+sw $t0, 48($s3)     # save word</code></pre>
+</section>
+</section>
+<section id="register-vs.memory" class="level3">
+<h3>Register vs. Memory</h3>
+<ul>
+<li>Registers are faster to access than memory</li>
+<li>Operating on memory data requires loads and stores
+<ul>
+<li>more instructions to be executed</li>
+</ul></li>
+<li>Compilers must use register for variables as much as possible
+<ul>
+<li>only spill to memory for less frequently used variables</li>
+<li>Register optimisation is important</li>
+</ul></li>
+</ul>
+</section>
+<section id="immediate-operands" class="level3">
+<h3>Immediate Operands</h3>
+<ul>
+<li>Constant data specified in an instruction<br />
+<code>addi $s3, $s3, 4</code></li>
+<li>The add-immediate command can add a value to a stored register and stored the value in the same register</li>
+<li>To do negative numbers, use <code>addi</code> with a negative constant:<br />
+<code>addi $s2, $s1, -4</code></li>
+</ul>
+<p>Design Principle 3: Make the common case fast</p>
+<pre><code>* Small constants are common
+* Immediate operand avoids a load instruction</code></pre>
+</section>
+<section id="the-constant-zero" class="level3">
+<h3>The Constant Zero</h3>
+<p>MIPS register 0 ($zero) is the constant 0. It can’t be overwitten.</p>
+<p>It’s useful for common operations, e.g. moving between registers:</p>
+<pre><code>add $t2, $s1, $zero</code></pre>
+</section>
+<section id="unsigned-binary-integers" class="level3">
+<h3>Unsigned Binary Integers</h3>
+<p>Range of an n-bit unsigned integer is 0 – 2^n - 1</p>
+</section>
+<section id="s-complement-signed-integers" class="level3">
+<h3>2’s Complement Signed Integers</h3>
+<p>Given an n-bit number:</p>
+<pre><code>x = -x_(n-1)2^(n-1) + […]</code></pre>
+<ul>
+<li>If the most significant digit is a 1, it’s a negative number.</li>
+<li>There’s one more negative number than there are positive numbers.</li>
+<li>To negate a 2’s complement number, you invert all binary digits, and then add one to it.</li>
+</ul>
+</section>
+<section id="signed-extension" class="level3">
+<h3>Signed Extension</h3>
+<p>Representing a number using more bits – putting an 8-bit number in 16-bit memory, for example.</p>
+<ul>
+<li>Replicate the sign bit to the left.
+<ul>
+<li>For unsigned values, extend with 0s.</li>
+</ul></li>
+</ul>
+</section>
+<section id="representing-instructions" class="level3">
+<h3>Representing Instructions</h3>
+<p>Instructions are encoded in binary (machine code).</p>
+<p>MIPS instructions are encoded as 32-bit instruction words. This provides the ability to map registers into numbers.</p>
+<pre><code>* This layout is called instruction format.</code></pre>
+</section>
+<section id="register-numbers" class="level3">
+<h3>Register Numbers</h3>
+<ul>
+<li><code>$t0</code> to <code>$t7</code> are mapped to register numbers 8-15</li>
+<li><code>$t8</code> to <code>$t9</code> are mapped to register numbers 24-25 […]</li>
+</ul>
+</section>
+<section id="mips-r-format-instructions" class="level3">
+<h3>MIPS R-Format Instructions</h3>
+<p>This is the format for register-format MIPS instruction. These all have 3 operands.</p>
+<ul>
+<li>op: 6 bits
+<ul>
+<li>operation code</li>
+</ul></li>
+<li>rs: 5 bits
+<ul>
+<li>register source [check]</li>
+</ul></li>
+<li>rt: 5 bits
+<ul>
+<li>[check]</li>
+</ul></li>
+<li>rd: 5 bits
+<ul>
+<li>destination register</li>
+</ul></li>
+<li>shamt: 5 bits
+<ul>
+<li>shift amount</li>
+</ul></li>
+<li>funct: 6 bits
+<ul>
+<li>function e.g. add</li>
+</ul></li>
+</ul>
+</section>
+<section id="mips-i-format-instructions" class="level3">
+<h3>MIPS I-Format Instructions</h3>
+<ul>
+<li>op: 6 bits</li>
+<li>rs: 5 bits</li>
+<li>rt: 5 bits
+<ul>
+<li>destination or source register number</li>
+</ul></li>
+<li>constant or address: 16 bits
+<ul>
+<li>offset added to base address in rs</li>
+</ul></li>
+</ul>
+</section>
+<section id="memory-stored-program-concept" class="level3">
+<h3>Memory: Stored-program Concept</h3>
+<p>Everything is in memory, just in different locations (source code, compiler, machine code, data).</p>
+<p>Two key principles:</p>
+<ul>
+<li>Instructions represented in binary, just like data</li>
+<li>Instructions and data stored in memory</li>
+</ul>
+<p>Programs can operate on programs, e.g. compilers, linkers.</p>
+<p>Binary compatibility allows compiled programs to work on different computers – standardised ISAs.</p>
+</section>
+<section id="logical-operations" class="level3">
+<h3>Logical Operations</h3>
+<p>Instructions for bitwise manipulation.</p>
+<ul>
+<li><code>sll</code> - shift left</li>
+<li><code>srl</code> - shift right</li>
+<li><code>and</code>, <code>andi</code> - bitwise AND […]</li>
+</ul>
+<p>Shifting left and filling with 0s is multiplying by powers of 2.</p>
+<p>Shifting right and filling with 0s is dividing by powers of 2.</p>
+<section id="and-operations" class="level4">
+<h4>AND Operations</h4>
+<p>These are useful to mask bits in a word – you can select some bits, clear others to 0.</p>
+<pre><code>and $t0, $t1, $t2</code></pre>
+</section>
+<section id="or-operations" class="level4">
+<h4>OR Operations</h4>
+<p>Useful to include bits in a word – set some bits to 1 while leaving others unchanged.</p>
+<pre><code>or $t0, $t1, $t2</code></pre>
+</section>
+<section id="not-operations" class="level4">
+<h4>NOT Operations</h4>
+<p>Useful to invert bits in a word. In MIPS, the NOR operation is used by NORing with zero.</p>
+<pre><code>nor $t0, $t1, $zero</code></pre>
+</section>
+</section>
+<section id="conditional-operations" class="level3">
+<h3>Conditional Operations</h3>
+<p>Branch to a labeled instruction if a condition is true, otherwise continue sequentially.</p>
+<p>MIPS supports two:</p>
+<ol type="1">
+<li><code>beq rs, rt, L1</code>
+<ul>
+<li>If rs == rt branch to instruction labelled L1</li>
+</ul></li>
+<li><code>bne rs, rt, L1</code>
+<ul>
+<li>If rs != rt branch to instruction labeled L1</li>
+</ul></li>
+</ol>
+<p>There’s also an unconditional jump:</p>
+<pre><code>j L1</code></pre>
+<p>MIPS assembler handles label addresses.</p>
+</section>
+<section id="basic-blocks" class="level3">
+<h3>Basic Blocks</h3>
+<p>A basic block is a sequence of instructions with:</p>
+<ul>
+<li>no embedded branches (except at the end)</li>
+<li>no branch targets (except at the beginning)</li>
+</ul>
+<p>A compiler identifies basic blocks for optimisation.</p>
+<p>An advanced compiler can accelerate execution of basic blocks.</p>
+</section>
+<section id="more-conditional-operators" class="level3">
+<h3>More Conditional Operators</h3>
+<p>Set a result to 1 if a condition is true, otherwise set the result to 0.</p>
+<ul>
+<li><p>Set less than:</p>
+<p>slt rd, rs, rt</p></li>
+<li><p>Set less than (immediate):</p>
+<p>slti rt, rs, constant</p></li>
+</ul>
+<p>These are used with <code>beq</code> and <code>bne</code>:</p>
+<pre><code>slt $t0, $s1, $s2
+bne $t0, $zero, L</code></pre>
+</section>
+<section id="signed-vs.unsigned" class="level3">
+<h3>Signed vs. Unsigned</h3>
+<p><code>slt</code> and <code>slti</code> are for signed comparisons.</p>
+<p>Unsigned equivalents are <code>sltu</code> and <code>sltui</code>.</p>
+<p>Important distinction because negative signed numbers will be read as large unsigned numbers by unsigned comparisons and vice-versa.</p>
+</section>
+<section id="procedure-calling" class="level3">
+<h3>Procedure Calling</h3>
+<p>Procedures allow programmers to concentrate on a portion of a task at a time. Each includes a parameter to interface with the rest of the program. Equivalent to functions.</p>
+<p>Steps:</p>
+<ol type="1">
+<li>Place parameters in special registers</li>
+<li>Transfer control to the procedure</li>
+<li>Acquire storage for the procedure</li>
+<li>Perform procedure’s operations</li>
+<li>Place result in register for caller</li>
+<li>Return to place of call</li>
+</ol>
+<section id="register-usage" class="level4">
+<h4>Register Usage</h4>
+<ul>
+<li><code>$a0</code> to <code>$a3</code> are argument registers for passing parameters.
+<ul>
+<li>numbers 4-7</li>
+</ul></li>
+<li><code>$v0</code> and <code>$v1</code> are registers for result values
+<ul>
+<li>numbers 2 and 3</li>
+</ul></li>
+<li>temp</li>
+<li>saved</li>
+<li><code>$gp</code>
+<ul>
+<li>global pointer for static data (number 28)</li>
+</ul></li>
+<li>stack pointer <code>$sp</code></li>
+<li>frame pointer <code>$fp</code></li>
+<li>return address <code>$ra</code></li>
+</ul>
+</section>
+<section id="procedure-call-instructions" class="level4">
+<h4>Procedure Call Instructions</h4>
+<p>Special instruction for procedure call: “jump and link”</p>
+<pre class="sourceCode mips" id="cb17"><code class="sourceCode mips"><div class="sourceLine" id="cb17-1" data-line-number="1">    <span class="kw">jal</span> ProcedureLabel</div></code></pre>
+<ul>
+<li>Address of following instruction put in <code>$ra</code>.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="procedure-call-instructions-1" class="level2">
+<h2>Procedure Call Instructions</h2>
+<section id="jump-and-link" class="level3">
+<h3>Jump and Link</h3>
+<pre class="sourceCode mips" id="cb18"><code class="sourceCode mips"><div class="sourceLine" id="cb18-1" data-line-number="1"><span class="kw">jal</span> ProcedureLabel</div></code></pre>
+<ul>
+<li>Address of following instruction put in $ra</li>
+<li>Jumps to target address</li>
+</ul>
+<pre class="sourceCode mips" id="cb19"><code class="sourceCode mips"><div class="sourceLine" id="cb19-1" data-line-number="1"><span class="kw">jr</span> <span class="dt">$ra</span></div></code></pre>
+<ul>
+<li>Unconditional jump</li>
+<li>Copies $ra to program counter</li>
+<li>Can also be used for computed jumps (e.g. for case/switch statements)</li>
+</ul>
+</section>
+</section>
+<section id="leaf-procedure-and-stack-memory" class="level2">
+<h2>Leaf Procedure and Stack Memory</h2>
+<p>A leaf procedure is a procedure that does not call another procedure.</p>
+<p>You can use <code>push</code> to add an element to the stack and subtract from the stack pointer.</p>
+<section id="example-1" class="level3">
+<h3>Example</h3>
+<pre class="sourceCode c" id="cb20"><code class="sourceCode c"><div class="sourceLine" id="cb20-1" data-line-number="1"><span class="dt">int</span> leaf_example(<span class="dt">int</span> g, h, i, j)</div>
+<div class="sourceLine" id="cb20-2" data-line-number="2">{</div>
+<div class="sourceLine" id="cb20-3" data-line-number="3">    <span class="dt">int</span> f;</div>
+<div class="sourceLine" id="cb20-4" data-line-number="4">    f = (g + h) - (i + j);</div>
+<div class="sourceLine" id="cb20-5" data-line-number="5">    <span class="cf">return</span> f;</div>
+<div class="sourceLine" id="cb20-6" data-line-number="6">}</div></code></pre>
+<pre class="sourceCode mips" id="cb21"><code class="sourceCode mips"><div class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw">addi</span>    <span class="dt">$sp</span>,    <span class="dt">$sp</span>,    <span class="dv">-4</span></div>
+<div class="sourceLine" id="cb21-2" data-line-number="2"><span class="kw">sw</span>      <span class="dt">$0</span>,     <span class="dv">0</span>(<span class="dt">$sp</span>)</div>
+<div class="sourceLine" id="cb21-3" data-line-number="3"><span class="kw">add</span>     <span class="dt">$t0</span>,    <span class="dt">$a0</span>,    <span class="dt">$a1</span></div>
+<div class="sourceLine" id="cb21-4" data-line-number="4">[…]</div></code></pre>
+<ul>
+<li>Note we save the value on <code>$s0</code> in the stack when the function is called, to preserve the value in this memory, and load it again</li>
+<li>We use <code>-4</code> for the incrementation of the stack pointer because there are 4 bytes in a word, and we are storing a word for one register</li>
+</ul>
+</section>
+</section>
+<section id="non-leaf-procedures" class="level2">
+<h2>Non-Leaf Procedures</h2>
+<p>These are procedures that call other procedures.</p>
+<p>For a nested call, the caller needs to save the following on the stack:</p>
+<ul>
+<li>Its return address</li>
+<li>Any arguments and temporaries needed after the call</li>
+</ul>
+<p>These are restored from the stack after the call</p>
+<section id="example-2" class="level3">
+<h3>Example</h3>
+<p>[…]</p>
+<ul>
+<li>We have to save the return address when the procedure is called, and any arguments</li>
+</ul>
+</section>
+</section>
+<section id="local-data-on-the-stack" class="level2">
+<h2>Local Data on the Stack</h2>
+<ul>
+<li>Frame pointer points to the first word of a procedure frame</li>
+</ul>
+<p>[…]</p>
+</section>
+<section id="memory-layout" class="level2">
+<h2>Memory Layout</h2>
+<ul>
+<li>Dynamic data is the heap
+<ul>
+<li>Arrays, other data that can grow are stored here</li>
+</ul></li>
+<li>Static data is pointed to by <code>$gp</code>, with +/- offests</li>
+<li>Text is the program code […]</li>
+</ul>
+</section>
+<section id="character-data" class="level2">
+<h2>Character Data</h2>
+<ul>
+<li>Byte-encoded character sets
+<ul>
+<li>ASCII: 128 characters (95 graphic, 33 control)</li>
+<li>Latin-1: 256 characters (ASCII + more graphic characters)</li>
+</ul></li>
+<li>Unicode: 32-bit character set
+<ul>
+<li>Used in Java, C++ wide characters, …</li>
+<li>Most of the world’s alphabets, plus symbols</li>
+<li>UTF-8, UTF-16: variable-length encodings</li>
+</ul></li>
+</ul>
+<section id="string-copy-example" class="level3">
+<h3>String Copy Example</h3>
+<p>Copies a null-terminated string to a new string.</p>
+<pre class="sourceCode c" id="cb22"><code class="sourceCode c"><div class="sourceLine" id="cb22-1" data-line-number="1"><span class="dt">void</span> strcpy (<span class="dt">char</span> x[], <span class="dt">char</span> y[])</div>
+<div class="sourceLine" id="cb22-2" data-line-number="2">{</div>
+<div class="sourceLine" id="cb22-3" data-line-number="3">    <span class="dt">int</span> i;</div>
+<div class="sourceLine" id="cb22-4" data-line-number="4">    i = <span class="dv">0</span>;</div>
+<div class="sourceLine" id="cb22-5" data-line-number="5">    <span class="cf">while</span> ((x[i] = y[i]) != &#39;\<span class="dv">0</span>&#39;)</div>
+<div class="sourceLine" id="cb22-6" data-line-number="6">        i += <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb22-7" data-line-number="7">}</div></code></pre>
+<p>[…]</p>
+<ul>
+<li>Have to store <code>$s0</code></li>
+<li>Use the <code>lbu</code> (load byte unsigned) command to copy each character (each character in C is a byte).</li>
+<li>Use <code>addi $sp, $sp, 4</code> to pop 1 item from the stack</li>
+<li><code>sb</code> is save byte (I’m guessing)</li>
+</ul>
+</section>
+</section>
+<section id="bit-constants" class="level2">
+<h2>32-bit Constants</h2>
+<p>Most constants are small – 16-bit immediate is sufficient.</p>
+<p>For 32-bit constants:</p>
+<pre class="sourceCode mips" id="cb23"><code class="sourceCode mips"><div class="sourceLine" id="cb23-1" data-line-number="1"><span class="kw">lui</span> <span class="dt">$s0</span>, <span class="dv">61</span></div></code></pre>
+<ul>
+<li>Use this command with the value represented by the left 16 bits</li>
+<li>This then clears the right 16 bits of $s0 to 0</li>
+</ul>
+<p>Then you do:</p>
+<pre class="sourceCode mips" id="cb24"><code class="sourceCode mips"><div class="sourceLine" id="cb24-1" data-line-number="1"><span class="kw">ori</span> <span class="dt">$s0</span>, <span class="dt">$s0</span>, <span class="dv">2304</span></div></code></pre>
+<ul>
+<li>This copies in the right digits (which in this number have the value 2304).</li>
+</ul>
+</section>
+<section id="branch-addressing" class="level2">
+<h2>Branch Addressing</h2>
+<p>[…]</p>
+<p>PC-relative addressing is used for 32-bit addresses in a 16-bit space.</p>
+</section>
+<section id="mips-addressing-mode-summary" class="level2">
+<h2>MIPS Addressing Mode Summary</h2>
+<ol type="1">
+<li>Immediate Addressing</li>
+<li>Register Addressing</li>
+<li>Base addressing</li>
+<li>PC-relative addressing</li>
+<li>Pseudodirect addressing</li>
+</ol>
+</section>
+</section>
+<section id="parallel-execution-synchronisation" class="level1">
+<h1>Parallel Execution Synchronisation</h1>
+<p>Two processors sharing an area of memory</p>
+<ul>
+<li>P1 writes, then P2 reads</li>
+<li>Data race if P1 and P2 don’t synchronise (P1 might re-write a value before P2 has a chance to read it)
+<ul>
+<li>result depends on order of accesses</li>
+</ul></li>
+</ul>
+<p>Hardware support is required.</p>
+<ul>
+<li>Atomic read</li>
+</ul>
+<p>[…]</p>
+<section id="synchronisation-in-mips" class="level2">
+<h2>Synchronisation in MIPS</h2>
+<ul>
+<li>load linked: <code>ll rt, offset(rs)</code>
+<ul>
+<li>Loads a particular area and blocks other people from writing to it</li>
+</ul></li>
+<li>store conditional: <code>sc rt, offset(rs)</code>
+<ul>
+<li>this succeeds if the location isn’t changed since the <code>ll</code>
+<ul>
+<li>returns 1 in rt</li>
+</ul></li>
+<li>fails if location is changed
+<ul>
+<li>returns 0 in rt</li>
+</ul></li>
+</ul></li>
+</ul>
+<section id="example-3" class="level3">
+<h3>Example</h3>
+<pre class="sourceCode mips" id="cb25"><code class="sourceCode mips"><div class="sourceLine" id="cb25-1" data-line-number="1"><span class="ot">try:</span> <span class="kw">add</span> <span class="dt">$t0</span>, <span class="dt">$zero</span>, <span class="dt">$s4</span></div>
+<div class="sourceLine" id="cb25-2" data-line-number="2">     ll <span class="dt">$t1</span>, <span class="dv">0</span>(<span class="dt">$s1</span>)</div>
+<div class="sourceLine" id="cb25-3" data-line-number="3">     sc <span class="dt">$t0</span>, <span class="dv">0</span>(<span class="dt">$s1</span>)</div>
+<div class="sourceLine" id="cb25-4" data-line-number="4">     <span class="kw">beq</span> <span class="dt">$t0</span>, <span class="dt">$zero</span>, try</div>
+<div class="sourceLine" id="cb25-5" data-line-number="5">     <span class="kw">add</span> <span class="dt">$s4</span>, <span class="dt">$zero</span>, <span class="dt">$t1</span></div></code></pre>
+</section>
+</section>
+<section id="program-translation-and-startup" class="level2">
+<h2>Program Translation and Startup</h2>
+<p>[…]</p>
+</section>
+<section id="assembler-pseudoinstructions" class="level2">
+<h2>Assembler Pseudoinstructions</h2>
+<ul>
+<li>Most assembler instructions represent machine instructions 1-to-1</li>
+<li>Pseudoinstructions are ones that don’t:<br />
+<code>move $t0, $t1</code> -&gt; <code>add $t0, $zero, $t1</code> <code>blt $t0, $t1, L</code> -&gt; <code>slt $at, $t0, $t1</code> <code>bne $at, $zero, L</code></li>
+</ul>
+</section>
+<section id="producing-an-object-module" class="level2">
+<h2>Producing an Object Module</h2>
+<ul>
+<li>The Assembler (or compiler) translates program into machine instructions</li>
+<li>Provides information for building a complete program from the pieces
+<ul>
+<li>header: describes contents of object module</li>
+<li>text segment: translated instructions</li>
+<li>Static data segment: data allocated for the life of the program</li>
+<li>relocation into: for contents that depend on absolute location of loaded program</li>
+<li>symbol table: global definitions and external refs</li>
+<li>debug info: for associating with source code</li>
+</ul></li>
+</ul>
+</section>
+<section id="linking-object-modules" class="level2">
+<h2>Linking Object Modules</h2>
+<ul>
+<li>Produces an executable image
+<ol type="1">
+<li>Merges segments</li>
+<li>Resolve labels (determine their addresses)</li>
+<li>Patch location-independent and external regs</li>
+</ol></li>
+<li>Could […]</li>
+</ul>
+</section>
+<section id="dynamic-linking" class="level2">
+<h2>Dynamic Linking</h2>
+<p>Code is compiled into different blocks, and those blocks only have to be re-compiled when they’re changed.</p>
+<ul>
+<li>Only link/load library procedure when it is called.
+<ul>
+<li>This requires the procedure code to be relocatable.</li>
+<li>We avoid image bloat caused by static linking of all (transitively) referenced libraries.</li>
+<li>This automatically picks up new library versions.</li>
+</ul></li>
+</ul>
+<section id="lazy-linkage" class="level3">
+<h3>Lazy Linkage</h3>
+<p>When a particular function or procedure is called, the links are made – it doesn’t need to be linked up before execution.</p>
+<p>The first time a particular thing is linked, there are some setup steps. Subsequent calls have to go through fewer steps and are faster.</p>
+</section>
+</section>
+</section>
+<section id="starting-java-application" class="level1">
+<h1>Starting Java Application</h1>
+<p>Java uses the Java Virtual Machine with the goal of being able to run on any system.</p>
+<ul>
+<li>Code is first compiled to java bytecode
+<ul>
+<li>This is a very quick compilation</li>
+</ul></li>
+<li>The “Just In Time” compiler compiles bytecodes of “hot” methods into native code for host machine
+<ul>
+<li>Methods that are used often are compiled by this compiler.</li>
+<li>Ones that are used less often won’t be compiled, and will be interpreted by the JVM instead.</li>
+<li>compromise between execution speed and portability</li>
+</ul></li>
+</ul>
+<p>Java used to be much slower than C, but is catching up in recent years.</p>
+</section>
+<section id="bubble-sort-procedure" class="level1">
+<h1>Bubble Sort Procedure</h1>
+<section id="c" class="level2">
+<h2>C</h2>
+<pre class="sourceCode c" id="cb26"><code class="sourceCode c"><div class="sourceLine" id="cb26-1" data-line-number="1"><span class="dt">void</span> sort(<span class="dt">int</span> v[], <span class="dt">int</span> n)</div>
+<div class="sourceLine" id="cb26-2" data-line-number="2">{</div>
+<div class="sourceLine" id="cb26-3" data-line-number="3">    <span class="dt">int</span> i, j;</div>
+<div class="sourceLine" id="cb26-4" data-line-number="4">    <span class="cf">for</span> (i = <span class="dv">0</span>; i &lt; n; i++) {</div>
+<div class="sourceLine" id="cb26-5" data-line-number="5">        <span class="cf">for</span> (j = i - <span class="dv">1</span>; j &gt;= <span class="dv">0</span> &amp;&amp; v[j] &gt; v[j + <span class="dv">1</span>]; j -= <span class="dv">1</span>) {</div>
+<div class="sourceLine" id="cb26-6" data-line-number="6">            swap(v, j);</div>
+<div class="sourceLine" id="cb26-7" data-line-number="7">        }</div>
+<div class="sourceLine" id="cb26-8" data-line-number="8">    }</div>
+<div class="sourceLine" id="cb26-9" data-line-number="9">}</div></code></pre>
+<ul>
+<li>To convert to MIPS, we put v in <code>$a0</code>, k in <code>$a1</code>, […]</li>
+</ul>
+</section>
+<section id="mips" class="level2">
+<h2>MIPS</h2>
+<pre class="sourceCode mips" id="cb27"><code class="sourceCode mips"><div class="sourceLine" id="cb27-1" data-line-number="1"><span class="fu">move</span> <span class="dt">$s2</span>, <span class="dt">$a0</span></div>
+<div class="sourceLine" id="cb27-2" data-line-number="2"><span class="fu">move</span> <span class="dt">$s3</span>, <span class="dt">$a1</span></div>
+<div class="sourceLine" id="cb27-3" data-line-number="3"></div>
+<div class="sourceLine" id="cb27-4" data-line-number="4"><span class="fu">move</span> <span class="dt">$s0</span>, <span class="dt">$zero</span></div>
+<div class="sourceLine" id="cb27-5" data-line-number="5"><span class="ot">for1tst:</span>    <span class="kw">slt</span> <span class="dt">$t0</span>, <span class="dt">$s0</span>, <span class="dt">$s3</span></div>
+<div class="sourceLine" id="cb27-6" data-line-number="6">            <span class="kw">beq</span> <span class="dt">$t0</span>, <span class="dt">$zero</span>, exit1</div>
+<div class="sourceLine" id="cb27-7" data-line-number="7">[…]</div></code></pre>
+<ul>
+<li>don’t forget array indices from C have to be multiplied by 4 in MIPS (each index in C corresponds to a word, but memory is byte-addressable in MIPS – 4 bytes in a word of 32 bits, so we multiply by four).
+<ul>
+<li>These are added to the base address for the array</li>
+</ul></li>
+<li>Remember you have to manage the stack pointer yourself – decrementing by 4 for each value you store.</li>
+</ul>
+</section>
+</section>
+<section id="armv7-and-mips-similarities" class="level1">
+<h1>ARMv7 and MIPS Similarities</h1>
+<ul>
+<li>ARMv7 is the most popular embedded core</li>
+</ul>
+<p>The two are similar in many ways:</p>
+<ul>
+<li>both announced in 1985</li>
+<li>instruction size: 32 bits […]</li>
+</ul>
+<p>Differences:</p>
+<ul>
+<li>ARMv7 has 9 data addressing modes</li>
+<li>MIPS only has 3
+<ul>
+<li>register</li>
+<li>constant immediate</li>
+<li>register and displacement</li>
+</ul></li>
+<li>ARMv7 only have 15 32-bit registers</li>
+<li>MIPS has 31 32-bit registers</li>
+</ul>
+<section id="compare-and-branch" class="level2">
+<h2>Compare and Branch</h2>
+<p>MIPS uses the contents of registers to evaluate conditional branches.</p>
+<p>ARMv7 uses condition codes for the result of an arithmetic/logical instruction:</p>
+<ul>
+<li>negative, zero, carry, overflow</li>
+<li>compare instructions to set condition codes without keeping the result</li>
+<li>this is what we saw in CS1110/1111 with Samphire</li>
+</ul>
+<p>Each instruction can be conditional – you can jump based on any instruction, rather than having to use a specific comparison one.</p>
+<ul>
+<li>This can avoid the necessity of branching because of a single instruction
+<ul>
+<li>i.e. you only need your instruction and your jump command</li>
+<li>not jump, check, branch, etc.</li>
+</ul></li>
+</ul>
+</section>
+<section id="armv8" class="level2">
+<h2>ARMv8</h2>
+<p>The new version is 64-bit, and ARM redesigned now.</p>
+<ul>
+<li>ARMv8 resembles MIPS:
+<ul>
+<li>No conditional execution field (flags)</li>
+<li>Immediate field is 12-bit constant</li>
+<li>PC is no longer a GPR</li>
+<li>GPR set expanded to 32</li>
+<li>Addressing modes work for all word sizes</li>
+<li>Divide instruction</li>
+<li>Branch if equal/branch if not equal instructions</li>
+</ul></li>
+</ul>
+<p>These changes were made because (I think) it’s faster now and they can afford to use branch if equal instructions, which are clearer. (Not certain of that.) Possibly just the revisions made it faster.</p>
+</section>
+</section>
+<section id="intel-x86-isa-evolution" class="level1">
+<h1>Intel x86 ISA Evolution</h1>
+<ul>
+<li>Evolution with backward compatibility
+<ul>
+<li>8080 (1974): 8-bit microprocessor
+<ul>
+<li>accumulator plus 3 index-register pairs</li>
+</ul></li>
+<li>8086 (1978): 16-bit extension to 8080
+<ul>
+<li>CISC</li>
+</ul></li>
+<li>8087 (1980): floating-point coprocessor
+<ul>
+<li>adds FP instructions and register stack</li>
+</ul></li>
+<li>80286 (1982): 24-bit addresses
+<ul>
+<li>segmented memory mapping and protection</li>
+</ul></li>
+<li>80386 (1985): 32-bit extension (now IA-32)
+<ul>
+<li>additional addressing modes and operations</li>
+<li>paged memory mapping as well as segments</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>To guarantee backward compatibility, the instruction set only adds instructions – existing ones are never changed or removed. There are now about 900 instructions.</p>
+<section id="basic-x86-addressing-modes" class="level2">
+<h2>Basic x86 Addressing Modes</h2>
+<p>Two operands per instruction.</p>
+<ul>
+<li>source/destination operand</li>
+<li>second source operand</li>
+</ul>
+<p>The first can be a register or memory. The second can be either of those or an immediate value.</p>
+<ul>
+<li>register -&gt; register</li>
+<li>register -&gt; immediate</li>
+<li>register -&gt; memory</li>
+<li>memory -&gt; register</li>
+<li>memory -&gt; immediate</li>
+</ul>
+<p>Memory addressing modes:</p>
+<ul>
+<li>address in register</li>
+<li>register + displacement</li>
+<li>[…]</li>
+</ul>
+</section>
+<section id="x86-instruction-encoding" class="level2">
+<h2>x86 Instruction Encoding</h2>
+<p>Variable length encoding:</p>
+<ul>
+<li>postfix bytes specify addressing mode</li>
+<li>prefix bytes modify operations</li>
+</ul>
+</section>
+<section id="comparison-to-mips-and-armv7" class="level2">
+<h2>Comparison to MIPS and ARMv7</h2>
+<p>x86 computers are more difficult to build because of the complex instructions.</p>
+<p>Market size advantage:</p>
+<ul>
+<li>frequently used components of x86 are not too difficult to implement</li>
+<li>Intel and AMD have experience in this area</li>
+</ul>
+<p>In the post-pc era, x86 has not been competitive in personal mobile devices (it’s mostly ARM and MIPS).</p>
+</section>
+</section>
+<section id="fallacies" class="level1">
+<h1>Fallacies</h1>
+<ul>
+<li>Powerful instructions -&gt; higher performance
+<ul>
+<li>fewer instructions are required</li>
+<li>but complex instructions are hard to implement
+<ul>
+<li>may slow down all instructions, including simple ones</li>
+</ul></li>
+<li>compilers are good at making fast code from simple instructions (in complex instruction sets)</li>
+</ul></li>
+<li>Use assembly code for high performance
+<ul>
+<li>but modern compilers are better at dealing with modern processors
+<ul>
+<li>compilers know more than you do</li>
+</ul></li>
+<li>and more lines of code -&gt; more errors and less productivity</li>
+</ul></li>
+</ul>
+</section>
+<section id="pitfall" class="level1">
+<h1>Pitfall</h1>
+<p>Sequential words are not at sequential addresses</p>
+<ul>
+<li>increment by 4, not by 1</li>
+<li>MIPS uses a 32-bit word that’s equivalent to 4 bytes</li>
+</ul>
+</section>
+<section id="exceptions-and-interrupts" class="level1">
+<h1>Exceptions and Interrupts</h1>
+<p>Different ISAs use the terms differently. In general they’re “unexpected” events that require a change in flow of control.</p>
+<p>In MIPS:</p>
+<ul>
+<li>exceptions arise within the CPU
+<ul>
+<li>e.g. undefined opcode</li>
+<li>overflow</li>
+<li>syscall</li>
+</ul></li>
+<li>interrupts are from an external I/O controller</li>
+</ul>
+<p>It’s difficult to deal with these without sacrificing performance.</p>
+<section id="handling-exceptions" class="level2">
+<h2>Handling Exceptions</h2>
+<p>The current MIPS implementation generates two types of exceptions:</p>
+<ol type="1">
+<li>undefined instruction</li>
+<li>arithmetic overflow</li>
+</ol>
+<p>Handling steps:</p>
+<ol type="1">
+<li>Save address of offending (or interrupted) instruction in the Exception Program Counter (EPC)</li>
+<li>Save an indication of the problem in the Cause register</li>
+<li>Transfer execution to the operating system
+<ul>
+<li>this takes appropriate action by using the EPC to determine where to restart program execution</li>
+</ul></li>
+</ol>
+</section>
+<section id="vectored-interrupts" class="level2">
+<h2>Vectored Interrupts</h2>
+<p>This is an alternative to handling exceptions.</p>
+<p>The handler address is determined by the cause – each instruction is given an address (which specifies how to handle it)?.</p>
+<p>When the exception occurs, that address is copied to the EPC and pushed to the OS.</p>
+</section>
+<section id="handler-actions" class="level2">
+<h2>Handler Actions</h2>
+<ol type="1">
+<li>Read cause, transfer to relevant handler</li>
+<li>Determine action required</li>
+<li>If restartable
+<ul>
+<li>take corrective action</li>
+<li>use EPC to return to program</li>
+</ul></li>
+<li>Otherwise
+<ul>
+<li>terminate program</li>
+<li>report error using EPC, cause</li>
+</ul></li>
+</ol>
+</section>
+<section id="exceptions-in-a-pipeline" class="level2">
+<h2>Exceptions in a Pipeline</h2>
+<p>These are seen as another form of control hazard (branch hazard).</p>
+<ul>
+<li>Need to complete previous instructions before transferring control to the handler.</li>
+</ul>
+<p>Handling of these is similar to a mispredicted branch.</p>
+</section>
+<section id="exception-properties" class="level2">
+<h2>Exception Properties</h2>
+<ul>
+<li>Restartable or not
+<ul>
+<li>pipeline can flush the instruction, let the handler execute, and return to the instruction if it is
+<ul>
+<li>the instruction is refetched and executed from scratch</li>
+</ul></li>
+</ul></li>
+<li>Address saved in EPC register
+<ul>
+<li>identifies causing instruction</li>
+<li>PC + 4 is actually what’s saved (the handler subtracts 4 again)</li>
+</ul></li>
+</ul>
+</section>
+<section id="multiple-exceptions" class="level2">
+<h2>Multiple Exceptions</h2>
+<ul>
+<li>out-of-order completions: second instruction could finish before the first (in a pipeline)</li>
+</ul>
+<section id="imprecise-exception-handling" class="level3">
+<h3>Imprecise Exception Handling</h3>
+<ul>
+<li>Let the OS work out which instruction had exceptions, rather than working it out in hardware</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

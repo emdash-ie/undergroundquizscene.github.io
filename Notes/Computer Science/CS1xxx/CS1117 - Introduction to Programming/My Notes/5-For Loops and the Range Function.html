@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>5-For Loops and the Range Function</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="the-for-statement-the-range-function" class="level1">
+<h1>The ‘for’ Statement &amp; The ‘range’ Function</h1>
+<hr />
+<section id="the-for-statement" class="level3">
+<h3>The ‘for’ Statement</h3>
+<p>The <code>for</code> statement is a type of loop, allowing you to execute the same code a bunch of times:</p>
+<pre><code>for item in &#39;abcde&#39;:
+    print(item)
+    linenum = linenum + 1
+    </code></pre>
+<p>This code sets item to ‘a’, prints it, increases linenum by 1, then sets item to ‘b’ and prints that, and increases linenum by 1 again, and so on until it’s done all the letters in ‘abcde’.</p>
+<ul>
+<li><code>linenum = linenum + 1</code> can be abbreviated as <code>linenum += 1</code></li>
+<li>This works for the other arithmetic operators as well.</li>
+</ul>
+</section>
+<section id="the-range-function" class="level3">
+<h3>The ‘range’ Function</h3>
+<p>If n is an int which is greater than or equal to 0, range(n) produces the sequence <code>0, 1, 2, … n-1</code>.</p>
+<p>Example:</p>
+<pre><code>range(5)    =&gt;  [0, 1, 2, 3, 4]</code></pre>
+<p>It can also be called with two parameters to specify an alternate start-point:</p>
+<pre><code>range(5, 10) =&gt; [5, 6, 7, 8, 9]</code></pre>
+<hr />
+<section id="handouts-assignments" class="level6">
+<h6>Handouts &amp; Assignments</h6>
+<ul>
+<li>Handout 4 - The ‘for’ Statement</li>
+<li>Handout 5 - The ‘range’ Statement</li>
+<li>Assignment 3 - The ‘for’ Statement</li>
+<li>Assignment 4 - The ‘range’ Statement</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

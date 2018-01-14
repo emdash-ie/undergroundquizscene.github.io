@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>15-Object-Oriented Programming</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="object-oriented-programming" class="level1">
+<h1>Object-Oriented Programming</h1>
+<hr />
+<section id="objects" class="level3">
+<h3>Objects</h3>
+<p>As opposed to procedural programming, which views data as passive and functions as active, OOP views things as objects, which are active.</p>
+<p>Objects have fields (variables) which store data, and methods (functions) which do things.</p>
+</section>
+<section id="class-definitions" class="level3">
+<h3>Class Definitions</h3>
+<p>Class definitions are templates for creating objects, defining what methods and fields they have.</p>
+<p>Class definitions allow you to create two objects from the same class definition, e.g. two bank accounts. These bank accounts will have the same structure, but have their own copies of any data, allowing (e.g.) each bank account to have an individual balance.</p>
+</section>
+<section id="methods" class="level3">
+<h3>Methods</h3>
+<p>The syntax for calling a method <em>Deposit</em> of an object <em>a</em> is as follows:</p>
+<pre><code>a.Deposit(arguments)</code></pre>
+<p>All method definitions must have ‘self’ as their first argument (in Python it technically doesn’t have to be called ‘self’, but it’s good convention), which allows each method to access all of the object’s data and functions.</p>
+<p>When calling a method you only have to provide subsequent arguments—the ‘self’ argument is taken care of internally.</p>
+<section id="the-__init__-method" class="level5">
+<h5>The <code>__init__</code> Method</h5>
+<p>When an object is created from a class, the <code>__init__</code> function of that class is called to create that object and define its fields.</p>
+<p>This function must also have ‘self’ as its first argument, which feels a bit weird.</p>
+</section>
+</section>
+<section id="on-the-ideology-of-object-oriented-programming" class="level3">
+<h3>On the Ideology of Object-Oriented Programming</h3>
+<p>It would be difficult to really show how useful OOP is within small examples, but here’s something:</p>
+<ul>
+<li><em>A user should only access the methods of an object, rather than accessing the fields directly.</em></li>
+</ul>
+<p>(e.g. the user should not type <code>a._balance += 200</code> and should instead type <code>a.Deposit(200)</code>)</p>
+<hr />
+<section id="handouts" class="level6">
+<h6>Handouts:</h6>
+<ul>
+<li>Handout 21 - Object Oriented Programming</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

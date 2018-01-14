@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2-Extensible Markup Language</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="extensible-markup-language" class="level1">
+<h1>Extensible Markup Language</h1>
+<hr />
+<p>XML is quite simple, we will cover it quickly.<br />
+Most of our time will be spent on XSL, the stylesheet equivalent, which is much more complicated than CSS.</p>
+<section id="background" class="level2">
+<h2>Background</h2>
+<section id="html-is-not-extensible" class="level3">
+<h3>HTML is not Extensible</h3>
+<p>In HTML we can’t define things like poem or verse or line, for example – we can’t define whatever we want. We instead have to adapt existing structures, e.g. <code>&lt;h1&gt;</code> and <code>&lt;ol&gt;</code>.</p>
+<p>If we do, how would other people know what conventions we used? We want a way of defining purpose-specific tags.</p>
+</section>
+<section id="sgml" class="level3">
+<h3>SGML</h3>
+<p>There is an older language SGML (Standard Generalised Markup Language), which was invented by IBM and used for marking up electronic documents. SGML is a meta-language, a language for describing other languages.</p>
+<p>It is used to define markup languages for specific applications, for example: poetry, legal documents.</p>
+<p>HTML was defined using SGML.</p>
+</section>
+<section id="why-not-sgml" class="level3">
+<h3>Why not SGML?</h3>
+<ul>
+<li>SGML is more complex than is needed.</li>
+<li>Many of its features are only rarely used.</li>
+<li>XML is a version of SGML which omits rarely-used features and simplifies the tasks of:
+<ul>
+<li>defining document types</li>
+<li>writing programs which process documents</li>
+</ul></li>
+<li>Software for processing SGML can still be used to process XML files.</li>
+</ul>
+</section>
+<section id="xml" class="level3">
+<h3>XML</h3>
+<p>XML is a meta-language, a simpler version of SGML, adequate for web purposes.</p>
+<p>With XML you can:</p>
+<ul>
+<li>define new tags</li>
+<li>use these to define platform-independent languages and data structures</li>
+</ul>
+<p>With XML <strong>you can’t specify rendering</strong> (appearance e.g. italics, bold). To control appearance there are other technologies.</p>
+</section>
+<section id="what-is-xml-good-for" class="level3">
+<h3>What is XML Good For?</h3>
+<ul>
+<li>Defining new markup languages</li>
+<li>Data-exchange
+<ul>
+<li>Companies need to exchange electronic data with one another.</li>
+<li>XML allows you to use HTTP connections instead of dedicated channels.</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="xml-1" class="level2">
+<h2>XML</h2>
+<section id="defining-new-tags" class="level3">
+<h3>Defining New Tags</h3>
+<p>We might define <code>&lt;poem&gt;</code>, <code>&lt;title&gt;</code>, <code>&lt;poet&gt;</code>, <code>&lt;verse&gt;</code>, <code>&lt;line&gt;</code> tags in order to mark up poems.</p>
+<p>Even though <code>&lt;title&gt;</code> already exists in some markup languages, we will see ways to prevent problems with that.</p>
+<section id="example-marking-up-rhyme" class="level4">
+<h4>Example: Marking Up Rhyme</h4>
+<p>We might define a <strong>rhyme</strong> attribute for the <code>&lt;line&gt;</code> tag:</p>
+<pre><code>&lt;line rhyme=&quot;owd&quot;&gt;I wandered lonely as a cloud&lt;/line&gt;</code></pre>
+<p>Alternatively, we might define a pair of new tags <code>&lt;rhyme&gt;</code> and <code>&lt;/rhyme&gt;</code>.</p>
+<pre><code>&lt;line&gt;I wandered lonely as a cloud &lt;rhyme&gt;owd&lt;/rhyme&gt;&lt;/line&gt;</code></pre>
+<p>We use other technology to control rendering, which we could use so we don’t print the content of rhyme tags, or print it in a special way.</p>
+<p>A third way would be use <code>&lt;rhyme&gt;</code> tags with a <strong>sound</strong> attribute:</p>
+<pre><code>&lt;line&gt;I wandered lonely as a &lt;rhyme sound=&quot;owd&quot;&gt;cloud&lt;/rhyme&gt;&lt;/line&gt;</code></pre>
+<p>Fourth option – define the tag <code>&lt;sound&gt;</code> for tagging a child element of a <code>&lt;rhyme&gt;</code> tag:</p>
+<pre><code>&lt;line&gt;I wandered lonely as a &lt;rhyme&gt;&lt;sound&gt;owd&lt;/sound&gt;cloud&lt;/rhyme&gt;&lt;/line&gt;</code></pre>
+<p>Whether you use attributes or tags is generally a matter of taste, though sometimes one may be better.</p>
+</section>
+</section>
+<section id="document-type-definitions-and-schemata" class="level3">
+<h3>Document Type Definitions and Schemata</h3>
+<p>There are many ways to markup whatever you want to markup. Once we’ve invented a new set of tags and attributes, XML provides us with a way of documenting the relationship between these tags/attributes so that other people can understand our approach.</p>
+<p>XML provides two ways:</p>
+<ul>
+<li>The original way is to write a <strong>Document Type Definition (DTD)</strong></li>
+<li>A newer way is to write an <strong>XML Schema</strong></li>
+</ul>
+<p>If we publish our DTD or schema, we are publishing a new XML-based language that others can use.</p>
+</section>
+<section id="tags-in-xml" class="level3">
+<h3>Tags in XML</h3>
+<p>XML elements are tagged like HTML elements, but there are some differences:</p>
+<ul>
+<li>XML tags are case-sensitive.
+<ul>
+<li><code>&lt;Verse&gt;</code> is different from <code>&lt;VERSE&gt;</code>.</li>
+</ul></li>
+<li>Every start tag must have a corresponding closing tag.</li>
+<li>This implies that XML tags must be nested properly.</li>
+<li>XML also allows empty tags (a start tag which does not have a corresponding closing tag):
+<ul>
+<li>Empty tags must be written like this: <code>&lt;someEmptyTag/&gt;</code>, which is regarded as shorthand for <code>&lt;someEmptyTag&gt;&lt;/someEmptyTag&gt;</code>.</li>
+</ul></li>
+</ul>
+</section>
+<section id="content-of-xml-elements" class="level3">
+<h3>Content of XML Elements</h3>
+<p>The content is what lies between an element’s start and closing tags.</p>
+<p>This <code>&lt;trustworthy&gt;</code> element has “empty content”:</p>
+<pre><code>&lt;trustworthy/&gt;</code></pre>
+<p>These <code>&lt;name&gt;</code> and <code>&lt;age&gt;</code> content have “character content”:</p>
+<pre><code>&lt;name&gt;Fred&lt;/name&gt;
+&lt;age&gt;25&lt;/age&gt;</code></pre>
+<p>This <code>&lt;person&gt;</code> element has “element content”:</p>
+<pre><code>&lt;person&gt;
+    &lt;age&gt;25&lt;/age&gt;
+    &lt;name&gt;Fred&lt;/name&gt;
+    &lt;trustworthy/&gt;
+&lt;/person&gt;</code></pre>
+<p><em>This</em> <code>&lt;person&gt;</code> element has “mixed content”:</p>
+<pre><code>&lt;person&gt;
+    Fred
+    &lt;age&gt;25&lt;/age&gt;
+    &lt;trustworthy/&gt;
+&lt;/person&gt;</code></pre>
+</section>
+<section id="attributes-in-xml" class="level3">
+<h3>Attributes in XML</h3>
+<ul>
+<li>As in HTML, start tags can have attributes.</li>
+<li>The value of every attribute in XML must be quote, even if it is a number:
+<ul>
+<li><code>&lt;person age=&quot;25&quot;&gt;&lt;/person&gt;</code></li>
+</ul></li>
+</ul>
+</section>
+<section id="comments-in-xml" class="level3">
+<h3>Comments in XML</h3>
+<p>Comments are the same as in HTML.</p>
+<pre><code>&lt;!-- This is a comment --&gt;</code></pre>
+</section>
+<section id="xml-version-declarations-check-this-slide" class="level3">
+<h3>XML Version Declarations (check this slide)</h3>
+<p>The first line of an XML document <em>may</em> define the XML version.</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot;?&gt;</code></pre>
+</section>
+<section id="syntactic-acceptability-of-an-xml-document" class="level3">
+<h3>Syntactic Acceptability of an XML Document</h3>
+<p>XML documents can have 1 of 3 different levels of syntactic acceptability. (We’re used to two in Python: acceptable or unacceptable.)</p>
+<p>There are three:</p>
+<ul>
+<li>Not acceptable – syntactically <strong>ill-formed</strong></li>
+<li>Obeys basic rules of XML – syntactically <strong>well-formed</strong></li>
+<li>Obeys syntax rules of a special language based on XML – syntactically <strong>valid</strong></li>
+</ul>
+<section id="well-formed-xml-documents-check-this-slide" class="level4">
+<h4>Well-formed XML Documents (check this slide)</h4>
+<ul>
+<li>The document contains exactly one root element</li>
+<li>All other elements are descendents of the root element</li>
+<li>start and closing tags for an element have the same spelling</li>
+<li>the start tag …</li>
+</ul>
+</section>
+<section id="valid-xml-documents" class="level4">
+<h4>Valid XML Documents</h4>
+<ul>
+<li>Must be well-formed.</li>
+<li>Must satisfy the syntax rules for an application-specific language based on XML.</li>
+</ul>
+<p>A valid XML document must declare the XML-based language according to whose rules the XML document is claimed to be valid (done using a document type declaration which must appear before the start tag of the root element)</p>
+<p>Document type declaration general format: <code>&lt;!DOCTYPE nameOfRootElement someDTDspec&gt;</code></p>
+<p>someDTDspec would either:</p>
+<ul>
+<li>Directly contain an internal document type definition (DTD)</li>
+<li>Contain a reference to an external file that contains a DTD</li>
+</ul>
+<section id="doctypes-referring-to-external-dtds" class="level5">
+<h5>DOCTYPEs Referring to External DTDs</h5>
+<p>Two formats:</p>
+<ul>
+<li>Same machine – <code>&lt;!DOCTYPE nameOfRootElement SYSTEM &quot;fileNameAndPath&quot;&gt;</code></li>
+<li>Somewhere online – <code>&lt;!DOCTYPE nameOfRootElement PUBLIC &quot;fpi&quot; &quot;url&quot;&gt;</code></li>
+</ul>
+<p>The <em>fpi</em> (Formal Public Identifier) gives the formal name of the organisation which produced the set of rules.</p>
+</section>
+</section>
+</section>
+<section id="document-type-definitions-dtds" class="level3">
+<h3>Document Type Definitions (DTDs)</h3>
+<p>A DTD defines the syntax rules for an aplication-specific type of XML documents.</p>
+<p>It describes the root element that must appear in a valid document, and also describes the kinds of child elements that it may possess</p>
+<p>It must contain <strong>element type declarations</strong>, statements with the following general format:</p>
+<ul>
+<li><code>&lt;!ELEMENT elementName contentModel&gt;</code></li>
+</ul>
+<p>In addition, a DTD may contain a range of other types of statement, one of which is attribute declarations.</p>
+<section id="element-type-declarations" class="level4">
+<h4>Element Type Declarations</h4>
+<p>An element type declaration has the following general format:</p>
+<p><code>&lt;!ELEMENT elementName (contentModel)&gt;</code></p>
+<section id="empty-elements" class="level5">
+<h5>Empty Elements</h5>
+<ul>
+<li><code>&lt;!ELEMENT elementName (EMPTY)&gt;</code></li>
+</ul>
+</section>
+<section id="elements-with-character-content" class="level5">
+<h5>Elements with Character Content</h5>
+<ul>
+<li><code>&lt;!ELEMENT elementName (#PCDATA)&gt;</code></li>
+</ul>
+<p>(#PCDATA stands for “parsed character data”)</p>
+</section>
+<section id="elements-with-element-content" class="level5">
+<h5>Elements with Element Content</h5>
+<ul>
+<li><code>&lt;!ELEMENT elementName (child-name1, child-name2, …)&gt;</code></li>
+</ul>
+<p>This specifies that every element following this format must contain child-name1, then child-name2, and so on.</p>
+<p>Example:</p>
+<ul>
+<li><code>&lt;!ELEMENT memorandum (sender, receipient, message)&gt;</code></li>
+</ul>
+<p>This specifies a memorandum element that must contain a sender element followed by a recipient element followed by a message element.</p>
+</section>
+<section id="full-declaration" class="level5">
+<h5>Full Declaration</h5>
+<p>When an element is declared to have element content, the children element types must also be declared:</p>
+<pre><code>&lt;!ELEMENT memorandum (sender, recipient, message)&gt;
+&lt;!ELEMENT sender (#PCDATA)&gt;
+&lt;!ELEMENT recipient (#PCDATA)&gt;
+&lt;!ELEMENT message(#PCDATA)&gt;</code></pre>
+<p>However, children may also be optional or may occur more than once:</p>
+<ul>
+<li><code>&lt;!ELEMENT elementName (childName+)&gt;</code></li>
+</ul>
+<p>The plus symbol means “one or more”.</p>
+<p>You can also define zero or more occurrences:</p>
+<ul>
+<li><code>&lt;!ELEMENT elementName (childName*)&gt;</code></li>
+</ul>
+<p>And zero or one:</p>
+<ul>
+<li><code>&lt;!ELEMENT elementName (childName?)&gt;</code></li>
+</ul>
+<p>Parentheses can be used to group sequences of child elements:</p>
+<ul>
+<li><code>&lt;!ELEMENT song (author?, verse, (chorus, verse)*)&gt;</code></li>
+</ul>
+<p>An element can also have alternative children:</p>
+<ul>
+<li><code>&lt;!ELEMENT elementName (option1|option2|option3)&gt;</code></li>
+</ul>
+<p>Alternatives can also be combined with the (+, *, ?) quantifiers:</p>
+<ul>
+<li><code>&lt;!ELEMENT elementName (father? mother? (male|female)*)&gt;</code></li>
+<li>This denotes a family that could contain a father, could contain a mother, could contain any number of children.</li>
+</ul>
+</section>
+<section id="elements-with-mixed-content" class="level5">
+<h5>Elements with Mixed Content</h5>
+<p>Example:</p>
+<ul>
+<li><code>&lt;!ELEMENT person (#PCDATA|name)* &gt;</code></li>
+<li>This says a person element contains any amount of elements, each of which could be either #PCDATA or a name element.</li>
+</ul>
+</section>
+<section id="elements-with-arbitrary-content" class="level5">
+<h5>Elements with Arbitrary Content</h5>
+<ul>
+<li><code>&lt;!ELEMENT elementName (ANY)&gt;</code></li>
+</ul>
+</section>
+</section>
+<section id="attribute-declarations" class="level4">
+<h4>Attribute Declarations</h4>
+<p>The attributes for an element are declared in a statement which has the following general format:</p>
+<ul>
+<li><code>&lt;!ATTLIST elementName attributeDefinition, attributeDefinition … &gt;</code></li>
+</ul>
+<p>Each Attribute Definition has the following format:</p>
+<ul>
+<li><code>attributeName</code> <code>attributeType</code> <code>attributeDefault</code></li>
+<li>The name, what value it can take, the default value.</li>
+</ul>
+<p>Example:</p>
+<pre><code>&lt;!ATTLIST person name  CDATA          #IMPLIED
+                 id    ID             #REQUIRED
+                 sex   (male|female)  &quot;male&quot;&gt;</code></pre>
+<p>This would be satisfied by these XML examples:</p>
+<pre><code>&lt;person name=&quot;Fred&quot; id=&quot;p001&quot; sex=&quot;male&quot;&gt;
+&lt;person id=&quot;p001&quot;&gt;</code></pre>
+<section id="defaults" class="level5">
+<h5>Defaults</h5>
+<ul>
+<li><code>#REQUIRED</code> means that this attribute is required.</li>
+<li><code>#IMPLIED</code> means that this attribute is optional.</li>
+<li><code>&quot;male&quot;</code> means that if the sex isn’t specified, the sex can be assumed to be male.</li>
+</ul>
+</section>
+<section id="attribute-types" class="level5">
+<h5>Attribute Types</h5>
+<ul>
+<li><code>CDATA</code> denotes a string-valued attribute that contains any character apart from <code>&lt;</code>, <code>&gt;</code>, <code>&amp;</code>, <code>'</code>, <code>&quot;</code>.</li>
+<li><code>ID</code> is one of a set of types with predefined <em>validity constraints</em>, described later.</li>
+<li><code>(male|female)</code> is an enumerated type, a type whose exact set of members is listed.</li>
+</ul>
+<p>The ID type has the following requirements:</p>
+<ul>
+<li>An element can have only one attribute of type ID.</li>
+<li>The value of an ID attribute must start with a letter, underscore or colon which may be followed by a sequence containing any of these or digits.</li>
+<li>The value of an ID attribute must uniquely identify the element which bears it. No other element may have the same value for an ID attribute.</li>
+<li>An ID attribute must have a default of either <code>#REQUIRED</code> or <code>#IMPLIED</code>.</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>PHP</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<ul>
+<li><p>putting the @ symbol before a call suppresses error messages</p></li>
+<li><p>you can only have string variables in php</p></li>
+<li><p><code>.</code> is used for string concatenation</p></li>
+<li><p><code>MYSQL_FETCH_ROW()</code> returns a string representing the next row in the table</p>
+<ul>
+<li>there are hidden separators between the contents of each field, allowing you to access each field using indices</li>
+</ul></li>
+<li><p>can use <code>MYSQL_FETCH_ASSOC()</code> instead to get an associative array, indexed by field name</p></li>
+<li><p><code>HTMLSPECIALCHARS</code> suppresses interpretation of html tags within strings</p></li>
+<li><p>global variables start with <code>$_</code></p>
+<ul>
+<li>you can’t use this for non-global variables</li>
+</ul></li>
+<li><p><code>$_GET</code> and <code>$_PUT</code></p>
+<ul>
+<li><code>$_GET</code> is a global variable that holds data submitted by GET from a form, indexed by the name parameter of the input</li>
+</ul></li>
+</ul>
+<p>There are errors in his programs – some don’t connect to the database that need to, and vice-versa.</p>
+</body>
+</html>

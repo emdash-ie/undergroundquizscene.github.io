@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>6-Regular Expressions</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="regular-expressions" class="level1">
+<h1>Regular Expressions</h1>
+<hr />
+<p>A regular expression is a pattern that matches text.</p>
+<section id="the-re-library" class="level2">
+<h2>The <code>re</code> Library</h2>
+<p>The <code>re</code> library in Python provides regular expression functionality.</p>
+<p>We have to develop two parts, and it’s good to keep them separate in our minds:</p>
+<ul>
+<li>The Python part</li>
+<li>The regular expression part</li>
+</ul>
+</section>
+<section id="the-python-part" class="level2">
+<h2>The Python Part</h2>
+<p>We have two ways of handling regular expressions in Python:</p>
+<ol type="1">
+<li>We can call methods that are part of the <code>re</code> library that include a regular expression pattern.</li>
+<li>We can compile a pattern and call methods against the resulting object.</li>
+</ol>
+<p>We can use either, but if we compile patterns, we have access to the objects later if we need them again.</p>
+<section id="python-re-methods" class="level3">
+<h3>Python <code>re</code> Methods</h3>
+<ul>
+<li><code>compile</code> – This compiles a regular expression pattern into a regular expression object. We can then call <code>match</code>, <code>findall</code>, <code>search</code>, and <code>sub</code> against this object.
+<ul>
+<li><code>pattern = re.compile(r'#.*')</code></li>
+</ul></li>
+<li><code>match</code> – This matches 0 or more characters at the beginning of a string (i.e. not in the centre of a string). Returns a match object.
+<ul>
+<li><code>match = pattern.match(stringtomatch)</code></li>
+</ul></li>
+<li><code>search</code> – This scans through a string to find the first match that occurs. Returns a match object.
+<ul>
+<li><code>match = pattern.search(stringtomatch)</code></li>
+</ul></li>
+<li><code>findall</code> – This returns all non-overlapping matches as a list of strings in the order in which they were found.
+<ul>
+<li><code>matches = pattern.findall(string)</code></li>
+</ul></li>
+<li><code>sub</code> – This returns the string obtained by replacing occurrences of a pattern with the replacement. If no matches were found, the original string is returned.
+<ul>
+<li><code>line = pattern.sub('', line)</code></li>
+</ul></li>
+</ul>
+<p>More methods and details are available in the python documentation.</p>
+</section>
+</section>
+<section id="the-regex-part" class="level2">
+<h2>The Regex Part</h2>
+<p>There is a good tutorial here:</p>
+<ul>
+<li><a href="https://docs.python.org/3.4/howto/regex.html#regex-howto" class="uri">https://docs.python.org/3.4/howto/regex.html#regex-howto</a></li>
+</ul>
+<p>Regex is useful when we add meta-characters to describe wildcards, repetition, and iteration.</p>
+<ul>
+<li>The <code>.</code> character matches any character other than the newline character. Using <code>findall</code> with this will return each line.</li>
+<li>The <code>*</code> character matches 0 or more occurrences of the regex that precedes it.</li>
+<li>The <code>+</code> character matches 1 or more occurrences of the regex that precedes it.</li>
+</ul>
+<p>Note we need to use brackets for grouping:</p>
+<ul>
+<li><code>python*</code> matches ‘pytho’, ‘python’ and ‘pythonnnnnn’, as the <code>*</code> is applied to just the <code>n</code></li>
+<li><code>(python)*</code> matches ’‘, ’python’, and ‘pythonpythonpython’, as the <code>*</code> is applied to the whole expression contained in the brackets.</li>
+</ul>
+<section id="example" class="level3">
+<h3>Example</h3>
+<p>Say we want to match Python comments:</p>
+<pre><code>pattern = re.compile(&#39;#.*&#39;)
+matches = pattern.findall(code)
+
+for match in matches:
+    print(match)
+    </code></pre>
+<p>If code is a string that contains code with comments, the code above will output all comments in that code.</p>
+</section>
+<section id="grouping" class="level3">
+<h3>Grouping</h3>
+<p>We can also group characters.</p>
+<ul>
+<li><code>[abc]</code> will match <code>a</code> or <code>b</code> or <code>c</code>. <code>[Pp]ython</code> will match ‘python’ or ‘Python’.</li>
+</ul>
+</section>
+<section id="shorthands" class="level3">
+<h3>Shorthands</h3>
+<ul>
+<li><code>\w</code> – matches all word characters</li>
+<li><code>\s</code> – matches all whitespace</li>
+<li><code>\d</code> – matches digits</li>
+<li><code>\b</code> – matches word boundaries</li>
+</ul>
+</section>
+<section id="example-2" class="level3">
+<h3>Example 2</h3>
+<p>We want to match all capitalised words in a string (except one-letter words e.g. ‘I’).</p>
+<ol type="1">
+<li>We start by matching word boundaries: <code>'\b\b'</code></li>
+<li>Next match a capital letter: <code>'\b[A-Z]\b'</code></li>
+<li>Next 1 or more lowercase letters: <code>'\b[A-Z][a-z]+\b'</code></li>
+</ol>
+<p>Then we compile this and use the resulting object to match the pattern:</p>
+<pre><code>pattern = re.compile(r&#39;\b[A-Z][a-z]+\b&#39;)
+matches = pattern.findall(string)
+
+for match in matches:
+    print(match)
+    </code></pre>
+<p>This pattern will match “This”, “Name”, and “Placename” in this example sentence:</p>
+<ul>
+<li>This A123 with Name &amp; Placename</li>
+</ul>
+</section>
+<section id="specifying-multiples" class="level3">
+<h3>Specifying Multiples</h3>
+<p>To specify 3 digits, for example, you can write <code>\d{3}</code>. To specify an upper-bound, use e.g. <code>\d{3,6}</code> to match sequences of between 3 and 6 digits.</p>
+<section id="example-phone-numbers" class="level4">
+<h4>Example: Phone Numbers</h4>
+<p>We want to match the following options:</p>
+<ul>
+<li>(086)12345</li>
+<li><ol start="21" type="1">
+<li>12345</li>
+</ol></li>
+<li>+353(21)12345</li>
+<li>00353 12 12345</li>
+</ul>
+<p>To match the first two, we can use <code>&quot;\(\d{3}\)\s*\d{5,7}&quot;</code>. This matches:</p>
+<ol type="1">
+<li>An open bracket
+<ul>
+<li>Note that we have to escape the <code>(</code> and <code>)</code> characters in the regex.</li>
+</ul></li>
+<li>Followed by a sequence of 3 digits</li>
+<li>Followed by a close bracket</li>
+<li>Followed by 0 or more whitespace characters</li>
+<li>Followed by a sequence of 5, 6, or 7 digits.</li>
+</ol>
+<p>To match the third, we can use <code>&quot;\+\d{3}\s*\(\d{2}\)\s*\d{5,7}&quot;</code>.</p>
+<p>[didn’t take down the last one]</p>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

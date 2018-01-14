@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>1 - Intro</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<ul>
+<li><p>In this course we’re looking at programming physical hardware.</p>
+<ul>
+<li><p>We’re gonna program an Arduino in C.</p></li>
+<li><p>An 8-bit microcontroller.</p></li>
+</ul></li>
+<li><p>We will have 2 hour labs for this module.</p>
+<ul>
+<li><p>Probably on Wednesdays</p></li>
+<li><p>There’ll also be a project after a couple of weeks.</p>
+<ul>
+<li>e.g. a digital piano, an IR morse code transmitter, tic tac toe</li>
+</ul></li>
+</ul></li>
+<li><p>website: http://cuc.ucc.ie/jpm/CS3514</p></li>
+</ul>
+</section>
+<section id="c" class="level1">
+<h1>C</h1>
+<ul>
+<li><p>C is an old and popular language because it’s extremely powerful</p>
+<ul>
+<li><p>“high-level assembly language”</p></li>
+<li><p>most large things are written in C (e.g. the JVM)</p></li>
+<li><p>in C you have access to a lot of low-level control (e.g. specific registers, bit manipulations, memory allocations)</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="microcontroller" class="level1">
+<h1>Microcontroller</h1>
+<ul>
+<li><p>Whole board is the Arduino (open hardware)</p></li>
+<li><p>CPU you can get for like 50c</p></li>
+<li><p>A microcontroller is designed so you can connect individual chip pins to the environment (unlike PCs, microprocessors)</p>
+<ul>
+<li>All about controlling, sensing, changing the environment</li>
+</ul></li>
+</ul>
+</section>
+<section id="arduino" class="level1">
+<h1>Arduino</h1>
+<p>3 things:</p>
+<ul>
+<li><p>Physical piece of hardware</p></li>
+<li><p>Programming environment (free software, made by MIT?)</p>
+<ul>
+<li><p>Built around the hobby market (you write “sketches”, which are embedded into a C program)</p></li>
+<li><p>Hopefully we’ll be going behind the scenes after a while and writing without this, using the shell and our own tools</p></li>
+</ul></li>
+<li><p>Community &amp; philosophy</p></li>
+<li><p>Based on the AVR chipset – designed to be programmed in C</p>
+<ul>
+<li><p>laid out so C can be compiled very efficiently to it</p></li>
+<li><p>We’re using the ATMega328, which is quite old but it doesn’t matter</p></li>
+</ul></li>
+</ul>
+<section id="hardware" class="level2">
+<h2>Hardware</h2>
+<ul>
+<li><p>LilyPad (sensors for clothing)</p></li>
+<li><p>stamp-sized boards</p></li>
+<li><p>bluetooth</p></li>
+<li><p>boards are made to be stackable, so you can add e.g. an ethernet board to extend something</p></li>
+<li><p>Memory is quite limited, we’ll be looking at how we can squeeze as much memory out of the system as possible</p></li>
+<li><p>Flash memory is program</p></li>
+<li><p>Static ram is working memory (e.g. stack frame when a function is called, where variables are kept, etc.)</p></li>
+<li><p>EEPROM is for configuration data that will survive power outage</p></li>
+<li><p>Separation between program and data memory is called Harvard architecture (rather than Von Neumann)</p>
+<ul>
+<li>You can have separate busses for them, do them at the same time, etc. ~</li>
+</ul></li>
+</ul>
+</section>
+<section id="peripherals" class="level2">
+<h2>Peripherals</h2>
+<ul>
+<li><p>counters, timers</p>
+<ul>
+<li><p>registers that hold a number of bits and are incremented on every clock cycle</p></li>
+<li><p>counter uses an external signal rather than the clock (e.g. increment every time a door opens)</p></li>
+</ul></li>
+<li><p>PWM</p>
+<ul>
+<li>used to simulate analog voltage signals from digital signals</li>
+</ul></li>
+<li><p>ADCs</p>
+<ul>
+<li><p>analog voltage (e.g. 5V) to a number (e.g. 1023 for 10 bits)</p></li>
+<li><p>used for e.g. light sensing, temperature sensing</p></li>
+</ul></li>
+<li><p>Special power-saving modes</p>
+<ul>
+<li><p>can be the difference between a battery lasting a day and lasting for months</p></li>
+<li><p>factor of 2000</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="sketches" class="level1">
+<h1>Sketches</h1>
+<p>Two mandatory functions:</p>
+<ul>
+<li><p><code>setup()</code></p>
+<ul>
+<li>run once on startup (also reset)</li>
+</ul></li>
+<li><p><code>loop()</code></p>
+<ul>
+<li>run continuously</li>
+</ul></li>
+</ul>
+<p>Some built-in functions:</p>
+<ul>
+<li><p><code>pinMode()</code></p>
+<ul>
+<li>determines whether a pin is working as an output or as an input</li>
+</ul></li>
+<li><p><code>digitalWrite()</code></p>
+<ul>
+<li>allows you to write 0s and 1s (lows and highs) to pins</li>
+</ul></li>
+</ul>
+</section>
+<section id="compilationupload" class="level1">
+<h1>Compilation/Upload</h1>
+<ul>
+<li><p>Bootloader takes up about 2 KiB</p></li>
+<li><p>Blink program uses 3% of the chip because the built-ins use a lot of code</p>
+<ul>
+<li>We can decrease the number a lot by knowing how the background works and optimising it.</li>
+</ul></li>
+</ul>
+</section>
+</body>
+</html>

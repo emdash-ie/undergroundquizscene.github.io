@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Network Layer: Virtual Circuit and Datagram Networks</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Network Layer: Virtual Circuit and Datagram Networks</h1>
+</header>
+<section id="connection-and-connectionless-service" class="level1">
+<h1>Connection and Connectionless Service</h1>
+<p>A datagram network provides network-layer connectionless service, and a virtual circuit network provides network-layer connection-oriented service.</p>
+<p>These are analogous to the transport layer services, except that:</p>
+<ul>
+<li><p>the service is host-to-host</p></li>
+<li><p>the network can’t provide both, so you have to choose one or the other</p></li>
+<li><p>the services are implemented in the network core</p></li>
+</ul>
+<p># Virtual Circuit Networks</p>
+<p>These came from telecommunications – the source to destination path behaves like a telephone circuit (in performance and in the network actions along the path).</p>
+<p>Every packet carries a VC identifier, which identifies which virtual circuit the packet is a part of.</p>
+<p>Every router maintains state for each passing connection – when it sees a packet for a particular connection, it needs to know where to send it. It uses a forwarding table for this.</p>
+<p>There is a setup and teardown for each call before data can flow – this creates and destroys the required state.</p>
+<p>Resources in the links and routers (bandwidth, buffers) can be dedicated to each virtual circuit, to give predictable service / quality guarantees.</p>
+<section id="implementation" class="level2">
+<h2>Implementation</h2>
+<p>A virtual circuit consists of:</p>
+<ol type="1">
+<li><p>A path from source to destination</p></li>
+<li><p>VC numbers, one for each link along the path</p>
+<ul>
+<li><p>The VC number can be changed by the router at each link, with the new value coming from the path.</p></li>
+<li><p>If we had a single VC number for each circuit, then we have to make sure they’re globally unique. By making each number specific to a specific link, we’re able to reuse numbers at different links, and our numbers can be smaller (only need enough numbers to identify the maximum number of circuits through one link).</p></li>
+</ul></li>
+<li><p>Entries in forwarding tables in routers along the path</p></li>
+</ol>
+<section id="forwarding-table" class="level3">
+<h3>Forwarding Table</h3>
+<p>A forwarding table maps (VC number, incoming interface) pairs to (VC number, outgoing interface) pairs.</p>
+<ul>
+<li><p>making IDs local is more efficient and also simpler to allocate – decision is made between two routers</p>
+<ul>
+<li><p>using one number across all the hops takes a lot more co-ordination</p></li>
+<li><p>we would need globally-unique IDs, which is where we started</p>
+<ul>
+<li>and who would allocate these? A central server?</li>
+</ul></li>
+<li><p>instead we can just use enough numbers to cover the number of flows through the specific router</p></li>
+<li><p>smaller number means we can use fewer bits to represent it – save space/state</p>
+<ul>
+<li><p>these go in every header, remember!</p></li>
+<li><p>this efficiency is a key difference between virtual circuit and datagram</p>
+<ul>
+<li>though it does mean you need to change the ID in the header at each packet</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="signaling-protocols" class="level3">
+<h3>Signaling Protocols</h3>
+<ul>
+<li><p>used to setup, maintain, and teardown VC</p></li>
+<li><p>used in ATM (asynchronous transmission mode?), frame relay, x.25</p></li>
+<li><p>can allocate resources as well</p></li>
+</ul>
+</section>
+</section>
+<section id="datagram-networks" class="level2">
+<h2>Datagram Networks</h2>
+<ul>
+<li><p>no call setup at network layer</p></li>
+<li><p>routers don’t keep state about end-to-end connections</p>
+<ul>
+<li><p>no network-level concept of a connection</p></li>
+<li><p>doesn’t matter if a router fails – other routers will just avoid the dead link</p>
+<ul>
+<li>what would we do in VC?</li>
+</ul></li>
+</ul></li>
+<li><p>packets forwarded using destination host address</p>
+<ul>
+<li><p>need global scope</p></li>
+<li><p>packets between the same source-destination pair may take different paths and arrive out of order</p></li>
+</ul></li>
+</ul>
+<section id="datagram-forwarding-table" class="level3">
+<h3>Datagram Forwarding Table</h3>
+<ul>
+<li><p>each entry contains an address range and an output to send those to</p></li>
+<li><p>usually a default rule for packets that don’t match the others</p></li>
+</ul>
+<section id="longest-prefix-matching" class="level4">
+<h4>Longest Prefix Matching</h4>
+<ul>
+<li><p>provide a bunch of prefixes, the longest matching one determines the destination</p>
+<ul>
+<li>e.g. if the destination address matches prefixes <code>010</code> and <code>0100</code>, the interface specified for <code>0100</code> is used because <code>0100</code> is longer than <code>010</code></li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="datagram-vs.vc" class="level2">
+<h2>Datagram vs. VC</h2>
+<ul>
+<li>VC/ATM not as widely used, partly because it was competing with an already establish technology, and partly because of economic complexity linked to guaranteed quality of service (who gets it, do you charge for it, etc.)</li>
+</ul>
+<p>### VC</p>
+<ul>
+<li><p>VC has guaranteed service, can satisfy strict timing and reliability requirements</p></li>
+<li><p>simple end systems (e.g. telephones), with complexity inside network</p></li>
+<li><p>once the connection is set up, forwarding is much faster, because you don’t need to do the prefix matching</p>
+<ul>
+<li>constant-size indices are simpler, and can be implemented in software</li>
+</ul></li>
+<li><p>if a router dies, it’s complicated to re-establish the connection</p></li>
+</ul>
+<p>### Datagram</p>
+<ul>
+<li><p>Datagram has no guaranteed service</p>
+<ul>
+<li><p>but end systems are complex, and can adapt to the unreliable channel, performing control and error recovery</p></li>
+<li><p>then routers can be very simple</p></li>
+</ul></li>
+<li><p>router dying is more straightforward to overcome</p></li>
+</ul>
+</section>
+<section id="router-architecture-overview" class="level2">
+<h2>Router Architecture Overview</h2>
+<p>2 key functions:</p>
+<ul>
+<li><p>running routing algorithms/protocol</p></li>
+<li><p>forwarding datagrams from incoming to outgoing link</p></li>
+</ul>
+<p>Typically the routing processor pushes configurations to hardware for each input port, so that the ports don’t have to check with the processor every time</p>
+<pre><code>* routing processor is control plane
+
+    * this is software
+
+* everything else is data plane
+
+    * this is hardware</code></pre>
+<section id="input-port-functions" class="level3">
+<h3>Input Port Functions</h3>
+<ul>
+<li><p>physical layer -&gt; link layer -&gt; network layer</p></li>
+<li><p>decentralised switching</p>
+<ul>
+<li>input ports have memory with a forwarding table, which is updated every now and then by the routing processor</li>
+</ul></li>
+<li><p>goal is to have input port processing at line speed (speed of the physical layer)</p>
+<ul>
+<li>otherwise you get queueing, possible congestion and packet loss</li>
+</ul></li>
+</ul>
+</section>
+<section id="switching-fabrics" class="level3">
+<h3>Switching Fabrics</h3>
+<section id="shared-memory" class="level4">
+<h4>Shared Memory</h4>
+<ul>
+<li><p>simplest</p></li>
+<li><p>cheapest</p></li>
+<li><p>can be done in software on a PC</p></li>
+<li><p>involves copying</p>
+<ul>
+<li><p>input port copies into memory</p></li>
+<li><p>output port copies from memory</p></li>
+<li><p>only one thing can use the system bus at any one time</p></li>
+<li><p>this can be quite slow, which lowers your throughput</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="bus" class="level4">
+<h4>Bus</h4>
+<ul>
+<li><p>shared bus from input port memory to output port memory</p></li>
+<li><p>bus contention: switching speed limited by bus bandwidth (e.g. 40 Gb/s)</p></li>
+<li><p>bus requires exclusive access (only one device transmits on it at a time)</p></li>
+</ul>
+</section>
+<section id="crossbar" class="level4">
+<h4>Crossbar</h4>
+<p>Aims to alleviate the problem with the bus of only one thing being able to transmit at once. Transfers that don’t conflict are allowed in parallel.</p>
+<p>Some advanced designs split datagrams into fixed length cells, making the switching and routing through the fabric more deterministic. Some of them basically use ATM.</p>
+</section>
+</section>
+<section id="output-ports" class="level3">
+<h3>Output Ports</h3>
+<p>If the switching can happen faster than the transmission of packets, then packets buffer.</p>
+<p>You may need to think about a scheduling algorithm – could use FIFO, or could possibly prioritise certain packets, e.g.:</p>
+<ul>
+<li><p>control packets for routers</p></li>
+<li><p>low-latency content like VOIP or video games</p></li>
+</ul>
+<section id="how-much-buffering" class="level4">
+<h4>How Much Buffering?</h4>
+<ul>
+<li>RFC 3439 rule of thumb: typical RTT multiplied by the link capacity</li>
+</ul>
+<p>A more recent recommendation says to divide this value by <code>sqrt(N)</code>, where <code>N</code> is the number of flows.</p>
+<p>These are both worked out from analysing existing networks.</p>
+</section>
+</section>
+<section id="input-port-queueing" class="level3">
+<h3>Input Port Queueing</h3>
+<p>If the switching fabric is slower than the combined speed of the input ports, you can get queues.</p>
+<p>Also can get head-of-the-line blocking, where a packet that has to wait (because the output is in use) blocks one that wouldn’t have to wait.</p>
+<ul>
+<li>Can solve this using a scheduling algorithm at the input ports.</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

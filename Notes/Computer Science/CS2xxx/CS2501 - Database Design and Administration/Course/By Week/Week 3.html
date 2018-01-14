@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 3</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<pre class="sourceCode sql" id="cb1"><code class="sourceCode sql"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">SELECT</span> Pnumber, Pname, Plocation</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">FROM</span> Project</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">WHERE</span> Pnumber <span class="kw">IN</span></div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">    (<span class="kw">SELECT</span> Pno</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">     <span class="kw">FROM</span> WORKS_ON</div>
+<div class="sourceLine" id="cb1-6" data-line-number="6">     <span class="kw">GROUP</span> <span class="kw">BY</span> Pno</div>
+<div class="sourceLine" id="cb1-7" data-line-number="7">     <span class="kw">HAVING</span> <span class="fu">COUNT</span>(*) = <span class="fu">MAX</span>(<span class="fu">COUNT</span>(*))</div></code></pre>
+<ul>
+<li>MySQL won’t allow the code above (even though it’s correct SQL) because it won’t allow function calls within function calls (<code>COUNT</code> inside <code>MAX</code>).</li>
+</ul>
+<pre class="sourceCode sql" id="cb2"><code class="sourceCode sql"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">SELECT</span> Fname, Lname</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">WHERE</span> Ssn &lt;&gt; <span class="st">&#39;128490127&#39;</span></div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">    <span class="kw">AND</span> Dno =</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">        ( <span class="kw">SELECT</span> Dno )</div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">        […]</div></code></pre>
+<ul>
+<li>In MYSQL, subqueries can only return single columns – you have to use separate conditions.
+<ul>
+<li>This is not incorrect SQL, it’s just not supported in MySQL.</li>
+</ul></li>
+</ul>
+<section id="joins" class="level1">
+<h1>Joins</h1>
+<p>Conceptually, joins make all possible combinations of rows between the tables given. In practice, the <code>WHERE</code> condition is used by the implementation to eliminate rows as the join is compiled.</p>
+<pre class="sourceCode sql" id="cb3"><code class="sourceCode sql"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">SELECT</span> <span class="fu">CONCAT</span>(<span class="fu">UPPER</span>(Lname), <span class="st">&#39;, &#39;</span>, Fname) <span class="kw">AS</span> Name</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE, DEPARTMENT</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">WHERE</span> Dno = Dnumber</div>
+<div class="sourceLine" id="cb3-4" data-line-number="4">    <span class="kw">AND</span> Dname = <span class="st">&#39;Research&#39;</span></div>
+<div class="sourceLine" id="cb3-5" data-line-number="5"><span class="kw">ORDER</span> <span class="kw">BY</span> Name;</div></code></pre>
+<p>If it was <code>Dno</code> in both tables, we’d use dot notation to distinguish them:</p>
+<pre class="sourceCode sql" id="cb4"><code class="sourceCode sql"><div class="sourceLine" id="cb4-1" data-line-number="1">…</div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">WHERE</span> EMPLOYEE.Dno = DEPARTMENT.Dno</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3">…</div></code></pre>
+<p>We can also use aliases to shorten these table names:</p>
+<pre class="sourceCode sql" id="cb5"><code class="sourceCode sql"><div class="sourceLine" id="cb5-1" data-line-number="1">…</div>
+<div class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">FROM</span> EMPLOYEE E, DEPARTMENT D</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">WHERE</span> E.Dno = D.Dno</div>
+<div class="sourceLine" id="cb5-4" data-line-number="4">…</div></code></pre>
+<p>Joins are more general than subqueries, and sometimes you have to use them (e.g. when the columns in the result table come from different source tables).</p>
+<ul>
+<li>A subquery can’t use <code>SELECT DISTINCT</code>, or <code>ORDER BY</code> [check].</li>
+</ul>
+</section>
+</body>
+</html>

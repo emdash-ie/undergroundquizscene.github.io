@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>7-Iterables and Generators</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="generators-and-os" class="level1">
+<h1>Generators and OS</h1>
+<hr />
+<section id="generators" class="level2">
+<h2>Generators</h2>
+<p>We can create a generator as follows:</p>
+<pre><code>def build_squares(n):
+    for i in range(n):
+        yield i**2
+        </code></pre>
+<p>The corresponding iterable looks like this:</p>
+<pre><code>def build_squares(n):
+    result = []
+    for i in range(n):
+        result.append(i**2)
+    return result
+    </code></pre>
+<p>With a generator, we can suspend our function call halfway through running it and do something with the current item. This prevents us from holding a lot of data in memory at one point.</p>
+<pre><code>for i in build_squares(3):
+    print(i)
+    </code></pre>
+<p>Here, when <code>build_squares()</code> hits the <code>yield</code> statement, control is returned to the for loop above, along with a value for i, and when it’s called again, <code>build_squares()</code> will resume from the next valid statement after the <code>yield</code> statement. In this case, that means each call will yield the next square.</p>
+</section>
+<section id="os" class="level2">
+<h2>OS</h2>
+<pre><code>import os
+
+output = os.open(&quot;cp ~/file1.txt ~/file2.txt&quot;).read()</code></pre>
+<p>The <code>open()</code> command allows us to run commands on the command line from Python. We can then use <code>.read()</code> to pull in the output from the command.</p>
+<p>You could also use string manipulation, e.g.:</p>
+<pre><code>output = os.open(&quot;cp {0} {1}&quot;.format(filename1, filename2)).read()</code></pre>
+<p>This can be useful for calling programs in other languages from within Python.</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2-Sample Problem</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sample-problem" class="level1">
+<h1>Sample Problem</h1>
+<hr />
+<p>Given two strings or lists of elements, determine whether or not they are anagrams – exactly the same bag of elements.</p>
+<p>To simplify the problem, consider lists where the elements are selected from integers between 0 and 9999 inclusive.</p>
+<section id="first-attempt" class="level2">
+<h2>First Attempt</h2>
+<p>Step through one list and check the other.</p>
+<pre><code>for each item in word:
+    i = 0
+    found = false
+    
+    while not found and i &lt; length(word2):
+        if item == word2[i]:
+            found = true
+            word2[i] = None
+        else:
+            i = i + 1
+            
+    if found == false:
+        return false
+    
+return true</code></pre>
+<section id="analysis" class="level3">
+<h3>Analysis</h3>
+<p>Triangular number formula: 0.5 * n * (n + 1)</p>
+<p>In the worst case (more or less), we will have to step through the inner loop approximately this many times. This is slow.</p>
+</section>
+</section>
+<section id="second-attempt" class="level2">
+<h2>Second Attempt</h2>
+<p>Maintain a dictionary of elements seen in the first, reduce the count by one at each letter. If the dictionary returns to 0 afterwards, they are anagrams.</p>
+<pre><code>for each i from 0 to len - 1:
+    dict[word1[i]] += 1
+    dict[word2[i]] -= 1
+    
+for each value in dict:
+    if value != 0:
+        return false
+return true</code></pre>
+<section id="analysis-1" class="level3">
+<h3>Analysis</h3>
+<p>The first loop is on the order of 2n, the second is on the order of 10000. Overall, 2n + 10000. This is slow for small inputs but far faster for large inputs.</p>
+<p>If n is 1000, the second process gives 12000 instead of 500000.</p>
+<p>You could improve this by building the dictionary as you go instead of beforehand, so that it’s rarely 10000 elements in size.</p>
+</section>
+</section>
+<section id="third-attempt" class="level2">
+<h2>Third Attempt</h2>
+<p>Sort both words first, then step through each simultaneously and make sure they’re identical.</p>
+<pre><code>sort(word1)
+sort(word2)
+for each i from 0 to n-1:
+    if word1[i] != word2[i]:
+        return false
+return true</code></pre>
+<section id="analysis-2" class="level3">
+<h3>Analysis</h3>
+<p>The loop takes n steps in the worst case. Python’s sort algorithm is of the order nlogn, giving 2nlogn + n.</p>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2>Summary</h2>
+<p>For large input, the second attempt (dictionary) is best. For small input, the third attempt (sort function) is best.</p>
+<p>Two things to take away:</p>
+<ul>
+<li>We need to analyse how complex our algorithms are and see if they’re too slow.</li>
+<li>We need to run stress tests to analyse the run times of our algorithms.</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

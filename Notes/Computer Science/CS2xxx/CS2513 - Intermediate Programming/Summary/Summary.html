@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Summary</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<hr />
+<section id="oop-principles" class="level2">
+<h2>OOP Principles</h2>
+<section id="classes-and-objects" class="level3">
+<h3>Classes and Objects</h3>
+<p>A class is a blueprint for creating objects, and each object created from a class is an instance of that class.</p>
+<p>The class specifies what attributes (instance variables) and methods each instance has. When we call an instance’s method, it acts on that instance.</p>
+</section>
+<section id="encapsulation" class="level3">
+<h3>Encapsulation</h3>
+<p>Rather than allow people to change the variables directly, methods are provided to call to change variables. These methods are written by the developers who wrote the class and fully understand it, so know what needs to be changed.</p>
+<ul>
+<li>This allows people to use the code without needing to know the details of how it works (as a black box).</li>
+<li>It also allows the code to be improved without disruption — as long as the code looks the same from the outside, places that the classes have been used won’t need to be rewritten.</li>
+</ul>
+</section>
+<section id="inheritance" class="level3">
+<h3>Inheritance</h3>
+<p>Classes that are similar to existing classes but need small changes can inherit from those classes. This makes all the already-written methods available, and enables new code to be written to provide extra functionality or override existing methods.</p>
+<ul>
+<li>Less code needs to be written, reducing effort and complexity.
+<ul>
+<li>So we have fewer bugs.</li>
+</ul></li>
+<li>Bugs in the original classes only need to be fixed once.</li>
+</ul>
+</section>
+<section id="composition" class="level3">
+<h3>Composition</h3>
+<p>We can use objects as attributes of other objects, which allows us to model complex objects — e.g. a class LightSystem which has a Light object and a Switch object among its attributes.</p>
+<p>This gives the same advantages as Inheritance:</p>
+<ul>
+<li>Less code needs to be written, reducing effort and complexity.
+<ul>
+<li>So we have fewer bugs.</li>
+</ul></li>
+<li>Bugs in the original classes only need to be fixed once.</li>
+</ul>
+</section>
+<section id="advantages-of-oop" class="level3">
+<h3>Advantages of OOP</h3>
+<ul>
+<li>Allows parallel code development for groups of developers</li>
+<li>Helps write cleaner code with fewer errors
+<ul>
+<li>Simpler code means less likely to have errors</li>
+<li>Code is easier to fix when there are errors</li>
+<li>Fixes are invisible to developers using the classes</li>
+</ul></li>
+<li>Helps to reuse code</li>
+<li>Allows use of related code organisation and design techniques</li>
+</ul>
+<p>By modularising our code, we: * Allow parallel development within a team of software engineers.* Simplify the code - rather than one large complex block, we have numerous simpler classes. We say the code is less tightly bound. Because each class is relatively simple, it is more likely to be bug free.* If a bug exists, we fix it in the responsible class. This class is imported into many programs, so the fix propagates to where the code is used. If all of the code for the button is in one class, and there is a bug, we fix it once and it propagates to every instance of the button we create. * We can also replace code with better versions; if we develop a better button class, as long as the class name and method headers are the same, we can replace the class and not break any code that uses the class. * If we implemented the button from scratch every time, we would have had to replace and test the code in numerous places.</p>
+</section>
+</section>
+<section id="oop-in-python" class="level2">
+<h2>OOP in Python</h2>
+<p>Python doesn’t enforce OOP or its principles. Instead, the freedom to use the language any way you like is emphasised. Encapsulation is implemented based on trust.</p>
+<section id="classes-in-python" class="level3">
+<h3>Classes in Python</h3>
+<p>Classes are written like this:</p>
+<pre><code>class Person:
+    def __init__(self, name, job, pay):
+        self._name = name
+        self._job = job
+        self._pay = pay
+        </code></pre>
+<ul>
+<li>The <code>__init__</code> method is the constructor — it’s called when an instance of the class is created.</li>
+<li>We use underscores in the attribute names to indicate that they are private and should not be accessed directly.</li>
+<li>All class methods must include <code>self</code> in their definition, though we don’t have to pass it when we call the methods.
+<ul>
+<li><code>self</code> is a pointer to this instance.</li>
+</ul></li>
+</ul>
+<p>They’re used like this:</p>
+<pre><code>cathal = Person(&#39;Cathal&#39;, &#39;dev&#39;, 55000)
+laura = Person(&#39;Laura&#39;, &#39;manager&#39;, 70000)
+print(cathal.name, cathal.pay)
+print(laura.name, laura.pay)</code></pre>
+<p>Methods are written and used just like functions:</p>
+<pre><code>def givePayRaise(self, percentage):
+    if percentage &lt; 0 or percentage &gt; 100:
+        print(&quot;%i is an illegal percentage&quot; % (percentage))
+    else:
+        self._pay += self._pay // 100 * percentage
+        
+cathal.givePayRaise(10)</code></pre>
+</section>
+<section id="packaging-classes" class="level3">
+<h3>Packaging Classes</h3>
+<section id="imports" class="level4">
+<h4>Imports</h4>
+<p>Other code can be used in your code by importing it:</p>
+<pre><code>from person import Person</code></pre>
+<p>Now the code can be used as if written in the importing code:</p>
+<pre><code>cathal = Person(&#39;Cathal&#39;, &#39;dev&#39;, 55000)</code></pre>
+</section>
+<section id="test-block" class="level4">
+<h4>Test Block</h4>
+<p>Use <code>if __name__ = '__main__'</code> to check if the module is imported or run run directly, only call the test block if it is run direcly:</p>
+<pre><code>def main():
+    #test block
+    
+if __name__ = &#39;__main__&#39;:
+    main()
+    </code></pre>
+<ul>
+<li><code>__name__</code> will be set to the module’s name if it’s imported.</li>
+</ul>
+</section>
+<section id="commenting" class="level4">
+<h4>Commenting</h4>
+<p>Comments should be written using docstrings. In this module we’re following the <a href="https://google.github.io/styleguide/pyguide.html?%20showone=Comments#Comments" title="Google Python Style Guide; comments section">Google Python Style Guide</a>.</p>
+</section>
+</section>
+<section id="str__-method" class="level3">
+<h3><code>__str__</code> Method</h3>
+<p>The <code>__str__</code> method of an object defines how it’s converted to a string when (e.g.) passed to <code>print()</code>. It’s written like this:</p>
+<pre><code>class Person:
+    def __str__(self):
+        description = (&quot;%s %s %d&quot; % (self._name, self._job, self._pay))
+        return description
+        </code></pre>
+<ul>
+<li>This must be called <code>__str__</code> and must return a string.</li>
+</ul>
+</section>
+<section id="properties-and-property-decorators" class="level3">
+<h3>Properties (and Property Decorators)</h3>
+<p>Properties allow attributes to be accessed through normal dot notation, but use getter and setter methods to control the access. They can be defined in two ways.</p>
+<section id="property-notation" class="level4">
+<h4>Property Notation</h4>
+<pre><code>class Person:
+
+    def getPay(self):
+        return self._pay
+        
+    def setPay(self, pay):
+        if pay &lt; 0 or pay &gt; 100000:
+            print(&quot;%i is an invalid pay value - no value set&quot; %(pay))
+        else:
+            self._pay = pay
+            
+    pay = property(getPay, setPay)  #Note the order of the methods in the list.</code></pre>
+</section>
+<section id="property-decorator-notation" class="level4">
+<h4>Property Decorator Notation</h4>
+<pre><code>class Person:
+
+    @property
+    def pay(self):
+        return self._pay
+        
+    @pay.setter
+    def pay(self, pay):
+        if pay &lt; 0 or pay &gt; 100000:
+            print(&quot;%i is an invalid pay value - no value set&quot; %(pay))
+        else:
+            self._pay = pay
+            </code></pre>
+<ul>
+<li>In both cases, we can now write code like <code>cathal.pay = 20000</code>, and our setter functions will be used.</li>
+</ul>
+</section>
+<section id="advantages" class="level4">
+<h4>Advantages</h4>
+<ul>
+<li>Familiar notation (dot notation) rather than explicit getter and setter methods — code is less awkward to use.</li>
+<li>Third-party code remains loosely bound to our code.</li>
+<li>If direct access was originally implemented, code can be changed to use getters and setter without requiring changes in the third-party code.</li>
+</ul>
+</section>
+</section>
+<section id="inheritance-in-python" class="level3">
+<h3>Inheritance in Python</h3>
+<p>Inheritance is written in Python like this:</p>
+<ul>
+<li><p>Import the necessary class(es):</p>
+<pre><code>  from employee import Employee</code></pre></li>
+<li><p>Inherit from the desired class:</p>
+<pre><code>  class Engineer(Employee):</code></pre></li>
+<li><p>Use the base class constructor:</p>
+<pre><code>  def __init__(self, name, ssn, salary, skill):
+      Employee.__init__(self, name, ssn, salary)
+      self._skill = skill</code></pre></li>
+</ul>
+<section id="the-search-heirarchy" class="level4">
+<h4>The Search Heirarchy</h4>
+<p>When you inherit, you provide a search path for methods and variables.</p>
+<ul>
+<li>The sub-class is searched first.</li>
+<li>If it isn’t found there, the super-class is search next.</li>
+<li>This is repeated up the inheritance heirarchy.</li>
+</ul>
+<p>Basically, the most specific version is used. We use this when we override methods to provide specialisation.</p>
+</section>
+<section id="overriding-methods" class="level4">
+<h4>Overriding Methods</h4>
+<p>By writing a method in a sub-class that has the same name as a method in the super-class, we can override it.</p>
+</section>
+</section>
+<section id="composition-in-python" class="level3">
+<h3>Composition in Python</h3>
+<p>We can include objects as attributes of other objects, just like any other inbuilt data type.</p>
+</section>
+<section id="object-persistence-in-python" class="level3">
+<h3>Object Persistence in Python</h3>
+<p>You can persist objects in Python by serialising them and writing them to disk — this is called shelving.</p>
+<p>Pickles allow you to convert any object or collection of objects to a string of bytes and write them to a file.</p>
+<p>Shelving stores pickled objects as key/value pairs, with all the usual dictionary methods.</p>
+<p>Pickling is done automatically when we shelve objects.</p>
+<p>Here’s how to do it:</p>
+<pre><code>import shelve
+from employee import Employee
+
+john = Employee(&#39;SN12345&#39;, &#39;John Doe&#39;, 32000)
+
+db = shelve.open(&#39;employeedb&#39;)
+db[john.ssn] = john
+
+cathal = db[&#39;SN48689&#39;]
+cathal.givePayRaise(10)
+db[cathal.ssn] = cathal
+
+db.close()</code></pre>
+<ul>
+<li>We have to open and close it like a file. By default you can read and write.</li>
+<li>We have to make sure the keys for the dictionary are unique, so here we use the employee’s ssn.</li>
+<li>The shelf is synchronised when closed.</li>
+</ul>
+</section>
+</section>
+<section id="oop-loose-ends" class="level2">
+<h2>OOP Loose Ends</h2>
+<section id="polymorphism" class="level3">
+<h3>Polymorphism</h3>
+<ul>
+<li>Operators (and any methods) can have different meanings depending on the type of the arguments.
+<ul>
+<li>For example, <code>i * 5</code> is different depending on whether <code>i</code> is a string or a number.</li>
+</ul></li>
+</ul>
+</section>
+<section id="duck-typing" class="level3">
+<h3>Duck Typing</h3>
+<p>Duck Typing is the process of establishing whether or not some object supports a particular behaviour or state.</p>
+</section>
+<section id="operator-overloading" class="level3">
+<h3>Operator Overloading</h3>
+<p>In Python, we can give meaning to the operations built into Python (e.g. <code>&lt;</code>, <code>&gt;</code>, <code>==</code>, <code>!=</code>, <code>+</code>, <code>-</code>) when applied to our objects.</p>
+<ul>
+<li><p>This can allow our objects to behave more like built-in types,</p></li>
+<li><p>But it can be confusing if it’s not clear what these operators should do.</p></li>
+</ul>
+<p>We can provide an implementation for the <code>==</code> operator as follows:</p>
+<pre><code>class Student(object):
+    def __init__(self, student_id, name):
+        self._id = student_id
+        self._name = name
+        
+    def __eq__(self, other):
+        return self._id == other._id
+        </code></pre>
+<p>With these methods, the method of the object on the left is called, passing the other as an argument.</p>
+<p>We can provide similar definitions for <code>__add__</code>, <code>__lt__</code> (less than), <code>__ne__</code> (not equal), and others.</p>
+</section>
+</section>
+<section id="exceptions" class="level2">
+<h2>Exceptions</h2>
+<p>Exceptions are for when we run into runtime errors. These typically happen because of inputs, because we don’t have control over what’s passed into our program, or because of system errors.</p>
+<p>We want to either return the program to a valid state or exit gracefully.</p>
+<p>We can catch them with <code>try/except</code>, and raise them with <code>raise</code>.</p>
+<pre><code>try:
+    if i &lt; 10:
+        raise ValueError
+except ValueError:
+    print(&#39;ValueError raised&#39;)
+except Exception:
+    print(&#39;Some other error raised&#39;)
+else:
+    print(&#39;No exceptions raised&#39;)
+finally:
+    print(&#39;This line prints whether exceptions were raised or not&#39;)
+    </code></pre>
+<p>There’s a full list of exceptions <a href="https://docs.python.org/3.4/library/exceptions.html">in the Python Documentation</a>.</p>
+</section>
+<section id="guis" class="level2">
+<h2>GUIs</h2>
+<section id="guis-with-tkinter" class="level3">
+<h3>GUIs with tkinter</h3>
+<p>Here’s a basic example:</p>
+<pre><code>from tkinter import *
+
+root = Tk()         # Creates a toplevel container
+lab = Label(root, text=&quot;Hello CS2513&quot;)      # Adds a label widget
+lab.pack()          # Arranges or lays out widgets
+
+root.mainloop()     # Runs the interface and handles events</code></pre>
+<ul>
+<li><code>from tkinter import *</code> — this imports the needed tkinter classes (used to be <code>Tkinter</code> in Python 2)</li>
+<li>You have to have a top-level container (root in this example).</li>
+<li>Anything you want on the screen has to be passed to a layout manager — in this case <code>.pack()</code> is used to put the label on the screen. There’s also <code>.grid()</code> and <code>.place()</code>.</li>
+<li>Once the main loop has been started, control is only given back to our code during callbacks we’ve written.</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

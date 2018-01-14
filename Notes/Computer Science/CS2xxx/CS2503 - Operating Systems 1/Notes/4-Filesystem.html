@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4-Filesystem</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="filesystem" class="level1">
+<h1>Filesystem</h1>
+<hr />
+<section id="links" class="level2">
+<h2>Links</h2>
+<p>Links save space by having multiple references to a file. There are two main types, hard and soft:</p>
+<section id="hard-links" class="level3">
+<h3>Hard Links</h3>
+<p>A hard link is a link to the file inode. They are independent of one another. If you delete one, the others remain.</p>
+</section>
+<section id="soft-links" class="level3">
+<h3>Soft Links</h3>
+<p>A soft link is a link to the directory entry. If you move/rename the original file, the link is broken.</p>
+</section>
+</section>
+<section id="inodes" class="level2">
+<h2>Inodes</h2>
+<p>Index nodes are a control structure that contains key information for a particular file. Ownership, timestamp, etc, as well as pointers to the data itself on the disk.</p>
+</section>
+</section>
+</body>
+</html>

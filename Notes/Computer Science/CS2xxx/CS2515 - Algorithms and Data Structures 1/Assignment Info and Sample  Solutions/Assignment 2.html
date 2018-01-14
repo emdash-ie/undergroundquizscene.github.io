@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Assignment 2</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="assignment-2" class="level1">
+<h1>Assignment 2</h1>
+<hr />
+<p>One node can represent a whole tree, since each node has children, and those children have children, and so on until you run out of nodes.</p>
+<p>All the methods are recursive, so you check this node, and then figure out what function call to make involving the children. E.g. for searching, you figure out whether the current node is the right node, and if it isn’t, you either call the search method of the left child or the search method of the right child.</p>
+<p>Also, if your method returns a value, every possible path through that method must return a value – if you’re calling the function recursively, you need to return the result of it instead of just calling it.</p>
+<section id="string-method" class="level2">
+<h2>String Method</h2>
+<p>There’s no need for brackets or symbols in your <code>__string__()</code> method, you just need to output word by word in an in-order traversal. This will give the words in alphabetical order, e.g. <code>&quot;bracket compass needle&quot;</code></p>
+</section>
+<section id="word-bst-gibberish" class="level2">
+<h2>Word BST Gibberish</h2>
+<p>There’s a problem with the way his <code>wordbst</code> function splits up the words in some of the text files (especially <code>lincoln.txt</code> because it uses double-dashes as em-dash style punctuation).</p>
+<p>As long as you use his function unmodified, you will get the same results as he does, and the problem won’t matter.</p>
+</section>
+</section>
+</body>
+</html>

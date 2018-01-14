@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2-Combinatorial Circuits</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="combinatorial-circuits" class="level1">
+<h1>Combinatorial Circuits</h1>
+<hr />
+<section id="note-to-anyone-reading" class="level2">
+<h2>Note to Anyone Reading</h2>
+<p>I’ve left out a lot of stuff because I did it last year in CS1110 and CS1111. If you need more info, you can look at those notes.</p>
+</section>
+<section id="inputs-and-outputs" class="level2">
+<h2>Inputs and outputs</h2>
+<p>Inputs can be artbitrarily assigned to specific states, and the output is the result/observation (whatever follows).</p>
+<p>A simple example is a switch in a circuit with a light – we control the switch which determines the light’s state, so the switch is the input and the light is the output.</p>
+<p>Outputs depend on inputs but inputs do not depend on outputs.</p>
+</section>
+<section id="distribution" class="level2">
+<h2>Distribution</h2>
+<p>A.(B + C) = A.B + A.C</p>
+<p>A+(B . C) = A+B . B+C</p>
+</section>
+<section id="the-majority-decoder" class="level2">
+<h2>The Majority Decoder</h2>
+<p>A box with three inputs (A, B, C) and one output (Y), where Y follows the majority input.</p>
+<section id="applications" class="level3">
+<h3>Applications</h3>
+<ul>
+<li>The carry digit in a half or full adder</li>
+<li>A security system with multiple sensors</li>
+</ul>
+<section id="note" class="level4">
+<h4>Note</h4>
+<p>The XOR function cannot be simplified and is the nastiest switching function.</p>
+</section>
+</section>
+</section>
+<section id="multiplexor" class="level2">
+<h2>Multiplexor</h2>
+<p>With a 2-1 MUX, you can express it as <code>B.C + A.C'</code>. An optional additional term is <code>A.B</code> – it makes no difference to the truth table. However, it makes a difference in circuit design:</p>
+<ul>
+<li>If <code>A = 1</code>, <code>B = 1</code>, and C changes from 1 to 0, the gate delay caused by the NOT gate will mean that for a brief interval, neither A nor B is selected. The output, instead of remaining at 1, will dip before coming back to it. This causes a glitch.</li>
+<li>Adding an <code>A.B</code> gate will fix this.</li>
+</ul>
+</section>
+<section id="simplifying-canonical-sums-of-products-and-products-of-sums" class="level2">
+<h2>Simplifying Canonical Sums of Products and Products of Sums</h2>
+<p>As <code>A.A = A</code> and <code>A + A = A</code>, you can duplicate existing terms without changing the result. So you can pair off one term with others multiple times in order to cancel things.</p>
+<p>You can either cancel terms using distribution and other rules, or you can work it out in English.</p>
+</section>
+<section id="karnaugh-map" class="level2">
+<h2>Karnaugh Map</h2>
+<section id="grey-coding" class="level3">
+<h3>Grey Coding</h3>
+<p>Reorganise the truth table so that every pair of adjacent lines (including the first and last) differ only by one digit.</p>
+<p>[missed stuff here]</p>
+</section>
+<section id="karnaugh-map-with-dont-care-entries" class="level3">
+<h3>Karnaugh Map with “Don’t-Care” Entries</h3>
+<p>Take a function with four inputs A, B, C, and D. Interpret A and B as two digits of one number, and the same for C and D. We want the circuit to output 1 when the number formed by C, D is bigger than the number formed by A, B.</p>
+<p>[see handwritten notes; need to scan them]</p>
+</section>
+</section>
+<section id="next-assignment" class="level2">
+<h2>Next Assignment</h2>
+<p>A 2-to-1 MUX which also has a clamp zero case. this will require two control lines C and D, but one of the four combinations of C and D will be a “don’t-care” entry, as we are only using three of the cases. We’ll get more details by Monday.</p>
+</section>
+<section id="bcd-to-7-segment-decoder-getting-back-to-this-in-the-future" class="level2">
+<h2>BCD-to-7-Segment Decoder (getting back to this in the future)</h2>
+<p>We want 10 different outputs (we’re ignoring the possibility of including letters). To do that, we need 4 inputs in our switching function (3 is not enough), which will give us 16 cases. In practice, the LEDs are connected so that the first 10 rows of the truth table are used, and the last 6 rows are then “don’t-care” entries.</p>
+</section>
+<section id="implication" class="level2">
+<h2>Implication</h2>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>Y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>E.g. A is whether it rains and B is whether the road is wet.</p>
+<p>[missed a bit here]</p>
+</section>
+<section id="karnaugh-map-with-6-inputs" class="level2">
+<h2>Karnaugh Map with 6 Inputs</h2>
+<p>Still possible with 6 inputs. With more inputs computers are required.</p>
+</section>
+<section id="karnaugh-map-with-more-inputs" class="level2">
+<h2>Karnaugh Map with More Inputs</h2>
+<section id="terminology-for-quine-mccluskey-algorithm" class="level3">
+<h3>Terminology for Quine McCluskey Algorithm</h3>
+<p>An <em>implicant</em> is a minterm of a switching function, but also terms from simplified solutions, e.g. <code>A.B</code> from the majority decoder.</p>
+<p>A <em>prime implicant</em> is an implicant of the form <code>A.B.C.D.…</code>, where removing any of the variables causes it to no longer be an implicant. I.e. it is a block of maximum size – it is simplified as far as possible.</p>
+<p>Note that the SSOP is not the sum of all prime implicants, but only of some of them. Take for example the following Karnaugh Map:</p>
+<table>
+<thead>
+<tr class="header">
+<th>A B</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0 0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0 1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1 1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1 0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>You can draw three 2x1 rectangles to cover the ones in that Karnaugh Map, but you could also do it with just two of them. One of the three is not required.</p>
+<p>Instead the SSOP is the minimum cover of all prime implicants.</p>
+<p>An <em>essential prime implicant</em> is one that is present in the SSOP.</p>
+<p>Computer algorithm solutions (including the Quine McCluskey Algorithm) involve finding all prime implicants and then finding a minimum cover from them.</p>
+</section>
+</section>
+<section id="demorgans-theorem" class="level2">
+<h2>DeMorgan’s Theorem</h2>
+<p>Our next assignment will be something like: here’s an expression, develop two simplified circuits for this expression, one using only NAND gates, one using only NOR gates.</p>
+<p>[I’ve left out a fair bit here; see CS1110 or possibly CS1111]</p>
+<pre><code>A . B&#39; + C&#39; . D = ((A . B&#39;)&#39; . (C&#39; . D)&#39;)&#39;</code></pre>
+<p>In this module, you’re allowed to use NOT gates/symbols when making NAND-only and NOR-only circuits/expressions, as you can easily make NOT gates from NAND and NOR gates, and that’s considered an unimportant detail.</p>
+<p>Remember if you end up with an expression that has an OR or AND gate (rather than a NOR or NAND gate), to represent that gate in a circuit diagram, you will need to use a NOR or NAND gate followed by a NOT gate.</p>
+</section>
+<section id="xor-with-nands" class="level2">
+<h2>XOR with NANDs</h2>
+<p>First, a rule:</p>
+<pre><code>A . B&#39; = A . (A . B)&#39;</code></pre>
+<p>Apply DeMorgan’s theorem to the right-hand side to prove it:</p>
+<pre><code>A . B&#39; = A . (A&#39; + B&#39;)
+A . B&#39; = A.A&#39; + A.B&#39;</code></pre>
+<p>You can use this to change the representation of XOR with NAND gates from this:</p>
+<pre><code>((A . B&#39;)&#39; . (A&#39; . B)&#39;)&#39;</code></pre>
+<p>To this:</p>
+<pre><code>((A . (A . B)&#39;)&#39; . (B . (A . B)&#39;)&#39;)&#39;</code></pre>
+<p>This looks more complicated, but because you can reuse the <code>(A . B)'</code> input, this only takes 4 gates in a circuit diagram, while the previous form took five. This is a level 3 circuit, as (not counting inverters) the longest path is through 3 gates.</p>
+</section>
+<section id="xnor-with-nors" class="level2">
+<h2>XNOR with NORs</h2>
+<p>Starting with XOR as <code>(A + B').(A' + B)</code>, you can use DeMorgan’s theorem to change it to:</p>
+<pre><code>((A + B&#39;)&#39; + (A&#39; + B)&#39;)&#39;</code></pre>
+<p>There’s a similar rule to before:</p>
+<pre><code>A + B&#39; = A + (A + B)&#39;</code></pre>
+<p>(You can prove this by using DeMorgan’s theorem on the bracketed part of the right-hand side, and then distributing <code>+</code> across <code>.</code>.)</p>
+<p>This gives this expression for XNOR, which has a simpler circuit solution than our last form:</p>
+<pre><code>((A + (A + B)&#39;)&#39; + ((A + B)&#39; + B)&#39;)&#39;</code></pre>
+<p>Again the circuit realisation saves 1 gate by using <code>(A + B)'</code> twice. Again this is a level 3 circuit.</p>
+</section>
+<section id="multiplexors" class="level2">
+<h2>Multiplexors</h2>
+<p>[see CS1110]</p>
+<p>Multiplexors are used in serial ports, e.g. USB, to send different signals over the same wire.</p>
+<p>Remember you can use a 4-1 mux to represent any switching function of two variables by feeding the truth table to the inputs and the variables to the select lines.</p>
+<p>You can buy multiplexors which are set up initially with every input connected to both 1 and 0, and you can use an electric pulse to destroy the connections you don’t want, in order to create the switching function you want.</p>
+<section id="majority-decoder-with-mux" class="level3">
+<h3>Majority Decoder with MUX</h3>
+<p>You can construct a (3-input) majority decoder with an 8–1 mux in the way described above.</p>
+<p>However, you can also construct one with a 4–1 mux, by using functions of C as the inputs and A and B as the control lines.</p>
+<p>There are 4 switching functions of one variable C: constant 0, constant 1, C and C’.</p>
+<p>Here’s the truth table for the majority decoder:</p>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>If you look at two lines at a time, so that the value of A and B are fixed, you can see that:</p>
+<ul>
+<li>When <code>(A, B) = (0, 0)</code>, you want constant 0 at the output.</li>
+<li>When <code>(A, B) = (0, 1)</code>, you want C at the output.
+<ul>
+<li><code>0</code> if <code>C = 0</code> and <code>1</code> if <code>C = 1</code></li>
+</ul></li>
+<li>When <code>(A, B) = (1, 0)</code>, you want C at the output.</li>
+<li>When <code>(A, B) = (1, 1)</code>, you want constant 1 at the output.</li>
+</ul>
+</section>
+<section id="bit-comparator" class="level3">
+<h3>2-bit Comparator</h3>
+<p>A circuit that takes 4 inputs, A and B which represent a 2-bit number p, and C and D which represent a second 2-bit number q.</p>
+<p>If the first number is bigger, we output 1. If they are equal or the second is bigger, we output 0.</p>
+<p>We can solve this with a 16–1 mux, which is straightforward. We can also solve it with an 8–1 mux, or a 4–1 mux.</p>
+<section id="solution-with-an-81-mux" class="level4">
+<h4>Solution with an 8–1 Mux</h4>
+<p>8 inputs (D0–D7) to the mux, which can be connected to any function of D. A, B, and C are used as the control inputs.</p>
+<section id="d0" class="level5">
+<h5>D0</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>This table above represents the cases where A, B, and C are 0. Since we want 0 in both of these cases, the function of D that we use is constant 0.</p>
+</section>
+<section id="d1" class="level5">
+<h5>D1</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>In this second table, <code>p = 0</code>, and <code>q = 0</code> and <code>q = 1</code>. So we still want <code>constant 0</code>.</p>
+</section>
+<section id="d2" class="level5">
+<h5>D2</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>For D2 we now want <code>D'</code> at the output.</p>
+</section>
+<section id="d3" class="level5">
+<h5>D3</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><code>Constant 0</code> here as q is always greater than p.</p>
+</section>
+<section id="d4" class="level5">
+<h5>D4</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><code>Constant 1</code> here as p is always greater than q.</p>
+</section>
+<section id="d5" class="level5">
+<h5>D5</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p><code>Constant 0</code> here as q is always greater than p.</p>
+</section>
+<section id="d6" class="level5">
+<h5>D6</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><code>Constant 1</code> here.</p>
+</section>
+<section id="d7" class="level5">
+<h5>D7</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Output of <code>D'</code> here.</p>
+</section>
+</section>
+<section id="solution-with-a-41-mux" class="level4">
+<h4>Solution with a 4–1 Mux</h4>
+<p>Now we connect <code>A</code> and <code>B</code> to the control lines, and functions of <code>C</code> and <code>D</code> to the data inputs (<code>D0</code>–<code>D3</code>).</p>
+<section id="d0-1" class="level5">
+<h5>D0</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>As the four outputs are 0, our switching function of <code>C</code> and <code>D</code> is <code>constant 0</code>.</p>
+</section>
+<section id="d1-1" class="level5">
+<h5>D1</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Our function of <code>C</code> and <code>D</code> here is <code>C' . D' = (C + D)'</code>.</p>
+</section>
+<section id="d2-1" class="level5">
+<h5>D2</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Our function here is <code>C'</code>.</p>
+</section>
+<section id="d3-1" class="level5">
+<h5>D3</h5>
+<table>
+<thead>
+<tr class="header">
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>y</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Our function here is <code>C' + D' = (C . D)'</code>.</p>
+</section>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

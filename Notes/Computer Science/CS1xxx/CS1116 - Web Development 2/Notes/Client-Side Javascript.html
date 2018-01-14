@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Client-Side Javascript</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="client-side-javascript" class="level1">
+<h1>Client-side Javascript</h1>
+<hr />
+<p>Client-side Javascript consists of three parts:</p>
+<ul>
+<li>The core language (loop, arrays, etc)</li>
+<li>The Browser Object Model (BOM)</li>
+<li>The Document Object Model (DOM)</li>
+</ul>
+<section id="the-browser-object-model" class="level2">
+<h2>The Browser Object Model</h2>
+<ul>
+<li>An <strong>application programming interface</strong> (API) for browsers:
+<ul>
+<li><strong>window</strong> object</li>
+<li><strong>navigator</strong> object
+<ul>
+<li>which browser this is</li>
+<li>whether cookies are enabled</li>
+<li>these things may not work in every browser</li>
+</ul></li>
+<li><strong>location</strong> object
+<ul>
+<li>which URL they’re currently looking at</li>
+<li>can change this without asking the user</li>
+</ul></li>
+<li><strong>screen</strong> object
+<ul>
+<li>can find out screen resolution</li>
+<li>this is also not widely supported</li>
+</ul></li>
+<li><strong>history</strong> object
+<ul>
+<li>you can make a user go back and forward in their history</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="the-document-object-model" class="level2">
+<h2>The Document Object Model</h2>
+<ul>
+<li>An API for HTML documents (and XML documents):
+<ul>
+<li>Allows you to use JavaScript to change the content and appearance of a web page without reloading it.</li>
+<li>Treats the page as a hierarchy of different types of <strong>node</strong>:
+<ul>
+<li>Allows you to use JS to remove, replace, insert, or change the nodes.</li>
+</ul></li>
+</ul></li>
+</ul>
+<section id="nodes" class="level3">
+<h3>Nodes</h3>
+<p>Nodes come in three types:</p>
+<ul>
+<li><strong>Document</strong> nodes (contains the html)</li>
+<li><strong>Element</strong> nodes (start tag, content, end tag)</li>
+<li><strong>Text nodes</strong> (e.g. stored in
+<p>
+tag)</li>
+</ul>
+<section id="finding-element-nodes-in-javascript" class="level4">
+<h4>Finding element nodes in javascript</h4>
+<pre><code>element = document.querySelector(&#39;canvas&#39;);</code></pre>
+<p>This code goes to the document and finds all canvases (using CSS selector), and returns the first one, or null if no element matches the CSS selector.</p>
+<pre><code>elements = document.querySelectorAll(&#39;CSS_selector&#39;);</code></pre>
+<p>This returns an array-like collection of all elements which are specified by the CSS selector. An empty array if nothing matches.</p>
+</section>
+<section id="creating-new-element-nodes-and-new-text-nodes" class="level4">
+<h4>Creating new element nodes and new text nodes</h4>
+<p>To create a new <strong>p</strong> element node:</p>
+<pre><code>new_p_element = document.createElement(&#39;p&#39;);</code></pre>
+<p>To create a new text node:</p>
+<pre><code>new_text_node = document.createTextNode(&#39;Lorem ipsum&#39;);</code></pre>
+<p>Once created, you have to put these things into the tree.</p>
+</section>
+<section id="changing-the-trees-nodes-and-values" class="level4">
+<h4>Changing the tree’s nodes and values</h4>
+<p>Changing the nodes in the tree:</p>
+<pre><code>some_node.appendChild(new_node);</code></pre>
+<p>This add <strong>new_node</strong> to the end of the <strong>some_node</strong>’s children.<br />
+Others:</p>
+<ul>
+<li>insertBefore</li>
+<li>replaceChild</li>
+<li>removeChild</li>
+</ul>
+<p>Changing the text in a text node:</p>
+<pre><code>some_text_node.nodeValue = &#39;Some new text&#39;;</code></pre>
+<p>Others:</p>
+<ul>
+<li>appendData</li>
+<li>insertData</li>
+<li>deleteData</li>
+</ul>
+</section>
+<section id="a-more-concise-approach" class="level4">
+<h4>A more concise approach</h4>
+<p>You can create a new element and make it a child in one by using:</p>
+<pre><code>new_p_element.innerHTML;</code></pre>
+<p>innerHTML is much more powerful than this example suggests.</p>
+</section>
+<section id="properties-of-element-nodes" class="level4">
+<h4>Properties of element nodes</h4>
+<p>JavaScript can retrieve and change attribute values by accessing and setting object properties. It’s very easy:</p>
+<pre><code>some_node.id = &#39;new_id&#39;</code></pre>
+<p>Note you would find the node using querySelector.</p>
+</section>
+<section id="changing-the-value-of-the-class-attribute" class="level4">
+<h4>Changing the value of the class attribute</h4>
+<p>This is an exception. You cannot use <code>some_node.class</code> to change the class in JS, because <code>class</code> is already a reserved word in javascript.<br />
+Instead you have to write:</p>
+<pre><code>some_node.className = &#39;new_class&#39;</code></pre>
+</section>
+</section>
+<section id="note" class="level3">
+<h3>Note</h3>
+<p>There are many examples in Derek Bridge’s notes.</p>
+</section>
+<section id="slight-aside" class="level3">
+<h3>Slight aside</h3>
+<p><code>&lt;div&gt;</code> is now old-fashioned, stuff like <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;nav&gt;</code> are replacing it.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

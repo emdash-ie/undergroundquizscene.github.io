@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4 - Discovery Services</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="the-problem" class="level1">
+<h1>The Problem</h1>
+<p>Sometimes users/applications need resources and services (e.g. hardware devices, storage, content servers, software) that aren’t available on their computers.</p>
+<p>As the network is changing all the time, we need to be able to discover services at runtime.</p>
+<p>Users want to be able to find services by specifying criteria – cost, trustworthiness, etc.</p>
+<p>We’d like to describe services, e.g. using XML. This info can specify how to use the service as well as what it provides.</p>
+<p>We’d also like the client and server to know when the other is no longer accessible. (provisioning?)</p>
+</section>
+<section id="examples" class="level1">
+<h1>Examples</h1>
+<p>Bluetooth uses discovery and pairing to create an ad-hoc network between two devices, where each can act as server or client. Bluetooth is an interesting thing to look into if you’d like, especially recent developments.</p>
+<p>With bluetooth the first step is to discover devices, and the second is to discover services.</p>
+<p>Wifi Direct creates ad-hoc networks using wifi. One device is assigned as the group network, and this controls what happens, especially regarding energy use.</p>
+</section>
+<section id="using-a-directory" class="level1">
+<h1>Using a Directory</h1>
+<p>Similar to RMI Registries, you can use a directory services which provides information about available services.</p>
+<p>This can be done with a centralised server or purely peer-to-peer.</p>
+</section>
+<section id="example-jini" class="level1">
+<h1>Example: Jini</h1>
+<ul>
+<li>Similar to RMI, but with extra discovery service</li>
+</ul>
+<section id="discovery" class="level2">
+<h2>Discovery</h2>
+<p>Services can be defined by their signatures.</p>
+<p>Jini has a lookup service which stores which services are available and information about them.</p>
+<p>Advertising of services is for a limited time – the services are leased. This is a significant difference from RMI. Clients may only get a period of access time for the service, and then will have to renew the connection. E.g. the service may be available for 1 hour, and a given client may get access only for 10 minutes.</p>
+<p>There is a protocol (set of rules) for services to discover a lookup service and register themselves with it. This is the discovery/join protocol.</p>
+<p>Multicast is used for finding the lookup service. Multicast addresses a subset of computers in a network, rather than specifying an individual computer (as you would with unicast) or everybody (as you would with broadcast).</p>
+<p>Once the lookup service has been found, it sends the servers a proxy that will mediate communication between the server and the lookup registry.</p>
+<p>The client can discover the lookup registry the same way, and then query it for the specific service it wants. It then receives a stub/proxy as with RMI.</p>
+<p>Service access can be exclusive or non-exclusive.</p>
+</section>
+<section id="scalability" class="level2">
+<h2>Scalability</h2>
+<ul>
+<li>A federation of lookup services.</li>
+</ul>
+<p>Lookup services can register themselves with one another and balance the load geographically or based on requests.</p>
+<p>A penalty here is longer resolution time to find a service if it’s not found in the first step.</p>
+</section>
+<section id="central-authority" class="level2">
+<h2>Central Authority</h2>
+<p>Note there is no central authority here that controls the system. The lookup is centralised, but the control isn’t.</p>
+</section>
+</section>
+</body>
+</html>

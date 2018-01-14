@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 7</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="linked-lists-cont." class="level1">
+<h1>Linked Lists (cont.)</h1>
+<ul>
+<li>We continued implementing Quicksort with linked lists in Java (see <code>../Implementing Quicksort</code>).</li>
+</ul>
+</section>
+<section id="assignment-1" class="level1">
+<h1>Assignment 1</h1>
+<ul>
+<li><p>We’ll get assignment 1 back on Monday.</p></li>
+<li><p>Everyone made similar mistakes for the assignment</p>
+<ul>
+<li>Some we definitely should have known not to make</li>
+</ul></li>
+<li><p>Should have comments</p></li>
+<li><p>Should have sensible variable names</p></li>
+</ul>
+</section>
+<section id="recursion" class="level1">
+<h1>Recursion</h1>
+<ul>
+<li><p>a recursive function does not <em>have</em> to call itself</p></li>
+<li><p>Lower order computations = computations that are smaller in some way</p></li>
+</ul>
+<section id="controlling-the-size" class="level2">
+<h2>Controlling the Size</h2>
+</section>
+<section id="proof-by-contradiction" class="level2">
+<h2>Proof by Contradiction</h2>
+</section>
+<section id="computing-factorials" class="level2">
+<h2>Computing Factorials</h2>
+</section>
+<section id="fibonacci" class="level2">
+<h2>Fibonacci</h2>
+<ul>
+<li>If you want to become famous, don’t become a pop star or celebrity – those don’t last. Become a composer or mathematician instead.</li>
+</ul>
+<section id="tracing-the-calls" class="level3">
+<h3>Tracing the Calls</h3>
+<ul>
+<li><p>This is an inefficient method, as there are duplicated calls</p>
+<ul>
+<li>becomes exponentially slow</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="towers-of-hanoi" class="level2">
+<h2>Towers of Hanoi</h2>
+<section id="intermediate-state" class="level3">
+<h3>Intermediate State</h3>
+<ul>
+<li>Often useful to first try to find a recursive solution, and if that’s inefficient, then change to an iterative solution</li>
+</ul>
+</section>
+<section id="alternative-solution" class="level3">
+<h3>Alternative Solution</h3>
+<ul>
+<li>Ranges are empty for the base case</li>
+</ul>
+</section>
+<section id="java" class="level3">
+<h3>Java</h3>
+<p>Note you can find the number of the third peg by subtracting the sum of the other peg numbers from the sum of all of the peg numbers.</p>
+<ul>
+<li>moveDisk just prints the move</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="binary-search" class="level1">
+<h1>Binary Search</h1>
+<ul>
+<li><p>return negative number if the element isn’t found</p></li>
+<li><p><code>mid = (lo + hi) / 2</code> causes rounding error if</p>
+<ul>
+<li><p>lo is maximum int value and hi is value just below</p></li>
+<li><p>gives negative result</p></li>
+</ul></li>
+</ul>
+<section id="comparable-interface" class="level2">
+<h2>Comparable Interface</h2>
+<ul>
+<li>lots of classes already implement this</li>
+</ul>
+</section>
+<section id="tail-recursion-for-fibonacci" class="level2">
+<h2>Tail Recursion (For Fibonacci)</h2>
+<ul>
+<li><p>work up from the start values (0 and 1) until you get to the number you want</p>
+<ul>
+<li>prevents duplication of calls</li>
+</ul></li>
+</ul>
+<p>So:</p>
+<ol type="1">
+<li>Compute first pair</li>
+<li>If not there yet, compute next pair</li>
+<li>Repeat until there</li>
+</ol>
+<p>A method is tail recursive if it has no more than recursive calls at the current level. (?)</p>
+<p>Implementing this is a suggested exercise. You can then easily turn it into an iterative solution.</p>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">private</span> <span class="dt">static</span> <span class="dt">int</span> <span class="fu">f</span>(P p, <span class="dt">int</span> pos) {</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    <span class="dt">int</span> result;</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">    <span class="kw">if</span> (pos == <span class="dv">0</span>) {</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">        result = p.<span class="fu">get</span>(<span class="dv">1</span>);</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">    } <span class="kw">else</span> {</div>
+<div class="sourceLine" id="cb1-6" data-line-number="6">        result = <span class="fu">f</span>(<span class="kw">new</span> <span class="fu">P</span>(p.<span class="fu">get</span>(<span class="dv">1</span>), p.<span class="fu">get</span>(<span class="dv">0</span>) + p.<span class="fu">get</span>(<span class="dv">1</span>), pos - <span class="dv">1</span>));</div>
+<div class="sourceLine" id="cb1-7" data-line-number="7">    }</div>
+<div class="sourceLine" id="cb1-8" data-line-number="8">    <span class="kw">return</span> result;</div>
+<div class="sourceLine" id="cb1-9" data-line-number="9">}</div></code></pre>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-16</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>No lecture on Friday.</p>
+<section id="our-running-example" class="level1">
+<h1>Our Running Example</h1>
+<p>This is a deliberately simple database for an example (single-table, only 6 students, not too many columns).</p>
+<p>Note it’s more convenient to split names into first_name and last_name fields, because then you can choose all the people of a certain first name, for example.</p>
+<p>Dates are expressed YYYY-MM-DD in SQL, which is more convenient and for the moment we have to just take it for granted.</p>
+<p>ID numbers are stored as strings rather than numbers because we never need to treat them as numbers and it’s more convenient to treat them as strings.</p>
+<section id="naming-conventions" class="level2">
+<h2>Naming Conventions</h2>
+<p>SQL Rules:</p>
+<ul>
+<li><p>start with a letter</p></li>
+<li><p>composed of letters, digits, and underscores</p></li>
+<li><p>NB: no internal spaces etc. (e.g. first_name not first name)</p></li>
+</ul>
+<p>Conventions:</p>
+<ul>
+<li><p>use lower-case letters for names</p></li>
+<li><p>use upper-case for keywords (e.g. SELECT)</p></li>
+<li><p>names should be concise but <em>meaningful</em> (e.g. id_number not y16id or id_of_student_in_question)</p></li>
+</ul>
+</section>
+<section id="sql-queries" class="level2">
+<h2>SQL Queries</h2>
+<p>An SQL query specifies what info we require from the database table(s).</p>
+<p>The result returned will be an unnamed table.</p>
+<p>We will look at SELECT queries first. These leave databases unchanged, even if screwed up.</p>
+</section>
+<section id="select-from-queries" class="level2">
+<h2>SELECT-FROM Queries</h2>
+<p>Template:</p>
+<blockquote>
+<p>SELECT list_of_attributes</p>
+<p>FROM table-name;</p>
+</blockquote>
+<p><em>list_of_attributes</em> — list of columns of interest, comma- separated</p>
+<p><em>table-name</em> — specifies table</p>
+<p>Each query is terminated with a semicolon.</p>
+<p>Examples:</p>
+<blockquote>
+<p>SELECT id_number</p>
+<p>FROM students;</p>
+<p>SELECT first_name, last_name</p>
+<p>FROM students;</p>
+<p>SELECT *</p>
+<p>FROM students;</p>
+</blockquote>
+<p>* specifies all columns.</p>
+</section>
+<section id="distinctness" class="level2">
+<h2>Distinctness</h2>
+<p>Tuples in relations should be distinct, but the result table from</p>
+<blockquote>
+<p>SELECT course</p>
+<p>FROM students;</p>
+</blockquote>
+<p>has duplicates.</p>
+<p>This is a frustrating discrepancy between relation model and SQL implementations.</p>
+<blockquote>
+<p>SELECT DISTINCT course</p>
+<p>FROM students;</p>
+</blockquote>
+<p>will remove duplicates.</p>
+<p>Note that you shouldn’t assume that results will come in any particular order unless specified. E.g. names won’t automatically come out in alphabetical order.</p>
+</section>
+<section id="select-from-where-queries" class="level2">
+<h2>SELECT-FROM-WHERE Queries</h2>
+<blockquote>
+<p>SELECT list_of_attributes</p>
+<p>FROM table-name</p>
+<p>WHERE condition;</p>
+</blockquote>
+<p>Examples:</p>
+<blockquote>
+<p>SELECT id_number</p>
+<p>FROM students</p>
+<p>WHERE points = 475;</p>
+<p>SELECT first_name, last_name</p>
+<p>FROM students</p>
+<p>WHERE points &gt;= 550;</p>
+<p>SELECT first_name, last_name<br />
+FROM students<br />
+WHERE course = ‘ck401’;</p>
+</blockquote>
+<p>Note that queries don’t have to be formatted on separate lines, you can write it all in one line, but readability is hugely increased with separate lines.</p>
+<p>Note also that ck401 is in quotes (single or double) because it is a string format value. You would also need to do this for ID numbers since those are stored as strings in this DB.</p>
+<p>For each tuple X of table in turn, the WHERE condition is checked for each entry. For each tuple that satisfies the condition, the relevent entries are appended to the results table.</p>
+<p>Technically this isn’t how it implemented, because there are faster/more efficient ways, but it’s a good conceptual picture.</p>
+</section>
+<section id="main-sql-operators" class="level2">
+<h2>Main SQL Operators</h2>
+<ul>
+<li><p>=</p></li>
+<li><p>&lt;&gt; — not equal</p></li>
+<li><p>&lt;</p></li>
+<li><p>&lt;=</p></li>
+<li><p>&gt;</p></li>
+<li><p>&gt;=</p></li>
+<li><p>BETWEEN (includes both endpoints, first endpoint must be lower)</p></li>
+</ul>
+</section>
+<section id="conditions-involving-dates" class="level2">
+<h2>Conditions Involving Dates</h2>
+<blockquote>
+<p>SELECT first_name, last_name<br />
+FROM students<br />
+WHERE date_of_birth &lt; ‘1980-01-01’;</p>
+</blockquote>
+<p>SQL treats dates as strings, for reasons we won’t get into yet.</p>
+<p>The format must be ‘YYYY-MM-DD’ or “YYYY-MM-DD”. Should use single quotes for style and to be consistent.</p>
+<p>Operators are relatively clear:</p>
+<ul>
+<li><p><em>&lt;</em> <em>‘1980-01-01’</em> means “before 1 Jan. 1980”</p></li>
+<li><p><em>BETWEEN ‘1980-01-01’ AND ‘1980-12-31’</em> means “born during 1980” (includes both endpoints)</p></li>
+</ul>
+</section>
+</section>
+</body>
+</html>

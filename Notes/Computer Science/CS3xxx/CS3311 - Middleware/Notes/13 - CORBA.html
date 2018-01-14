@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>13: CORBA</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">13: CORBA</h1>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>CORBA (standing for Common Object Request Broker Architecture) is a specification for distributed systems that was proposed by OMG (?).</p>
+<p>There are several implementations of the specification.</p>
+<p>The idea is that there are heterogenous systems (in terms of OS, programming languages, and protocols), and we need to be able to deploy a distributed system across all of these systems – how do we get them all to work together? We need to hide the heterogeneity.</p>
+</section>
+<section id="decisions" class="level1">
+<h1>Decisions</h1>
+<p>Some decisions were made:</p>
+<ul>
+<li>use object-oriented technology
+<ul>
+<li>desirable for encapsulation, separation of interface and implementation
+<ul>
+<li>interface is defined in IDL (Interface Definition Language – a general standard)</li>
+<li>now any language that has a mapping to IDL can be used</li>
+</ul></li>
+</ul></li>
+<li>provide services required by distributed applications – these are provided by the request broker
+<ul>
+<li>remote execution</li>
+<li>discovery of services</li>
+<li>name service</li>
+<li>event notification (can include alerts)</li>
+<li>remote activation</li>
+</ul></li>
+</ul>
+</section>
+<section id="structure" class="level1">
+<h1>Structure</h1>
+<p>Clients and servers talk to one another through the object request broker. An IDL stub and IDL skeleton are compiled from the IDL interface for the client and server. This is the structure when running on one system.</p>
+<p>When running on separate computers, there’s an object request broker on each computer, and these communicate with one another using IIOP (Internet Inter-ORB Protocol – an application-level protocol that runs on TCP/IP).</p>
+</section>
+<section id="object-request-brokers" class="level1">
+<h1>Object Request Brokers</h1>
+<p>Every entity in the system connects to a broker, which works on its behalf.</p>
+<p>These have a couple of different roles:</p>
+<ul>
+<li>aiding the discovery of new services
+<ul>
+<li>this is called the trade service – a trader stores service offers</li>
+<li>a client can use the broker to search for services matching certain attributes
+<ul>
+<li>we need a mechanism for dynamic invocation of services (since there won’t be a pre-existing stub and skeleton for this client-service combination)</li>
+</ul></li>
+</ul></li>
+<li>providing remote execution</li>
+<li>allocating service instances to different requesting clients
+<ul>
+<li>need to activate the service if it isn’t running</li>
+<li>need to allocate resources to a new instance of the service</li>
+<li>need to de-activate the service (not sure when)</li>
+<li>need to save state of service instances (e.g. if it’s part of a transaction)</li>
+</ul></li>
+<li>managing security
+<ul>
+<li>credentials are provided by clients, and are checked on the server side</li>
+</ul></li>
+</ul>
+</section>
+<section id="deployment" class="level1">
+<h1>Deployment</h1>
+<p>How is the ORB deployed? Is it just one piece of code?</p>
+<p>There are multiple solutions:</p>
+<ul>
+<li>deployed as one process
+<ul>
+<li>this is pretty heavy (lots of code)</li>
+</ul></li>
+<li>deployed as many processes, running across one or more computers</li>
+</ul>
+</section>
+<section id="summary" class="level1">
+<h1>Summary</h1>
+<p>CORBA is old, but is still widely-deployed, e.g. by banks.</p>
+</section>
+</body>
+</html>

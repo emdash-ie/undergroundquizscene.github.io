@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4 - Port Manipulation</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="ports" class="level1">
+<h1>Ports</h1>
+<p>Sets of pins can be grouped in groups called ports – they can all be read from or written to simultaneously. This is done by reading into a register (each pin gets its own bit), or writing from it.</p>
+<section id="why" class="level2">
+<h2>Why?</h2>
+<p>Mainly for speed. We’d have to use a separate read for each pin otherwise, which is very slow and expensive (using the arduino <code>digitalRead()</code>).</p>
+<p>Also useful for the simultaneity – if trying to test people’s reaction speeds against one another, you’ll want to read in the values simultaneously so that you don’t give an advantage to either person.</p>
+<p>It also reduces the size of the program, which means we can do more within the memory restrictions.</p>
+</section>
+<section id="arduino-ports" class="level2">
+<h2>Arduino Ports</h2>
+<p>Our device has 3 ports, two of which have 6 pins and one of which has 8 pins.</p>
+<p>A special register is used to hold the pin direction for each pin in a port, you can use this register to control the pins. These are called DDRx (as in DDRD, DDRB, DDRC).</p>
+<p>You can use a single command to control this:</p>
+<pre class="arduino"><code>DDRD = B10110001;</code></pre>
+<p>This will set the pins to output (1) or input (0), starting at the most significant bit.</p>
+<p>You can also use hex values:</p>
+<pre class="arduino"><code>DDRD = 0xB1;</code></pre>
+<p>Port numbers are different on the arduino board (where port D goes from 0 to 7) and on the chip itself (where port D is 2 to 9).</p>
+</section>
+</section>
+<section id="knight-rider-code" class="level1">
+<h1>Knight Rider Code</h1>
+<p>When written out in straight code using <code>digitalWrite()</code> and <code>pinMode()</code>, the compiled code is about 1300 bytes.</p>
+<p>If you use ports instead (using for example the <code>PORTD</code> instruction), the size is cut down to about 700 bytes.</p>
+<p>Using bit-shifting, you can get down to about 600 bytes.</p>
+<ul>
+<li>The <code>&lt;&lt;</code> operator shifts all the bits one place to the left (multiplying the integer value by 2)</li>
+</ul>
+</section>
+<section id="port-output" class="level1">
+<h1>Port Output</h1>
+<p>Write out by assigning to <code>PORTD</code>, <code>PORTC</code> and <code>PORTB</code>.</p>
+<p>If you write a 1 to a pin defined as an input, you get a pull-up resistor attached internally (so the pin is not floating).</p>
+</section>
+<section id="port-input" class="level1">
+<h1>Port Input</h1>
+<p>Uses the <code>PIND</code>, <code>PINC</code>, <code>PINB</code> commands (standing for “port input”).</p>
+<p>These and the <code>PORTD</code> etc. commands are macros.</p>
+</section>
+<section id="port-speed" class="level1">
+<h1>Port Speed</h1>
+<p>Writing to ports is much faster than writing to individual pins using <code>digitalWrite()</code>.</p>
+</section>
+<section id="bitwise-operators" class="level1">
+<h1>Bitwise Operators</h1>
+<p>We’ll use these for masks (accessing individual bits) and for reducing the amount of memory needed to store data.</p>
+</section>
+</body>
+</html>

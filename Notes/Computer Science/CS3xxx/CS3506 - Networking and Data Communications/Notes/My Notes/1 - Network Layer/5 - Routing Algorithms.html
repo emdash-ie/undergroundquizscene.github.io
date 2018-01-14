@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>5 - Routing Algorithms</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="interplay-between-routing-and-forwarding" class="level1">
+<h1>Interplay Between Routing and Forwarding</h1>
+<p>How do I figure out what are the right routes through the network? Especially in large networks?</p>
+</section>
+<section id="graph-abstraction" class="level1">
+<h1>Graph Abstraction</h1>
+<p>Represent the network as a graph where the nodes are routers and the edges are links between routers. We need to also assign a cost to different links (e.g. the latency or the congestion, or some complicated quantity).</p>
+<p>In many networks, the cost for every link is set to 1, so essentially you’re just looking at number of hops.</p>
+<p>This is useful because we can apply graph algorithms (e.g. shortest-path algorithms) to our networks.</p>
+<p>You can also use graphs for P2P groups, where nodes are peers and edges are TCP connections – graphs are used widely in networking.</p>
+</section>
+<section id="routing-algorithm-classification" class="level1">
+<h1>Routing Algorithm Classification</h1>
+<p>Global vs. decentralised</p>
+<ul>
+<li><p>may not have info about all the links (routers will need to share info with each other about their nearest neighbours)</p></li>
+<li><p>link state algorithms (global)</p></li>
+<li><p>distance vector algorithms (local)</p></li>
+</ul>
+<p>Also need to consider static vs. dynamic</p>
+<ul>
+<li><p>static algorithms have slowly-changing routes</p></li>
+<li><p>dynamic algorithms have routes changing more quickly</p>
+<ul>
+<li>periodic updates in response to link cost changes</li>
+</ul></li>
+</ul>
+</section>
+<section id="a-link-state-routing-algorithm" class="level1">
+<h1>A Link-State Routing Algorithm</h1>
+<p>Uses Dijkstra’s algorithm.</p>
+<p>Every individual router runs the algorithm, taking the list of links and the costs as input. Every router is assumed to know the identities of all other routers on the network.</p>
+<p>How do routers know about other routers? Every router periodically sends out a link state broadcast, describing its interfaces and identifying itself.</p>
+<p>[…]</p>
+</section>
+<section id="distance-vector-algorithm" class="level1">
+<h1>Distance Vector Algorithm</h1>
+<p>Uses the Bellman-Ford Equation (dynamic programming).</p>
+<p>Unlike dijkstra, each router doesn’t know the full path to every other, just the path cost (having been told it by a neighbouring router), and reports these destinations and costs to neighbouring routers.</p>
+<p>Take node A. Every neighbouring node reports which nodes it can get to and at what cost. A can get to all nodes reported, with the minimum cost that was reported for each (including the cost to the neighbour).</p>
+<p>Important to note that each node is trusting the other nodes.</p>
+<p>Also, every node shares its whole table with every neighbour. From time to time, each node sends its distance vector estimate to its neighbours. On receiving a new estimate, a node updates its own estimate using the new info. These sends can be triggered by updates, or can happen at fixed intervals.</p>
+<p>## Weird Things</p>
+<section id="link-cost-changes" class="level3">
+<h3>Link Cost Changes</h3>
+<p>Everything’s fine when link costs go down, but not as much when they go up.</p>
+<p>You can get a routing loop, where two routers think their shortest path is through each other.</p>
+<p>You can get around it somewhat by not reporting routes back to routers involved. (If A’s shortest path to X is through B, it won’t report that to B.)</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Basic Sorts</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sorting" class="level1">
+<h1>Sorting</h1>
+<p>Sorting is important because it’s everywhere. Physical sorting (mail, cards in card game hands, library books), interfaces (holidays by cost, financial results in a spreadsheet), software (Google search results, data structures for ease of searching, for assigning jobs to processors).</p>
+<p>To write efficient software, you have to understand sorting, and know which algorithms to use when.</p>
+<section id="bubble-sort" class="level2">
+<h2>Bubble Sort</h2>
+<p>Basic sort algorithm, easy to write down.</p>
+<pre class="sourceCode python" id="cb1"><code class="sourceCode python"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">def</span> bubble_sort(mylist):</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    n <span class="op">=</span> <span class="bu">len</span>(mylist)</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n<span class="dv">-1</span>):</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>, n<span class="dv">-1</span> <span class="op">-</span> i):</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">            <span class="cf">if</span> mylist[j] <span class="op">&gt;</span> mylist[j<span class="op">+</span><span class="dv">1</span>]:</div>
+<div class="sourceLine" id="cb1-6" data-line-number="6">                mylist[j], mylist[j<span class="op">+</span><span class="dv">1</span>] <span class="op">=</span> mylist[j<span class="op">+</span><span class="dv">1</span>], mylist[j]</div></code></pre>
+<ul>
+<li>Worst case gives <code>0.5*(n-1)*n</code> comparisons, which is O(n<sup>2</sup>).</li>
+<li>Worst case O(n<sup>2</sup>) swaps.</li>
+</ul>
+</section>
+<section id="sorting-using-priority-queues" class="level2">
+<h2>Sorting Using Priority Queues</h2>
+<p>A priority queue is a data structure to which we can add items, and from which we can remove the item with the top priority.</p>
+<p>Outline sorting algorithm:</p>
+<ul>
+<li>for each item in our list, add it to the PQ</li>
+<li>then repeatedly remove the top item from the PQ and put in successive cells in the list</li>
+</ul>
+<pre class="sourceCode python" id="cb2"><code class="sourceCode python"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">def</span> pq_sort(mylist):</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">    pq <span class="op">=</span> PriorityQueue()</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(mylist)):</div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">        pq.add(mylist[i], <span class="va">None</span>)</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(mylist)):</div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">        mylist[i] <span class="op">=</span> pq.<span class="bu">min</span>()</div>
+<div class="sourceLine" id="cb2-7" data-line-number="7">[check this]</div></code></pre>
+<section id="sorting-with-an-unsorted-linked-list-pq" class="level3">
+<h3>Sorting With an Unsorted Linked List PQ</h3>
+<p><em>Selection</em> sort – main task is selecting the next smallest item.</p>
+<p>Adding an item to the PQ is O(1), so the cost of the first loop is O(n).</p>
+<p>Removing the top item requires a linear search over all items in the list, so n-1 comparisons. Each time we remove an item, the list shrinks by 1, and we make one assignment back into our original (array-based) list.</p>
+<ul>
+<li>O(n<sup>2</sup>) comparisons, n assignments</li>
+</ul>
+<p>Best case (for n)?</p>
+<p>The best case is also O(n<sup>2</sup>) comparisons and n assignments – same as worst case.</p>
+</section>
+<section id="in-place-sorting" class="level3">
+<h3>In-place Sorting</h3>
+<p>Sorting using a separate priority queue requires extra space.</p>
+<p>So we sort in place to make sure we don’t run out of space for large n.</p>
+<section id="in-place-selection-sort" class="level4">
+<h4>In-place Selection Sort</h4>
+<p>Treat the unsorted input array as the PQ list implementation (so no build cost). Instead of removing the top item, swap it into the correct cell, and shrink the ‘view’ of the PQ.</p>
+<ol type="1">
+<li>find the smallest item, swap it with cell 0</li>
+<li>find the smallest item in the rest of the list, swap it with cell 1</li>
+<li>repeat until sorted</li>
+</ol>
+<ul>
+<li>Worst case: O(n<sup>2</sup>) comparisons, n swaps.</li>
+<li>Best case: O(n<sup>2</sup>) comparisons, n swaps.</li>
+</ul>
+<p>[get python code]</p>
+</section>
+</section>
+<section id="sorting-with-a-sorted-linked-list-pq" class="level3">
+<h3>Sorting With a Sorted Linked List PQ</h3>
+<p>Insertion sort: main task is inserting each item in the right place.</p>
+<p>Adding an item to a sorted linked list of length n takes at most n comparisons, and if we are lucky, just 1 comparison. It always takes 1 assignment.</p>
+<p>Adding n items to an initially empty PQ takes 0+1+2+…+(n-1) = O(n<sup>2</sup>) comparisons and n assignments for worst case.</p>
+<p>Removing top item is O(1).</p>
+<p>Best case: O(n) comparisons, n assignments.</p>
+</section>
+<section id="in-place-insertion-sort" class="level3">
+<h3>In-place Insertion Sort</h3>
+<p>Treat the unsorted array as the stream of items to be added to the PQ list implementation, and gradually expand the sorted list from the front (growing the ‘view’ of the PQ). Search the PQ to find the insertion place.</p>
+<p>Copy the new item, shuffle the others down one place, insert the new item.</p>
+<p>[get python code]</p>
+<ul>
+<li>Worst case: O(n<sup>2</sup>) comparisons and O(n<sup>2</sup>) swaps.</li>
+<li>Best case: O(n) comparisons, and 0 swaps.</li>
+</ul>
+</section>
+<section id="sorting-with-a-binary-heap-pq" class="level3">
+<h3>Sorting With a Binary Heap PQ</h3>
+<p>Heap sort: all the action takes place with heap operations.</p>
+<p>Adding an item to a binary heap which has n items takes O(log n) comparisons and swaps. So adding all n items takes log(2) + log(3) + … + log(n-1).</p>
+<p>Each of these is &lt;= log(n), and there are &lt;=n of them, so O(n log n) to build the PQ.</p>
+<p>Removing the top item from a binary heap with n items takes O(log n), so by the same arguments, to rebuild the array takes O(nlogn) comparisons and swaps.</p>
+<p>So that’s 2nlogn, which is O(n log n). O(n log n) is a lot better than O(n<sup>2</sup>).</p>
+<p>Represent the heap using a list as before.</p>
+</section>
+<section id="in-place-heap-sort" class="level3">
+<h3>In-place Heap Sort</h3>
+<p>Treat the unsorted input array as the stream of items to be added to the PQ, and gradually expand an array-based heap from the front.</p>
+<p>Next item added to heap goes into last position, so it is already in the right starting place. Now bubble up to find its correct position.</p>
+<p>The list is not a sorted list, though.</p>
+</section>
+<section id="using-a-max-heap" class="level3">
+<h3>Using a Max Heap</h3>
+<p>The heap is not a sorted list.</p>
+<p>Instead, we will do two phases, and in the first phase, we will build a <em>max</em> binary heap. Same as before, but now each item must be larger than or equal to its children.</p>
+<section id="phase-1" class="level4">
+<h4>Phase 1</h4>
+<p>Build a max heap from the front.</p>
+</section>
+<section id="phase-2" class="level4">
+<h4>Phase 2</h4>
+<p>In the final output, we want the biggest item at the end, so we remove it from the heap, copy the last item up and then bubble it down, leaving the last place free to re-insert the biggest item.</p>
+<p>Iterate until the virtual heap is empty, and we’re back to a sorted list.</p>
+</section>
+<section id="complexity" class="level4">
+<h4>Complexity</h4>
+<ul>
+<li>O(n log n) to build the max heap</li>
+<li>O(n log n) to turn the max heap into the sorted list</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

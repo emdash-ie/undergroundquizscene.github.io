@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>12-Tuples, Sets, and Dictionaries</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="tuples-sets-and-dictionaries" class="level1">
+<h1>Tuples, Sets, and Dictionaries</h1>
+<hr />
+<section id="tuples" class="level2">
+<h2>Tuples</h2>
+<p>Tuples are written with roundy brackets and with commas between each item<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>:</p>
+<p>The empty tuple is written <code>()</code>, and a tuple with one item must have a comma, e.g. <code>(0,)</code>.</p>
+<p>The main difference between tuples and lists is that you can’t change values that are within tuples, e.g. <code>t[3] = 4</code> – this code will give an error.</p>
+</section>
+<section id="sets" class="level2">
+<h2>Sets</h2>
+<p>Sets are written with curly brackets.</p>
+<p>They can’t contain duplicate elements (duplicates entered will automatically be detected, and won’t be entered).</p>
+<p>Checking if something is in a set using <code>in</code> is fast.</p>
+<p>Sets also support mathematical set operations like union and set difference.</p>
+<ul>
+<li><p>The empty set is created using <code>set()</code> because <code>{}</code> is the empty dictionary.</p></li>
+<li><p>You can use set comprehensions to create sets, like with list comprehensions.</p></li>
+</ul>
+</section>
+<section id="dictionaries" class="level2">
+<h2>Dictionaries</h2>
+<p>Dictionaries are unordered sets of key:value pairs. The keys must be unique within a dictionary. They’re written with curly brackets:</p>
+<pre><code>d = {&#39;France&#39;:&#39;Paris&#39;, &#39;Ireland&#39;:&#39;Dublin&#39;, &#39;England&#39;:&#39;London&#39;}</code></pre>
+<ul>
+<li><p><code>in</code> will check if a specific key is in a dictionary:</p>
+<p><code>'France' in d</code> will evaluate to <code>True</code> for the dictionary above.</p></li>
+<li><p>For loops over a dictionary will loop through the keys in arbitrary order:</p>
+<pre><code>  for key in d:
+      print(key)</code></pre></li>
+<li><p>Values in a dictionary can be accessed using square bracket notation, similar to list indices:</p>
+<p><code>d['France']</code> will return ‘Paris’ from the dictionary above.</p>
+<p>You can also change values in the dictionary or add new pairs using this notation:</p>
+<p><code>d['Spain'] = 'Madrid'</code></p>
+<p><code>d['Ireland'] = 'Cork'</code></p></li>
+</ul>
+<hr />
+<section id="handouts-assignments" class="level6">
+<h6>Handouts &amp; Assignments</h6>
+<ul>
+<li>Handout 17 - Tuples</li>
+<li>Handout 18 - Sets</li>
+<li>Handout 19 - Dictionaries</li>
+<li>Assignemnt 14 - Dictionaries</li>
+</ul>
+</section>
+</section>
+</section>
+<section class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Technically you can write them without the brackets, but you need the brackets if you want to nest them.</p>
+<p>t = (1, 3, 5, ‘hello’)<a href="#fnref1" class="footnote-back">↩</a></p></li>
+</ol>
+</section>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-11</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="relational-databases" class="level1">
+<h1>Relational Databases</h1>
+<p>This is the main database concept since the 1980s.</p>
+<p>Most mainstream databases use this concept or enhancements of it – more modern systems, etc. tend to be built on top of this concept.</p>
+<p>It conceptually organises data into sets of two-dimensional tables.</p>
+<section id="relation" class="level2">
+<h2>Relation:</h2>
+<p>Conceptually relational databases are based on <em>tables</em>.</p>
+<p>This system is conceptually intuitive, simple, and elegant.</p>
+<p>It also fits quite well with the underlying technology.</p>
+<p>The relational database concept was not the first database concept, but was so superior to other systems at the time that it quickly became dominant.</p>
+</section>
+<section id="anatomy-of-a-relational-database" class="level2">
+<h2>Anatomy of a Relational Database:</h2>
+<blockquote>
+<p><em>Database:</em> A database consists of a set of named <em>relations</em> (aka tables)</p>
+<p><em><br />
+Relation:</em></p>
+</blockquote>
+<ul>
+<li><p>A set of <em>tuples</em> (aka rows) with identical column structure</p></li>
+<li><p>Each column named with an <em>attribute</em> (must be distinct) [each row must have the same number of elements, and they must be in the right order]</p></li>
+<li><p>Values in each column must be of uniform “type” drawn from some set (<em>domain</em>) such as integer, text, date, and so on.</p></li>
+</ul>
+<p>Example table:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">id_number</th>
+<th style="text-align: left;">first_name</th>
+<th style="text-align: left;">last_name</th>
+<th style="text-align: left;">date_of_birth</th>
+<th style="text-align: left;">hometown</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">112345678</td>
+<td style="text-align: left;">Aoife</td>
+<td style="text-align: left;">Ahern</td>
+<td style="text-align: left;">1993-01-25</td>
+<td style="text-align: left;">Cork</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">112467389</td>
+<td style="text-align: left;">Barry</td>
+<td style="text-align: left;">Barry</td>
+<td style="text-align: left;">1980-06-30</td>
+<td style="text-align: left;">Tralee</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="some-technicalities" class="level2">
+<h2>Some Technicalities</h2>
+<p>There should be no duplicate entries. There can be near duplicates ( e.g. same name but different id number for students) but not exact ones. All rows should be distinct. Database systems don’t always enforce this.</p>
+<p>Values must be <em>atomic</em> (simple and unstructured).</p>
+<ul>
+<li><p>examples: integers, decimals, text, booleans, dates</p></li>
+<li><p>can’t have lists, sets, records, arrays as single values</p></li>
+<li><p>(can represent lists etc. by other means later)</p></li>
+</ul>
+<p>Every relation has a <em>key</em>: some subset of attributes such that no two tuples in the relation can ever have the same key value. In the example this was the student number.<br />
+It couldn’t be a combined first name and last name, because there could be two students with the same name.</p>
+</section>
+<section id="schema-and-instances" class="level2">
+<h2>Schema and Instances</h2>
+<p>The precise contents of a database generally vary over time. Example: addresses change, people are added and removed, etc.</p>
+<p>We distinguish between:</p>
+<ul>
+<li><p><em>Database Schema</em>: The “structure” of the database in terms of different tables and the organisation of each table in terms of attributes and domains and the “interpretation” of these in terms of the real-world situation the DB models. This remains fixed over time.</p></li>
+<li><p><em>Database Instance</em>: Any specific collection of values populating the DB that conforms to the schema. This changes as the DB is modified. It’s basically a snapshot of what the DB looks like right now (all data contained).</p></li>
+</ul>
+</section>
+<section id="why-relational" class="level2">
+<h2>Why “Relational”?</h2>
+<p>Binary relations in mathematics:</p>
+<ul>
+<li><p>Let Z<sup>2</sup> = Z x Z be the set of pairs of integers; any subset of Z<sup>2</sup> is a <em>binary relation</em>.</p></li>
+<li><p>For example: L = [(x, y) : x, y element of Z such that x&lt;=y} is the set of integer pairs where the first is no larger than the second.</p></li>
+</ul>
+<p>The terminology is just taken from maths. There was more on this slide but the specifics apparently aren’t important.</p>
+</section>
+<section id="sql" class="level2">
+<h2>SQL</h2>
+<p>Our “instructions” to DBMS must be expressed in notation called SQL.</p>
+<p><em>Note that multiple people can query a database from separate computers simultaneously. DB needs to be accessible to a wide number of people.</em></p>
+<p>SQL is a computer language for expressing management, manipulation and querying of relational DBs. Pronounced either as “ess-cue-ell” or “sequel”.</p>
+<p><em>Good News:</em> It’s a pretty standard DB language. Most common DBMSs support it. There are free open source packages available.</p>
+<p><em>Bad News:</em> Most DBMSs adopt their own “dialects”. DB software is generally not completely portable between DBMSs.</p>
+<p>We use a computer language because natural language (e.g. English) can be very imprecise and ambiguous, so it’s difficult to write software to “understand” and carry out instructions reliably.</p>
+<p>Computer languages:</p>
+<ul>
+<li><p>are designed to be clear, concise, and unambiguous</p></li>
+<li><p>are amenable to automatic interpretation</p></li>
+<li><p>more here—missed it</p></li>
+</ul>
+<p>SQL incorporates several aspects:</p>
+<ul>
+<li><p><strong>Data Manipulation Language (DML)</strong></p>
+<ul>
+<li><p>expresses management of DB</p></li>
+<li><p>expresses manipulations: adding/removing/updating tuples</p></li>
+<li><p>expresses queries to interrogate DB</p></li>
+</ul></li>
+<li><p><strong>Data Definition Language (DDL)</strong></p>
+<ul>
+<li><strong>missed it</strong></li>
+</ul></li>
+</ul>
+<p><br />
+SQL Example ———–</p>
+<p><em>Query:</em></p>
+<blockquote>
+<p><strong>SELECT</strong> first_name, last_name</p>
+<p><strong>FROM</strong> students</p>
+<p><strong>WHERE</strong> points &gt;= 500;</p>
+</blockquote>
+<p><em>Result:</em></p>
+<ul>
+<li><p>the result is a table (unnamed by default)</p></li>
+<li><p>includes specified columns and rows only</p></li>
+<li><p>the original table is left completely untouched</p></li>
+</ul>
+<p><em>Note: the third line (WHERE…) is a condition evaluated for each row. When it is true, the (specified bit of the) row is returned.</em></p>
+<p>SQL is very specific:</p>
+<ul>
+<li><p>keywords must be spelled correctly</p></li>
+<li><p>elements must be ordered correctly</p></li>
+<li><p>symbols need to be used correctly</p></li>
+<li><p>/*…*/ denotes (within symbols) a comment. Computer will ignore these.</p></li>
+</ul>
+</section>
+<section id="using-sql" class="level2">
+<h2>Using SQL</h2>
+<p>Typically SQL commands are embedded in other programs (as opposed to the operator/client writing the commands).</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4-Representing Sequences with Lists</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="representing-sequences-with-lists" class="level1">
+<h1>Representing Sequences with Lists</h1>
+<hr />
+<section id="everything-in-python-is-an-object" class="level2">
+<h2>Everything in Python is an Object</h2>
+<pre><code>x=3
+y=3
+z=y
+y=4</code></pre>
+<p>The above code is implemented as follows in Python:</p>
+<ul>
+<li>3 is an integer object, stored in memory</li>
+<li>x is a variable which references that object</li>
+<li>y is a variable which references the same object – only 1 copy of a basic type</li>
+<li>z is a variable which references the same object</li>
+<li>y is then changed to point to a different object</li>
+</ul>
+<p>This is the same for bools, floats, etc.</p>
+</section>
+<section id="user-defined-classes-and-objects" class="level2">
+<h2>User-defined Classes and Objects</h2>
+<p>Every time we create an object from a class, Python creates a new object in memory:</p>
+<pre><code>c1 = Card(3, 3)
+c2 = Card(3, 3)
+c3 = c2
+c2 = Card(6, 1)</code></pre>
+<p>Here however, c1 and c2 are pointing to separate objects in memory, not both pointing to the same object.</p>
+</section>
+<section id="python-lists-are-array-based-lists" class="level2">
+<h2>Python Lists Are Array-Based Lists</h2>
+<p>A list in Python is a sequence of references to objects. The references in the list are maintained in a contiguous physical block in memory, packed one after another in sequence – this is called an array-based list.</p>
+<p>A list of ints is a sequence of references to int objects.</p>
+</section>
+<section id="tuples" class="level2">
+<h2>Tuples</h2>
+<p>A tuple is a sequence of references to objects. The length and content of a tuple cannot change.</p>
+<p>The implementation is similar to lists, but it can take advantage of the fact that they can’t change.</p>
+</section>
+<section id="space-required-for-a-list" class="level2">
+<h2>Space Required for a List</h2>
+<p>Since a list is a sequence of references, the amount of space required for a list depends on the number of elements and not the type of the elements.</p>
+</section>
+<section id="sequence-operations" class="level2">
+<h2>Sequence Operations</h2>
+<section id="accessing-elements-by-index" class="level3">
+<h3>Accessing Elements by Index</h3>
+<p>Since Python knows how much space each entry in a list takes regardless of what’s in the list and knows the location in memory of the start of the list, accessing an element by index only takes this computation:</p>
+<ul>
+<li>start address + size * index</li>
+</ul>
+<p>So accessing elements by index takes constant time. It is O(1).</p>
+</section>
+<section id="searching-for-an-element" class="level3">
+<h3>Searching for an Element</h3>
+<pre><code>for x in mylist:
+    if x == 4:
+        return True
+return</code></pre>
+<p>The condition <code>if 4 in mylist</code> in Python runs an algorithm equivalent to the one above (though written in another language). For objects it’s the same:</p>
+<pre><code>c1 = Card(3, 3)
+for card in mylist:
+    if card.is_equals(c1):
+        return True
+return False</code></pre>
+<p>This operation is O(n).</p>
+</section>
+<section id="appending-to-a-list" class="level3">
+<h3>Appending to a List</h3>
+<p>The list has space for each reference set aside in memory. What happens when we increase the size of the list?</p>
+<p>In the best case, Python will create the space at the end and put the reference there.</p>
+<p>If that space is currently occupied by other data, Python will find a new space in memory and put the whole list there. Python needs to keep all the data together in order to find elements by index as we saw.</p>
+<p>So appending items to a list may require reservation of a new area in memory for the entire list, and time to copy the list elements across.</p>
+<section id="naive-append" class="level4">
+<h4>Naive Append</h4>
+<pre><code>mylist = []
+for i in range(1000):
+    mylist.append(i)
+    </code></pre>
+<p>In the worst case (the whole list has to be moved each time a new item is appended), this will take <code>0.5 * 999 * 1000</code> copy operations, which is 499500 copy operations.</p>
+<p>This is O(n squared), where n is the size the list may grow to.</p>
+<p>This is not what Python does. A list of length 0 takes up 36 bytes, length 1–4 takes 52 bytes, length 5–8 takes 68 bytes, and so on.</p>
+<p>When asked to append, if the list is full, Python creates a bigger list with size based on the current list.</p>
+</section>
+<section id="complexity-of-list-doubling" class="level4">
+<h4>Complexity of List Doubling</h4>
+<p>Policy: each time we must grow the list, double its size. Suppose we are unlikely, and must copy the list each time we grow it.</p>
+<p>To create a list that reaches size n, this will take:</p>
+<ul>
+<li>1 assignment +</li>
+<li>1 copy operation + 1 assignment +</li>
+<li>2 copy operations + 2 assignments +</li>
+<li>4 copy operations + 4 assignments +</li>
+<li>…</li>
+<li>n/2 copy operations + n/2 assignments</li>
+</ul>
+<p>This is n copies and n assignments. Making a list of size 1000 takes 2000 assignments in the worst case, while the naive method took 500000 assignments.</p>
+<p>Doubling the size each time space is needed takes O(n) to build a list of size n. Average cost of a single append is O(1).</p>
+</section>
+</section>
+<section id="popping-from-a-list" class="level3">
+<h3>Popping from a List</h3>
+<p>Popping is taking an element out of a list and using it. Python’s lists have no spaces in memory, so the list must close up. Every item after the popped item must be moved forward.</p>
+<p>For a list of length n, pop(i) takes (n - 1 - i) copies. Pop is O(n).</p>
+</section>
+<section id="memory-space-management" class="level3">
+<h3>Memory Space Management</h3>
+<p>Pop and other operations all create empty cells at the end of the list. Python will manage the space, and when the proportion of empty space exceeds a limit, Python will release the space for other uses.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

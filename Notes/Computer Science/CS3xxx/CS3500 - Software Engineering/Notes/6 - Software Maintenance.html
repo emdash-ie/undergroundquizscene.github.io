@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>Software Maintenance</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Software Maintenance</h1>
+<p class="author"></p>
+<p class="date">Wednesday 1st of November, 2017</p>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Maintenance takes up 90% of the lifetime of software.</p>
+<p>Software maintenance is the process of modifying software after delivery to correct faults, improve performance or other attributes, or adapt to a change in an environment. A related term is software evolution, which refers to software as it is changed, adapted, etc.</p>
+</section>
+<section id="types-of-maintenance" class="level1">
+<h1>Types of Maintenance</h1>
+<p>There are 4 types of maintenance:</p>
+<ol type="1">
+<li>Corrective
+<ul>
+<li>Removal of bugs</li>
+</ul></li>
+<li>Adaptive
+<ul>
+<li>Adapt the software to a new environment without changing the functionality</li>
+</ul></li>
+<li>Perfective / Enhancements
+<ul>
+<li>Adding new functionality and features</li>
+</ul></li>
+<li>Preventive
+<ul>
+<li>Changes to improve maintainability of the system</li>
+<li>Trying to pay off a technical debt</li>
+</ul></li>
+</ol>
+</section>
+<section id="software-entropy" class="level1">
+<h1>Software Entropy</h1>
+<p>The tendency for software, over time, to become difficult and costly to maintain.</p>
+</section>
+<section id="technical-debt" class="level1">
+<h1>Technical Debt</h1>
+<p>Financial debt is a temporary shortage of money – debt implies that you’ll have the money later but not now.</p>
+<p>Technical debt involves having a temporary shortage of time – you take shortcuts to get a software product delivered faster. You borrow time.</p>
+<p>Technical debt reflects the cost of additional rework caused by choosing an easy solution now instead of using a better approach that would take longer.</p>
+<section id="types" class="level2">
+<h2>Types</h2>
+<p>Today technical debt can arguably be found in every step of the design process, not just in the coding.</p>
+</section>
+</section>
+<section id="lehmans-program-classification" class="level1">
+<h1>Lehman’s Program Classification</h1>
+<p>Different types of software evolve in different ways.</p>
+<section id="s-type-specification" class="level2">
+<h2>S-Type: “Specification”</h2>
+<p>A program that is correct in the mathematical sense, based on some formal specification.</p>
+<p>An S-type program doesn’t change due to changing user-requirements. Typically such programs are algorithms, e.g. sin, compression algorithms.</p>
+<section id="unsatisfactoriness" class="level3">
+<h3>Unsatisfactoriness</h3>
+<p>It may happen that S-type programs become unsatisfactory.</p>
+<p>Revising the specification leads to a new program […]</p>
+<p>Programs don’t change – a change is a new program. (Except correcting defects.)</p>
+</section>
+</section>
+<section id="p-type-problem" class="level2">
+<h2>P-Type: “Problem”</h2>
+<p>A program that solves a problem that can be fully specified, but user’s concern is with correctness of results in a specific context.</p>
+<p>Example: chess game</p>
+<ul>
+<li>rules of the game can be fully specified</li>
+<li>procedure is to calculate the next best move</li>
+<li>this may not be practically feasible</li>
+<li>have to approximate the solution to be practical/feasible</li>
+</ul>
+<p>Needs to give acceptable results, e.g. 90% chance of rain for weather.</p>
+</section>
+<section id="e-type-evolving" class="level2">
+<h2>E-Type: “Evolving”</h2>
+<p>A program that operates in, or addresses a problem or activity of the real world.</p>
+<p>The program becomes an integral part of the domain within which it operates.</p>
+<p>To remain satisfactory to users, it must be continuously evolved.</p>
+<p>Most software is E-type.</p>
+<p>Changes are intended to improve the user satisfaction.</p>
+</section>
+<section id="lehmans-laws" class="level2">
+<h2>Lehman’s Laws</h2>
+<p>8 laws of how software evolves, based on observations. The laws only apply to E-type systems.</p>
+<section id="law-1-continuing-change" class="level3">
+<h3>Law 1: Continuing Change</h3>
+<p>An E-type system must be continually adapted, else it becomes progressively less satisfactory in use.</p>
+</section>
+<section id="law-2-increasing-complexity" class="level3">
+<h3>Law 2: Increasing Complexity</h3>
+<p>As an E-type system is changed, its complexity increases and it becomes more difficult to evolve, unless work is done to maintain or reduce the complexity.</p>
+</section>
+</section>
+</section>
+<section id="key-challenge-in-maintenance" class="level1">
+<h1>Key Challenge in Maintenance</h1>
+<p>Most software development is bespoke, rather than market-targeted.</p>
+<p>Most development is done in projects, where the team is disbanded after the project finishes.</p>
+<p>Most maintenance is done by people other than those who wrote the code.</p>
+</section>
+</body>
+</html>

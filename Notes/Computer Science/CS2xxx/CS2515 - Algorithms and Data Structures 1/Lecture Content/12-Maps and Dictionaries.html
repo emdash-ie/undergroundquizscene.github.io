@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>12-Maps and Dictionaries</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="maps-and-dictionaries" class="level1">
+<h1>Maps and Dictionaries</h1>
+<hr />
+<p>Storing and searching (key, value) pairs. This approach won’t have a good guarantee on complexity, but on average will be very fast.</p>
+<section id="dictionaries-and-maps" class="level2">
+<h2>Dictionaries and Maps</h2>
+<p>A dictionary or map is a storage and look-up structure maintaining (key, value) pairs.</p>
+<p>Formally, each value has a unique key. Specifying the key allows us to retrieve the value from the structure.</p>
+<p>Python provides the <code>dict</code> data type. We will use the word <em>map</em> for the general concept, to avoid confusion with Python’s implementation.</p>
+</section>
+<section id="map-adt" class="level2">
+<h2>Map ADT</h2>
+<ul>
+<li><code>getitem(key)</code> – return the value with given key, or None</li>
+<li><code>setitem(key, value)</code> – assign value to element with key; create new element if needed</li>
+<li><code>contains(key)</code> – return True is the map has an element with key</li>
+<li><code>delitem(key)</code> – remove element with key and return its value or None</li>
+<li><code>length()</code> – return the number of elements in the map</li>
+<li><code>is_empty()</code> – return True if there are no items in the map</li>
+</ul>
+</section>
+<section id="unsorted-list-implementation" class="level2">
+<h2>Unsorted List Implementation</h2>
+<p>Append new elements to the end of the list (with Python resizing).</p>
+<ul>
+<li><code>getitem(k)</code> – search the unordered list to find element with key k</li>
+<li><code>setitem(k, v)</code> – search the list to find the key, change the value, or append new element if key not found</li>
+<li><code>delitem(k)</code> – search the unordered list to find the key and pop the element</li>
+</ul>
+<p>These implementations are all O(n).</p>
+</section>
+<section id="implementation-comparison" class="level2">
+<h2>Implementation Comparison</h2>
+<table>
+<thead>
+<tr class="header">
+<th>Implementation</th>
+<th style="text-align: center;"><code>getitem</code></th>
+<th style="text-align: center;"><code>contains()</code></th>
+<th style="text-align: center;"><code>setitem()</code></th>
+<th style="text-align: center;"><code>delitem()</code></th>
+<th style="text-align: center;">build full map</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>unsorted list</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n)</td>
+</tr>
+<tr class="even">
+<td>sorted list</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td>AVL tree</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="map-search-time" class="level2">
+<h2>Map Search Time</h2>
+<p>The operation we will want to do most often is to find an item (which is needed to read its value or to update it).</p>
+<p>AVL trees offer O(log(n)) for searching. Can we do better?</p>
+<p>In a standard Python list, we can access an item in O(1) if we know the item is in the list and we know the index of the item. But in a standard map, we don’t have this info.</p>
+</section>
+<section id="example-book-of-modules" class="level2">
+<h2>Example: Book of Modules</h2>
+<p>In the book of modules example, we could strip the letters off the front of the key, and use the numbers as the index in a list. Position 1110 would contain the title “Systems Organisation 1”.</p>
+<p>This gives us quick access but means there’s a lot of space wasted, as a lot of 4-digit numbers aren’t used for module codes.</p>
+<p>So this doesn’t work in general, but can we adapt the idea?</p>
+<ul>
+<li>Use the structure of the key to identify the location.</li>
+<li>Use a more compact list, and use the size of the list to determine the location.</li>
+</ul>
+</section>
+<section id="hash-tables" class="level2">
+<h2>Hash Tables</h2>
+<p>Maintain a list of known size, with explicit None items.</p>
+<p>To add a new item:</p>
+<ol type="1">
+<li>Compute an integer corresponding to the key.</li>
+<li>Compute an index in the list based on that integer and the list size.</li>
+<li>Store the item in the list at that index.</li>
+</ol>
+<p>Line 1 requires a function from the set of keys to a subset of the integers. Once we can do lines 1 and 2 efficiently, the whole thing can be O(1).</p>
+<section id="pythons-hash-function" class="level3">
+<h3>Python’s Hash Function</h3>
+<p>Python has a built-in function <code>hash()</code> which will convert any hashable object into an integer.</p>
+<p>Hash values must remain the same during an object’s lifetime, and two objects which evaluate as equal must have identical hash values. This means you have to use objects that don’t change value (immutable objects).</p>
+<p>All built-in immutable objects (strings, integers, floats, booleans, tuples) are hashable. If you create a string called s, the underlying string object can’t be changed, you can only change what is referenced by the variable name s.</p>
+<p>User-defined classes can include a <code>__hash__</code> method, which should be defined on some immutable attribute(s). By default, Python will use the id or memory address of the object.</p>
+</section>
+</section>
+<section id="basic-compression" class="level2">
+<h2>Basic Compression</h2>
+<p>Once we have computed a hash value, we need to decide on a location within our list.</p>
+<p>Suppose our list has N cells – our location must be in range [0, N-1].</p>
+<p>If our key has hash value <code>hash(k) = h</code>, we set <code>location(k) = h mod(N)</code>.</p>
+<p>Determining this location is O(1), for a given list size N.</p>
+<section id="example" class="level3">
+<h3>Example</h3>
+<p>List size of 10:</p>
+<pre><code>item = Element(&#39;CS2515&#39;, &#39;Algorithms and DataStructures 1&#39;)
+
+hash(&#39;CS2515&#39;) evaluates to 1860694193
+hash(&#39;CS2515&#39;) % 10 evaluates to 3
+hash(&#39;CS1112&#39;) % 10 evaluates to 1</code></pre>
+<p>So those elements go into positions 3 and 1.</p>
+<p>Note: Python’s <code>hash()</code> function uses a random seed, and so will give different values for each session (for security – there’s a way of overloading people’s hashing functions if you can predict them). There’s a way to obtain consistent hashing if you want [note to self: look this up].</p>
+<p>But we only have 10 cells in our list. Some keys will be directed to the same location, and so if we try to insert them, they will collide with other entries.</p>
+</section>
+</section>
+<section id="chaining" class="level2">
+<h2>Chaining</h2>
+<p>Each cell in the list will maintain its own list of values (this is known as a bucket array).</p>
+<section id="search-complexity-in-bucket-arrays" class="level3">
+<h3>Search Complexity in Bucket Arrays</h3>
+<p>To find an item in a bucket array, we have to compute the hash, then the compressed location, and then search the bucket.</p>
+<p>If we’re unlucky, all of our items could end up being sent to the same bucket, and so search is O(n).</p>
+<p>If we have n items to insert into a bucket array of size N, then we expect n/N items in each bucket (on average), and the expected complexity is O(n/N).</p>
+<p>But we were aiming for O(1).</p>
+</section>
+<section id="dynamic-bucket-arrays" class="level3">
+<h3>Dynamic Bucket Arrays</h3>
+<p>So we aim to keep n/N below a certain value, by increasing N (the size of the list), e.g. by doubling it, whenever we reach that threshold value.</p>
+<p>Then we can guarantee O(1).</p>
+<p>But, when we double the list, we have to rehash and recompress the list. As with list resizing, any particular add may not be O(1), but on average it will be O(1).</p>
+</section>
+</section>
+<section id="implementations" class="level2">
+<h2>Implementations</h2>
+<section id="version-1-fixed-size-list" class="level3">
+<h3>Version 1 (fixed size list)</h3>
+<pre><code># hashvalue(key) = hash(key) % len(list)
+    getitem(key):       if there is a bucket at list[hashvalue(key)]        search the bucket for the key and return value return None
+setitem(key, value):        if there is a bucket at list[hashvalue(key)]            search the bucket for the key           if key found, update with new value         else append new Element to bucket and increment size        else start a new bucket with new Element and increment size
+delitem(key):       if there is a bucket at list[hashvalue(key)]            search the bucket for the key           if key found,               decrement size              remove the element and return its value     return None</code></pre>
+</section>
+<section id="version-2-dynamic-size-list" class="level3">
+<h3>Version 2 (dynamic size list)</h3>
+<p>If I’ve just added something and the size is greater than a certain function of the length of the list, then we resize by our chosen factor.</p>
+<pre><code>[…]
+
+setitem(key, value):
+    if there is a bucket at list[hashvalue(key)]
+    […]
+    if size &gt; f(len(lst))
+        resize by factor c
+        
+resize(c):
+    oldlist = list
+    list = new list with c None items
+    size = 0
+    for each bucket in oldlist
+        for each element in bucket
+            add the element into the (list) hash table
+            size += 1</code></pre>
+</section>
+</section>
+<section id="hash-function-properties" class="level2">
+<h2>Hash Function Properties</h2>
+<p>We want to avoid collisions:</p>
+<ul>
+<li>Distinct items should get distinct hashes, so we should use as much of the content as possible.</li>
+<li>Some collisions are always inevitable.</li>
+</ul>
+<section id="simple-hash-function" class="level3">
+<h3>Simple Hash Function</h3>
+<p>For integers, use an exclusive-or or the first half with the second half.</p>
+<p>For strings, use a polynomial sum of characters with a fixed constant <code>c</code>.</p>
+<p>Don’t allow floats as keys (as you have to account for small errors, make sure that they’re registered as the same number).</p>
+</section>
+<section id="compression" class="level3">
+<h3>Compression</h3>
+<p>The main aim is to distribute the hash values as evenly as possible across the range.</p>
+<p>We used <code>h % N</code>, where N is the size of the list. This works, but if a sequence of values has a pattern related to N, many will end up colliding.</p>
+<p>If we have a sequence of numbers going up in 4, mod 12 will give us a lot of grouping, as 4 is a factor of 12. Using mod 13 instead will give us much better spread.</p>
+<p>In general, it’s good to try to choose prime numbers for N.</p>
+<p>However, we don’t want to spend time calculating prime numbers.</p>
+<section id="multiply-add-and-divide" class="level4">
+<h4>Multiply, Add, and Divide</h4>
+<pre><code>MAD_hash(key) = ((a * key + b) % p) % N</code></pre>
+<p>where <code>p is a prime number &gt; N</code>, <code>0 &lt; a &lt; p</code>, and <code>0 &lt;= b &lt; p</code>.</p>
+<p>It can be shown using group theory that this method gives better compression.</p>
+</section>
+</section>
+<section id="sha-1" class="level3">
+<h3>SHA-1</h3>
+<p>SHA-1 is considered insecure against well-funded opponents, because it’s possible to cause collisions with specific input (if you have enough computing power).</p>
+</section>
+</section>
+<section id="collision-handling" class="level2">
+<h2>Collision Handling</h2>
+<p>The chaining method and the bucket array requires the use of additional data structures, which take up extra space.</p>
+<p>Instead, we can store everything within the top list.</p>
+<p>If we get a collision, let’s go right until we find an empty cell, and put it there.</p>
+<p>When searching for items, we check the item at the position given by the hash, and move right if it isn’t what we’re looking for. If we hit an empty cell, we know that the element isn’t here.</p>
+<section id="open-addressing-linear-probing" class="level3">
+<h3>Open Addressing: Linear Probing</h3>
+<p>To set an element, we search right from the hash value until:</p>
+<ul>
+<li>we find the key, and we update the value</li>
+<li>we find an empty or available cell, and we add the new element</li>
+</ul>
+<p>To delete an element, we search right from the hash value until:</p>
+<ul>
+<li>we reach an empty cell, and do nothing (element not in map)</li>
+<li>we find the key, and we delete the element</li>
+</ul>
+<p>However, deleting elements can lead to us not finding elements because we encounter spaces.</p>
+<p>To overcome this, whenever we take something out, we put a special ‘available’ marker in. This won’t be registered as a stop when searching, but will take new elements.</p>
+<section id="notes" class="level4">
+<h4>Notes</h4>
+<p>All values must get the same opportunity to be added. Search must wrap around the end of the list, which we accomplish with modular arithmetic.</p>
+<ul>
+<li><code>hash(k)</code>, then <code>(hash(k) + 1) % N</code>, …</li>
+</ul>
+<p>The load factor (<code>n/N</code>) must never get above 1, because then there are no empty spaces left. Standard practice is to grow the list whenever <code>n/N = 0.5</code>. Rather than doubling the size, we grown to <code>2N - 1</code> or <code>2N + 1</code> because that gives us more chance of the new size being a prime number.</p>
+</section>
+</section>
+<section id="other-probing-schemes" class="level3">
+<h3>Other Probing Schemes</h3>
+<p>Linear probing tends to produce long chains of occupied cells, and so searching tends to O(n).</p>
+<ul>
+<li><strong>Quadrating probing</strong> tries the cell <code>(hash(k) + i**2) % N</code> for each search step <code>i</code>.</li>
+<li><strong>Double hashing</strong> tries the cell <code>(hash(k) + i*h'(k)) % N</code> for each search step <code>i</code>, where <code>h'()</code> is another hash function.</li>
+<li><strong>Pseudo-random probing</strong> tries the cell <code>(hash(k) + f(i)) % N</code> for each search step <code>i</code>, where <code>f(i)</code> is determined by a pseudo-random number generator.</li>
+</ul>
+<p>The last option is what Python uses for its dictionary implementation.</p>
+</section>
+</section>
+<section id="implementation-comparison-1" class="level2">
+<h2>Implementation Comparison</h2>
+<table style="width:31%;">
+<colgroup>
+<col style="width: 2%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Implementation</th>
+<th style="text-align: center;"><code>getitem</code></th>
+<th style="text-align: center;"><code>contains()</code></th>
+<th style="text-align: center;"><code>setitem()</code></th>
+<th style="text-align: center;"><code>delitem()</code></th>
+<th style="text-align: center;">build full map</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>unsorted list</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n squared)</td>
+</tr>
+<tr class="even">
+<td>sorted list</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n)</td>
+<td style="text-align: center;">O(n squared)</td>
+</tr>
+<tr class="odd">
+<td>AVL tree</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(log(n))</td>
+<td style="text-align: center;">O(nlogn)</td>
+</tr>
+<tr class="even">
+<td>Hash Table</td>
+<td style="text-align: center;">O(n), <em>expected O(1)</em></td>
+<td style="text-align: center;">O(n), <em>expected O(1)</em></td>
+<td style="text-align: center;">O(n), <em>expected O(1)</em></td>
+<td style="text-align: center;">O(n), <em>expected O(1)</em></td>
+<td style="text-align: center;">O(n squared), <em>expected O(n)</em></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>11-Exceptions</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="exceptions" class="level1">
+<h1>Exceptions</h1>
+<hr />
+<p>Exceptions are errors that the Python interpreter encounters, for example when you try to open a file for reading that doesn’t exist.</p>
+<p>You can write programs to do specific things when these errors are encountered by using <code>try</code> and <code>except</code>.</p>
+<section id="try-and-except" class="level2">
+<h2>Try and Except</h2>
+<pre><code>try:
+    open(filename, &#39;r&#39;)
+    # Do stuff with the file
+    
+except FileNotFoundError:
+    print(&#39;Error: file not found&#39;)
+    </code></pre>
+<p>If a FileNotFoundError occurs while executing the code in the <code>try</code> block, the code in the <code>except FileNotFoundError</code> block will be run instead of the rest of the try block.</p>
+</section>
+<section id="else" class="level2">
+<h2>Else</h2>
+<p>It can be neater to keep only the stuff likely to throw the error in the try block, and you can do that with an <code>else</code> block:</p>
+<pre><code>try:
+    open(filename, &#39;r&#39;)
+except FileNotFoundError:
+    print(&#39;Error: file not found&#39;)
+else:
+    # Do stuff with the file
+    </code></pre>
+<p>The else block will be run only if no errors were encountered during the try block.</p>
+<hr />
+<section id="handouts-assignments" class="level6">
+<h6>Handouts &amp; Assignments</h6>
+<ul>
+<li>Handout 16 - Exceptions</li>
+<li>Assignment 13 - Reading and Writing Files &amp; Exceptions</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

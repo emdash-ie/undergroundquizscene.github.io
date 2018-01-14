@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>6 - C Programming</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="nature-of-c" class="level1">
+<h1>Nature of C</h1>
+<p>C tends to trust the programmer, and has few rules. You have the liberty to write unusual code, but that makes it easier to write needlessly tricky code.</p>
+</section>
+<section id="essentials" class="level1">
+<h1>Essentials</h1>
+<p>Source files are compiled into object files, which are machine-independent. These are linked in using the linker, along with the runtime library, to produce executable code.</p>
+<p>The library can be statically or dynamically linked.</p>
+<p>You can use <code>#include</code> to include header files from other source code files, which contain function definitions, etc.</p>
+</section>
+<section id="function-definition" class="level1">
+<h1>Function Definition</h1>
+<p>Functions need to be defined before they are called, or else you need to tell the compiler that the function exists somewhere, using the “extern” keyword:</p>
+<pre class="sourceCode c" id="cb1"><code class="sourceCode c"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="dt">int</span> main() {</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    <span class="kw">extern</span> <span class="dt">int</span> square(<span class="dt">int</span>);</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">}</div></code></pre>
+<p>You’re telling the compiler that the function will be found by the linker.</p>
+</section>
+<section id="main" class="level1">
+<h1><code>main()</code></h1>
+<p><code>main()</code> can’t take arguments, but can take arguments from the command line.</p>
+</section>
+<section id="function-polymorphism" class="level1">
+<h1>Function Polymorphism</h1>
+<p>C doesn’t have the function overloading we’re familiar with from Java, but you can have functions that take variable numbers of parameters.</p>
+<p>Every function must have a unique name.</p>
+</section>
+<section id="exit0" class="level1">
+<h1><code>exit(0)</code></h1>
+<p>The exit function (or return) should be called in every main function, and typically an exit value of 0 indicates a successful run. Non-zero values indicate different errors.</p>
+</section>
+<section id="scanf" class="level1">
+<h1><code>scanf()</code></h1>
+<p>This is the mirror of <code>printf()</code>, and reads from the standard input into variables.</p>
+<p>To tell the function where to put the value, you need to use <code>&amp;</code>, the address-of operator. This gives <code>scanf()</code> an address to put the input value into.</p>
+<pre class="sourceCode c" id="cb2"><code class="sourceCode c"><div class="sourceLine" id="cb2-1" data-line-number="1">scanf(<span class="st">&quot;%d&quot;</span>, &amp;input_val);</div></code></pre>
+</section>
+<section id="the-preprocessor" class="level1">
+<h1>The Preprocessor</h1>
+<p>This is run before the compiler, and allows e.g. some text manipulation.</p>
+<section id="include" class="level2">
+<h2><code>#include</code></h2>
+<p>Two forms, angle brackets and quotes.</p>
+<ul>
+<li><p>angle brackets form tells the compiler to look in the library</p></li>
+<li><p>quotes form tells the compiler to look in a couple of places:</p>
+<ul>
+<li><p>the folder this code was in</p></li>
+<li><p>then the path</p></li>
+<li><p>then the library</p></li>
+</ul></li>
+</ul>
+<p>This takes a file and copies its text into the current file.</p>
+</section>
+</section>
+<section id="scalar-data-types" class="level1">
+<h1>Scalar Data Types</h1>
+<p>You can find the address of an “object” (e.g. a variable) by using the <code>&amp;</code> operator:</p>
+<pre class="sourceCode c" id="cb3"><code class="sourceCode c"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="dt">long</span> long_var = <span class="dv">3</span>;</div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"><span class="dt">long</span> *ptr = &amp;long_var;</div></code></pre>
+<p>The asterisk makes this variable a pointer, which holds a memory address (in this case of a long). The <code>&amp;</code> operator gets the address of <code>long_var</code> to put it in the <code>ptr</code> variable.</p>
+<p>Dereferencing a pointer is done with an asterisk:</p>
+<pre class="sourceCode c" id="cb4"><code class="sourceCode c"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="co">/* p_ch is a pointer to a character – the memory address of a character. */</span></div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="dt">char</span>* p_ch;</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3"><span class="dt">char</span> ch1 = <span class="ch">&#39;A&#39;</span>, ch2;</div>
+<div class="sourceLine" id="cb4-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb4-5" data-line-number="5"><span class="co">/* p_ch is now used to store the memory address of ch_1. */</span></div>
+<div class="sourceLine" id="cb4-6" data-line-number="6">p_ch = &amp;ch1;</div>
+<div class="sourceLine" id="cb4-7" data-line-number="7"><span class="co">/* ch_2 is now assigned the value stored at the address p_ch holds. */</span></div>
+<div class="sourceLine" id="cb4-8" data-line-number="8">ch_2 = *p_ch</div></code></pre>
+<p>The dereferenced pointer can also appear on the left-hand side of an assignment:</p>
+<pre class="sourceCode c" id="cb5"><code class="sourceCode c"><div class="sourceLine" id="cb5-1" data-line-number="1">*fp = <span class="fl">3.15</span>;</div></code></pre>
+<p>This will update the value at the address fp points to.</p>
+<p>You can have a pointer to most things (e.g. a function which you can dereference and call).</p>
+</section>
+<section id="types" class="level1">
+<h1>Types</h1>
+<p>You can make your own types in C by using the <code>typedef</code> keyword, making synonyms for types:</p>
+<pre class="sourceCode c" id="cb6"><code class="sourceCode c"><div class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">typedef</span> <span class="dt">long</span> <span class="dt">int</span> FOUR_BYTE_INT;</div></code></pre>
+</section>
+<section id="implicit-conversions" class="level1">
+<h1>Implicit Conversions</h1>
+<p>In assignment statements, the value on the right-hand side is converted to the type of the variable on the left-hand side.</p>
+<p>When a <code>char</code> or <code>short int</code> appears in an expression, it’s converted to an <code>int</code>. <code>unsigned chars</code> and <code>unsigned shorts</code> are converted to <code>int</code> if it’s big enough to hold their value – otherwise they’re converted to[…]</p>
+<p>[…]</p>
+</section>
+<section id="arrays-and-pointers" class="level1">
+<h1>Arrays and Pointers</h1>
+<p>In C, arrays are just space reserved for a number of values, and a special pointer.</p>
+<pre class="sourceCode c" id="cb7"><code class="sourceCode c"><div class="sourceLine" id="cb7-1" data-line-number="1"><span class="co">/* Create an array that can hold 365 integers: */</span></div>
+<div class="sourceLine" id="cb7-2" data-line-number="2"><span class="dt">int</span> daily_temp[<span class="dv">365</span>];</div></code></pre>
+<p>You can get the size of the array with the <code>sizeof</code> command, which gets the size of the array in bytes. You can divide this by the size of one of the elements of the array to give the number of elements in the array:</p>
+<pre class="sourceCode c" id="cb8"><code class="sourceCode c"><div class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw">sizeof</span>(array) / <span class="kw">sizeof</span>(array[<span class="dv">0</span>]);</div></code></pre>
+<p>You can initialise arrays:</p>
+<pre class="sourceCode c" id="cb9"><code class="sourceCode c"><div class="sourceLine" id="cb9-1" data-line-number="1"><span class="dt">static</span> <span class="dt">int</span>[<span class="dv">5</span>] array_a = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>};</div>
+<div class="sourceLine" id="cb9-2" data-line-number="2"><span class="dt">static</span> <span class="dt">int</span>[<span class="dv">5</span>] array_b = {<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>};</div>
+<div class="sourceLine" id="cb9-3" data-line-number="3"><span class="dt">static</span> <span class="dt">int</span>[] array_c = {<span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>};</div></code></pre>
+<section id="pointer-arithmetic" class="level2">
+<h2>Pointer Arithmetic</h2>
+<p>In C you can add/subtract integers to/from pointers:</p>
+<pre class="sourceCode c" id="cb10"><code class="sourceCode c"><div class="sourceLine" id="cb10-1" data-line-number="1"><span class="dt">long</span> *p1, *p2;</div></code></pre>
+<p>p1 + 3 finds an address that’s 3 longs beyond p1. If a long is 8 bytes, this will add 24 to p1. This is known as pointer scaling.</p>
+<p>Subtracting two pointers that point to the same type of object gives the number of objects between the two pointers:</p>
+<pre class="sourceCode c" id="cb11"><code class="sourceCode c"><div class="sourceLine" id="cb11-1" data-line-number="1">&amp;a[<span class="dv">3</span>] - &amp;a[<span class="dv">0</span>]; <span class="co">/* evaluates to 3 */</span></div></code></pre>
+</section>
+<section id="null-pointer" class="level2">
+<h2>Null Pointer</h2>
+<p>The null pointer is guaranteed not to point to a valid object. It’s assigned the integral value 0, and is useful in control-flow statements, as it evaluates to false.</p>
+</section>
+<section id="passing-pointers-as-function-arguments" class="level2">
+<h2>Passing Pointers as Function Arguments</h2>
+<p>The compiler will complain if you try to mix different types of pointer.</p>
+<p>However, in the absence of function prototyping, the compiler doesn’t check if the type of the actual argument is the same as the type of the formal argument.[?]</p>
+</section>
+<section id="accessing-array-elements-through-pointers" class="level2">
+<h2>Accessing Array elements through Pointers</h2>
+<pre class="sourceCode c" id="cb12"><code class="sourceCode c"><div class="sourceLine" id="cb12-1" data-line-number="1">p = &amp;array[<span class="dv">0</span>];</div></code></pre>
+<p><code>p</code> is now a pointer to the first element in the array, and <code>*p</code> is equivalent to <code>array[0]</code>.</p>
+<p>You can add to this pointer to access other elements in the array:</p>
+<pre class="sourceCode c" id="cb13"><code class="sourceCode c"><div class="sourceLine" id="cb13-1" data-line-number="1">*(p + <span class="dv">3</span>); <span class="co">/* equivalent to array[3] */</span></div></code></pre>
+<p>Note: <code>array</code> is a static pointer created by the compiler (meaning you can’t change it). Since it’s a pointer, though, you can rewrite the earlier block as:</p>
+<pre class="sourceCode c" id="cb14"><code class="sourceCode c"><div class="sourceLine" id="cb14-1" data-line-number="1">p = array;</div>
+<div class="sourceLine" id="cb14-2" data-line-number="2"></div>
+<div class="sourceLine" id="cb14-3" data-line-number="3">*(array + <span class="dv">3</span>);</div></code></pre>
+</section>
+<section id="strings" class="level2">
+<h2>Strings</h2>
+<p>A string is an array of characters terminated by a null character (a character with a numeric value of zero – <code>\0</code>). Each character in the string takes up one byte, and the compiler automatically adds the null character, so the array is one element longer than the number of characters in the string.</p>
+<p>If you specify the size of the array, you need to allocate enough chars to hold the string.</p>
+<p>Note: using double quotes for string literals is just syntactic sugar – you can also use an array literal containing characters.</p>
+<p>String literals are copied into RAM when the program starts running. You can run out of RAM on a microcontroller if you have a lot of them in your code. There’s a macro which allows you to store strings in the flash memory, but then you need to deal with getting them from memory.</p>
+<p>You can also initialise a char pointer with a string constant:</p>
+<pre class="sourceCode c" id="cb15"><code class="sourceCode c"><div class="sourceLine" id="cb15-1" data-line-number="1"><span class="dt">char</span> *ptr = <span class="st">&quot;more text&quot;</span>;</div></code></pre>
+<p>The pointer declaration creates an additional 4-byte variable for the pointer. The pointer is a variable that is initialised with the address of the array’s initial element. This pointer is not a constant pointer (like you would get with an array), so if you reassign it you’ll lose it.</p>
+<section id="multidimensional-arrays" class="level3">
+<h3>Multidimensional Arrays</h3>
+<p>Use arrays in arrays:</p>
+<pre class="sourceCode c" id="cb16"><code class="sourceCode c"><div class="sourceLine" id="cb16-1" data-line-number="1"><span class="dt">int</span> x[<span class="dv">3</span>][<span class="dv">4</span>][<span class="dv">5</span>];</div></code></pre>
+<p>Here, <code>x</code> is a 3-element array. Each element in <code>x</code> is a 4-element array, and every element of those 4-element arrays is a 5-element array.</p>
+</section>
+<section id="pointers-to-pointers" class="level3">
+<h3>Pointers to Pointers</h3>
+<p>Using more <code>*</code>s, you can have pointers to pointers:</p>
+<pre class="sourceCode c" id="cb17"><code class="sourceCode c"><div class="sourceLine" id="cb17-1" data-line-number="1"><span class="dt">int</span> r = <span class="dv">5</span>;</div>
+<div class="sourceLine" id="cb17-2" data-line-number="2"><span class="dt">int</span> *q = &amp;r;</div>
+<div class="sourceLine" id="cb17-3" data-line-number="3"><span class="dt">int</span> **p = &amp;q;</div>
+<div class="sourceLine" id="cb17-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb17-5" data-line-number="5"><span class="co">/* These 3 statements are equivalent: */</span></div>
+<div class="sourceLine" id="cb17-6" data-line-number="6">r = <span class="dv">10</span>;</div>
+<div class="sourceLine" id="cb17-7" data-line-number="7">*q = <span class="dv">10</span>;</div>
+<div class="sourceLine" id="cb17-8" data-line-number="8">**p = <span class="dv">10</span>;</div></code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

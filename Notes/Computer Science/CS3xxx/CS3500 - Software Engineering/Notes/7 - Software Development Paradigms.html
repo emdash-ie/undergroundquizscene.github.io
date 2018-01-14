@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>7: Software Development Paradigms</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">7: Software Development Paradigms</h1>
+<p class="author"></p>
+<p class="date">Monday 6th of November, 2017</p>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>A paradigm is a way of thinking, or a lens through which to view the world. It represents a set of assumptions.</p>
+<p>For example, in programming there are functional (e.g. Haskell) and object-oriented (e.g. Java) paradigms.</p>
+<p>In software development, there are different paradigms:</p>
+<ul>
+<li><p>Rational Model (Waterfall)</p>
+<ul>
+<li><p>Software development is best seen as a sequence of steps.</p></li>
+<li><p>Requirements are assumed not to change.</p></li>
+</ul></li>
+<li><p>Empirical Model (iterative and incremental development)</p>
+<ul>
+<li><p>Start small, add features iteratively and incrementally</p></li>
+<li><p>Assumes requirements will change</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="the-traditional-approach" class="level1">
+<h1>The Traditional Approach</h1>
+<p>Software development is easy on your own. When scaling up, issues arise:</p>
+<ul>
+<li><p>Need for communication</p>
+<ul>
+<li>Who knows what, and who needs to know what?</li>
+</ul></li>
+<li><p>Need for co-ordination</p>
+<ul>
+<li>Who does what, and when?</li>
+</ul></li>
+<li><p>Need for systematic approach</p></li>
+</ul>
+<section id="waterfall" class="level2">
+<h2>Waterfall</h2>
+<p>The original waterfall model was presented as a bad approach, with proposed adjustments to make it more suitable for large-scale project.</p>
+<p>Basically, the adjustments proposed to do it twice – try and do the whole approach once, very quickly, and then use what you learned to repeat the approach and do it better.</p>
+<section id="document-heavy" class="level3">
+<h3>Document Heavy</h3>
+<p>The waterfall model is document-heavy – documents are produced at every step.</p>
+</section>
+<section id="why-was-it-used" class="level3">
+<h3>Why Was It Used?</h3>
+<p>Initially, computers were expensive and scarce resources – it made sense to carefully plan the access by programmers.</p>
+<p>The later in the lifecycle that defects were detected, the more expensive it was to fix them.</p>
+</section>
+</section>
+<section id="v-model" class="level2">
+<h2>V-Model</h2>
+<p>The v-model is derived from the waterfall model. There’s an increased focus on verification and validation, and it’s shaped like a V.</p>
+</section>
+<section id="problems" class="level2">
+<h2>Problems</h2>
+<ol type="1">
+<li><p>Requirements change</p>
+<ul>
+<li><p>due to the long time between requirements and delivery, customers change their minds</p></li>
+<li><p>This causes rework.</p></li>
+</ul></li>
+<li><p>No possibility to get early feedback from customers</p>
+<ul>
+<li><p>Delivered solution may not be satisfactory.</p></li>
+<li><p>Want running code as soon as possible.</p></li>
+</ul></li>
+<li><p>Hard to completely specify a problem.</p></li>
+<li><p>Testing is left till last, which causes delays in delivery when unexpected defects are found</p>
+<ul>
+<li>Fixing defects late in the process causes a lot of rework upstream.</li>
+</ul></li>
+<li><p>Developer Frustration</p>
+<ul>
+<li>Working on a project for a long time without visible progress (runnable software) decreases developers’ job satisfaction.</li>
+</ul></li>
+<li><p>Document-heavy</p>
+<ul>
+<li>Conventional approaches produce a lot of documentation that is not necessarily useful (and goes out of date quickly)</li>
+</ul></li>
+</ol>
+<p>These problems apply to everything derived from the waterfall model.</p>
+</section>
+</section>
+<section id="rapid-application-development" class="level1">
+<h1>Rapid Application Development</h1>
+<p>This is one of the earliest agile methods. It’s not radically new, but leverages currently available tools and techniques.</p>
+<p>Mostly it’s management techniques […]</p>
+<section id="principles" class="level2">
+<h2>Principles</h2>
+<ol type="1">
+<li><p>Active User Involvement</p>
+<ul>
+<li><p>The gap between developers and users causes delays in conventional approaches.</p></li>
+<li><p>Users know business needs best.</p></li>
+<li><p>Users are heterogeneous – different background and expertise.</p></li>
+<li><p>Get users involved and committed.</p></li>
+</ul></li>
+<li><p>Small Empowered Teams</p>
+<ul>
+<li><p>Creative dynamic through skilled and highly-motivated teams.</p></li>
+<li><p>Eliminate bureaucratic and delayed communication and decision making.</p></li>
+<li><p>Small teams and fewer communication channels.</p></li>
+<li><p>Roles rather than individuals. Assign roles to different people. […]</p></li>
+</ul></li>
+<li><p>Frequency Delivery of Working Products</p>
+<ul>
+<li><p>Time-boxing: 2-6 months</p>
+<ul>
+<li>if you deliver working products often, it’s more likely that the next one will work</li>
+</ul></li>
+<li><p>Simplified project management</p></li>
+<li><p>Focus on product (working software) rather than process</p></li>
+</ul></li>
+<li><p>Iterative Development and Prototyping</p>
+<ul>
+<li><p>Initial delivery of sub-systems, followed by refinement.</p></li>
+<li><p>Systems evolve and are never complete.</p>
+<ul>
+<li>New requirements emerge, can’t know them all in advance.</li>
+</ul></li>
+<li><p>Requirements specification is a learning process.</p></li>
+<li><p>Prototyping: working model of the system.</p></li>
+<li><p>Recognition is easier than recall for users, so it’s good to get feedback from them often to point you in the right direction.</p></li>
+</ul></li>
+<li><p>CASE Tools</p>
+<ul>
+<li><p>CASE: Computer-assisted systems engineering</p></li>
+<li><p>Need to eliminate or automate routine, time-consuming tasks</p>
+<ul>
+<li>e.g. code generation, version control, bug tracking, documentation, testing, continuous integration, project management</li>
+</ul></li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="emergence-of-agile-methods" class="level1">
+<h1>Emergence of Agile Methods</h1>
+<section id="the-agile-manifesto" class="level2">
+<h2>The Agile Manifesto</h2>
+<p>Individuals and interactions over processes and tools.</p>
+<p>Working software over comprehensive documentation.</p>
+<p>Customer collaboration over contract negotiation.</p>
+<p>Responding to change over following a plan.</p>
+<section id="principles-1" class="level3">
+<h3>Principles</h3>
+<p>[…]</p>
+</section>
+</section>
+<section id="agile-methods" class="level2">
+<h2>Agile Methods</h2>
+<p>Already existing methods were labelled “agile” – Extreme Programming, Scrum, etc.</p>
+</section>
+</section>
+<section id="scrum" class="level1">
+<h1>Scrum</h1>
+<p>Scrum is a particular agile method. It was retrospectively labelled as agile when that phrase was coined.</p>
+<section id="overview" class="level2">
+<h2>Overview</h2>
+<p>Traditional approaches are kind of like a relay race – different stages completed in order, possibly by different people.</p>
+<p>Instead, scrum takes a more holistic/rugby-like approach, where the team […].</p>
+<section id="empirical-approach" class="level3">
+<h3>Empirical Approach</h3>
+<p>Relies on what you know.</p>
+<p>Requires:</p>
+<ul>
+<li>Transparency: process must be visible</li>
+<li>Inspection: make sure everything’s still ok</li>
+<li>Adaptation: adjust when needed</li>
+</ul>
+</section>
+</section>
+<section id="scrum-roles" class="level2">
+<h2>Scrum Roles</h2>
+<section id="product-owner" class="level3">
+<h3>Product Owner</h3>
+<p>Responsible for maximising value of the product.</p>
+<p>Plays the role of the customer.</p>
+<p>Sole person responsible for maintaining, prioritising, and communicating product backlog.</p>
+<p>Product owner must be an individual.</p>
+</section>
+<section id="scrum-master" class="level3">
+<h3>Scrum Master</h3>
+<p>Responsible for enacting scrum values.</p>
+<p>Removes impediments to get work done.</p>
+<p>Ensures that the team is functional and productive.</p>
+<p>Shields the team from external interference.</p>
+<p>More like a coach than a boss/project manager. Team is self-organising and self-managing.</p>
+</section>
+<section id="scrumdevelopment-team" class="level3">
+<h3>Scrum/Development Team</h3>
+<p>Typically 5-9 people.</p>
+<p>Teams are self-organising and cross-functional. Team has all the necessary skills and isn’t dependent on anyone else. Every member of the team is on an equal footing.</p>
+<p>Team decides how to turn backlog items into product increments.</p>
+<p>Members should be full-time, and membership should only change between sprints.</p>
+</section>
+</section>
+<section id="scrum-ceremonies-events" class="level2">
+<h2>Scrum Ceremonies / Events</h2>
+<section id="the-sprint" class="level3">
+<h3>The Sprint</h3>
+<p>A time-boxed period of 1-4 weeks (fixed deadline).</p>
+<p>During a sprint, no changes are allowed.</p>
+<p>Scope may be re-negotiated with the product owner – if the dev team feels there is too much or too little work.</p>
+<p>The sprint must result in a shippable product (though this won’t necessarily be deployed).</p>
+<p>Sprints may be cancelled when Sprint goals become obsolete (e.g. changing business focus). This is rare.</p>
+<section id="sprint-planning" class="level4">
+<h4>Sprint Planning</h4>
+<p>Two main questions:</p>
+<ol type="1">
+<li>What to deliver in this sprint?</li>
+<li>How to achieve this?</li>
+</ol>
+<p>Which items in the product backlog are delivered in this sprint? (Decided just by the team.)</p>
+<p>For a 4-week sprint, there’s a maximum of 8 hours planning.</p>
+<p>Once committed to a plan, no changes are allowed unless the sprint is cancelled.</p>
+</section>
+</section>
+<section id="daily-scrum" class="level3">
+<h3>Daily Scrum</h3>
+<p>15 minute time-boxed event, held at the same time and same place every day. Meant to be quick, no-fuss.</p>
+<p>Aim to synchronise activities, and create a plan for the next 24 hours.</p>
+<p>Three key questions:</p>
+<ol type="1">
+<li>What have I done towards the goal?</li>
+<li>What will I do today towards the goal?</li>
+<li>What’s blocking me from reaching the goal?</li>
+</ol>
+<p>Scrum master ensures the daily scrum takes place.</p>
+<p>It’s not meant for problem-solving – issues get recorded and resolved after the meeting.</p>
+</section>
+<section id="sprint-review" class="level3">
+<h3>Sprint Review</h3>
+<p>Happens after the sprint is done. Maximum 4-hour time-boxed meeting for the team and product owner to inspect the software product and adapt in the next sprint.</p>
+<p>Results should be accepted only if they fill the definition of done (e.g. code is integrated, fully tested, documented, and potentially shippable). Partially done work or defective work shouldn’t be taken into account – gives a false sense of progress. Need to define for a project what counts as done.</p>
+</section>
+<section id="sprint-retrospective" class="level3">
+<h3>Sprint Retrospective</h3>
+<p>After sprint review, focus on inspecting and adapting the process, rather than the product.</p>
+<p>Key questions:</p>
+<ul>
+<li>What’s working well?</li>
+<li>What could work better?</li>
+</ul>
+<p>3-hour time-boxed meeting.</p>
+<p>Should be evidence-based retrospectives – hard data and underlying causes.</p>
+</section>
+</section>
+<section id="scrum-artefacts" class="level2">
+<h2>Scrum Artefacts</h2>
+<section id="product-backlog" class="level3">
+<h3>Product Backlog</h3>
+<p>Evolving, prioritised queue of everything needed in the product. The single definitive source for features, functions, requirements, enhancements, and fixes.</p>
+<p>The product owner is responsible for maintaining, ordering, clarifying, and communicating this queue.</p>
+<p>Backlog items get refined/clarified over time.</p>
+</section>
+<section id="sprint-backlog" class="level3">
+<h3>Sprint Backlog</h3>
+<p>Items from a product backlog selected for a sprint, plus the plan for implementation – a design that is discussed and agree upon by all.</p>
+</section>
+<section id="potentially-shippable-product-product-increment" class="level3">
+<h3>Potentially Shippable Product / Product Increment</h3>
+<p>Every sprint ends with a potentially shippable product, which may or may not be released.</p>
+<p>It’s the sum of all product backlog items completed during a sprint, plus all previous increments.</p>
+<p>Must be usable by a customer.</p>
+</section>
+</section>
+<section id="scrum-in-action" class="level2">
+<h2>Scrum in Action</h2>
+<section id="before-the-sprint" class="level3">
+<h3>Before the Sprint</h3>
+<p>A project is a series of sprints, where each sprint is 1-4 weeks (varies by project).</p>
+<p>Each sprint leads to a potentially shippable product, and has a sprint goal which indicates the overall objective.</p>
+<section id="start-of-a-project" class="level4">
+<h4>Start of a Project</h4>
+<p>Vision statement: a description of the project goals – this helps to keep the team focused on what it important for the organisation.</p>
+<p>Product roadmap: an initial visual timeline of major product features, created by the product owner.</p>
+<p>[…]</p>
+</section>
+<section id="product-backlog-1" class="level4">
+<h4>Product Backlog</h4>
+<p>All features are collected and sorted based on their priority.</p>
+<p>During development, new features, feature changes, and defects may emerge, and will be added to the backlog.</p>
+<p>Once the product backlog has sufficient features, sprints can start – you don’t need to wait for the complete set.</p>
+<p>Product Backlog Items can be represented in different ways. In agile development, it’s common to define them as user stories. However, there may be other forms, for example bugs may link to an issue tracker. User stories may also be from the perspectives of developers, as well as end-users.</p>
+<p>#### Effort Estimation</p>
+<p>You need to estimate the effort involved in backlog items. This is commonly done using a relative indication called story points. Assign fibonacci numbers: Feature A has 5, Feature B has 2, Feature C has 3.</p>
+</section>
+<section id="planning-poker" class="level4">
+<h4>Planning Poker</h4>
+<p>After discussing a particular backlog item, each estimator picks a card representing the number of effort points. If there’s consensus, then that value is used. If there isn’t, the highest and lowest scorers justify, and then the process is repeated until consensus is reached.</p>
+</section>
+<section id="velocity" class="level4">
+<h4>Velocity</h4>
+<p>For each sprint, keep track of how many story points you got done. Then you can choose how many story points should be included in the backlog based on your velocity.</p>
+</section>
+<section id="sprint-planning-1" class="level4">
+<h4>Sprint Planning</h4>
+<p>Select a number of backlog items to create a sprint backlog – keep 10% of time as a buffer.</p>
+<p>Stories are broken down into tasks with time estimates, and each task should take no longer than 8 hours.</p>
+</section>
+</section>
+<section id="during-the-sprint" class="level3">
+<h3>During the Sprint</h3>
+<p>Daily scrum to discuss activities and synchronise.</p>
+<p>Work isn’t assigned – team members pick tasks (agile methods emphasise self-organising teams).</p>
+<p>Progress is updated daily.</p>
+<section id="definition-of-done" class="level4">
+<h4>Definition of Done</h4>
+<p>There needs to be an agreed definition of done – using a checklist is an unambiguous way to make sure that a task is done.</p>
+<p>The DoD may vary per project or per sprint.</p>
+</section>
+<section id="burndown-chart" class="level4">
+<h4>Burndown Chart</h4>
+<p>Indicates the number of effort hours remaining for the current sprint.</p>
+</section>
+</section>
+</section>
+<section id="summary" class="level2">
+<h2>Summary</h2>
+<p>Scrum is intended for:</p>
+<ul>
+<li>small projects</li>
+<li>co-located teams</li>
+<li>non-critical systems</li>
+</ul>
+<p>However, Scrum has been successfully adopted outside of these restricted domains by tailoring the method:</p>
+<ul>
+<li>distributed scrum</li>
+<li>scrum of scrums</li>
+<li>additional roles, ceremonies, and artefacts</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

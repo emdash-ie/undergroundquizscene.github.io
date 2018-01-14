@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>4 - NAT</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="nat-network-address-translation" class="level1">
+<h1>NAT – Network Address Translation</h1>
+<p>Have the same external IP addresses for all interfaces on an internal network, and map different port values to different unique internal IP addresses.</p>
+<p>Has the benefit that it doesn’t use up too many addresses, and also allows you to change the layout of your network much more freely.</p>
+<p>Also, no-one can connect directly to your machine.</p>
+<p>There are some situations (e.g. running a web server) where this is a disadvantage – you’d like to be able to connect to the internal computers from outside.</p>
+<section id="things-to-worry-about" class="level2">
+<h2>Things to Worry About</h2>
+<ul>
+<li><p>Still limited to about 60,000 internal addresses per external address</p></li>
+<li><p>Router is now doing quite a lot of work allocating port numbers for every flow</p></li>
+<li><p>Routers should only process up to layer 3 – NAT violates the end-to-end argument.</p>
+<ul>
+<li><p>end-to-end: push functionality to edge of network, only do in the middle what’s absolutely necessary</p></li>
+<li><p>p2p protocols have difficulty with NAT</p></li>
+</ul></li>
+<li><p>Address shortage should instead be solved by IPv6</p></li>
+</ul>
+</section>
+<section id="nat-traversal-problem" class="level2">
+<h2>Nat Traversal Problem</h2>
+<p>Want to contact a server that’s behind NAT.</p>
+<ul>
+<li><p>solution 1 – static mapping (manually assign ports)</p></li>
+<li><p>solution 2 – Universal Plug and Play</p>
+<ul>
+<li>automates static mapping, has lease times</li>
+</ul></li>
+<li><p>solution 3 – relay (e.g. Skype)</p></li>
+</ul>
+</section>
+<section id="icmp" class="level2">
+<h2>ICMP</h2>
+<p>This is a protocol that’s used by hosts &amp; routers to communicate network-level information:</p>
+<ul>
+<li>error reporting</li>
+<li>echo request/reply (used by ping)</li>
+</ul>
+<p>Protocol doesn’t require responses (some people may not want to reply due to e.g. corporate sensitivity of info, etc.).</p>
+<p>The protocol is a network-layer protocol above IP (ICMP messages stored in IP datagrams).</p>
+<section id="traceroute-and-icmp" class="level3">
+<h3>Traceroute and ICMP</h3>
+<p>Send a series of UDP segments to the destination, with sequential TTL values. When the TTL expired ICMP responses come in, we know the first-hop, second-hop routers etc.</p>
+</section>
+</section>
+<section id="ipv6" class="level2">
+<h2>IPv6</h2>
+<p>The initial motivation was that the 32-bit address space was soon to be completely allocated.</p>
+<p>The key question was how to deal with the shortage of addresses.</p>
+<p>Studied inefficiency of allocation in phone network hierarchical addressing, concluded that 128 bits were needed to account for that inefficiency.</p>
+<p>However, now the IP header is going to be very big, leading to a lot of redundancy.</p>
+<p>There’s now a 40-byte header (up from 20).</p>
+<p>There were also some additional motivations:</p>
+<ul>
+<li><p>make sure the new header format helps speed processing/forwarding</p></li>
+<li><p>change the header to facilitate QoS</p>
+<ul>
+<li>the idea that some flows are more important than others</li>
+</ul></li>
+<li><p>security</p>
+<ul>
+<li>not considered for IPv4</li>
+</ul></li>
+<li><p>mobility</p></li>
+</ul>
+<p>To save space, some things were removed:</p>
+<ul>
+<li><p>checksum</p>
+<ul>
+<li><p>most link-layer protocols have their own methods of detecting bit errors, so it seems redundant</p></li>
+<li><p>also because the TTL changes at each hop, the checksum has to be recalculated at every hop</p></li>
+</ul></li>
+<li><p>fragmentation</p>
+<ul>
+<li><p>now packets that are too big will be dropped, and an ICMP message sent back to the sender to tell them to break it up and send it again</p></li>
+<li><p>this simplifies things</p></li>
+</ul></li>
+</ul>
+<section id="ipv6-header" class="level3">
+<h3>IPv6 Header</h3>
+<p>New features:</p>
+<ul>
+<li><p>priority</p>
+<ul>
+<li>used for QoS</li>
+</ul></li>
+<li><p>flow label</p>
+<ul>
+<li>mark datagrams as being from the same flow</li>
+</ul></li>
+<li><p>next header</p>
+<ul>
+<li><p>allow easy extension of header protocol with a reference to the next header (like in a linked list)</p></li>
+<li><p>can add e.g. security headers or timing headers</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="ipv6-addresses" class="level3">
+<h3>IPv6 Addresses</h3>
+<p>Classless addressing/routing (similar to CIDR)</p>
+<p>Notation is 16-bit hex numbers separated by colons.</p>
+<p>IPv6 adds explicit support for locally-unique addresses, and they have also reserved spaces within the address space and been careful about allocating addresses.</p>
+</section>
+<section id="ipv6-auto-configuration" class="level3">
+<h3>IPv6 Auto-Configuration</h3>
+<p>Replaces DHCP. Broadcast an address to the network to say you’re going to use it, asking if anyone else is using it.</p>
+</section>
+<section id="other-changes" class="level3">
+<h3>Other Changes</h3>
+<p>[…]</p>
+<ul>
+<li>ICMPv6</li>
+</ul>
+</section>
+<section id="extension-headers" class="level3">
+<h3>Extension Headers</h3>
+<ul>
+<li><p>Routing</p>
+<ul>
+<li>Specify that you don’t want packets travelling over a specific network</li>
+</ul></li>
+<li>Fragmentation</li>
+<li>Authentication</li>
+<li>Encapsulation</li>
+<li>Hop-by-hop option</li>
+<li><p>Destination options</p></li>
+</ul>
+</section>
+<section id="transition-from-ipv4-to-ipv6" class="level3">
+<h3>Transition From IPv4 to IPv6</h3>
+<p>Not all routers can be upgraded simultaneously.</p>
+<ul>
+<li><p>How will the network operate with mixed IPv4 and IPv6?</p>
+<ul>
+<li><p>Tunnel IPv6 inside IPv4 (putting IPv6 packets inside IPv4 packets)</p>
+<ul>
+<li>What about fragmentation at the IPv4 bit?</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

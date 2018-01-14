@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Client-Side Programs</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="client-side-programs" class="level1">
+<h1>Client-side Programs</h1>
+<p>Until now we’ve written server-side programs, which return output to the client.</p>
+<p>With client-side programs, the program is sent to the user and run on the client computer.</p>
+<p>The client browser must understand the language that the program is written in, and we’ve chosen JavaScript because it’s the only language that all the browsers really understand.</p>
+<section id="hello-world" class="level2">
+<h2>Hello World</h2>
+<p>greetings.js:</p>
+<pre><code>    var now = new Date();
+    window.alert(&#39;Hello world. It is &#39; + now + &#39;, right now.&#39;);
+    </code></pre>
+<p>page.html must include a <code>&lt;script&gt;</code> tag in the header:</p>
+<pre><code>    &lt;script src=&quot;greetings.js&quot;&gt;&lt;/script&gt;
+    </code></pre>
+<p>When the client requests the webpage, the program will be returned with the page, and then run. A popup will appear with today’s date.</p>
+<section id="note-concerning-the-script-tag" class="level5">
+<h5>Note: concerning the &lt;script&gt; tag</h5>
+<p>You can include JavaScript code in the script tag (between the &lt;script&gt; and &lt;/script&gt; tags), but it’s bad practice.</p>
+</section>
+</section>
+<section id="javascript-particles.js" class="level2">
+<h2>JavaScript (particles.js)</h2>
+<ul>
+<li>Designed for writing programs embedded within other software applications.</li>
+<li>Core language is very standard, should be very familiar.</li>
+<li>Client-side JavaScript[^1] includes objects to:
+<ul>
+<li>Control the browser</li>
+<li>Interact with the user</li>
+<li>Communicate with the server</li>
+<li>Alter the document content [^1]: These client-side extensions are less standardised, and support can differ from browser to browser.</li>
+</ul></li>
+<li>There are server-side extensions, and others.</li>
+<li>JavaScript and Java are both partly inspired by C but are not related.</li>
+</ul>
+</section>
+<section id="html-canvas" class="level2">
+<h2>HTML Canvas</h2>
+<p>3 Files:</p>
+<ul>
+<li>A HTML web page, particles.html</li>
+<li>A CSS stylesheet, particles.css</li>
+<li>A JS program, particles.js</li>
+</ul>
+<p>We use a <code>&lt;canvas&gt;&lt;/canvas&gt;</code> tag, with nothing between the tags, and specify a height and width.</p>
+<section id="on-the-css" class="level5">
+<h5>On the CSS</h5>
+<p>To get the canvas in the centre, we put a margin on the left and on the right, and set them both to auto. Then the browser sorts itself out.</p>
+</section>
+<section id="the-javascript-particles.js" class="level3">
+<h3>The JavaScript (particles.js)</h3>
+<p>The initial and ending lines ensure that variables in different files with the same name won’t clash.</p>
+<p>We select the canvas with the document.querySelector method, and we create a ‘context’, which will be how we interact with the canvas, like using a cursor for the database.</p>
+<section id="declaring-variables" class="level5">
+<h5>Declaring variables</h5>
+<p>Variables in JavaScript should be explicitly declared at the beginning:</p>
+<pre><code>var hourly_pay
+var hours_worked
+
+hourly_pay = 10
+hours_worked = 30</code></pre>
+<p>This can also be done with the initial assignment, as a shortcut:</p>
+<pre><code>var hourly_pay = 10
+…</code></pre>
+</section>
+</section>
+<section id="particles.js-cont." class="level3">
+<h3>particles.js (cont.)</h3>
+<section id="making-it-bounce-javascipt-if-statement" class="level4">
+<h4>Making It Bounce (JavaScipt IF Statement)</h4>
+<p>Here’s an example <code>if</code> statement in JS:</p>
+<pre><code>if (x &lt; y) {
+    console.log(&#39;x is smaller than y&#39;)
+} else if (x === y) {
+    console.log(&#39;x is equal to y&#39;)
+} else {
+    console.log(&#39;x is larger than y&#39;)
+}</code></pre>
+<p>Notes:</p>
+<ul>
+<li>The conditions must be enclosed by ()</li>
+<li>‘and’, ‘or’, and ‘not’ are represented by: <code>&amp;&amp;</code>, <code>||</code>, <code>!</code></li>
+<li>We use the three = signs in the else-if check. See below.</li>
+</ul>
+<section id="python-is-strongly-typed" class="level5">
+<h5>Python is Strongly-Typed</h5>
+<p>JavaScript is weakly-typed and if you try to add e.g. a string to a number, it’ll try to convert the number to a string or the string to a number and add them.</p>
+<p>This is why above we use <code>===</code> instead of <code>==</code> in the else if, which avoids some type coercion. It’s stricter.</p>
+</section>
+</section>
+</section>
+<section id="objects-in-javascript" class="level3">
+<h3>Objects in Javascript</h3>
+<p>Simple objects look more like dictionaries:</p>
+<pre><code>var twin A = {
+    firstname : &#39;John&#39;,
+    surname : &#39;Grimes&#39;,
+    age: 24
+}</code></pre>
+<p>You can use dot notation to refer to the variables:</p>
+<pre><code>twinA.firstname =&gt; &#39;John&#39;</code></pre>
+<section id="in-our-example" class="level5">
+<h5>In Our Example</h5>
+<p>We replace our 5 variables by an object with 5 fields in it:</p>
+<pre><code>var p = {
+    x : 250,
+    y : 150,
+    size : 10,
+    xChange : getRandomNumber(-10, 10),
+    yChange : getRandomNumber(-10, 10)
+}</code></pre>
+<p>The reason this is good is we can now easily add more particles, by creating more particle objects.</p>
+</section>
+</section>
+<section id="arrays-in-javascript" class="level3">
+<h3>Arrays in JavaScript</h3>
+<p>Arrays are the JavaScript equivalent to Python’s lists:</p>
+<pre><code>var groceries = [&#39;eggs&#39;, &#39;milk&#39;, &#39;tea&#39;];
+
+groceries.length =&gt; 3
+
+groceries.push(&#39;bread&#39;)
+
+groceries is now [&#39;eggs&#39;, &#39;milk&#39;, &#39;tea&#39;, &#39;bread&#39;]</code></pre>
+<section id="in-our-example-1" class="level5">
+<h5>In Our Example</h5>
+<p>We can now use a for loop (see below) to make e.g. 30 particle objects, store them all in an array, and put another for loop in draw which sorts out the motion for all of them.</p>
+</section>
+</section>
+<section id="for-loops-in-javascript" class="level3">
+<h3><em>for</em> Loops in JavaScript</h3>
+<p>Here’s the equivalent of <code>for i in range(10):</code> in JavaScript:</p>
+<pre><code>for (var i = 0; i &lt; 10; i += 1) {
+}</code></pre>
+<p>Since there isn’t a nice equivalent of <code>for item in groceries</code> in JavaScript, you use array indexing and use a for loop that runs from 0 to the last index of the array.</p>
+</section>
+<section id="calling-a-function" class="level3">
+<h3>Calling a Function</h3>
+<p>Here’s how to define a function:</p>
+<pre><code>function irritate_me() {
+    window.alert(&#39;Irritating, huh?&#39;);
+}</code></pre>
+<p>To call then, you use the name of the function, as in Python.</p>
+<p>In JavaScript, though, along with many modern programming languages, you can tell the computer to run a particular function when a particular event happens, e.g.:</p>
+<pre><code>window.addEventListener(&#39;click&#39;, irritate_me, false);</code></pre>
+<p>This code will cause the program to be executed any time the user clicks within the window. You could also try e.g. <code>canvas.addEventListener()</code>, or the same with other html elements.</p>
+<p>This is event-driven programming.</p>
+</section>
+<section id="event-driven-programming" class="level3">
+<h3>Event-driven Programming</h3>
+<p>In JS, events include: * the webpage has finished loading * the user presses a particular key * the user moves the mouse into or out of a certain region of the screen</p>
+<p>When an event occurs, information about the event is stored in an object. In the case of a mouse click, for example, the event has properties <code>clientX</code> and <code>clientY</code>, the co-ordinates of the mouse click.</p>
+<p>The event handler can then access that info:</p>
+<pre><code>function irritate_me(event) {
+    window.alert(&#39;Your click was at &#39; + event.clientX + &#39; &#39; + event.clientY);
+}</code></pre>
+<p>Note the event is passed through into the function.</p>
+<p>We’ve already done this twice:</p>
+<pre><code>document.addEventListener(&#39;DOMContentLoaded&#39;, init, false);</code></pre>
+<p>This was waiting for the whole the webpage and all the stylesheets and javascript to arrive, at which point it started running the javascript.</p>
+<p>The second example:</p>
+<pre><code>window.setInterval(draw, 33);</code></pre>
+<p>This code called draw() every 33 milliseconds.</p>
+<ul>
+<li><strong>Note: Look up ‘Event Bubbling’ and ‘Event Capturing’ to explain the ‘false’ constant in the .addEventListener() function every time so far.</strong></li>
+</ul>
+</section>
+<section id="completing-an-incomplete-program" class="level3">
+<h3>Completing an Incomplete Program</h3>
+<p>Lines surrounded by ** were added in-lecture:</p>
+<pre><code>(function() {
+
+var canvas;
+var context;
+var width;
+var height;
+
+var interval_id;
+
+var ps = [];
+
+var player = {
+    x : 0,
+    y : 150,
+    size : 10
+};
+
+var moveRight = false;
+var moveUp = false;
+var moveDown = false;
+
+document.addEventListener(&#39;DOMContentLoaded&#39;, init, false);
+
+function init() {    
+    canvas = document.querySelector(&#39;canvas&#39;);
+    context = canvas.getContext(&#39;2d&#39;);
+    width = canvas.width;
+    height = canvas.height;
+    
+    /* The two lines below allow the program to detect when the user presses a key and when they let go a key.*/ 
+    **window.addEventListener(&#39;keydown&#39;, activate, false);**
+    **window.addEventListener(&#39;keyup&#39;, deactivate, false);**
+    
+    /* Note the line below this has to be a variable assignment for the stop() function to work */
+    interval_id = window.setInterval(draw, 33);
+}
+
+function draw() {
+    if (ps.length &lt; 10) {
+        var p = {
+            x : width, 
+            y : getRandomNumber(0, height), 
+            size : 10,
+            xChange : getRandomNumber(-10, -1), 
+            yChange : 0 
+        };
+        ps.push(p);
+    }
+    context.clearRect(0, 0, width, height);
+    context.fillStyle = &#39;yellow&#39;;
+    for (var i = 0; i &lt; ps.length; i += 1) {
+        context.fillRect(ps[i].x, ps[i].y, ps[i].size, ps[i].size);
+    }
+    context.fillStyle =&#39;cyan&#39;;
+    context.fillRect(player.x, player.y, player.size, player.size);
+    if (player.x + player.size &gt;= width) {
+        stop();
+        window.alert(&#39;YOU WIN!&#39;);
+        return;
+    }
+    for (var i = 0; i &lt; ps.length; i += 1) {
+        if (collides(ps[i])) {
+            stop();
+            window.alert(&#39;YOU LOSE!&#39;);
+            return;
+        }
+    }
+    for (var i = 0; i &lt; ps.length; i += 1) {
+        ps[i].x = ps[i].x + ps[i].xChange;
+        ps[i].y = ps[i].y + ps[i].yChange;
+        if (ps[i].x &lt;= -ps[i].size) {
+            ps[i].x = width;
+        }
+    }
+    if (moveRight) {
+        player.x += 3;
+    }
+    if (moveUp) {
+        player.y -= 3;
+    }
+    if (moveDown) {
+        player.y += 3;
+    }
+}
+
+function getRandomNumber(min, max) {
+    return Math.round(Math.random() * (max - min)) + min;
+}
+
+function collides(p) {
+    if (player.x + player.size &lt; p.x ||
+        p.x + p.size &lt; player.x ||
+        player.y &gt; p.y + p.size ||
+        p.y &gt; player.y + player.size) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+function stop() {
+    clearInterval(interval_id);
+    
+    /* These two lines remove the event listeners */
+    **window.removeEventListener(&#39;keydown&#39;);**
+    **window.removeEventListener(&#39;keyup&#39;);**
+    
+}
+
+/* These functions below allow the user to control the movement of the cyan rectangle */
+
+**function activate(event) {
+    var keyCode = event.keyCode;
+    if (keyCode === 38) {
+        moveUp = true;
+    } else if (keyCode === 39) {
+        moveRight = true;
+    } else if (keyCode === 40) {
+        moveDown = true;
+    }
+}**
+
+**function deactivate(event) {
+    var keyCode = event.keyCode;
+    if (keyCode === 38) {
+        moveUp = false;
+    } else if (keyCode === 39) {
+        moveRight = false;
+    } else if (keyCode === 40) {
+        moveDown = false;
+    }
+}**
+
+})();</code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

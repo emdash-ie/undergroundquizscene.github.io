@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>11: Communication Between Boards</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">11: Communication Between Boards</h1>
+</header>
+<section id="i2c" class="level1">
+<h1>I2C</h1>
+<p>The I2C (Integrated Circuit to Integrated Circuit) bus is used for robust, quick, 2-way communication on 2 pins.</p>
+<p>One comms line is the clock, and the other is the data. You can’t make the lines too long, as the signal will be lost/degraded. The lines are pulled high through pullup resisters to reduce noise.</p>
+<section id="leaderfollower" class="level2">
+<h2>Leader/Follower</h2>
+<p>The bus leader initiates all communications – follower devices can only respond to requests sent from the leader. Follower devices can’t communicate directly with one another.</p>
+<p>This protocol allows multiple devices to share the same data line without conflict.</p>
+<p>Follower devices are distinguished by a unique ID number (7-bit address). These IDs may be selectable or they may be fixed at manufacturing time.</p>
+<p>Some devices may have an address select pin – tying it to Vcc or ground, or letting it float, allows you to choose between three addresses.</p>
+<section id="protocol" class="level3">
+<h3>Protocol</h3>
+<ol type="1">
+<li>Leader sends a start bit (typically by pulling the line low).</li>
+<li>Leader sends a 7-bit address to identify the follower device it’s talking to.</li>
+<li>Leader sends a read (1) or a write (0) bit to read from / write to the follower register.</li>
+<li>Follower acknowledges command with a 0 bit.</li>
+<li>If writing, leader sends 1 byte of data, waits for ACK, and then may send subsequent bytes, each ACKed in turn. If reading, leader receives 1 byte at a time and ACKs each.</li>
+<li>When communication is completed, the leader sends a stop bit.</li>
+</ol>
+</section>
+</section>
+<section id="readingwriting" class="level2">
+<h2>Reading/Writing</h2>
+<p>Devices will have some number of registers (different for each device) that you can write to (e.g. to configure the device) or read from (e.g. to get the recorded temperature if the device is a thermometer).</p>
+</section>
+</section>
+<section id="spi-bus" class="level1">
+<h1>SPI Bus</h1>
+<p>The Serial Peripheral Interface bus uses separate lines for sending/receiving data and selecting follower devices, so you don’t need […].</p>
+<p>There’s a select pin on each follower, and you run a separate line from the leader for each follower device, you use those to indicate which device you’re talking to (by pulling low the relevant line).</p>
+<p>On every clock cycle a bit must be sent and received (but that bit doesn’t have to mean anything).</p>
+</section>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>Project: Build a Burglar Alarm</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Project: Build a Burglar Alarm</h1>
+<p class="author"></p>
+<p class="date">Thursday 2nd of November, 2017</p>
+</header>
+<section id="project-description" class="level1">
+<h1>Project Description</h1>
+<p>The project is to build a burglar alarm.</p>
+<p>Done in groups of 2 or 3.</p>
+<p>Expected output:</p>
+<ul>
+<li>individual project report</li>
+<li>code</li>
+<li>demonstration
+<ul>
+<li>this is in the last week</li>
+</ul></li>
+<li>presentation by selected groups</li>
+</ul>
+<p>It’s a lot of work to do in a month, but there’s nothing there that we can’t do. If you’re making a good effort, you will do well, so don’t worry about the results – enjoy it!</p>
+</section>
+<section id="dates" class="level1">
+<h1>Dates</h1>
+<ul>
+<li>Demonstration in the lab on 27/11</li>
+<li>Presentation in class on 30/11</li>
+<li>Reports &amp; code due to the CS office by 8/12
+<ul>
+<li>if you really need this date pushed out, he’ll do that on a case-by-case basis</li>
+<li>don’t limit yourself – the report can be 60 pages or more if you want</li>
+</ul></li>
+</ul>
+</section>
+<section id="functionality" class="level1">
+<h1>Functionality</h1>
+<ol type="1">
+<li>Time of day
+<ul>
+<li>logging times of events (e.g. people entering, exiting)</li>
+<li>displayed by default on LCD
+<ul>
+<li>this will be covered in the next lab</li>
+</ul></li>
+<li>include functionality to set time</li>
+<li>display date/time</li>
+<li>ability to set date</li>
+</ul></li>
+<li>Alarm zones
+<ul>
+<li>an alarm zone is a wired area being monitored by some sensors, and typically you can turn them on and off</li>
+</ul></li>
+</ol>
+<section id="basic-functionality" class="level3">
+<h3>Basic functionality</h3>
+<p>4 zones with programmable zone types:</p>
+<ul>
+<li>entry/exit</li>
+<li>alarm digital
+<ul>
+<li>transition from 0 to 1 or 1 to 0 makes the alarm go off</li>
+</ul></li>
+<li>alarm analogue
+<ul>
+<li>e.g. amount of force on a window, light level in a greenhouse, potentiometer</li>
+</ul></li>
+<li>continuous monitoring
+<ul>
+<li>if someone cuts a wire, the alarm goes off</li>
+</ul></li>
+</ul>
+<p>Programmable: zone 1 could be entry/exit at some time, another type another time, zones 3 and 4 could both be alarm analogue, etc.</p>
+</section>
+<section id="entryexit" class="level3">
+<h3>Entry/Exit</h3>
+<ul>
+<li>set user password</li>
+<li>set exit/enter time
+<ul>
+<li>time to enter password before full alarm goes off</li>
+</ul></li>
+<li>require password to set/reset
+<ul>
+<li>also maybe quick set which sets immediately instead of allowing exit time</li>
+</ul></li>
+</ul>
+</section>
+<section id="alarm-digital" class="level3">
+<h3>Alarm Digital</h3>
+<ul>
+<li>set active high or active low</li>
+</ul>
+</section>
+<section id="alarm-analogue" class="level3">
+<h3>Alarm Analogue</h3>
+<ul>
+<li>set threshold value</li>
+<li>also maybe sensing many rapid gentle taps</li>
+</ul>
+</section>
+<section id="continuous-monitoring" class="level3">
+<h3>Continuous Monitoring</h3>
+<ul>
+<li>activate alarm on H-&gt;L transition</li>
+</ul>
+<p>Extended functionality: - require engineer password to change settings - set engineer password</p>
+</section>
+<section id="when-an-alarm-happens" class="level2">
+<h2>When an Alarm Happens</h2>
+<p>Basic Functionality:</p>
+<ul>
+<li>record zone, date, time in the EERPOM memory</li>
+<li>activate alarm</li>
+</ul>
+</section>
+<section id="saving-settings" class="level2">
+<h2>Saving Settings</h2>
+<ul>
+<li>when zone settings are changed, they should be saved in the EEPROM (so that reboot works)</li>
+</ul>
+</section>
+<section id="remote-control" class="level2">
+<h2>Remote Control</h2>
+<ul>
+<li>entering enter/exit passwords</li>
+<li>navigating menus (on the lcd)</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

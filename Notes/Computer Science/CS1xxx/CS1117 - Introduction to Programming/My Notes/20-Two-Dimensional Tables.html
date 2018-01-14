@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>20-Two-Dimensional Tables</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="two-dimensional-tables" class="level1">
+<h1>Two-Dimensional Tables</h1>
+<hr />
+<section id="representing-tables" class="level2">
+<h2>Representing Tables</h2>
+<p>We use lists within lists, e.g. <code>[[1, 2, 3], [4, 5, 6]]</code> represents:</p>
+<table>
+<thead>
+<tr class="header">
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>4</strong></td>
+</tr>
+</tbody>
+</table>
+<p>You can then reference a cell by using two indices: <code>my_table[0][1]</code> gives the second cell in the first row.</p>
+<section id="sizes" class="level3">
+<h3>Sizes</h3>
+<p>The number of rows will be <code>len(t)</code>, and as long as all the rows have the same length (we are assuming this for our purposes), the number of columns will be <code>len(t[0])</code>.</p>
+<p>However, this last statement will crash with an empty table.</p>
+<hr />
+<section id="assignments-handouts" class="level5">
+<h5>Assignments &amp; Handouts</h5>
+<ul>
+<li>Assignment #21: Two-Dimensional Tables</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

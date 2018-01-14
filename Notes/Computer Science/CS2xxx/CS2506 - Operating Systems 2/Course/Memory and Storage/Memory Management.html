@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Memory Management</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>In the past, when a new computer was designed, the design process started with a bunch of applications, and tried to optimise the computer according to these applications. This is no longer the case.</p>
+<section id="memory" class="level1">
+<h1>Memory</h1>
+<p>Unlike the plain-space memory we saw for the sensor OS, in a general-purpose computer we have the memory hierarchy.</p>
+<ul>
+<li>Faster access but lower capacity memory closest to the CPU (which is the fastest device in the system).</li>
+<li>Slower access and higher capacity memory further from the CPU.</li>
+</ul>
+<p>When a variable is brought into the CPU, it leaves multiple copies along the memory hierarchy, which need to be updated if the variable is modified.</p>
+<section id="virtual-memory" class="level2">
+<h2>Virtual Memory</h2>
+<p>Originally programs were restricted by the size of the memory (e.g. if your program needed 65kB but you only had 64, it wouldn’t run).</p>
+<p>Now we have virtual memory, where addresses in a virtual memory space are mapped to some physical address. Originally this was done in software by the kernel, but now we have a dedicated unit called a memory management unit, which carries out this mapping quickly (in hardware).</p>
+<ul>
+<li>Many software processes handled by the kernel are being gradually moved to hardware, which is faster.</li>
+</ul>
+<p>Memory is a very expensive resource, that needs to be shared between different processes. This is why we need to manage it.</p>
+<p>The memory addresses issued by the CPU are physical addresses. The process layout is specified in terms of virtual addresses though.</p>
+<section id="address-translation" class="level3">
+<h3>Address Translation</h3>
+<ul>
+<li>Base registers
+<ul>
+<li>The virtual address is added to the content of a base register – the result is the physical address</li>
+<li>Compared to a limit</li>
+<li>Can change the content of the base register</li>
+</ul></li>
+<li>Segmentation
+<ul>
+<li>Dedicated registers for different segments</li>
+<li>Different segments store different parts of the program
+<ul>
+<li>code</li>
+<li>data</li>
+<li>stack</li>
+</ul></li>
+<li>Possible to use CPU dedicated registers, or the higher-order bits of the VA point</li>
+<li>Still limited for processes</li>
+</ul></li>
+<li>Paging
+<ul>
+<li>Most flexible concept</li>
+<li>Physical space and virtual space divided into pages of the same size</li>
+<li>Pages in the virtual space are contiguous, but pages in the physical space can be anywhere</li>
+<li>Aim to allocate few pages to a process</li>
+<li><em>Page frame</em> is any space in the physical memory where page could go</li>
+<li>If a page is 4 KiB, we need 12 bits (as 2^12 = 4096) for an offset, to address any part of a page</li>
+<li>VA = virtual address
+<ul>
+<li>page address and offset within the page</li>
+<li>page address identifies a row in a page table
+<ul>
+<li>that row provides the physical location in memory of the corresponding page frame</li>
+<li>the offset is used to identify a specific address within that page</li>
+</ul></li>
+<li>page table has extra bits – control info for the kernel
+<ul>
+<li>e.g. a read-only marker</li>
+<li>presence – is the page in memory or not?
+<ul>
+<li>e.g. initially when the process starts, not all pages are brought into physical memory</li>
+<li>so we have some addresses that don’t map to physical memory</li>
+<li>these are allocated physical memory as needed</li>
+<li>Alternatively, physical memory might be nearly full, and this page was swapped to the disk to make space</li>
+</ul></li>
+<li>modified – at least one write operation has occurred in this page
+<ul>
+<li>only modified pages will be updated on the disk
+<ul>
+<li>would be very expensive to do it for all pages</li>
+</ul></li>
+</ul></li>
+<li>access – info in this page has been accessed [check]</li>
+</ul></li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="multi-level-page-table" class="level3">
+<h3>Multi-Level Page Table</h3>
+<ul>
+<li>top-level page table is smaller, and the second-level page tables that we’re not currently using don’t need to be in memory</li>
+</ul>
+<p>For example:</p>
+<ul>
+<li><p>32-bit VA, 4 KiB (= 2<sup>12</sup> bytes) page size</p></li>
+<li><p>12 bits of VA needed to index the page in bytes</p></li>
+<li><p>other 20 bits of VA split in two:</p>
+<ul>
+<li><p>10 bits used to choose a row in the top-level page table</p>
+<ul>
+<li>this row tells us which second-level page table to go to</li>
+</ul></li>
+<li><p>other 10 bits used to select a row in the second-level page table</p></li>
+</ul></li>
+</ul>
+<p>If we’re only using one page, we need to have the top-level page table in memory, but we only need to have one of the second-level page tables in memory, and the rest can be swapped out.</p>
+<p>So we have 2<sup>10</sup> entries in the top-level table and 2<sup>10</sup> entries in the second-level table, giving a total of 2<sup>10</sup> + 2<sup>10</sup> = 2<sup>11</sup> entries. If each entry is 4 bytes, then we have to use 2<sup>11</sup> * 4 = 2<sup>13</sup> bytes = 8 KiB of memory to store the page tables.</p>
+<p>If we had one single-level table, the whole thing would need to be in memory at once, so we would need 2<sup>20</sup> * 4 = 4 MiB of memory to store the page table.</p>
+<p>Using more than two levels provides further saving of space, but access to pages gets slower (already with the two-level table we have to read 3 memory locations instead of 2).</p>
+</section>
+<section id="allocation" class="level3">
+<h3>Allocation</h3>
+<p>OS provides this memory service to processes in two forms:</p>
+<ul>
+<li>explicit allocation
+<ul>
+<li>process specifies the location of memory it needs</li>
+</ul></li>
+<li>implicit allocation
+<ul>
+<li>process specifies how much memory but not where it is</li>
+</ul></li>
+</ul>
+<p>De-allocation can also be explicit or implicit (when areas not addressed by code are freed).</p>
+</section>
+<section id="memory-layout" class="level3">
+<h3>Memory Layout</h3>
+<p>Generally OSes are using segmentation and paging together. There’re code segments for pages of code, etc.</p>
+<ul>
+<li>Segmentation is preferred for protection – gives good control of the space allocated to a process, prevents a process from accessing other processes’ code.</li>
+<li>But a process can only start if it has a minimum number of pages allocated to it.</li>
+<li>If a process only has small chunks of data, it doesn’t make sense to waste a whole page.</li>
+<li>There’s a block of memory with variable size, allocate blocks of memory to different processes
+<ul>
+<li>A page may not be given to a process, but instead used by the kernel and split into blocks which are allocated to different processes.</li>
+<li>This gives rise to security of different processes accessing each other’s data</li>
+<li>Used so by processes that share data</li>
+</ul></li>
+</ul>
+<p>Some of the memory space can be non-functional, if there are some memory chips that aren’t installed.</p>
+</section>
+</section>
+<section id="memory-management-example" class="level2">
+<h2>Memory Management Example</h2>
+<ul>
+<li>Blocks are built on top of pages – each block is a number of pages. The size can be variable.</li>
+</ul>
+<p>You could have a bit vector with one bit per page to mark whether a page is available. The kernel can check this vector to find an available page to use.</p>
+<p>However processes generally need several pages, not just one or two, so allocation is typically done per block, using blocks of variable size.</p>
+<p>We can then organise information about these blocks into a list:</p>
+<ul>
+<li>starting address of the block</li>
+<li>how many pages the block is (an integer)</li>
+<li>pointer to the next block position</li>
+</ul>
+<p>Now searching this list to find an available block is O(n). We could arrange the list as a tree or a hash to speed this up.</p>
+<p>The system could learn which sizes are mostly requested by processes, and organise the blocks to optimise for that, or just run as needed.</p>
+<p>Now we have two possibilities:</p>
+<ul>
+<li>work at the page level</li>
+<li>work at the block level</li>
+</ul>
+<p>Working like this will give us fragmentation, though – we’ll have memory that isn’t used. There are two types:</p>
+<ul>
+<li>internal (when not an entire allocated space is used)
+<ul>
+<li>process only uses 3 KB out of 4 KB in a page</li>
+</ul></li>
+<li>external (some blocks are too small to ever be allocated)</li>
+</ul>
+<p>Allocation processes try to minimise both kinds of fragmentation.</p>
+</section>
+<section id="selection-policies" class="level2">
+<h2>Selection Policies</h2>
+<section id="first-fit" class="level3">
+<h3>First-fit</h3>
+<p>Take the first block from the list that is greater than or equal to the requested size. If the request can’t be met, it fails.</p>
+<p>This tends to cluster allocations towards the low memory addresses – the low memory area gets fragmented, while the upper memory area tends to have larger free blocks.</p>
+</section>
+<section id="next-fit" class="level3">
+<h3>Next-fit</h3>
+<p>Start the search (for the next acceptable free block) with the next block after the last allocation, wrap around at the end. If returned to the starting point without allocation, the process fails.</p>
+<p>This leads to a more even allocation of free memory.</p>
+</section>
+<section id="best-fit" class="level3">
+<h3>Best-fit</h3>
+<p>Allocates the free block that is closest in size to the request (very little internal fragmentation).</p>
+<p>Tends to create significant external fragmentation, but keeps large blocks available for requests of larger size.</p>
+</section>
+<section id="worst-fit" class="level3">
+<h3>Worst-fit</h3>
+<p>Allocate the largest block for each request.</p>
+<p>This is good if most requests are of similar size, as external fragmentation will be minimised.</p>
+</section>
+<section id="the-buddy-system" class="level3">
+<h3>The Buddy System</h3>
+<p>All blocks are a power of 2 in size. Let n be the size of the request. Locate a block of at least n bytes and return it to the requesting process:</p>
+<ol type="1">
+<li>If n &lt; the smallest allocation unit, set n to be the smallest size</li>
+<li>Round n up to the nearest power of 2. Select the smallest k such that 2^k &gt;= n.</li>
+<li>If there is no free block of size 2^k then recursively allocate a block of size 2^k+1 and split it into two free blocks of size 2^k.</li>
+<li>Return the first free block of size 2^k in response to the request.</li>
+</ol>
+<p>Each time a block is split, a pair of buddies is created – they’ll either be split or paired together.</p>
+<ul>
+<li>It is easy to determine (by looking at bit k+1) which is the buddy of a block.</li>
+<li>This method tends to have very low external fragmentation. The price paid is more internal fragmentation.</li>
+<li>The block that is de-allocated is a buddy to a free block – they are merged in order to create a larger free one.</li>
+</ul>
+<section id="advantages" class="level4">
+<h4>Advantages</h4>
+<ul>
+<li>small blocks are allocated quickly</li>
+<li>larger blocks are split in two
+<ul>
+<li>eventually followed by the merge of the two blocks (the initial block is restored)</li>
+<li>larger blocks size is maintained</li>
+</ul></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="over-allocation-techniques" class="level2">
+<h2>Over-allocation Techniques</h2>
+<p>Not all allocated blocks are in use all the time – seldom used blocks can be transferred to disk.</p>
+<p><em>Swapping</em> is transferring one blocked process’ memory space on disk. When the process becomes active, it’ll be restored.</p>
+<ul>
+<li>If the process shares code […]</li>
+<li>[…]</li>
+</ul>
+<section id="segmentpage-swapping" class="level3">
+<h3>Segment/Page Swapping</h3>
+<p>There’s a presence bit which tells whether the memory space is available on RAM or has been swapped to disk. If the stuff is on disk, the bit triggers an interrupt to retrieve the data from</p>
+<p>If the hardware supports only a limited number of segments (code, data, stack), only those can be swapped. A larger number of segments allow for more memory space to be freed by swapping.</p>
+<p>Paging is a similar technique but involves pages correspond to a finer-grained level.</p>
+</section>
+</section>
+</section>
+<section id="memory-mapped-files" class="level1">
+<h1>Memory-mapped Files</h1>
+<p>Within the kernel space, there’s memory reserved for buffers. This memory will be allocated as required to speed up some functions.</p>
+<p>When a file is requested from storage, a page or two of the file is read into memory in one operation (rather than an individual operation for each sector or reading the entire file at once). Pages are pulled into memory as needed (demand paging).</p>
+<p>From now on, that buffer is reserved for this file. Everything in that buffer can now be accessed very quickly, rather than requiring a read from the disk.</p>
+</section>
+<section id="windows-nt-memory-management" class="level1">
+<h1>Windows NT Memory Management</h1>
+<p>Windows NT uses memory-mapped files (as one way to prevent processes having access to each others’ content?).</p>
+<p>[…]</p>
+<section id="page-management" class="level2">
+<h2>Page Management</h2>
+<p>When a process needs to read a page and is using its max working set size, then the choice of page to be replaced comes from its set.</p>
+<ul>
+<li>General purpose OSes are difficult to optimise because you don’t know what kind of applications will be used
+<ul>
+<li>companies are focusing on optimising their OSes</li>
+</ul></li>
+</ul>
+</section>
+<section id="windows-nt-page-frame-state-machine-diagram" class="level2">
+<h2>Windows NT Page Frame State Machine (diagram)</h2>
+</section>
+</section>
+<section id="linux-memory-management" class="level1">
+<h1>Linux Memory Management</h1>
+<p>3 models:</p>
+<ul>
+<li>use pages</li>
+<li>use blocks (of variable sizes)</li>
+<li>slab(?) of memory
+<ul>
+<li>used when some processes need very small amounts of memory (far less than a page, e.g. 64 bytes)</li>
+</ul></li>
+</ul>
+<section id="system-calls" class="level2">
+<h2>System Calls</h2>
+<ul>
+<li>memory-mapped file operation for <code>execve()</code> speeds things up and is more efficient
+<ul>
+<li>for other system calls, there’s no need to do this because the code is already in memory</li>
+</ul></li>
+</ul>
+</section>
+<section id="allocation-mechanisms" class="level2">
+<h2>Allocation Mechanisms</h2>
+<ul>
+<li>buddy system</li>
+</ul>
+</section>
+<section id="example" class="level2">
+<h2>Example</h2>
+<p>Main memory: 4 MB page = 4 KB</p>
+<p>This means 1024 pages.</p>
+<p>So we decide the first block should be 1 page.</p>
+<p>The next will be a block of 2 pages, then 4 pages, and so on.</p>
+<p>block: 1 page block: 2 pages block: 4 pages … block: 32 pages</p>
+<p>Say we have a request of size n bytes. We try to find the smallest k such that 2^k &gt;= n.</p>
+<p>If n is 700 B, then 1 block of one page will be enough.</p>
+<p>Say n is 7254 B – in that case we need a block of 2 pages free. Say there are none free. Then we need to find a block of 4 pages.</p>
+<p>Once we’ve found this, we split it in two – half will be allocated to this process and half will be marked as free.</p>
+<p>If we can’t find a block of 4 pages, we look for a block of 8 pages. If we’ve found this, the 8 will be split into two blocks of 4, and one of the blocks of 4 will be split into 2 blocks of 2 pages. One of those will be allocated to the process and one will be marked as free.</p>
+<p>When these blocks become free, it’s very easy to merge them to make larger blocks.</p>
+</section>
+<section id="slab-allocator" class="level2">
+<h2>Slab Allocator</h2>
+<ul>
+<li>Works similarly to the buddy system, but just for small size (e.g. a few bytes).</li>
+<li>Good for reducing internal fragmentation</li>
+</ul>
+</section>
+<section id="page-management-1" class="level2">
+<h2>Page Management</h2>
+<ul>
+<li>a possibility is to use 4-level page-table design
+<ul>
+<li>four levels of indirection (4 tables)</li>
+<li>not all levels are used, but that’s what the system provides</li>
+<li>uppermost bits of VA index a page global directory</li>
+<li>second field is used as a pointer to another page directory</li>
+<li>finally we get to a page table</li>
+</ul></li>
+</ul>
+</section>
+<section id="analysis" class="level2">
+<h2>Analysis</h2>
+<ul>
+<li>Android uses paging and memory mapping
+<ul>
+<li>but many mobile systems do not use paging
+<ul>
+<li>because it’s expensive, either in software or in the micro-architecture</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="summary-memory-management" class="level2">
+<h2>Summary (Memory Management)</h2>
+<p>Main memory management means a set of services:</p>
+<ol type="1">
+<li>monitoring free memory
+<ul>
+<li>this is the basic service provided by the kernel</li>
+</ul></li>
+<li>allocation to processes</li>
+<li>replacement</li>
+<li>memory mapping</li>
+</ol>
+<p>The first 3 can be implemented as individual services or just as one service.</p>
+<p>These are used all the time, so implementation is important – they need to run quickly.</p>
+<p>Security is also important – guaranteeing that processes can’t have their memory space modified by other processes. This isn’t covered in this course.</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>2: Error Detection and Correction</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">2: Error Detection and Correction</h1>
+<p class="author"></p>
+<p class="date">Thursday 26th of October, 2017</p>
+</header>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>How can a receiver know that a packet has been corrupted in transit?</p>
+<p>You can send redundant bits – for example, send two copies of all your data, and compare them to check if they’re the same on the receiving side. It’s unlikely that errors would happen in the same place in both packets.</p>
+<p>However, now you’re doubling all your data, so effectively halving your throughput.</p>
+</section>
+<section id="parity" class="level1">
+<h1>Parity</h1>
+<p>Make sure every packet has an even number of ones (use an extra bit at the end, set it to 1 if you have an odd number of ones in the packet – now you have an even number). The receiver can count the number of 1s when receiving it, to see if it matches up.</p>
+<p>Using one bit like this is known as single-bit parity. The problem is, what if two 1s are flipped to 0s? Then there are still an even number of bits – single-bit parity can only detect single-bit errors.</p>
+<section id="two-dimensional-bit-parity" class="level2">
+<h2>Two-Dimensional Bit Parity</h2>
+<p>Arrange the bits into a table, and do a parity bit for every row and column, and for the resulting parity row/column pair.</p>
+<p>One bit per packet chunk, and a parity chunk at the end.</p>
+<p>This isn’t used in practice, because if you do have errors, they’re likely to affect a burst of more than 4 or 5 bits, which is the limit for this method of error detection.</p>
+</section>
+<section id="what-we-want" class="level2">
+<h2>What We Want</h2>
+<p>We have to calculate this at every hop and for every packet, so we want our error correction method to be powerful but not take long to calculate.</p>
+</section>
+<section id="cyclic-redundancy-check-crc" class="level2">
+<h2>Cyclic Redundancy Check (CRC)</h2>
+<p>Simple to implement in hardware (shift registers and XOR gates), so it’s cheap and fast. It’s also very good at detecting errors.</p>
+<p>Treat bit-strings (packets) as polynomials with coefficients of 1 and 0 only – every bit is a term in the polynomial. 10101001 -&gt; x^7 + x^5 + x^3 + x^0.</p>
+<p>What is the extra bit I need to add to a message to make it divisible by a certain number?</p>
+<p>Sender and receiver agree ahead of time on a generator polynomial G(x). Take the original message polynomial D(x), and convert it to a new polynomial P(x), which should be divisible exactly by G(x).</p>
+<p>The sender transmits P(x), and the receiver receives P(x) + E(x), where E(x) represents corrupted bits. If E(x) is 0, we have no errors. (Or, E(x) was such that P(x) + E(x) was still divisible by G(x))</p>
+<p>[…]</p>
+</section>
+<section id="forward-error-correction-fec" class="level2">
+<h2>Forward Error Correction (FEC)</h2>
+<p>Variants of CRC that allow the receiver to correct the errors as well as detect them.</p>
+<p>In cellular networks, adaptive FEC can be used, where the number of redundancy bits used is increased if your signal is poor (and errors are more likely).</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2016-02-15</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="samphire" class="level2">
+<h2>Samphire</h2>
+<section id="control-registers" class="level3">
+<h3>Control Registers</h3>
+<ul>
+<li>IP: The Instruction Pointer holds the address of the next instruction to be executed</li>
+<li>SP: The Stack Pointer</li>
+<li>SR: The Status Register indicates the status of the program. It’s composed of a bunch of flags (each a single bit), which are set under different conditions, e.g. when there has been an interrupt.</li>
+</ul>
+</section>
+<section id="memory" class="level3">
+<h3>Memory</h3>
+<p>Samphire has 256 RAM locations, each capable of holding 2 Hex digits (1 byte).</p>
+<p>The red square represents the instruction pointer, and the blue square represents the stack pointer.</p>
+<p>Addresses C0 to FF are mapped to the visual display unit, with the values interpreted as ASCII codes.</p>
+<p>You write assemply code in the program, and then assemble it, which converts the code into hex and puts it into RAM, once it has performed the first checks of the code.</p>
+</section>
+<section id="sample-instructions" class="level3">
+<h3>Sample Instructions</h3>
+<section id="move-instructions" class="level4">
+<h4>Move Instructions</h4>
+<pre><code>mov al, 10</code></pre>
+<p>This code moves the value 10 (Hex) into the AL register. The Assembler converts this instruction into:</p>
+<pre><code>D0  00  10</code></pre>
+<p>In each case, the op code is first, followed by 2 operands.</p>
+<p>This is an immediate move, because you are entering the value 10 by hand. The value is immediately available as part of the instruction.</p>
+<p>There are other move instructions, distinguished by different op codes.</p>
+</section>
+<section id="arithmetic-instructions" class="level4">
+<h4>Arithmetic Instructions</h4>
+<pre><code>add al, 01</code></pre>
+<p>This code adds the value 01 (Hex) to the contents of the AL register and leaves the result in the AL register.</p>
+<p>There are other instructions for other arithmetic functions.</p>
+</section>
+<section id="control-flow-instructions" class="level4">
+<h4>Control Flow Instructions</h4>
+<p>The unconditional jump instruction:</p>
+<pre><code>jmp label</code></pre>
+<p>“Label” refers to a label which is associated with another instruction in the program. The label defines where the jump goes to. This jump is unconditional because it does not check any conditions before jumping.</p>
+<p>The Assembler translates this into:</p>
+<pre><code>C0  number</code></pre>
+<p>Where the number is the number of bytes between the jump instruction and hte label.</p>
+</section>
+</section>
+<section id="writing-a-value-to-memory" class="level3">
+<h3>Writing a Value to Memory</h3>
+<p>A value can be placed into a memory location like this:</p>
+<pre><code>mov [addr], al</code></pre>
+<p>This will move the number pointed to by ‘addr’ into the location pointed to by AL.</p>
+<p>In order to move a value into memory, the value must first be put into a register. The follow is not a legal instruction:</p>
+<pre><code>mov [addr], 10</code></pre>
+</section>
+</section>
+</body>
+</html>

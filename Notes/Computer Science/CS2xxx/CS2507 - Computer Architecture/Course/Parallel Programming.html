@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Parallel Programming</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<p>Most existing software is written to exploit a single-core processor and doesn’t take advantage of multi-core processors.</p>
+<ul>
+<li>need significant performance improvement (otherwise might as well just use a faster uniprocessor)</li>
+</ul>
+<p>There are difficulties:</p>
+<ul>
+<li><p>partitioning</p>
+<ul>
+<li>need to separate out the bits that could be parallelised</li>
+</ul></li>
+<li><p>co-ordination</p>
+<ul>
+<li>e.g. have to co-ordinate to get results</li>
+</ul></li>
+<li><p>communications overhead</p>
+<ul>
+<li>must be a controller controlling each divided unit, management of these requires communication</li>
+</ul></li>
+</ul>
+</section>
+<section id="amdahls-law" class="level1">
+<h1>Amdahl’s Law</h1>
+<ul>
+<li>sequential part can limit speedup</li>
+</ul>
+</section>
+<section id="instruction-and-data-streams" class="level1">
+<h1>Instruction and Data Streams</h1>
+<p>An alternative classification based on the number of instructions and data streams.</p>
+<p>E.g. MIMD – multi-instruction, multi-data</p>
+<ul>
+<li><p>SPMD – single-program, multi-data</p>
+<ul>
+<li><p>a parallel program on a MIMD computer</p></li>
+<li><p>conditional code for different processors</p></li>
+</ul></li>
+</ul>
+<section id="single-instruction-multiple-data-simd" class="level2">
+<h2>Single Instruction Multiple Data (SIMD)</h2>
+<ul>
+<li><p>operates element-wise on vectors of data</p>
+<ul>
+<li><p>e.g. MMX and SSE instructions in x86</p>
+<ul>
+<li>multiple data elements in 128-bit registers</li>
+</ul></li>
+</ul></li>
+<li><p>all processors execute the same instruction at the same time</p></li>
+<li><p>simplifies synchronisation</p></li>
+<li><p>reduced instruction control hardware</p></li>
+<li><p>works best for highly data-parallel applications</p>
+<ul>
+<li>loops in programs</li>
+</ul></li>
+</ul>
+</section>
+<section id="vector-processors-as-opposed-to-scalar-processors" class="level2">
+<h2>Vector Processors (as opposed to scalar processors)</h2>
+<ul>
+<li><p>highly pipelined function units</p>
+<ul>
+<li>an elegant interpretation of SIMD</li>
+</ul></li>
+<li><p>stream data to/from vector registers to units</p>
+<ul>
+<li><p>data collected from memory into registers</p></li>
+<li><p>results stored from registers to memory</p></li>
+</ul></li>
+<li><p>don’t know what a vector is in this context, but the width of the registers in important</p>
+<ul>
+<li>you can execute an entire loop in one operation</li>
+</ul></li>
+<li><p>significantly reduces instruction-fetch bandwidth</p></li>
+</ul>
+</section>
+<section id="vectors-vs.scalars" class="level2">
+<h2>Vectors vs. Scalars</h2>
+<ul>
+<li><p>vector architectures and compilers</p>
+<ul>
+<li><p>single vector instruction is equivalent to executing entire scalar loop</p></li>
+<li><p>explicit statement of absence of loop-carried dependencies</p>
+<ul>
+<li>reduced checking in hardware</li>
+</ul></li>
+<li><p>regular access patterns benefit from interleaved and burst memory</p>
+<ul>
+<li>burst memory – copy a lot of memory in one go</li>
+</ul></li>
+<li><p>avoid control hazards by avoiding loops</p></li>
+</ul></li>
+<li><p>better power and energy savings than scalar architecture</p>
+<ul>
+<li>less instruction and memory bandwidths and less hazard checking</li>
+</ul></li>
+<li><p>don’t see much vector architecture these days</p>
+<ul>
+<li><p>have the problem of context-switching being harder</p></li>
+<li><p>can get scalar processing nearly as good</p></li>
+<li><p>would have to discard scalar architecture – not worth it?</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="multithreading" class="level1">
+<h1>Multithreading</h1>
+<ul>
+<li><p>performing multiple threads of execution in parallel for a single processor</p>
+<ul>
+<li><p>replicate registers, PC, etc.</p></li>
+<li><p>fast switching between threads as compared to processes</p>
+<ul>
+<li>this is context-switching – very slow for full processes</li>
+</ul></li>
+<li><p>uses virtual memory mechanism to share memory</p></li>
+</ul></li>
+</ul>
+<p>Two approaches:</p>
+<ul>
+<li><p>fine-grain multithreading</p>
+<ul>
+<li><p>switch threads after each instruction</p></li>
+<li><p>interleave instruction execution</p></li>
+<li><p>if one thread stalls, others are executed</p></li>
+</ul></li>
+<li><p>Coarse-grain multithreading</p>
+<ul>
+<li><p>only switch on long stalls (e.g. L2 cache miss)</p></li>
+<li><p>simplifies hardware, but doesn’t hide short stalls (e.g. data hazards)</p></li>
+</ul></li>
+</ul>
+<p>## Simultaneous Multithreading</p>
+<p>Combines fine-grain and coarse-grain multithreading.</p>
+<ul>
+<li><p>in a multiple-issue dynamically scheduled processor</p>
+<ul>
+<li><p>schedule instructions from multiple threads</p></li>
+<li><p>instructions from independent threads execute when function units are available</p></li>
+<li><p>within threads, dependencies handled by scheduling and register renaming</p></li>
+<li><p>tries to use up all instruction bandwidth by taking instructions from different threads and running them simultaneously</p></li>
+</ul></li>
+</ul>
+<p>Example: Pentium-4 HT</p>
+<ul>
+<li>two threads: duplicated registers […]</li>
+</ul>
+</section>
+<section id="multiprocessor-shared-memory" class="level1">
+<h1>Multiprocessor Shared Memory</h1>
+<p>SMP – shared memory multiprocessor</p>
+<ul>
+<li><p>hardware provides single physical address space for all processors</p></li>
+<li><p>synchronise shared variables using locks and cache coherence</p>
+<ul>
+<li>lock: a process locks a variable and until it unlocks it, no other process can write to it (or lock it)</li>
+</ul></li>
+</ul>
+<p>Two styles of SMP access time:</p>
+<ul>
+<li><p>uniform memory access – latency does not depend on processor</p></li>
+<li><p>non-uniform memory access – variable access time depending on processor</p></li>
+</ul>
+</section>
+<section id="example-sum-reduction" class="level1">
+<h1>Example: Sum Reduction</h1>
+<p>How do you split a task across multiple processes so that each does an equal amount of work?</p>
+<p>This uses divide and conquer approach:</p>
+<ul>
+<li>half the processors add pairs, etc.</li>
+</ul>
+</section>
+<section id="history-of-gpus" class="level1">
+<h1>History of GPUs</h1>
+<ul>
+<li><p>originally in high-end computers, then available as an expansion, now commonly pre-installed</p></li>
+<li><p>different aims than the microprocessor community</p></li>
+</ul>
+</section>
+<section id="gpu-architecture" class="level1">
+<h1>GPU Architecture</h1>
+<p>Processing is highly data-parallel</p>
+<ul>
+<li><p>GPUs are highly multithreaded</p></li>
+<li><p>use thread switching to hide memory latency</p>
+<ul>
+<li><p>less reliance on multi-level caches</p></li>
+<li><p>hardware multithreading</p></li>
+</ul></li>
+<li><p>graphics memory is wide and high-bandwidth</p></li>
+</ul>
+<p>Trend toward general purpose GPUs</p>
+<ul>
+<li><p>heterogeneous CPU/GPU systems</p></li>
+<li><p>CPU for sequential code, GPU for parallel code</p></li>
+</ul>
+<p>Programming languages / APIs</p>
+<ul>
+<li><p>DirectX, OpenGL</p></li>
+<li><p>C for Graphics (Cg), High Level Shader Language (HLSL)</p></li>
+<li><p>Compute Unified Device Architecture (CUDA)</p></li>
+</ul>
+</section>
+<section id="classifying-gpus" class="level1">
+<h1>Classifying GPUs</h1>
+<p>They don’t fit nicely into SIMD/MIMD model</p>
+<ul>
+<li><p>conditional execution in a thread allows an illusion of MIMD</p>
+<ul>
+<li><p>but with performance degradation</p></li>
+<li><p>need to write general purpose code with care</p></li>
+</ul></li>
+</ul>
+</section>
+</body>
+</html>

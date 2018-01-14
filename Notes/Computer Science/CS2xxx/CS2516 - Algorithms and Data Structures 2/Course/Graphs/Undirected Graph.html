@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Undirected Graph</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="graphs" class="level1">
+<h1>Graphs</h1>
+<p>A graph is an abstract representation of the relationships between a set of objects.</p>
+<p>We’ll see how to implement them efficiently and how to implement efficient algorithms for processing them.</p>
+<section id="intro" class="level2">
+<h2>Intro</h2>
+<p>A simple graph is a pair (V, E) where V is a set of vertices, and E is a set of edges. Each edge is a set {x, y} of two vertices.</p>
+<ul>
+<li>degree of a vertex is the number of edge sets that contain x</li>
+<li>vertices x and y are adjacent if there’s an edge {x, y}</li>
+<li>edge {x, y} is incident on x (and on y)</li>
+<li>the neighbours of a vertex x are all other vertices adjacent to x</li>
+</ul>
+<p>In a multigraph, E is a bag of edges rather than a set of edges, so there may be multiple edges {x, y} in E for the same pair of vertices x and y.</p>
+<p>In a directed graph, each edge is an ordered pair (x, y).</p>
+<ul>
+<li>The out-degree of a vertex is the number of edges with x as the first element of the pair</li>
+<li>the in-degree of a vertex is the number of edges with x as the second element of the pair</li>
+</ul>
+<p>A weighted graph has a function w from E to some set, defining a weight with the edge.</p>
+<p>We can also associate labels from some set L with either vertices or edges.</p>
+</section>
+<section id="vertex-and-edge-adts" class="level2">
+<h2>Vertex and Edge ADTs</h2>
+<ul>
+<li>Vertex
+<ul>
+<li><code>element()</code> – returns the id of the vertex</li>
+</ul></li>
+<li>Edge
+<ul>
+<li><code>vertices()</code> – returns the pair of vertices the edge is incident on</li>
+<li><code>opposite(x)</code> – if the edge is incident on x, return the other vertex</li>
+<li><code>element()</code> – return the label of the edge</li>
+</ul></li>
+</ul>
+<p>We don’t ask each vertex what they’re connected to, because they may be involved in multiple graphs. Instead we ask the specific graph.</p>
+</section>
+<section id="undirected-graph-adt" class="level2">
+<h2>(Undirected) Graph ADT</h2>
+<p>There is no one agreed ADT for a graph. This is one possible one:</p>
+<pre><code>* `vertex()` – return a list of all vertices
+* `edges()` – return a list of all edges
+* `num_vertices()` – return the number of vertices</code></pre>
+<ul>
+<li>most important methods:
+<ul>
+<li><code>num_edges()</code> – return the number of edges</li>
+<li><code>get_edge(x, y)</code> – return the edge from <code>x</code> to <code>y</code></li>
+<li><code>degree(x)</code> – return the degree of vertex <code>x</code></li>
+<li><code>get_edges(x)</code> – return a list of all edges incident on <code>x</code></li>
+</ul></li>
+<li>these help us create or edit graphs:
+<ul>
+<li><code>add_vertex(element)</code> – add a new vertex with element element</li>
+<li><code>add_edge(x, y, element)</code> – add a new edge between x and y, with element element</li>
+<li><code>remove_vertex(x)</code> – remove vertex <code>x</code> and all incident edges</li>
+<li><code>remove_edge(e)</code> – remove edge <code>e</code></li>
+</ul></li>
+</ul>
+<p>Remember you can have a graph with an vertex that has no edges, but if you delete a vertex, you must also delete all edges that contain that vertex.</p>
+<p>An edge’s element might be the weight or label for that edge.</p>
+</section>
+<section id="implementing-the-adt" class="level2">
+<h2>Implementing the ADT</h2>
+<p>The main operations are retrieving vertices and edges, so we want those to be efficient. Updating will be relatively rare.</p>
+<p>For the edges, there are 4 main options:</p>
+<ol type="1">
+<li>a list of edges</li>
+<li>adjacency list
+<ul>
+<li>for each vertex, store a list of the edges incident on it</li>
+</ul></li>
+<li>adjacency map
+<ul>
+<li>for each vertex, store a map of the edges incident on it, using the other vertex as the key</li>
+<li>better than the adjacency list if the vertices have high degree</li>
+</ul></li>
+<li>adjacency matrix
+<ul>
+<li>maintain a 2D array, where <code>matrix[i][j]</code> contains a reference to the edge {i, j} (or between the ith and jth vertices)</li>
+</ul></li>
+</ol>
+<section id="edge-list" class="level3">
+<h3>Edge List</h3>
+<p>Maintain the vertices and edges in unordered linked lists.</p>
+<ul>
+<li>two linked lists, one for edges, one for vertices
+<ul>
+<li>each edge has references to two vertices</li>
+</ul></li>
+</ul>
+<p>Can improve this by adding references back to the linked list from each edge or vertex.</p>
+<p>Searching for the edges that are incident on a certain vertex involves crawling the entire (linked) list of edges and checking if each one is incident on the vertex.</p>
+<section id="complexity" class="level4">
+<h4>Complexity</h4>
+<p><code>n</code> is the number of vertices, <code>m</code> is the number of edges.</p>
+<p>Space complexity is O(n + m).</p>
+<p>time complexity:</p>
+<ul>
+<li><code>get_edge(x, y)</code> – O(m)
+<ul>
+<li>must check each edge</li>
+</ul></li>
+<li><code>degree(x)</code> – O(m)</li>
+<li><p>get edges O(m)</p></li>
+<li>add O(1)</li>
+<li><p>add edge O(1)</p></li>
+<li><code>remove_edge()</code> – O(1)</li>
+<li><code>remove_vertex()</code> – O(m)
+<ul>
+<li>must check each edge</li>
+</ul></li>
+</ul>
+<p>Would it make a difference to use sorted lists?</p>
+</section>
+</section>
+<section id="adjacency-list" class="level3">
+<h3>Adjacency List</h3>
+<p>Maintain a list of vertices. Each vertex points to a list of edges that are incident on it.</p>
+<section id="complexity-1" class="level4">
+<h4>Complexity</h4>
+<p>Space complexity: O(m + n)</p>
+<ul>
+<li>get edge O(min(degree(x), degree(y)))</li>
+<li>degree O(1)</li>
+<li><p>get edges O(degree(x))</p></li>
+<li>add vertex O(1)</li>
+<li><p>add edge O(1)</p></li>
+<li>remove edge O(1)</li>
+<li><p>remove vertex O(degree(x))</p></li>
+</ul>
+<p>We’ve replaced all O(m) complexities with O(1), or O(degree). We would expect it the be faster.</p>
+</section>
+</section>
+<section id="adjacency-map" class="level3">
+<h3>Adjacency Map</h3>
+<p>Maintain a list of vertices. Each vertex maintains a hash-map of its edges, using the other vertices as the key.</p>
+<section id="complexity-2" class="level4">
+<h4>Complexity</h4>
+<p>Space complexity: O(n + m)</p>
+<ul>
+<li>get edge O(1) expected</li>
+<li>degree O(1)</li>
+<li><p>get edges O(degree(x))</p></li>
+<li>add vertex O(1)</li>
+<li><p>add edge O(1) expected</p></li>
+<li>remove edge O(1) expected</li>
+<li><p>remove vertex O(degree)</p></li>
+</ul>
+</section>
+</section>
+<section id="adjacency-matrix" class="level3">
+<h3>Adjacency Matrix</h3>
+<p>Associate a unique integer in 0 to n-1 with each vertex. Maintain a 2D array, where <code>cell[i][j]</code> contains a reference to that edge.</p>
+<section id="complexity-3" class="level4">
+<h4>Complexity</h4>
+<p>Space complexity is now O(n^2).</p>
+<ul>
+<li>get edge O(1)
+<ul>
+<li>fastest we’ve seen</li>
+</ul></li>
+<li>degree O(n)</li>
+<li><p>get edges O(n)</p></li>
+<li>add vertex O(n^2)</li>
+<li><p>add edges O(1)</p></li>
+<li>remove edge O(1)</li>
+<li><p>remove vertex O(n^2)</p></li>
+</ul>
+<p>Some advantages, but some things are slower. This is wasteful for graphs with few edges (sparse graphs).</p>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

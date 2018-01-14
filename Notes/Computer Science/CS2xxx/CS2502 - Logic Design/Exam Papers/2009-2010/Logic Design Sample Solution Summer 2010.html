@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Logic Design Sample Solution Summer 2010</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sample-solution-for-summer-2010" class="level1">
+<h1>Sample Solution for Summer 2010</h1>
+<hr />
+<section id="question-4" class="level2">
+<h2>Question 4</h2>
+<section id="a" class="level3">
+<h3>(a)</h3>
+<p>(See associated image in Drive – note the layout is the same as Summer 2013, because the state transitions are the same, but the outputs are different)</p>
+</section>
+<section id="b" class="level3">
+<h3>(b)</h3>
+<table>
+<thead>
+<tr class="header">
+<th>z  x</th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>0</strong></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><strong>1</strong></td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td><strong>2</strong></td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td><strong>3</strong></td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="c" class="level3">
+<h3>(c)</h3>
+<p>The only one I can think of is (and shifts of it):</p>
+<pre><code>1100110011001100…</code></pre>
+<p>(let me know if you see others)</p>
+</section>
+<section id="d" class="level3">
+<h3>(d)</h3>
+<p>These changes do not affect the output, as this is a Moore machine — the output is a function only of the state. So Y can only change when the state changes. Only the value of X at each clock tick affects the value of Y.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Minimum Spanning Trees</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="minimum-spanning-trees" class="level1">
+<h1>Minimum Spanning Trees</h1>
+<ul>
+<li><p>spanning tree is a subgraph of G that is a tree and contains every vertex</p></li>
+<li><p>minimum spanning tree is a spanning tree which has the lowest sum of weights of the selected edges</p></li>
+</ul>
+<section id="prims-algorithm" class="level2">
+<h2>Prim’s Algorithm</h2>
+<ul>
+<li>repeatedly include the minimum-weight edge from a vertex that’s in the tree to a new vertex</li>
+</ul>
+<section id="complexity" class="level3">
+<h3>Complexity</h3>
+</section>
+<section id="proof" class="level3">
+<h3>Proof</h3>
+<ul>
+<li>for any algorithm you write, you should be able to prove that it does what you claim</li>
+</ul>
+</section>
+</section>
+<section id="kruskals-algorithm" class="level2">
+<h2>Kruskal’s Algorithm</h2>
+<p>Prim’s algorithm worked by building a single tree one edge at a time until all vertices in the graph are in the tree.</p>
+<p>There is another approach based on joining trees together until all vertices are in the graph.</p>
+<ul>
+<li><p>start by saying every vertex is its own tree</p></li>
+<li><p>look for the cheapest edge that combines two trees</p></li>
+<li><p>repeat</p></li>
+</ul>
+<p>No proof yet, think about it before next week.</p>
+<p>### Efficient Implementation</p>
+<ul>
+<li><p>use a priority queue for storing edges</p>
+<ul>
+<li>efficient removal of minimum-cost edge</li>
+</ul></li>
+<li><p>use a dictionary mapping vertices to the tree they’re part of</p></li>
+<li><p>represent each tree by a stack of vertices (or any sequence)</p></li>
+<li><p>when joining trees:</p>
+<ul>
+<li>pop each element from the smaller tree</li>
+<li>point the dictionary value for that element at the bigger tree</li>
+<li>push the element into the bigger tree</li>
+</ul></li>
+</ul>
+<section id="complexity-1" class="level4">
+<h4>Complexity</h4>
+<p>O((n + m)logn)</p>
+<ul>
+<li>better tree merging gives better complexity</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>

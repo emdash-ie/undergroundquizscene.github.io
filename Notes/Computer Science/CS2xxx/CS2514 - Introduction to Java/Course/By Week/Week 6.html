@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 6</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="nested-classes" class="level1">
+<h1>Nested Classes</h1>
+<ul>
+<li>Java doesn’t allow multiple classes at the top-level
+<ul>
+<li>have to nest subsequent classes inside the first</li>
+</ul></li>
+<li>nested classes can see attributes belonging to outer classes
+<ul>
+<li>does that include private attributes?</li>
+</ul></li>
+<li>you can have several inner classes
+<ul>
+<li>this is very useful for gui applications
+<ul>
+<li>main class represents state</li>
+<li>inner class instances listen to events and can modify the main class state when an event occurs</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="local-classes" class="level1">
+<h1>Local Classes</h1>
+<ul>
+<li>You can define classes inside methods
+<ul>
+<li>more encapsulated than inner classes</li>
+</ul></li>
+<li>anonymous classes commonly used for extending a class or implementing an interface for a method parameter</li>
+<li>visibility doesn’t matter because it only exists inside its method</li>
+</ul>
+</section>
+<section id="static-classes" class="level1">
+<h1>Static Classes</h1>
+<ul>
+<li>defined at top level of another class</li>
+<li><p>no access to outer class instance methods or attributes</p></li>
+<li><p>these and GUIs will not be examined</p></li>
+</ul>
+</section>
+<section id="anonymous-classes" class="level1">
+<h1>Anonymous Classes</h1>
+<ul>
+<li>class without a name</li>
+<li>extends a single class or implements a single interface</li>
+<li>combines class definition and instance creation
+<ul>
+<li>can’t have an explicit constructor</li>
+<li>body should override all necessary methods</li>
+</ul></li>
+</ul>
+</section>
+<section id="nested-interfaces" class="level1">
+<h1>Nested Interfaces</h1>
+<ul>
+<li>interfaces that extend more interfaces</li>
+</ul>
+</section>
+<section id="implementing-quicksort" class="level1">
+<h1>Implementing Quicksort</h1>
+<ul>
+<li>need to represent linked lists first
+<ul>
+<li>going to just facilitate adding at the front in constant time</li>
+</ul></li>
+</ul>
+<p>See <code>Example.java</code> and <code>List.java</code>. There may be deliberate mistakes.</p>
+<ul>
+<li>args array collects command-line arguments given when calling <code>java</code>
+<ul>
+<li>could get arguments from file by <code>java Example</code>cat file``</li>
+</ul></li>
+<li>our quicksort will be a destructive sort
+<ul>
+<li>we will sort be re-arranging the references in the linked list</li>
+</ul></li>
+<li>use an inner class <code>Link</code> for the nodes
+<ul>
+<li>private class because clients of the list class should not know anything about the links</li>
+<li>static class because it doesn’t need to know about attributes in the outer class</li>
+</ul></li>
+<li>pointer for null to represent empty list</li>
+<li>using delegation in outer class for <code>add</code> and <code>print</code>
+<ul>
+<li>call respective methods of the <code>Link</code> class</li>
+</ul></li>
+<li>link class can be entirely private and we can still see everything about it in the outer class</li>
+</ul>
+</section>
+</body>
+</html>

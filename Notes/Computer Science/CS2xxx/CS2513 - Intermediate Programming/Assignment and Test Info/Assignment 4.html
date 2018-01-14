@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Assignment 4</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="assignment-4" class="level1">
+<h1>Assignment 4</h1>
+<hr />
+<ul>
+<li>Put your name and student number in a comment at the top.</li>
+<li>We can assume the user will correctly press a digit followed by an operator followed by a digit followed by <code>=</code> every time.</li>
+<li>The label needs to be updated after each button press.</li>
+<li>Don’t get caught up in the mathematics – it’s mainly about setting up the user interface and callbacks</li>
+</ul>
+<section id="lambda" class="level2">
+<h2><code>lambda</code></h2>
+<p>To call a callback function and pass parameters to it, we use lambda:</p>
+<pre><code>but = Button(root, text=&quot;press me!&quot;, command=(lambda: callback1(2, 3)))</code></pre>
+<p>This allows us to have several buttons calling the same function but passing different arguments to it.</p>
+</section>
+<section id="grid" class="level2">
+<h2><code>grid</code></h2>
+<p>We use <code>.grid()</code> instead of <code>.pack()</code> to get our grid layout for the calculator:</p>
+<pre><code>but = Button(root, text=&quot;press me!&quot;, command=(lambda: callback1(2, 3)))
+but.grid(row=2, column=1)</code></pre>
+</section>
+<section id="stub" class="level2">
+<h2>Stub</h2>
+<p>We’ll be given a stub file with the basic outline for the class, which we will complete.</p>
+<p>This stub is on Moodle.</p>
+</section>
+</section>
+</body>
+</html>

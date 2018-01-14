@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Week 6</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="views-a.k.a.-virtual-tables-derived-tables" class="level1">
+<h1>Views (a.k.a. virtual tables, derived tables)</h1>
+<p>Base tables have a security problem:</p>
+<ul>
+<li>You can’t hide some columns from people
+<ul>
+<li>e.g. give read access to the employee table but hide the salary column</li>
+</ul></li>
+<li>You can’t hide some rows from people</li>
+</ul>
+<p>Views solve this problem, and also make data requests simpler.</p>
+<section id="view-definition" class="level2">
+<h2>View Definition</h2>
+<p>When someone submits a <code>CREATE VIEW</code> statement, two things happen:</p>
+<ul>
+<li>the DBMS validates the <code>SELECT</code> command</li>
+<li>the DBMS stores the text of the <code>SELECT</code> statement and labels it according to the name you gave
+<ul>
+<li>it stores this in the database directory</li>
+</ul></li>
+</ul>
+<p>Note no validation takes place at this point.</p>
+<p>This allows the views to remain consistent with the base tables when they change.</p>
+<section id="examples" class="level3">
+<h3>Examples</h3>
+<pre class="sourceCode sql" id="cb1"><code class="sourceCode sql"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">CREATE</span> <span class="kw">VIEW</span> HoustonEmployeesD5 <span class="kw">AS</span></div>
+<div class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">SELECT</span> Ssn, Fname, Lname, Sex, Salary</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">FROM</span> EMPLOYEE</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw">WHERE</span> Address <span class="kw">LIKE</span> <span class="st">&#39;%Houston, TX&#39;</span></div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">    <span class="kw">AND</span> Dno = <span class="dv">5</span>;</div></code></pre>
+<ul>
+<li>Create a view containing certain information on Houston-based employees of the research department:</li>
+</ul>
+<pre class="sourceCode sql" id="cb2"><code class="sourceCode sql"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">CREATE</span> <span class="kw">VIEW</span> HER_1 (StaffId, Name, Sex, Salary) <span class="kw">AS</span></div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">SELECT</span> SSn, <span class="fu">CONCAT</span>(Lname, <span class="st">&#39;, &#39;</span>, Fname), Sex, Salary</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">FROM</span> EMPLOYEE, DEPARTMENT</div>
+<div class="sourceLine" id="cb2-4" data-line-number="4"><span class="kw">WHERE</span> Dno = Dnumber</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">    <span class="kw">AND</span> Address <span class="kw">LIKE</span> <span class="st">&#39;%Houston, TX&#39;</span></div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">    <span class="kw">AND</span> Dname = <span class="st">&#39;Research&#39;</span>;</div></code></pre>
+<ul>
+<li>In the above one we rename the columns</li>
+</ul>
+<p>You can also create views from other views:</p>
+<pre class="sourceCode sql" id="cb3"><code class="sourceCode sql"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">CREATE</span> <span class="kw">VIEW</span> HERWORK <span class="kw">AS</span></div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">SELECT</span> Pno, Pname, Plocation, Hours</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">FROM</span> WORKS_ON, PROJECT, HER_<span class="dv">1</span></div>
+<div class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw">WHERE</span> Pno = Pnumber</div>
+<div class="sourceLine" id="cb3-5" data-line-number="5">    <span class="kw">AND</span> Dnum = Dnumber;</div></code></pre>
+<ul>
+<li>Anyone can create a view who has the permission to run the sql <code>SELECT</code> query that creates it.</li>
+</ul>
+</section>
+</section>
+<section id="view-manipulation" class="level2">
+<h2>View Manipulation</h2>
+<p>You can use <code>SELECT</code> queries on views just as you would on base tables.</p>
+<p>When this is done, a part of the DBMS called the query modifier retrieves the view definition from storage and merges it with the text of the input query. The query modifier is a text-based algorithm that runs very quickly. The result of the merging is the query that is run by the DBMS.</p>
+<ul>
+<li>Views are not particularly useful for <code>UPDATE</code>, <code>INSERT</code>, and <code>DELETE</code> statements, as it’s often not clear what they would mean in relation to the base tables.</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

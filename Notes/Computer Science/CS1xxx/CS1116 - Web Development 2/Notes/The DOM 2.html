@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>The DOM 2</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="the-dom-2" class="level1">
+<h1>The DOM (2)</h1>
+<hr />
+<section id="recap" class="level2">
+<h2>Recap</h2>
+<ul>
+<li>To find nodes: <code>querySelector</code>, <code>querySelectorAll</code></li>
+<li>To create new element nodes: <code>document.createElement</code></li>
+<li>To create new text nodes: <code>document.createTextNode</code></li>
+<li>To insert an extra child node: <code>appendChild</code></li>
+<li>To change the text of a text node: assign to <code>nodeValue</code></li>
+<li>To change the value of an attribute of an element node: assign to an element node’s properties</li>
+</ul>
+</section>
+<section id="changing-an-elements-css-in-javascript" class="level2">
+<h2>Changing an Element’s CSS in JavaScript</h2>
+<p>JavaScript can retrieve and change an element’s CSS by accessing and setting properties of its <code>style</code> object.</p>
+<p>Example:</p>
+<pre><code>some_node.style.color = &#39;blue&#39;
+some_node.style.fontStyle = &#39;italic&#39;
+some_node.style.border = &quot;1px solid black&quot;</code></pre>
+<p><strong>Note</strong> that if something in CSS has a hiphen in the name (e.g. background-color), the hiphen is removed and the next letter is capitalised (e.g. backgroundColor).</p>
+<section id="html5-and-the-div-tag" class="level3">
+<h3>HTML5 and the <code>div</code> Tag</h3>
+<ul>
+<li>Reminder that <code>&lt;div&gt;</code> is discouraged in HTML5, and instead should be used by e.g. <code>&lt;section&gt;</code>, etc. when appropriate.</li>
+</ul>
+</section>
+</section>
+<section id="slideshow-example" class="level2">
+<h2>Slideshow Example</h2>
+<section id="display" class="level3">
+<h3>Display</h3>
+<ul>
+<li>= inline — the element doesn’t force start on a new line and takes only the width it needs</li>
+<li>= block — the element starts on a new line and takes the full width available</li>
+<li>= none — the element isn’t displayed and takes up no space</li>
+</ul>
+</section>
+<section id="visibility" class="level3">
+<h3>Visibility</h3>
+<ul>
+<li>= hidden — the element isn’t displayed but takes up space as normal</li>
+<li>= visible — the element is visible</li>
+</ul>
+</section>
+<section id="limitation" class="level3">
+<h3>Limitation</h3>
+<ul>
+<li>You can only do one slideshow per page with this code. Major limitation.</li>
+</ul>
+</section>
+</section>
+<section id="css-vs.javascript" class="level2">
+<h2>CSS vs. JavaScript</h2>
+<p>You can do a lot with CSS. You don’t always need JavaScript.</p>
+</section>
+</section>
+</body>
+</html>

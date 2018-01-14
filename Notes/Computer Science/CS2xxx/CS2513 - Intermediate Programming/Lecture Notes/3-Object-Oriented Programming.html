@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>3-Object-Oriented Programming</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="object-oriented-programming" class="level1">
+<h1>Object-Oriented Programming</h1>
+<hr />
+<section id="introduction" class="level2">
+<h2>Introduction</h2>
+<p>OOP is a style of programming, involving the creation of abstract models of real world entities.</p>
+<section id="classes-and-objects" class="level3">
+<h3>Classes and Objects</h3>
+<p>There are many lights but they all have similar states and behaviours. The attributes that describe the light (state) and the actions that can be carried out on the light to change its state (behaviours) are encapsulated in a class.</p>
+<p>The class acts as a blueprint for each instance of a light object.</p>
+<p>Every instance has its own copy of the attributes, and when we call a method it acts only on the instance that we specify.</p>
+</section>
+<section id="encapsulation" class="level3">
+<h3>Encapsulation</h3>
+<p>A light has a state: on or off.</p>
+<p>We can change that state with a switch. Encapsulation is the process of grouping state and actions together in a class.</p>
+<p>Ideally the light’s state is only changed through a method. This method will be written by the developer who wrote the class and fully understands it, while other developers won’t know all the details.</p>
+<p>The light class is a black box to other developers – they shouldn’t have to understand what’s going on in order to use it.</p>
+<p>Only allowing variables to be changed by methods makes the code more robust.</p>
+<p>This also allows the class to be changed (fixed and improved) without needing to change code that uses the class.</p>
+</section>
+<section id="inheritance" class="level3">
+<h3>Inheritance</h3>
+<p>Say we’ve implemented a regular light and we want to now implement an LED light. Some extra attributes and methods are required, but a lot of the ones from the regular light apply to the LED light as well.</p>
+<p>We want to reuse the functionality of the original light, overriding any existing methods that need to be specialised, and adding any new attributes and methods needed.</p>
+<p>This is called Inheritance.</p>
+</section>
+<section id="composition" class="level3">
+<h3>Composition</h3>
+<p>We can model complex objects which contain simpler objects as variables within them.</p>
+<p>Rather than write a single class, we write a class (LightSystem) that is composed of the methods and actions required for the system but reuses the classes we have already written. We can use light and switch objects in the same way we use strings and integers.</p>
+<p>Similar advantages to inheritance.</p>
+</section>
+<section id="advantages-of-oop" class="level3">
+<h3>Advantages of OOP</h3>
+<ul>
+<li>Helps us write cleaner code with fewer errors</li>
+<li>Code is easier to fix and fixes are invisible to developers</li>
+<li>Helps to reuse code</li>
+</ul>
+</section>
+<section id="python-vs.pure-oop-languages" class="level3">
+<h3>Python vs. Pure OOP Languages</h3>
+<p>Python allows you to write programs without using OOP, unlike languages like Java.</p>
+<p>Python emphasises the freedom to use the language in any way. Encapsulation isn’t enforced, for example.</p>
+<p>In many ways Python has better OO support than Java, e.g. allowing the use of Multiple Inheritance.</p>
+</section>
+</section>
+<section id="the-class" class="level2">
+<h2>The Class</h2>
+<p>The class is the basic building block in OO design. Captures state with variables and behaviours.</p>
+<p>Classes act as a factory for instantiating one or more objects.</p>
+<p>An object exists in memory and has its own copy of variables to represent its state. These are called instance variables.</p>
+<p>When we call a method, it acts on a particular object.</p>
+<section id="our-first-class" class="level3">
+<h3>Our First Class</h3>
+<p>A class that manages information about employees.</p>
+<p>In a file called person.py:</p>
+<pre class="sourceCode python" id="cb1"><code class="sourceCode python"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">class</span> Person:</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, name, job, pay):</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">        <span class="va">self</span>._name <span class="op">=</span> name</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">        <span class="va">self</span>._job <span class="op">=</span> job</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">        <span class="va">self</span>._pay <span class="op">=</span> pay</div></code></pre>
+<p>The <code>__init__</code> method is called the constructor – it’s a function called when the class is instantiated.</p>
+<p>We can then use the class:</p>
+<pre class="sourceCode python" id="cb2"><code class="sourceCode python"><div class="sourceLine" id="cb2-1" data-line-number="1">cathal <span class="op">=</span> Person(<span class="st">&#39;Cathal&#39;</span>, <span class="st">&#39;dev&#39;</span>, <span class="dv">55000</span>)</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">laura <span class="op">=</span> Person(<span class="st">&#39;Laura&#39;</span>, <span class="st">&#39;manager&#39;</span>, <span class="dv">70000</span>)</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="bu">print</span>(cathal.name, cathal.pay)</div>
+<div class="sourceLine" id="cb2-4" data-line-number="4"><span class="bu">print</span>(laura.name, laura.pay)</div></code></pre>
+<p>When the first line here runs, a new instance is created in memory, using the class as a blueprint. The constructor is called to initialise the instance and add instance variables, based on the parameters passed through.</p>
+<p>The second line follows the same procedure to create the second instance of the class.</p>
+<section id="self" class="level4">
+<h4>Self</h4>
+<p>Self is a reference to the object instance. We don’t need to pass this when we call the constructor, it’s automatically pointed at the new object we create.</p>
+</section>
+</section>
+</section>
+<section id="packaging-our-class" class="level2">
+<h2>Packaging Our Class</h2>
+<p>Our code can be used by others in their code. They can include an entire module (python file) using the <code>import</code> statement. This identifies an external mile to be loaded and makes that name a reference to the module object after it is loaded:</p>
+<pre><code>import person
+
+cathal = person.Person(&quot;Cathal&quot;, &quot;dev&quot;, 55000)
+print(cathal._name)</code></pre>
+<p>We have to use the module name before the class name, though, which is awkward.</p>
+<p>A nicer way is to use the <code>from</code> statement:</p>
+<pre><code>from person import Person
+
+cathal = Person(&quot;Cathal&quot;, &quot;dev&quot;, 550000)
+print(cathal._name)</code></pre>
+<p>Now we can use the Person class as if it was written in our code.</p>
+<p>When we import the python module like that, though, all top-level code in the module is run. Two solutions:</p>
+<ul>
+<li>Have a separate test module in the package (not ideal)</li>
+<li>Have a test block in our module but control when it’s run with a “usage mode flag” (better)</li>
+</ul>
+<p>We can determine when a module is being run directly and when it is being imported. Every module has a <code>__name__</code> attribute.</p>
+<ul>
+<li>When we run a module directly, this attribute is set to <code>__main__</code></li>
+<li>When the module is imported then <code>__name__</code> is set to the module’s name</li>
+</ul>
+<p>We can now have a separate test block:</p>
+<pre><code>class Person:
+    [class definition]
+
+if __name__ == &#39;__main__&#39;:
+    [test block]</code></pre>
+<p>This also allows us to import a module’s functionality into a GUI or use the module as a standalone tool.</p>
+<p>This is a good way for us to test our scripts in the labs.</p>
+<section id="style" class="level3">
+<h3>Style</h3>
+<p>Alternatively, we can do this (suggested in the Google Style Guide):</p>
+<pre><code>class Person:
+    [class definition]
+
+    def main():
+        [test block]
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
+<p>In general in this module we’re gonna follow the Google Style Guide.</p>
+<section id="encapsulation-and-style" class="level4">
+<h4>Encapsulation and Style</h4>
+<p>Python doesn’t enforce instance variable privacy – a key component of encapsulation in other languages.</p>
+<p>We use an underscore prefix for internal variables to indicate to users that the variable shouldn’t be accessed directly, but should instead be accessed through methods.</p>
+</section>
+<section id="documenting-your-code" class="level4">
+<h4>Documenting Your Code</h4>
+<p>A doc string should be the first content in a module, class, or function, to describe what it is. See the Google Style Guide.</p>
+<p>The doc string is contained by default in the <code>__doc__</code> attribute, and is supported/expected by many other tools, so it’s useful to have it.</p>
+</section>
+</section>
+</section>
+<section id="outputting-objects" class="level2">
+<h2>Outputting Objects</h2>
+<p>Say we want to print our objects. If we just use the print command the output isn’t very useful for people.</p>
+<p>Python objects have several special methods (like <code>__init__</code>), and we can use one (<code>__str__</code>) to return a representation of an object instance.</p>
+<section id="string-representation" class="level3">
+<h3>String Representation</h3>
+<p><code>__str__</code> generates an informal representation. It has to have this name and it has to return a string.</p>
+<p>We can write it ourselves to control the representation:</p>
+<pre><code>def __str__(self):
+
+    description = (&quot;%s %s %d&quot; % (self._name, self._job, self._pay))
+    return description</code></pre>
+<p>Now in our main function, we can print an instance: <code>print(cathal)</code></p>
+</section>
+</section>
+<section id="methods" class="level2">
+<h2>Methods</h2>
+<p>A method is a function that belongs to a class.</p>
+<p>It is like a regular function except that:</p>
+<ul>
+<li>It is contained in a class</li>
+<li>Its first parameter is self
+<ul>
+<li>This causes it to act on the member variables of a particular instance of the class</li>
+</ul></li>
+</ul>
+<p>Let’s add a method to the Person class to allow modification of the pay attribute. We will pass the rise as a percentage of the person’s salary:</p>
+<pre><code>def givePayRaise(self, percentage):
+
+    if percentage &lt; 0 or percentage &gt; 100:
+        print(&quot;%i is an illegal percentage&quot; % (percentage))
+    else:
+        self._pay += self._pay // 100 * percentage</code></pre>
+<p>We have a check at the start to make sure the percentage isn’t negative. We’ve also a check that the percentage isn’t more than 100%.</p>
+<p>Here’s how we call it:</p>
+<pre><code>def main():
+
+    cathal = Person(&#39;Cathal&#39;, &#39;dev&#39;, 70000)
+    cathal.givePayRaise(10)
+    print(cathal)</code></pre>
+</section>
+<section id="supporting-encapsulation" class="level2">
+<h2>Supporting Encapsulation</h2>
+<p>We are already marking variables by starting their names with an underscore to indicate that users of our class should proceed with caution when editing variables like this.</p>
+<p>It is advantageous to encourage developers to use methods we provide to change instance variable values:</p>
+<ul>
+<li>We can ensure values are changed in a controlled way.
+<ul>
+<li>E.g. we can add checks for values that don’t make sense.</li>
+</ul></li>
+<li>We can ensure that third party code is not tightly bound to our instance variables. This gives us freedom to change our implementation without forcing changes to their code.</li>
+</ul>
+<p>Remember that Python doesn’t enforce encapsulation, unlike e.g. Java.</p>
+<section id="getters-and-setters" class="level3">
+<h3>Getters and Setters</h3>
+<section id="version-1" class="level4">
+<h4>Version 1</h4>
+<p>Traditionally we set instance variables with “setters” and read them with “getters”. These act on just one variable at a time, so we need one each for <code>_name</code>, <code>_job</code>, and <code>_pay</code>.</p>
+<pre><code>def getName(self):
+    return self._name
+
+def setName(self, name):
+
+    if len(name) &lt;= 0 or not name.isalpha():
+        print(&quot;%s is not legal&quot; % (name))
+    else:
+        self._name = name</code></pre>
+<p><code>setName</code> performs a check before setting the name.</p>
+<p>We use them as we would any other method:</p>
+<pre><code>def main():
+    cathal = Person(&#39;Cathal&#39;, &#39;dev&#39;, 70000)
+    cathal.setName(&#39;CathalNew&#39;)
+    print(cathal.getName())</code></pre>
+</section>
+<section id="version-2" class="level4">
+<h4>Version 2</h4>
+<p>Using properties, we can access the attributes through methods but using a syntax that’s the same as accessing instance variables directly.</p>
+<ul>
+<li>We can write <code>print(cathal.name)</code> but this will use the <code>getName()</code> method to access the instance variable.</li>
+<li>We get the simplicity of the syntax but with error checking from the getter/setter.</li>
+<li>We can use two techniques: properties or property decorators.</li>
+</ul>
+<p>We can use either method, but it’s better to choose one and stick with it, rather than alternate.</p>
+<section id="property-decorators-example" class="level5">
+<h5>Property Decorators Example</h5>
+<pre><code>class Person:
+
+    @property
+    def pay(self):
+
+        return self._pay
+
+    @pay.setter
+    def pay(self, pay):
+
+        if pay &lt; 0 or pay &gt; 100000:
+            print(&quot;%i is an invalid pay value - no value set&quot; %(pay))
+        else:
+            self._pay = pay
+
+    if __name__ == &#39;__main__&#39;:
+        cathal = Person(&#39;Cathal&#39;, &#39;dev&#39;, 70000)
+        cathal.pay = 76000
+        print(cathal.pay)</code></pre>
+<p>The getter and setter functions are now just named “pay”.</p>
+<p>Property Decorators are nice because the property info is right next to the methods.</p>
+</section>
+<section id="properties-example" class="level5">
+<h5>Properties Example</h5>
+<pre><code>class Person:
+
+    def getPay(self):
+        return self._pay
+
+    def setPay(self, pay):
+
+        if pay &lt; 0 or pay &gt; 100000:
+            print(&quot;%i is an invalid pay value - no value set&quot; %(pay))
+        else:
+            self._pay = pay
+
+    pay = property(getPay, setPay)  #Note the order of the methods in the list.</code></pre>
+<p>This is used the exact same way as Property Decorators.</p>
+</section>
+</section>
+</section>
+</section>
+<section id="typical-class-definition-question" class="level2">
+<h2>Typical Class Definition Question</h2>
+<section id="question" class="level3">
+<h3>Question</h3>
+<p>Write a class - Square - to represent a square shape. The square should have the following state:</p>
+<ul>
+<li>length_of_side - the length of side of the square</li>
+<li>perimeter - the length of the perimeter of the square</li>
+<li>area - the area of the square</li>
+</ul>
+<p>The class should provide a constructor to initialise instances. This should take one parameter - length_of_side - and should derive all other values from this. The length_of_side can be reset. Each of the three values can be read but only length_of_side can be set.</p>
+<p>Once a base implementation has been written, convert it to use both types of property implementations.</p>
+</section>
+<section id="code" class="level3">
+<h3>Code</h3>
+<pre><code>class Square(object):
+
+    def __init__(self, length_of_side):
+
+        # Could add error-handling here (We&#39;ll be seeing this later)
+
+        self._length_of_side = length_of_side
+        self._perimiter = 4 * length_of_side
+        self._area = length_of_side ** 2
+
+    def getLengthOfSide(self):
+
+        return self._length_of_side
+
+    def setLengthOfSide(self, length_of_side):
+
+        self._length_of_side = length_of_side
+        self._perimiter = 4 * length_of_side
+        self._area = length_of_side ** 2
+
+    def getArea(self):
+
+        return self._area
+
+    def getPerimeter(self):
+
+        return self._perimeter
+
+    def __str__(self):
+
+        descriptive_str = (&quot;Side length: %i - Area: %i - Perimeter: %i&quot;
+                          % (self._length_of_side, self._area, self._perimeter))
+
+def main():
+
+    square1 = Square(4)
+    print(square1)
+
+    square1.setLengthOfSide(5)
+    print(square1)
+
+    print(&quot;Length: %i&quot; % (square1.getLengthOfSide()))
+    print(&quot;Area: %i&quot; % (square1.getArea()))
+    print(&quot;Perimeter: %i&quot; % (square1.getPerimeter()))
+
+if __name__ == &#39;__main__&#39;:
+    main()</code></pre>
+</section>
+</section>
+<section id="inheritance-1" class="level2">
+<h2>Inheritance</h2>
+<section id="how-do-we-use-classes" class="level3">
+<h3>How Do We Use Classes?</h3>
+<p>Take the development of a GUI. Classes that implement buttons and text boxes and all other components in a GUI can be reused time and time again.</p>
+<p>We don’t write all of the code that we need for a button each time.</p>
+<p>We specialise the button by setting its state or perhaps adding behaviour, but the bulk of the code is reused time and time again.</p>
+<p>This gives us some advantages:</p>
+<ul>
+<li>Parallel development in a team is now possible</li>
+<li>The code is simplified (or “less tightly bound”)</li>
+<li>Easier bug fixing – if a bug exists, we fix it in the reponsible class and the fix propagates</li>
+<li>We can replace our code with better versions – if we develop a better class, as long as the class name and method headers are the same, we can replace the class and not break any code that uses it.
+<ul>
+<li>If we implemented the button from scratch every time, we would have had to replace and test the code in numerous places.</li>
+</ul></li>
+</ul>
+</section>
+<section id="mechanisms-for-reuse" class="level3">
+<h3>Mechanisms for Reuse</h3>
+<ul>
+<li>Inheritance – allows us to take an existing class and specialise and extend it.</li>
+<li>Composition – allows us to divide a class into sub-classes, where the sub-class might be reused in a different implementation later.
+<ul>
+<li>E.g. a car has an engine, so a car object might contain an engine object.</li>
+</ul></li>
+</ul>
+</section>
+<section id="implementing-inheritance" class="level3">
+<h3>Implementing Inheritance</h3>
+<p>Suppose we need to implement a payroll system for a company to manage its employees.</p>
+<ul>
+<li>Everyone has a name, social security number, and salary.</li>
+<li>Everyone can receive a pay rise, but this is calculated differently for managers.</li>
+<li>Engineers have a special skill, but managers don’t.</li>
+<li>Managers are in charge of a project, while engineers are not.</li>
+</ul>
+<p>We could write two classes, one for engineers and one for managers. This would be manageable for when there are two employee types, but we might needs to add other types, e.g. secretaries.</p>
+<p>We use inheritance:</p>
+<ul>
+<li>Write an employee class that holds the common requirements for both engineers and managers.</li>
+<li>We then write two other classes for managers and engineers, which inherit from the employee class.</li>
+</ul>
+</section>
+<section id="some-terminology" class="level3">
+<h3>Some Terminology</h3>
+<ul>
+<li><p><em>Base Class</em> / <em>Super-class</em> – A more generic implementation containing state and behaviour common to sub-classes.</p></li>
+<li><p><em>Derived Class</em> / <em>Sub-class</em> – A more specific implementation containing state and behaviour associated only with the derived class.</p></li>
+<li><p><em>Single Inheritance</em> – Where a sub-class inherits from just a single super-class.</p></li>
+<li><p><em>Multiple Inheritance</em> – Where a sub-class inherits from several super-classes.</p></li>
+<li><p><em>Multi-level Inheritance</em> – Where a base class itself inherits from a more general base class.</p></li>
+<li><p><em>Extension</em> – Addition of attributes or methods that implement functionality specific to the sub-class.</p></li>
+<li><p><em>Specialisation</em> – Addition of a special version of a method already implemented in the base class.</p></li>
+</ul>
+</section>
+<section id="the-search-heirarchy" class="level3">
+<h3>The Search Heirarchy</h3>
+<p>When you inherit, you essentially provide a search path for methods and variables.</p>
+<ol type="1">
+<li>When the code runs, the sub-class is searched.</li>
+<li>If the variable or method is not found there, the class it inherits from is searched.</li>
+<li>This search process continues until the method or variable is found, or the search heirarchy is exhausted (there are no more super-classes to search).</li>
+</ol>
+<p>This means that the most specific version of a method or variable is used. We can use this to override methods that already exist in super-classes (specialisation).</p>
+</section>
+<section id="uml-unified-modelling-language" class="level3">
+<h3>UML (Unified Modelling Language)</h3>
+<p>This is a design technique that provides a multi-faceted visualisation of software systems.</p>
+<p>The class diagram provides a visualisation of a structure that describes the class heirarchy implemented by the system. It refers to OO concepts, which can be supported to various degrees by different languages.</p>
+<section id="uml-class-diagrams" class="level4">
+<h4>UML Class Diagrams</h4>
+<p>UML class diagrams capture:</p>
+<ul>
+<li>Member variables and methods, and their scope and visibility.</li>
+<li>Relationships between classes and instances of those classes.</li>
+</ul>
+</section>
+</section>
+<section id="key-steps-for-inheritance" class="level3">
+<h3>Key Steps for Inheritance</h3>
+<section id="inheriting" class="level4">
+<h4>Inheriting</h4>
+<ol type="1">
+<li>Ensure we can load the base class.<br />
+<code>from employee import Employee</code></li>
+<li>Specify the class we wish to inherit from.<br />
+<code>class Engineer(Employee):</code></li>
+</ol>
+</section>
+<section id="initialising" class="level4">
+<h4>Initialising</h4>
+<ul>
+<li>Call the constructor for the base class to ensure it is correctly initialised.</li>
+</ul>
+<p>The derived class must set values for its instance variables while delegating to the constructor for the base class to ensure it is properly initialised.</p>
+<pre><code>def __init__(self, name, ssn, salary, skill):
+    Employee.__init__(self, name, ssn, salary)
+    self._skill = skill</code></pre>
+</section>
+</section>
+</section>
+<section id="composition-1" class="level2">
+<h2>Composition</h2>
+<p>When we create a new class, we’re creating a new data type. Since we can make classes with sets of ints, floats, strings, etc., why not build classes unsing instances of objects we’ve created? This gives us the following advantages:</p>
+<ul>
+<li>We can create simpler, more maintable code.</li>
+<li>We can break out code that we use frequently into classes of functionality so that it can be reused.</li>
+</ul>
+<p>For example, an iPhone 6 is a phone – it’s got a screen, memory, a CPU. A laptop also has a screen, memory, and a CPU.</p>
+<p>So it makes sense to write a Screen class, which could be used in both your Phone class and your Laptop class.</p>
+<p>With Composition we get many of the same benefits as with Inheritance, but we’re capturing a different relationship between objects.</p>
+</section>
+<section id="in-class-example" class="level2">
+<h2>In-Class Example</h2>
+<p>This will primarliy be an example of Inheritance, but will also have some Composition in it.</p>
+<section id="requirements" class="level3">
+<h3>Requirements</h3>
+<ul>
+<li>Model the data in a rental agreement.</li>
+<li>A rental agreement is made up of a contract and a property being rented. A contract consists of a rent amount and an expiry date (we’ll treat the date as a string). A property can be a house or an apartment.</li>
+<li>Houses are described by their floor area, number of floors, address, and whether or not they have a garage.</li>
+<li>Apartments are described by their floor area, address, apartment number, and whether or not they have a balcony.</li>
+</ul>
+</section>
+<section id="uml-ish" class="level3">
+<h3>UML (ish)</h3>
+<p>(This was drawn on the board, so this is only a rough translation.)</p>
+<p>Within this requirements description, there are five things we’ll want to model with objects:</p>
+<ul>
+<li>Property
+<ul>
+<li>floorarea: int</li>
+<li>address: string</li>
+</ul></li>
+<li>House (Property)
+<ul>
+<li>nooffloors: int</li>
+<li>hasGarage: bool</li>
+</ul></li>
+<li>Apartment (Property)
+<ul>
+<li>hasBalcony: bool</li>
+<li>apartmentno: string</li>
+</ul></li>
+<li>Rental
+<ul>
+<li>prop: Property</li>
+<li>contract: Contract</li>
+</ul></li>
+<li>Contract
+<ul>
+<li>expiry: string</li>
+<li>rent: float</li>
+</ul></li>
+</ul>
+<p><code>House</code> and <code>Apartment</code> will both inherit from <code>Property</code>. This is indicated in a UML diagram with an arrow pointing from most specific to most generic.</p>
+<p>Note the <code>Rental</code> object contains two objects – an instance of our <code>Property</code> class and another of our <code>Contract</code> class. This is indicated in a UML diagram with an arrow with a diamond head, either filled in or left empty (not sure which).</p>
+<p>It would be common to come back and revise the initial design document during implementation, as you realise flaws of your approach and better ways to do things.</p>
+<section id="refining" class="level4">
+<h4>Refining</h4>
+<p>We need to override the getter for the address the <code>Apartment</code> class inherits from the <code>Property</code> class so that it can deal with combining the apartment number and the address.</p>
+</section>
+</section>
+<section id="lab-assignment-left-as-an-exercise" class="level3">
+<h3>Lab Assignment Left as an Exercise</h3>
+<p>There’s an implementation of these classes on Moodle. Extend the design by adding another kind of property: office space.</p>
+</section>
+</section>
+<section id="loose-ends" class="level2">
+<h2>Loose Ends</h2>
+<section id="polymorphism" class="level3">
+<h3>Polymorphism</h3>
+<p>When we write a class, we are creating a new type. While Python is dynamically typed, every object still has a type.</p>
+<p>A good example of polymorphism is the multiplication operator in Python. This operates differently with two numbers as input and with one number and one string as input. This is polymorphism.</p>
+<p>Polymorphism captures the concept that the effect of calling some object’s method depends on the type of the object.</p>
+<p>We also saw this when <code>givePayRaise()</code> operated differently depending on whether the object we called it with was a <code>Manager</code> or <code>Engineer</code> object, as we had written a specialised version of the method for our <code>Manager</code> class.</p>
+</section>
+<section id="duck-typing" class="level3">
+<h3>Duck Typing</h3>
+<p>Duck Typing is a name given to the process of establishing whether or not some object supports a particular behaviour or state.</p>
+<p>I.e. If it walks like a duck and quacks like a duck, is it a duck?</p>
+<p>[note to self: look it up]</p>
+</section>
+<section id="operator-overloading" class="level3">
+<h3>Operator Overloading</h3>
+<p>Python allows us to define the meaning of operations built into Python when applied to our classes (e.g. <code>+</code>, <code>*</code>, <code>-</code>, <code>/</code>).</p>
+<p>Often it doesn’t make conceptual sense to overload these operators (e.g. what does it mean to subtract one student from another?), in which cases it shouldn’t be done.</p>
+<p>Sometimes it does make sense, though, e.g. checking if two <code>Student</code> objects refer to the same student with the <code>==</code> operator. It’s often open to interpretation though. Generally in industry there are explicit methods rather than operator overloads for these cases.</p>
+<p>To overload Python’s operators, you use the specific method header. E.g. <code>__add__(self, other_student)</code> is called when we add two student objects. We must provide an implementation for this method if we want to be able to add instances of our objects to each other.</p>
+<p>We’ve seen <code>__str__</code> and <code>__init__</code> already. They’re called magic methods, and are identified by the double underscore.</p>
+<section id="example-method-headers" class="level4">
+<h4>Example Method Headers</h4>
+<ul>
+<li><code>__add__</code> - addition</li>
+<li><code>__lt__</code> - less than</li>
+<li><code>__eq__</code> - equivalent</li>
+<li><code>__ne__</code> - not equivalent</li>
+</ul>
+<p>What does equivalence mean? It depends on the context. Often methods such as <code>hasSameID</code> are used instead because they’re more descriptive.</p>
+<p>With <code>==</code>, the equivalence method of the object on the left is called, passing the object on the right as a parameter.</p>
+</section>
+</section>
+</section>
+<section id="object-persistence" class="level2">
+<h2>Object Persistence</h2>
+<p>There are a number of ways to persist data from your program:</p>
+<ul>
+<li>Write to files</li>
+<li>Store data in a database</li>
+<li>Serialise your objects and write them to disk (shelving)</li>
+</ul>
+<section id="pickles-and-shelves" class="level3">
+<h3>Pickles and Shelves</h3>
+<p>A pickle allows us to serialise any object or collection of objects (converts them to a string of bytes and writes them to a file).</p>
+<p>Shelves allow us to store pickled objects as key/value pairs. They function like dictionaries but we must open and close them (read to and write from the disk).</p>
+<p>Pickling is done under the hood when we shelve an object – we don’t have to explicitly do this.</p>
+<section id="using-shelve" class="level4">
+<h4>Using Shelve</h4>
+<pre><code>import shelve
+from employee import Employee
+
+john = Employee(&quot;SN12345&quot;, &quot;John Doe&quot;, 32000)
+
+
+db = shelve.open(&quot;employeedb&quot;)
+
+db[john.ssn] = john
+
+db.close()</code></pre>
+<p>We can also store e.g. a list of objects in the same way.</p>
+</section>
+</section>
+</section>
+</section>
+</body>
+</html>

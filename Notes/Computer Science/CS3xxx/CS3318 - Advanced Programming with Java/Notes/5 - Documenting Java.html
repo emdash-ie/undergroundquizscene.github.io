@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>5 - Documenting Java</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="internal-and-external-documentation" class="level1">
+<h1>Internal and External Documentation</h1>
+<p>Internal source-code documentation explains a class, method, or a piece of code.</p>
+<p>External documentation is at a higher level and explains e.g. problem definition, requirements, architecture, design, project plans, test plans.</p>
+<section id="internal-documentation" class="level2">
+<h2>Internal Documentation</h2>
+<p>Internal documentation should explain things that aren’t represented in code (and ideally anything that can be represented in code should be) – you should comment the code intent, rather than implementation details.</p>
+<p>Self-documenting code uses a good programming style to make the intent of the code clear (e.g. good names, simple logic, good formatting, consistency).</p>
+</section>
+<section id="questions-about-the-code" class="level2">
+<h2>Questions About the Code</h2>
+<p>What is the code supposed to do?</p>
+<ul>
+<li>should be answered by comments and method signatures</li>
+</ul>
+<p>How does it do it?</p>
+<ul>
+<li>answered by the implementation – comments and code</li>
+</ul>
+</section>
+</section>
+<section id="annotations" class="level1">
+<h1>Annotations</h1>
+<p>These provide information about a program that’s not part of the program itself.</p>
+<p>They can be used to catch errors (e.g. <code>@Override</code>), suppress warnings, generate code, or augment program behaviour.</p>
+<p>Annotations affect the next non-annotation element in the code.</p>
+<p><code>@Retention</code> can be used to specify how long an annotation should be retained (e.g. just until compile-time, or until run-time). There are three options:</p>
+<ul>
+<li><p><code>RUNTIME</code></p></li>
+<li><p><code>CLASS</code></p></li>
+<li><p><code>SOURCE</code></p></li>
+</ul>
+<p>## Create Your Own</p>
+<p>Can create your own annotations:</p>
+<pre class="sourceCode java" id="cb1"><code class="sourceCode java"><div class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">@interface</span> Hints {</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">    Hint[] <span class="fu">value</span>();</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">}</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw">@interface</span> Hint {</div>
+<div class="sourceLine" id="cb1-6" data-line-number="6">    <span class="bu">String</span> <span class="fu">value</span>();</div>
+<div class="sourceLine" id="cb1-7" data-line-number="7">}</div></code></pre>
+<p>Java 8 also allows you to use multiple annotations of the same type, by declaring it with the “Repeatable” annotation.</p>
+<p>Annotations can replace comments in code, and defining an annotation type allows you to create templates:</p>
+<pre class="sourceCode java" id="cb2"><code class="sourceCode java"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">@interface</span> ClassPreamble {</div>
+<div class="sourceLine" id="cb2-2" data-line-number="2">    <span class="bu">String</span> <span class="fu">author</span>();</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3">    <span class="bu">String</span> <span class="fu">date</span>();</div>
+<div class="sourceLine" id="cb2-4" data-line-number="4">    <span class="dt">int</span> <span class="fu">currentRevision</span>() <span class="kw">default</span> <span class="dv">1</span>;</div>
+<div class="sourceLine" id="cb2-5" data-line-number="5">    <span class="bu">String</span>[] <span class="fu">reviewers</span>();</div>
+<div class="sourceLine" id="cb2-6" data-line-number="6">}</div>
+<div class="sourceLine" id="cb2-7" data-line-number="7"></div>
+<div class="sourceLine" id="cb2-8" data-line-number="8"><span class="at">@ClassPreamble</span> (</div>
+<div class="sourceLine" id="cb2-9" data-line-number="9">    author = <span class="st">&quot;John Doe&quot;</span>,</div>
+<div class="sourceLine" id="cb2-10" data-line-number="10">    […]</div>
+<div class="sourceLine" id="cb2-11" data-line-number="11">)</div></code></pre>
+<p>It’s more structured and consistent than comments. We can also add them to documentation by putting the <code>@Documented</code> annotation.</p>
+<section id="in-java-8" class="level2">
+<h2>In Java 8</h2>
+<p>Annotations can now be used anywhere you use a type. Type annotations improve analysis of programs and ensure stronger type checking.</p>
+</section>
+</section>
+<section id="javadoc" class="level1">
+<h1>Javadoc</h1>
+<p>This is a tool which parses the declarations and documentation comments in java source files.</p>
+<section id="limitation" class="level2">
+<h2>Limitation</h2>
+<p>Javadoc can’t do incremental builds, and produces one complete document each time it’s run.</p>
+</section>
+<section id="workings" class="level2">
+<h2>Workings</h2>
+<p>Javadoc uses the java compiler to compiler the declarations, but ignores the implementation.</p>
+<p>Javadoc includes user documentation from special comments in the source code.</p>
+<p>You can actually start documenting before implementing things – starting in the earliest stages of design.</p>
+<p>Javadoc tool will also document implicit code, e.g. default constructors.</p>
+</section>
+</section>
+</body>
+</html>

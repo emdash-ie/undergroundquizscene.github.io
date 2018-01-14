@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-11-20</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="a-simple-example" class="level1">
+<h1>A simple example</h1>
+<p>A simple design for DB for managing a company’s orders for spare parts:</p>
+<ul>
+<li><p>Keeps track of suppliers we use and items we require</p></li>
+<li><p>Also track details of outstanding orders</p></li>
+</ul>
+<p>Three tables:</p>
+<ul>
+<li><p>suppliers (snum, sname, status, city)</p></li>
+<li><p>parts (pnum, pname, colour, weight)</p></li>
+<li><p>ordered_from (snum, pnum, quantity)</p></li>
+</ul>
+<p>We assume status is city-dependent, e.g. a delivery charge.</p>
+<section id="a-worse-design" class="level2">
+<h2>A worse design</h2>
+<p>A worse design (because of more redundancy), would be to move (status) column into the ordered_from table.</p>
+<p>Now the same city-dependent numbers are being repeated many times.</p>
+</section>
+</section>
+<section id="design-principle-avoid-redundancy" class="level1">
+<h1>Design principle: avoid redundancy</h1>
+<p>We want to avoid redundancy wherever possible.</p>
+<p>We try to represent one fact in one place, rather than in multiple places.</p>
+<section id="issues-arising-from-redundancy" class="level2">
+<h2>Issues arising from redundancy</h2>
+<ul>
+<li><p>Duplicating info in several places wastes space.</p></li>
+<li><p>If we change one copy of a piece of info, we need to make sure we change them all, which is inconvenient.</p></li>
+</ul>
+</section>
+</section>
+<section id="normalisation" class="level1">
+<h1>Normalisation</h1>
+<section id="normal-forms" class="level2">
+<h2>Normal forms</h2>
+<p>Normal forms capture desirable traits that reduce risk of certain DB problems.</p>
+<p>They are ordered by number, with higher numbers denoting stricter conditions.</p>
+<section id="first-normal-form" class="level3">
+<h3>First normal form</h3>
+<p>R is in First Normal Form (1NF) if and only if it contains atomic values only (no multi-valued attributes). We took this as given when we started looking at DBs.</p>
+</section>
+</section>
+<section id="a-poor-design" class="level2">
+<h2>A poor design</h2>
+<p>first (snum, status, city, pnum, quantity) and parts (pnum, pname, colour, weight)</p>
+<p>Here we’ve combined the info on suppliers and orders together.</p>
+<section id="problems" class="level3">
+<h3>Problems:</h3>
+<ul>
+<li><p>The city value for suppliers is replicated many times.</p></li>
+<li><p>Can’t record suppliers details until that supplier supplies at least one part.</p></li>
+<li><p>If we delete the last tuple for a supplier, we lose all the information about that supplier.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="functional-dependencies" class="level1">
+<h1>Functional Dependencies</h1>
+<p>Dependencies capture how different attributes in table relate to one another.</p>
+<p>Definition: Given relation R, attribute Y is functionally dependent on attribute X if and only if, whenever two tuples of R agree on their X-value, they are also guaranteed to agree on their Y-value. Notated (X → Y).</p>
+<p>By analysing these dependencies with normalisation, we can reduce redundancy problems.</p>
+<section id="functional-dependencies-in-our-poor-design" class="level2">
+<h2>Functional dependencies in our poor design</h2>
+<p>parts:</p>
+<ul>
+<li><p>pnum → pname</p></li>
+<li><p>pnum → weight</p></li>
+<li><p>pnum → colour</p></li>
+</ul>
+<p>first:</p>
+<ul>
+<li><p>pnum, snum → status, city, quantity</p></li>
+<li><p>snum → status, city</p></li>
+<li><p>city → status</p></li>
+</ul>
+<p>In this example, pnum and snum together form the key for the ‘first’ table, but some attributes are determined only by part of this key (snum). This is called a non-full dependency.</p>
+</section>
+<section id="second-normal-form" class="level2">
+<h2>Second normal form</h2>
+<p>A DB without any non-full dependencies is in Second Normal Form (2NF).</p>
+</section>
+<section id="a-second-now-better-design" class="level2">
+<h2>A second (now better) design</h2>
+<p>If we split first(…) into second(snum, status, city) and ordered_from(snum, pnum, quantity), then we have a DB in 2NF.</p>
+<p>There are still some problems:</p>
+<ul>
+<li><p>The status value for each city is replicated many times.</p></li>
+<li><p>Can’t enter status values for a city until we have a supplier located in that city.</p></li>
+<li><p>If we delete the only tuple for a particular city, we lose the status info for that city.</p></li>
+</ul>
+</section>
+<section id="dependencies-in-the-second-design" class="level2">
+<h2>Dependencies in the second design</h2>
+<ul>
+<li><p>snum → city</p></li>
+<li><p>city → status</p></li>
+<li><p>snum → status</p></li>
+</ul>
+<p>Status has a transitive dependence on snum via city.</p>
+<p>We can fix this by splitting the table into suppliers(snum, city) and cities(snum, status).</p>
+</section>
+<section id="third-normal-form" class="level2">
+<h2>Third normal form</h2>
+<p>DBs without any transitive dependencies are in Third Normal Form.</p>
+</section>
+</section>
+</body>
+</html>

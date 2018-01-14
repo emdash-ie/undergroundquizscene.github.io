@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-14</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="lab-sessions" class="level1">
+<h1>Lab Sessions:</h1>
+<p>I am in Monday 3-5 lab group for this module. The other group is Monday 10-12. Both starting next week. In WGB.G20.</p>
+<p>Labs will consist of exercises on paper.</p>
+<p>No mark for attendance, but it will be noted.</p>
+<p>Tomorrow’s lecture will be given by Ken Brown.</p>
+</section>
+<section id="sets-collections" class="level1">
+<h1>Sets &amp; Collections</h1>
+<p>Often things you want to calculate are sets.</p>
+<p>A <em>set</em> is a collection of things. These things can be anything, physical or abstract:</p>
+<ul>
+<li><p>students registered for CS1105 in 2008</p></li>
+<li><p>ID numbers of students registered for CS1105 in 2008</p></li>
+<li><p>the objects in my suitcase when I go on holiday</p></li>
+</ul>
+<p>There are many ways you can refer to the same thing (guy in seat x, guy with jumper colour y, where x and y are unique), it doesn’t matter.</p>
+<p>You can either list things out ({banana, apple, orange}, which is extensional definition) or describe them using constraints.</p>
+<p>Extensional: between {} and separated by commas.</p>
+<p>A set is different from a list because the number of times one element occurs in a set doesn’t matter. {Cork, Cork, Kerry} = {Cork, Kerry}</p>
+<p>Also the order doesn’t matter.</p>
+<p>Note that sets don’t have to be finite in length, they can be infinite.</p>
+<p>So we have intensional set definition:</p>
+<ul>
+<li><p>{y | y is a library book with “databases” in the title}</p></li>
+<li><p>{z | z is divisible by 7, z &gt; 0, z is an integer}</p></li>
+</ul>
+<p>Specify a template and then a rule, such that everything that matches the template and obeys the rule is in the set, and nothing else is in the set.</p>
+<section id="set-membership" class="level2">
+<h2>Set Membership</h2>
+<p>To say x is a <em>member</em> of the set A: x ∈ A</p>
+<p>To say x is not a member of the set A: x ∉ A</p>
+<p>Note that {CS1112} ∉ {CS1106, CS1112} while CS1112 ∈ {CS1106, CS1112}.</p>
+<p>The set {CS1112} is a subset, not an element, of the set {CS1106, CS1112}.</p>
+<p>{CS1112} ⊆ {CS1106, CS1112}, though.</p>
+<p>The two most important qualities of a set:</p>
+<ul>
+<li><p>The order you write the elements in does not matter.</p></li>
+<li><p>Repeated elements are ignored, there is only one copy of each element in a set.</p></li>
+</ul>
+</section>
+<section id="equal-sets" class="level2">
+<h2>Equal Sets</h2>
+<p>Two sets are equal if they have exactly the same members</p>
+<p>Two sets are not equal if one of them has a member that the other doesn’t.</p>
+<p>{1,2,3} = {3,1,1,2}</p>
+<p>{1,2,3} =/= {1,2}</p>
+</section>
+<section id="some-important-sets" class="level2">
+<h2>Some Important Sets</h2>
+<p>The <em>empty set</em> is the set with no elements, and is written {}.</p>
+<p>For every possible thing x, x ∉ {}.</p>
+<p>Z is the set of integers.</p>
+<p>Q is the set of rational numbers (the numbers that can be expressed as fractions).</p>
+<p>R is the set of real numbers.</p>
+</section>
+<section id="subsets" class="level2">
+<h2>Subsets</h2>
+<p>A set A is a subset of B if every member of A is also a member of B.</p>
+<p>Written as A ⊆ B.</p>
+<p>If A is not a subset of B, there must be at least one member of A that is not a member of B. A ⊄ B.</p>
+<p>Note that the empty set is a subset of all sets. It contains no elements that aren’t in any other set. Any set is a subset of itself for the same reason.</p>
+<p>You can redefine equality:</p>
+<p>A ⊆ B and B ⊆ A ⇔ A = B</p>
+<p>This condition ⇔ (if and only if), is also sometimes written iff.</p>
+<p>A is a <em>proper subset</em> of B if A is a subset of B but not equal to B. Written A ⊂ B.</p>
+</section>
+<section id="limiting-the-scope-of-our-collections" class="level2">
+<h2>Limiting the Scope of Our Collections</h2>
+<p>Sometimes we only want to talk about collections of things taken from some clearly defined larger collection.</p>
+<p>We call this larger collection the <em>universal set</em> and write it as U.</p>
+<p>E.g. when talking about collections of students within UCC, the universal set is (the collection of all students? I missed it).</p>
+<p>The union of two sets is a new set consisting of every member of the two sets. Written A∪B.</p>
+<p>Intersetion is a new set consisting of the members that appear in both sets. Written A∩B.</p>
+<p>The <em>set difference</em> of two sets is a new set consisting of each element of the first that is not also an element of the second.</p>
+<p>A\B or A-B.</p>
+<p>For any element x of U, x ∈ A\B if and only if x ∈ A and x ∉ B.</p>
+<p><em>Symmetric set difference</em> is (A-B) + (B-A).</p>
+</section>
+</section>
+</body>
+</html>

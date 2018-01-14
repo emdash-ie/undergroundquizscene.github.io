@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>All-Pairs Shortest Paths</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="all-pairs-shortest-paths" class="level1">
+<h1>All-Pairs Shortest Paths</h1>
+<ul>
+<li><p>can create a lookup structure in advance to process later</p></li>
+<li><p>that structure tells us the weight of the shortest path between any two vertices</p>
+<ul>
+<li>doesn’t tell us which path ## First Attempt</li>
+</ul></li>
+</ul>
+<pre class="pseudocode"><code>for each vertex v in the graph
+    compute the shortest path from v to all vertices using Dijkstra</code></pre>
+<p>## Second Attempt</p>
+<ul>
+<li>adapt floyd-warshall algorithm for finding the transitive closure</li>
+</ul>
+<pre class="pseudocode"><code>create nxn 2d array
+put 0 in all the diagonals
+for each vertex v1
+    for each other vertex v2
+        if the cost of reaching v2 from v1 through the allowed vertices (starts at the empty set) is lower than the cost currently in the graph, put the new cost in
+add a vertex to the allowed vertices and repeat</code></pre>
+<p>## Complexity</p>
+<p>This is O(n^2 + n^2 + n^3) = O(n^3).</p>
+<p>This is better than Dijkstra-heap with a dense graph (and same as Dijkstra-list, but tends to be faster).</p>
+<p>If the graph is sparse, this is higher complexity than repeated Dijkstra-heap.</p>
+</section>
+</body>
+</html>

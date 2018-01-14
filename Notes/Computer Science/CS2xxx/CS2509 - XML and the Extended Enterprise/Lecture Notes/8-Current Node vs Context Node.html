@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>8-Current Node vs Context Node</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="current-node-vs-context-node" class="level1">
+<h1>Current Node vs Context Node</h1>
+<hr />
+<p>The current node and the context node are different things. Most of the time they evaluate to the same thing, but sometimes they don’t.</p>
+<p><code>.</code> actually refers to the context node rather than the current node, but every time we’ve used it until now, the context node was the same thing as the current node.</p>
+<p>The function called <code>current()</code> refers to the current node.</p>
+<section id="the-current-node" class="level2">
+<h2>The Current Node</h2>
+<p>When the XSLT processor instantiates a template for some node in the document tree, that node becomes the current node for the entire execution of that template.</p>
+<p>The system maintains a stack of current nodes, which starts out empty. When a template is instantiated for a node, that node is added to the stack of current nodes. When a template is finished, that current node is removed from the stack.</p>
+<p><code>current()</code> always refers to the top current node reference on the stack.</p>
+<section id="example-usage" class="level3">
+<h3>Example Usage</h3>
+<pre><code>[…]
+&lt;xsl:template match=&quot;person&quot;&gt;
+    &lt;p&gt;
+        I found a person called &lt;xsl:value-of select=&quot;current()&quot;/&gt;
+    &lt;/p&gt;
+&lt;/xsl:template&gt;
+[…]</code></pre>
+</section>
+</section>
+<section id="the-context-node" class="level2">
+<h2>The Context Node</h2>
+<p>When an XPath expression is being evaluated, the current node remains fixed, but the context node chages.</p>
+<p>At the start of evaluating an XPath expression, the context node is the same as the current node. (So <code>&lt;xsl:value-of select=&quot;.&quot;/&gt;</code> is the same as <code>&lt;xsl:value-of select=&quot;current()&quot;/&gt;</code>).</p>
+<section id="the-changing-context-node" class="level3">
+<h3>The Changing Context Node</h3>
+<pre><code>[…]
+&lt;xsl:apply-templates select=&quot;.//person[./corp/@hair=&#39;white&#39;]&quot;/&gt;
+[…]</code></pre>
+<p>The first dot refers to the current node, as the context node is the same as the current node when evaluation of an XPath expression starts.</p>
+<p>The second dot refers to the person node we are currently considering while compiling the node list. This is because the predicate is checked against each person node.</p>
+<section id="example" class="level4">
+<h4>Example</h4>
+<pre><code>[…]
+&lt;people&gt;
+    &lt;person&gt;
+        &lt;name&gt;Celia&lt;/name&gt;
+        &lt;corp eyes=&quot;blue&quot; hair=&quot;red&quot;/&gt;
+    &lt;/person&gt;
+    &lt;person&gt;
+        &lt;name&gt;Tom&lt;/name&gt;
+        &lt;corp eyes=&quot;blue&quot; hair=&quot;white&quot;/&gt;
+    &lt;/person&gt;
+    &lt;person&gt;
+        &lt;name&gt;Mick&lt;/name&gt;
+        &lt;corp eyes=&quot;black&quot; hair=&quot;white&quot;/&gt;
+    &lt;/person&gt;
+&lt;/people&gt;</code></pre>
+<p>In the example, the first dot always refers to the root node, while the second dot applies to each of the person elements in turn. The current node, however, is unchanging until a new template is called.</p>
+</section>
+<section id="example-2" class="level4">
+<h4>Example 2</h4>
+<pre><code>[…]
+&lt;nation name=&quot;Irish&quot; typicalHairColour=&quot;red&quot;&gt;
+    &lt;person&gt;
+        &lt;name&gt;Celia&lt;/name&gt;
+        &lt;corp eyes=&quot;blue&quot; hair=&quot;red&quot;/&gt;
+    &lt;/person&gt;
+    &lt;person&gt;
+        &lt;name&gt;Tom&lt;/name&gt;
+        &lt;corp eyes=&quot;green&quot; hair=&quot;red&quot;/&gt;
+    &lt;/person&gt;
+    &lt;person&gt;
+        &lt;name&gt;Mick&lt;/name&gt;
+        &lt;corp eyes=&quot;black&quot; hair=&quot;black&quot;/&gt;
+    &lt;/person&gt;
+&lt;/nation&gt;
+[…]</code></pre>
+<p>We want to check how many people in the nation have the typical hair colour. Here’s the stylesheet:</p>
+<pre><code>[…]
+&lt;xsl:template match=&quot;nation&quot;&gt;
+    &lt;xsl:value-of select=&quot;count(./person[./corp/@hair=current()/@typicalHairColour])&quot;/&gt;
+&lt;/xsl:template&gt;
+[…]</code></pre>
+<p>The <code>value-of</code> instruction here is counting the number of person nodes in the nation element whose hair attribute of their corp child is the same as the typicalHairColour attribute of their nation parent. It’s checking how many people in the Irish nation have red hair.</p>
+<p>Since two children have hair colour red, which is the typical hair colour of the nation element, this <code>value-of</code> will give 2.</p>
+<p>Here the <code>current()</code> node is the Irish <code>nation</code> node, while this template has been called to process that <code>nation</code> node.</p>
+</section>
+</section>
+</section>
+<section id="for-each-loops-and-current" class="level2">
+<h2><code>for-each</code> Loops and <code>current()</code></h2>
+<p>With a <code>for-each</code> statement, the meaning of <code>current()</code> changes.</p>
+<ol type="1">
+<li><p>Inside the open <code>for-each</code> tag (e.g. in the “select” attribute):</p>
+<ul>
+<li><code>current()</code> refers to the node matched for the current template.</li>
+</ul></li>
+<li><p>In between the open and close <code>for-each</code> tags (in the body of the loop):</p>
+<ul>
+<li><code>current()</code> refers to the node in the nodelist which is looked at in this loop iteration.</li>
+</ul></li>
+</ol>
+<section id="example-1" class="level3">
+<h3>Example</h3>
+<pre><code>[…]
+&lt;xsl:template match=&quot;/&quot;&gt;
+    &lt;xsl:for-each select=&quot;current()//person[./corp/@hair=&quot;white&quot;]&quot;&gt;
+        &lt;p&gt;The name of this white-haired person is:&lt;/p&gt;
+        &lt;p&gt;
+            &lt;value-of select=&quot;current()/name&quot;/&gt;
+        &lt;/p&gt;
+    &lt;/xsl:for-each&gt;
+&lt;/xsl:template&gt;
+[…]</code></pre>
+<p>In this example:</p>
+<ul>
+<li><p>Within the “select” attribute of the <code>for-each</code> statement, <code>current()</code> refers to the root node, as that’s the node matched by template.</p>
+<ul>
+<li>These are the instructions for compiling the nodelist for the <code>for-each</code> statement.</li>
+</ul></li>
+<li><p>Within the body of the <code>for-each</code> loop, <code>current()</code> refers to the node in the <code>for-each</code> nodelist that we are currently processing.</p>
+<ul>
+<li>In this example, the nodelist will contain only people with white hair, so <code>current()</code> inside the <code>for-each</code> loop refers to the white-haired person we’re currently looking at.</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-2-1" class="level3">
+<h3>Example 2</h3>
+<pre><code>&lt;xls:template match=&quot;/&quot;&gt;
+[…]
+&lt;xsl:for-each select=&quot;current()/nations/nation&quot;&gt;
+    &lt;xsl:for-each select=&quot;current()/person[./corp/@hair=current()/@typicalHairColour]&quot;&gt;
+    
+        &lt;xsl:value-of select=&quot;current()/name&quot;/&gt;
+    &lt;/xsl:for-each&gt;
+&lt;/xsl:for-each&gt;
+&lt;/xsl:template&gt;</code></pre>
+<ol type="1">
+<li>The first usage of <code>current()</code> is in the “select” attribute of the <em>outer</em> <code>for-each</code> loop. It refers to the root node, as the root node is the node that matched this template.</li>
+<li>The second usage of <code>current()</code> is in the “select” attribute of the <em>inner</em> <code>for-each</code> loop. It refers to the nation node we’re currently processing, as we’re inside the outer <code>for-each</code> loop.</li>
+<li>The third usage of <code>current()</code> is in the “select” attribute of the <code>value-of</code> statement. It refers to the person node we’re currently processing, as we’re inside the inner <code>for-each</code> loop.</li>
+</ol>
+</section>
+</section>
+<section id="using-current-for-cross-referenced-sorting" class="level2">
+<h2>Using <code>current()</code> for Cross-Referenced Sorting</h2>
+<pre><code>&lt;xsl:for-each select=&quot;.//country&quot;&gt;
+&lt;xsl:sort select=&quot;/world/languages/language[./@id=current()/@language]/@name&quot;/&gt;
+[…]
+&lt;/xsl:for-each&gt;</code></pre>
+<section id="using-.-only-when-we-need-to" class="level3">
+<h3>Using <code>.</code> Only When We Need To</h3>
+<p>The above code can also be written as:</p>
+<pre><code>&lt;xsl:for-each select=&quot;//country&quot;&gt;
+&lt;xsl:sort select=&quot;/world/languages/language[@id=current()/@language]/@name&quot;/&gt;
+[…]
+&lt;/xsl:for-each&gt;</code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

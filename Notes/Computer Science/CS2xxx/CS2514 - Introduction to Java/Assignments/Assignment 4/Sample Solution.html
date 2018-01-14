@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Sample Solution</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="info" class="level1">
+<h1>Info</h1>
+<ul>
+<li><p>representing level with an attribute is a waste of space</p>
+<ul>
+<li><p>this can be computed</p></li>
+<li><p>use a recursive method which increments an argument instead</p></li>
+</ul></li>
+<li><p>same for indentation</p>
+<ul>
+<li>also better to print than append, as the append is O(n<sup>2</sup>)</li>
+</ul></li>
+<li><p>common mistake to represent relative level of indentation as a string literal</p>
+<ul>
+<li><p>then you have multiple copies of the string - hard to maintain</p></li>
+<li><p>better to have a constant class attribute</p></li>
+</ul></li>
+<li><p>see file <code>BinaryTree.java</code> for solution</p>
+<ul>
+<li><p>the enum solution is fancy but possibly overkill, and a bit strange that the Node methods recurse back to the Traversal</p></li>
+<li><p>might have been better to switch on the Node values in the Traversal enum</p></li>
+</ul></li>
+</ul>
+</section>
+</body>
+</html>

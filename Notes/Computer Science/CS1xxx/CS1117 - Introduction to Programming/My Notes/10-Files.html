@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>10-Files</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="files" class="level1">
+<h1>Files</h1>
+<hr />
+<section id="open" class="level2">
+<h2>Open</h2>
+<p>We use the function <code>open()</code> to read files and write to them.</p>
+<pre><code>def ReadFile(filename):     filehandle = open(filename, &#39;r&#39;)        for line in filehandle:         print(line)</code></pre>
+<ul>
+<li>This function will read the lines of a file one by one by using a for loop over the file handle.The second parameter for <code>open()</code> specifies whether we’re reading or writing. For reading it should be ‘r’, for writing it should be ‘w’. As well as looping over files as above, you can use the <code>.readline()</code> method on file handles, which will return one line: line = filehandle.readline() There’s also a <code>.readlines</code> method that will return all the lines of the file in a list. ## Close You should call <code>.close()</code> on the file handle once finished with it, to free up system resources.## File Handles The file handle is used for all interaction with the file. It remembers the location of a file on disk and how far through the file it has already gone. ## Files</li>
+</ul>
+<p>Files are just sequences of characters. The newline character (<code>'\n'</code> in Python) is detected as the point where one conceptual line ends and the next starts within the file. In the above code, for example file <code>'Ann\nTim\nSue\nNed\n'</code>, <code>line</code> is initially set to <code>'Ann\n'</code>, then to <code>'Tim\n'</code>, and so on. — ###### Handouts &amp; Assignments * Handout 15 - Reading and Writing Files * Assignment 12 - Reading Files * Assignment 13 - Reading and Writing Files &amp; Exceptions</p>
+</section>
+</section>
+</body>
+</html>

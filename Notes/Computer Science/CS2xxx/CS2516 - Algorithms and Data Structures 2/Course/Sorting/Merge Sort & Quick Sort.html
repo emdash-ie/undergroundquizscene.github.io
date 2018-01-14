@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Merge Sort & Quick Sort</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="merge-sort" class="level1">
+<h1>Merge Sort</h1>
+<p>Heap sort had complexity O(n log n) and sorted in-place. Is it work looking at more sorting algorithms?</p>
+<ul>
+<li>Are there algorithms with better worst case complexities?
+<ul>
+<li>Even with the same complexity, maybe the lower order terms are better?</li>
+</ul></li>
+<li>Are there algorithms with better average complexity?</li>
+<li>Is it worth it using in-place sorting?</li>
+<li>Are there other problem-solving strategies we could look at?</li>
+</ul>
+<section id="divide-and-conquer" class="level2">
+<h2>Divide and Conquer</h2>
+<p>This is a general problem solving strategy used throughout computing.</p>
+<ul>
+<li>If a problem is simple, solve it in a single step</li>
+<li>If a problem is too complex to solve in a single step:
+<ul>
+<li>Divide it into multiple pieces</li>
+<li>Solve the individual pieces</li>
+<li>Combine the pieces to get a solution</li>
+</ul></li>
+</ul>
+<p>Typically this is implemented using multiple recursion.</p>
+<section id="sorting" class="level3">
+<h3>Sorting</h3>
+<ul>
+<li>If an input list is of size 1 or 0, do nothing</li>
+<li>Otherwise:
+<ul>
+<li>Split it into two almost equal sublists</li>
+<li>Sort the first sublist</li>
+<li>Sort the second sublist</li>
+<li>Merge the two sublists into a combined list</li>
+</ul></li>
+</ul>
+<p>All the work is done in the merging.</p>
+<section id="merging" class="level4">
+<h4>Merging</h4>
+<ul>
+<li>Say you have two sorted lists of size 4 to be merged into a sorted list of size 8.</li>
+<li>Point at the first two elements
+<ul>
+<li>Put the smaller into the new list and move its pointer forward</li>
+</ul></li>
+<li>Look at the two elements you’re now pointing at
+<ul>
+<li>Put the smaller into the new list and move its pointer forward</li>
+</ul></li>
+<li>Repeat until finished</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="complexity" class="level2">
+<h2>Complexity</h2>
+<p>Merge sort is O(n log n), which is the same as heap sort. It’s also O(n log n) in space complexity.</p>
+</section>
+<section id="alternative-analysis-recurrence-equations" class="level2">
+<h2>Alternative Analysis: Recurrence Equations</h2>
+<p>The base case is O(1). Merge is O(n), so we will write it as <code>c*n</code>.</p>
+<p>Time to sort a list of length n (<code>t(n)</code>) for n &gt; 1, is then:</p>
+<pre><code>t(n) = 2*t(n/2) + c*n</code></pre>
+<p>But <code>t(n/2)</code> must then be 2<em>t(n/4) + C</em>n/2, so we can plug it in recursively.</p>
+<p>So t(n) = <code>2^k * t(n/(2^k)) + kc*n</code>.</p>
+<p>This eventually stops when the list is of size 1, which happens when k = log_2(n). But t(n/(2^k)) = t(n/(2^log_2(n))) = O(1) since list is length 1.</p>
+<p>So <code>t(n) = n + log_2(n)*c*n which is O(n log n)</code></p>
+<p>This kind of analysis is needed for some algorithms.</p>
+</section>
+<section id="alternative-merge-sort-implementations" class="level2">
+<h2>Alternative Merge Sort Implementations</h2>
+<ol type="1">
+<li>Implementing merge sort on linked lists is probably easier.
+<ul>
+<li>Don’t have to create new lists.</li>
+</ul></li>
+<li>Merge Sort on arrays can be implemented bottom-up rather than top-down, using just O(n) extra space:
+<ul>
+<li>Create a new empty list of size n, called list 2</li>
+<li>For each pair of cells in the original list
+<ul>
+<li>Merge into sorted pair in corresponding cells in list 2</li>
+</ul></li>
+<li>For each successive group of 4 cells in list 2
+<ul>
+<li>Merge into sorted group of 4 in corresponding cells in original list</li>
+</ul></li>
+<li>Repeat</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="quick-sort" class="level1">
+<h1>Quick Sort</h1>
+<p>Worst-case complexity is worse than the last couple we’ve looked at, but on average it’s much quicker.</p>
+<p>With merge sort all the work was done in the combination – dividing was easy. What if we put all the work into clever dividing, and let combining fall into place?</p>
+<p>Think of building a binary search tree from a list, and then doing an in-order traversal to create the sorted list.</p>
+<ul>
+<li>building the tree:
+<ul>
+<li>best case is O(n log n)</li>
+<li>worst case is O(n^2)</li>
+</ul></li>
+<li>traversing the final tree:
+<ul>
+<li>O(n)</li>
+</ul></li>
+</ul>
+<p>Procedure:</p>
+<pre class="pseudocode"><code>make the first element of the list the root of a tree
+for all elements in the list
+    if they are less than root
+        put them in a left list
+    else
+        put them in a right list
+    if the left list is not empty
+        build the root&#39;s left sub tree from it
+    if the right list is not empty
+        build the root&#39;s right sub tree from it</code></pre>
+<p>Quick sort applies this procedure but without actually building the tree.</p>
+<p>Procedure for doubly-linked lists:</p>
+<pre class="pseudocode"><code>quicksort(start, end):
+    if start.next != end and start != end:
+        pivot = start
+        node = pivot.next
+        while node is not the end
+            nextnode = node.next
+            if node.elt &lt; pivot.elt
+                move node in front of pivot
+                if first move
+                    start = node
+            node = nextnode
+        quicksort(start, pivot)
+        quicksort(pivot.next, end)</code></pre>
+<section id="array-based-lists" class="level2">
+<h2>Array-based Lists</h2>
+<p>We want to be able to do it on arrays, in-place. We need to avoid shuffling elements along the array.</p>
+<ul>
+<li>When dividing, search from both ends, and swap positions of any elements that are on the wrong side of where the pivot will go.</li>
+</ul>
+<pre class="pseudocode"><code>sort(list, pivot, end):
+    while searches not crossed
+        search right from pivot for a bigger item
+        search left from end for a smaller item
+        if searches not crossed
+            swap items
+    swap pivot with small item
+    sort(list, small, pivot)
+    sort(list, pivot+1, end)</code></pre>
+</section>
+<section id="analysis" class="level2">
+<h2>Analysis</h2>
+<ul>
+<li>Each level of the tree takes at most n comparisons, and at most n/2 swaps</li>
+<li>If the input list is sorted, then worst case depth of the tree is n, […]</li>
+</ul>
+</section>
+<section id="median-pivot" class="level2">
+<h2>Median Pivot</h2>
+<p>We know a balanced tree has depth log n, when each node has equal numbers of descendants on the left and the right. So if we could choose a pivot each time that splits its sublist into two equal parts, our quicksort tree would also be log n depth, and the runtime would be O(n log n).</p>
+<p>We need to pick the median as the pivot every time.</p>
+<p>There’s an algorithm (“median of medians”) to find the median of an unsorted list in time O(n), but it’s complicated. You could run that first and in theory that’ll give quicksort a worse-case bound of O(n log n). In practice, though, it’s very slow, as the terms in the quadratic for “median of medians” are huge.</p>
+</section>
+<section id="random-pivot" class="level2">
+<h2>Random Pivot</h2>
+<p>Choosing a random pivot will destroy the bias from getting a sorted or near-sorted list.</p>
+<p>It can be shown that the <em>expected</em> running time for a random pivot selection is O(n log n). The worst case is still O(n^2), since it’s still possible the randomness won’t help in certain cases, but it’s much less likely.</p>
+<p>A simpler solution is to create a random shuffle of the top level list, and then call the existing algorithm.</p>
+<p>This adds <code>n</code> calls to <code>randint</code> and <code>n</code> swaps. This doesn’t change the expected runtime or the worst-case bound.</p>
+<p>In practice, quicksort is still faster than merge sort or heap sort with the random shuffle most of the time.</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>3-Complexity</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="complexity" class="level1">
+<h1>Complexity</h1>
+<hr />
+<p>Different implementations of the same problem may be faster or slower than one another. We can test this by analysing the runtime for random input, but that requires us to implement each approach, and create a testing harness. Also, performance may depend on the implementation in a particular language, and comparison requires us to test in the same hardware and software environment.</p>
+<section id="basic-steps" class="level2">
+<h2>Basic Steps</h2>
+<p>We can consider the following to be basic steps, and count them as a measure of how much work our program is doing:</p>
+<ul>
+<li>reading the value of a variable</li>
+<li>assigning a value to a variable</li>
+<li>simple arithmetic operations</li>
+<li>comparing the values of two variables</li>
+<li>calling a function</li>
+<li>returning a value</li>
+<li>reading the value at a given index in a Python list</li>
+</ul>
+<p>We expect each step to take approximately a constant time.</p>
+<p>The number of steps for an algorithm may grow as the size of the input grows. Big-O notation gives us a way of quantifying this and giving an upper bound.</p>
+</section>
+<section id="big-o-notation" class="level2">
+<h2>Big-O Notation</h2>
+<p>f(x) is O(g(x)) if:</p>
+<pre><code>(x &gt; k) -&gt; (f(x) &lt;= Cg(x))</code></pre>
+<ul>
+<li>there are two constants k and C</li>
+<li>such that when x &gt; k, f(x) &lt;= Cg(x)</li>
+</ul>
+</section>
+</section>
+</body>
+</html>

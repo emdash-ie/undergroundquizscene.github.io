@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-09-08</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p><em>A High-Level Introduction to Algorithms</em></p>
+<ul>
+<li><p>A set of instructions that takes an input and produces an output.</p></li>
+<li><p>Must be unambiguous.</p></li>
+</ul>
+<p>Computers carry out sequences of steps.</p>
+<p>For example:</p>
+<ul>
+<li><p>Programs</p></li>
+<li><p>Low-level operations</p></li>
+<li><p>Translating high-level programs to low-level steps</p></li>
+<li><p>Exchanging info between one computer and another (anywhere in the world)</p></li>
+<li><p>Reading a html file and turning it into a visible webpage</p></li>
+<li><p>Examining each email you receive to check for viruses</p></li>
+<li><p>Accepting your cammands and converting them into actions in a game on a console</p></li>
+</ul>
+<p>Knitting patterns tend to be pretty unambiguous, for example. They’re a good set of instructions – if you know what it means, (and can perform the actions correctly,) you will produce the desired output.</p>
+<p>Cooking recipes are kind of algorithms, but there’s ambiguity. What’s a “good splosh” of olive oil? What exactly is the “medium” in turn up the heat to medium? There’s too much room for interpretation.</p>
+<p>An algorithm is a set of instructions which state how a task is to be performed.</p>
+<p>It is an ordered, deterministic, executable, terminating set of instructions.</p>
+<p>An algorithm is a set of instructions that is:</p>
+<ul>
+<li><p>ordered</p></li>
+<li><p>deterministic</p></li>
+<li><p>executable</p></li>
+<li><p>terminating</p></li>
+</ul>
+<p>Ordered doesn’t just mean a simple sequence. A long division algorithm shows this:</p>
+<ul>
+<li><p>Layout the division problem</p></li>
+<li><p>While there are digits not yet brought down, do:</p>
+<ul>
+<li><p>Bring down the next digit and put on end of target (or start a new target if there isn’t one)</p></li>
+<li><p>While the target number is less than the divisor and there are digits left to bring down, do:</p>
+<ul>
+<li><p>add 0 to top above last digit brought down</p></li>
+<li><p>bring down the next digit and put on end of target</p></li>
+</ul></li>
+<li><p>Find the most number of times the divisor goes into the target, and write it above the last digit taken down</p></li>
+<li><p>multiply the divisor by the number you just wrote, and write it below the target, aligned on the right</p></li>
+<li><p>Subtract the new number from the target, and make the result the new target.</p></li>
+</ul></li>
+<li><p>When there are no digits left to bring down, the answer is then the top number, with the target as remainder</p></li>
+</ul>
+<p>This is an <em>ordered</em> set of instructions using a “while loop”.</p>
+<p>The instructions must be unambiguous.</p>
+<p>They may be clear to you, but are they clear to everyone?</p>
+<p>A program must be written in a language to be executed on a computer. You must:</p>
+<ul>
+<li><p>understand the language</p></li>
+<li><p>know how statements will be interpreted</p></li>
+<li><p>express yourself clearly in that language</p></li>
+</ul>
+<p>Terminating: has to have an end e.g. counting the number of heads when a coin is flipped <em>20 times</em>.</p>
+<p>Executable: has to be possible e.g. can’t “drive up the steps”</p>
+<p>Programming is mostly about algorithms. If you understand the properties described above and can write algorithms with these properties, then you are halfway.</p>
+<p>You still need to learn the language to communicate these instructions to the computer.</p>
+<p>To talk about collections of data and be precise and unambiguous in algorithm descriptions, we use:</p>
+<ul>
+<li>sets, relations, functions, and logic</li>
+</ul>
+<p>How do we talk about conditions, tests, complex instructions, etc., so that we can specify tasks for algorithms, and test that they work?</p>
+<ul>
+<li>sets, logic</li>
+</ul>
+<p>Exercise, try the Origami.</p>
+</body>
+</html>

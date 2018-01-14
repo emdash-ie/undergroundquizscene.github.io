@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Interaction Modelling</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="intro" class="level1">
+<h1>Intro</h1>
+<ul>
+<li><p>some are very detailed and expensive, only used on large projects</p></li>
+<li><p>some are more entry-level and used on small projects</p></li>
+</ul>
+<p>Two broad categories:</p>
+<ul>
+<li><p>task analysis</p>
+<ul>
+<li><p>models only what happens (or is observable) during interaction</p></li>
+<li><p>based on observation</p>
+<ul>
+<li>e.g. asking questions of the users is not part of the specifications</li>
+</ul></li>
+</ul></li>
+<li><p>cognitive models</p>
+<ul>
+<li><p>designed to incorporate some representation of the user’s abilities, understanding, knowledge, etc.</p></li>
+<li><p>the aim is to formalise knowledge gleaned by psychologists so that it can be employed in the design of computer systems</p></li>
+<li><p>go a step further than task analysis</p></li>
+</ul></li>
+</ul>
+<p>Note: not all cognitive models explicitly model memory or decision making. Some will just point out that (e.g.) memory was used at this point.</p>
+<p>Three broad categories of Cognitive models:</p>
+<ul>
+<li><p>Hierarchical representations of the user’s task and goal structure</p>
+<ul>
+<li>these models deal directly with the issues of formulating tasks and goals</li>
+</ul></li>
+<li><p>linguistic and grammatical models</p>
+<ul>
+<li>these models deal with articulation and translation between the system and the user</li>
+</ul></li>
+<li><p>physical and device-level models</p>
+<ul>
+<li><p>these models deal with articulation at the human motor level rather than at higher levels</p></li>
+<li><p>deals with unit tasks (e.g. changing gear in a car) – tasks which it is not worthwhile to break down into smaller tasks because we’ve become so good at them</p>
+<ul>
+<li>you can be thinking about something else while changing gear</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Some cognitive models directly embody knowledge about human perception, memory, etc.</p>
+<p>Other cognitive models do not embody this knowledge directly, but model interaction in a way that makes it easy to identify […]</p>
+</section>
+<section id="granularity" class="level1">
+<h1>Granularity</h1>
+<p>A major issue in the design and use of models is selecting the appropriate level of granularity.</p>
+<ul>
+<li><p>what is the top-level goal?</p>
+<ul>
+<li><p>tends to be quite small tasks, as modelling is complicated even for medium-size tasks</p></li>
+<li><p>most tasks for part of larger undertakings, so goals can be defined at many levels.</p></li>
+<li><p>the choice is often determined by the system being modelled</p></li>
+</ul></li>
+<li><p>what is the lowest-level sub-goal?</p>
+<ul>
+<li><p>should we break down the goals until we reach the level of individual finger and eye movements?</p>
+<ul>
+<li>no, because they don’t take much or any effort</li>
+</ul></li>
+<li><p>the approach generally adopted is to identify sub-goals that are routine, learned tasks which do not involve problem-solving</p>
+<ul>
+<li>these are known as unit tasks – either tasks that can’t be broken down any further or have no real thought involved</li>
+</ul></li>
+</ul></li>
+</ul>
+<p>Most modelling languages and techniques leave decisions on granularity to the user.</p>
+<p>Generally use physical and device-level models for unit tasks, and the other two categories for higher-level tasks.</p>
+</section>
+<section id="cognitive-complexity-theory" class="level1">
+<h1>Cognitive Complexity Theory</h1>
+<p>CCT is designed to model interaction, and in particular the amount of cognitive effort involved in performing a task with a particular interface.</p>
+<p>CCT has two descriptions which operate in parallel:</p>
+<ul>
+<li><p>a description of the user’s goals, based on a task-goal hierarchy and expressed through production rules</p></li>
+<li><p>a description of the system state, expressed as generalised transition networks, a form of state transition network</p></li>
+</ul>
+<section id="production-rules" class="level2">
+<h2>Production Rules</h2>
+<p>This form:</p>
+<pre class="cct"><code>if condition then action</code></pre>
+<ul>
+<li><p>the condition is a statement about the contents of working memory</p></li>
+<li><p>the action is an elementary action, either internal (e.g. a change in the state of working memory), or external (e.g. a keypress)</p></li>
+</ul>
+<p>A CCT analysis might have thousands of production rules. Usually the rules are written by packages, which can spot conflicts for you, etc.</p>
+<p>The conditions attached to each rule are unique, so that only one rule can be active at a time.</p>
+<p>Execution of a particular rule should change the state of working memory in such a way that it meets the conditions for another rule, which is then executed.</p>
+<p>Note (in the example) the use is assumed to be storing information about the goal, the text being worked upon, and the cursor, all in working memory.</p>
+<p>The working memory in CCT is supposed to correspond loosely to human short-term memory. If there are many things in working memory at any point, or a high average of things, the interface is probably hard to use.</p>
+</section>
+<section id="strengths-and-weaknesses" class="level2">
+<h2>Strengths and Weaknesses</h2>
+<p>Kieras and Polson, who developed CCT, claim that complexity of an interface is reflected in the number of production rules required to describe the system using CCT.</p>
+<p>The more rules, the harder the interface is to learn.</p>
+<p>The number of items held in working memory also indicates how […]</p>
+<p>However, some elements of the notation are purely structural, included solely to enable the system to function.</p>
+<p>For example, it’s sometimes necessary to place entries in working memory merely to serve as ‘flags’ which allow production rules to fire at the right moment.</p>
+<p>It’s not clear that such entries represent any genuine cognitive load.</p>
+<p>Relative measures are generally useful, absolute measures aren’t.</p>
+<p>Another problem with CCT is that the amount of code required to describe even a small part of an interface can be enormous.</p>
+<ul>
+<li>this is a common problem with description methods</li>
+</ul>
+<p>CCT production rules normally describe “expert” behaviour – the most appropriate sequence of actions to achieve the intended result.</p>
+<p>However, CCT also supports the use of style rules which modify the way in which conditions and actions operate in production rules.</p>
+<p>Style rules can be used to modify a CCT model to mimic different types of user, such as novices.</p>
+<p>Bovair, Kieras, and Polson produced a list of style rules which can be used to reflect different types of user in a CCT description.</p>
+<p>CCT production rules normally describe error-free performance, but there is nothing in the structure of CCT to prevent users writing production rules that model error conditions. However, in such cases the error behaviour must be explicitly specified in advance. […]</p>
+</section>
+</section>
+<section id="linguistic-and-grammatical-forms" class="level1">
+<h1>Linguistic and Grammatical Forms</h1>
+<p>Another category of cognitive models.</p>
+<p>These use formalisms such as:</p>
+<ul>
+<li><p>BNF (Backus-Naur Form)</p></li>
+<li><p>TAG (Task Action Grammar)</p></li>
+</ul>
+<p>These are based on […]</p>
+<section id="backus-naur-form" class="level2">
+<h2>Backus-Naur Form</h2>
+<p>Consider a graphic application that has a polyline function.</p>
+<p>The user selects the function from a menu, clicks at each of the points the line is to link, and then double-clicks to end it.</p>
+<ul>
+<li><p><code>+</code> represents a sequence in order – this then this then this</p></li>
+<li><p><code>|</code> used for logical OR</p></li>
+<li><p>Syntactic constructs (in lowercase) appear on the left side of a definition.</p>
+<ul>
+<li>work down to […]</li>
+</ul></li>
+<li><p>Some syntactic constructs are recursive.</p></li>
+</ul>
+<section id="complexity" class="level3">
+<h3>Complexity</h3>
+<p>One measure of the complexity with BNF is to count the rules, but you can reformulate the rules by using complex rules rather than simple rules.</p>
+<p>A better measure is to count the rules and the <code>+</code> and <code>|</code> operators in the description. This is better than just counting the rules, but it still dependent on the framing of the rules.</p>
+<p>In practice, the problems aren’t very important, as BNF is never used in an absolute sense, just comparatively. So as long as the BNF descriptions being compared are generated by the same person or team and pains are taken to ensure consistency, the problems don’t matter.</p>
+</section>
+</section>
+<section id="task-action-grammar-tag" class="level2">
+<h2>Task Action Grammar (TAG)</h2>
+<p>A failing of BNF-based measures is that they ignore many features of language and the user’s knowledge.</p>
+<p>For example, the UNIX commands <code>cp</code>, <code>mv</code>, <code>ln</code> all have a similar syntax and that makes them easier to remember.</p>
+<p>If one didn’t share the consistency, this would be reflected in a BNF description, but wouldn’t affect the number of rules or operators used.</p>
+<p>TAG is based on BNF but designed to capture some of the information ignored by BNF-based approaches.</p>
+<p>It captures consistency by allowing the use of generic descriptions.</p>
+<p>For example, the three UNIX commands would be described using a generic “file-command”, then noting the differences between each command and the generic form.</p>
+</section>
+<section id="issues-with-cognitive-models" class="level2">
+<h2>Issues With Cognitive Models</h2>
+<p>Most cognitive modelling languages and techniques are based on ideas and approaches developed for use with command-line interfaces (CLIs) rather than GUIs.</p>
+<ul>
+<li>better with CLIs, not as good with GUIs</li>
+</ul>
+<p>Many were developed from formalisms used to describe natural languages, and later computer languages.</p>
+<p>This is true of both Goal and Task Hierarchies and Linguistic and Grammatical models.</p>
+<p>Most early GUIs were just window-managers for command-line systems.</p>
+<p>Since all interactions on such systems were ultimately translated into textual operations, there was little reason to doubt the adequacy of a textual description.</p>
+<p>More recently, researchers have begun to question the validity of using cognitive modelling languages to analyse interactions within GUIs.</p>
+<p>While the functionality of graphical interactions can be described using such languages, it’s not clear that all the factors of importance in the interaction can be described.</p>
+<ul>
+<li><p>many tasks can be carried out more quickly and effectively using a GUI than a CLI</p></li>
+<li><p>however, if the same functions are available in both the CLI and the GUI, many modelling languages will yield the same description for both</p></li>
+<li><p>thus they will fail to capture the efficiency improvement offered by the GUI</p></li>
+</ul>
+<p>A grammar that fails to take account of these issues will not be able to analyse or predict the efficiency of a graphical interface.</p>
+<p>These models no longer apply once you’ve reached the stage of unit tasks (routine, learned tasks). All the areas where GUIs perform better involve these tasks.</p>
+</section>
+</section>
+<section id="physical-and-device-models" class="level1">
+<h1>Physical and Device Models</h1>
+<p>These seek to model interactions at the level of motor actions.</p>
+<p>Unlike cognition, the human motor system is well understood and relatively easy to model.</p>
+<p>In this way, physical and device models avoid some of the problems associated with other types of cognitive model.</p>
+<p>Modelling interactions at such a low level produces very verbose descriptions.</p>
+<p>Because of this, physical and device models are unsuitable for describing complete interfaces/systems.</p>
+<p>They are typically used in conjunction with other, higher-level models:</p>
+<ul>
+<li><p>the overall interaction is specified in a high-level model</p></li>
+<li><p>some of the unit-tasks are modelled in a physical or device model</p></li>
+</ul>
+<p>Physical and device models can yield reliable predictions concerning operations. (also useful in an absolute rather than relative sense)</p>
+<section id="fitts-law" class="level2">
+<h2>Fitts’ Law</h2>
+<p>For a given system, the time taken to move a pointer onto a target varies as a function of:</p>
+<ul>
+<li><p>the distance the pointer has to be moved</p></li>
+<li><p>the size of the target</p></li>
+</ul>
+<p>This is so consistent you can put numbers on it, and just look at the ratio of the two numbers.</p>
+<pre><code>t_m = a + b log_2(d+1 / s)</code></pre>
+<ul>
+<li><p>t_m = movement time</p></li>
+<li><p>a = start/stop time</p></li>
+<li><p>b = device tracking speed</p></li>
+<li><p>d = distance moved</p></li>
+<li><p>s = target size (relative to the direction of movement)</p></li>
+</ul>
+<p><code>a</code> and <code>b</code> must be empirically determined for different operations, pointing devices, etc.</p>
+<pre><code>* you can then try and improve the empirical values for them</code></pre>
+<section id="implications" class="level3">
+<h3>Implications</h3>
+<ul>
+<li><p>pop-up menus are generally faster to use than fixed menus</p></li>
+<li><p>menus arranged like pie-charts, with all options equidistant from the starting point, are very efficient</p></li>
+<li><p>the efficiency of fixed, linear menus can be improved by:</p>
+<ul>
+<li><p>placing frequently-used options near the start-point</p></li>
+<li><p>placing the menu at (or near) the screen edge, so that it becomes infinitely large in the direction of movement, makes things much easier</p></li>
+</ul></li>
+</ul>
+<p>Card, English, and Burr (1978) used Fitts’ Law to show that the mouse was the most efficient pointing device available.</p>
+<p>This work led to choice of a mouse by Xerox for the Star 8010 Information System, the first commercial system to use a GUI.</p>
+<p>Macintosh pull-down menus can be accessed around five times faster than typical Windows pull-down menus.</p>
+<ul>
+<li>this is because they’re at the edge of the screen and so you can’t overshoot (infinite-width target)</li>
+</ul>
+<p>Circular pop-up menus good because of equidistance but also infinite size in each direction – can’t move out of the ring, cancel by clicking a particular icon.</p>
+<ul>
+<li>palette of 16 tools – put at one edge of the screen</li>
+</ul>
+<p>[…]</p>
+</section>
+<section id="cont." class="level3">
+<h3>Cont.</h3>
+<p>Fitts’ Law has proved extremely accurate when compared with measured figures.</p>
+<p>It can be used, in modified form, to derive an index of difficulty (ID) for a pointing device.</p>
+<p>It has also been extended to model many types of pointing/navigation/target-acquisition tasks.</p>
+<p>For example, the Accot-Zhait Steering Law models the task of navigating along a path or tunnel of specified (variable) width.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

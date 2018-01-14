@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Transport Layer</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="transport-layer" class="level1">
+<h1>Transport Layer</h1>
+<section id="services-and-protocols" class="level2">
+<h2>Services and Protocols</h2>
+<ul>
+<li>Every layer uses different names for the messages to emphasise that they’re slightly different because you’ve usually added/stripped a header</li>
+</ul>
+</section>
+<section id="multiplexing-demultiplexing" class="level2">
+<h2>Multiplexing / Demultiplexing</h2>
+<ul>
+<li>the most fundamental thing done by the transport layer</li>
+<li>info about how to demultiplex things must be stored in the transport layer</li>
+</ul>
+<p>### How Demultiplexing Works</p>
+<ul>
+<li>source port often unimportant, picked randomly by client</li>
+</ul>
+<section id="connectionless-demux" class="level3">
+<h3>Connectionless Demux</h3>
+<ul>
+<li>different clients can use the same source port numbers</li>
+</ul>
+</section>
+<section id="connection-oriented-demux" class="level3">
+<h3>Connection-oriented Demux</h3>
+<ul>
+<li>need to link destination with source</li>
+</ul>
+</section>
+</section>
+<section id="udp" class="level2">
+<h2>UDP</h2>
+<ul>
+<li><p>essentially just provides multiplexing/demultiplexing</p></li>
+<li><p>commonly blocked by firewalls because there’s no congestion control</p></li>
+<li><p>most protocols (including UDP) will throw away a message if the checksum fails</p></li>
+<li><p>checksums are not absolutely reliable</p></li>
+</ul>
+</section>
+<section id="principles-of-reliable-data-transfer" class="level2">
+<h2>Principles of Reliable Data Transfer</h2>
+<ul>
+<li><p>as the sender, how do I know my file didn’t get there?</p></li>
+<li><p>have an unreliable channel at the network layer</p>
+<ul>
+<li><p>congestion is the main reason – packets get dropped from queues</p></li>
+<li><p>packets can also get corrupted over wireless networks</p></li>
+<li><p>packets can arrive in the wrong order</p></li>
+</ul></li>
+</ul>
+<section id="getting-started" class="level3">
+<h3>Getting Started</h3>
+<ul>
+<li><p>packet has extra header with info required by the reliable data transfer protocol</p></li>
+<li><p>protocols often generated from finite state machines that are written by people (rather than writing the protocol line by line)</p></li>
+<li><p>gradually complicate specification/requirements (1.0, 2.0, …)</p></li>
+<li><p>checksums not great, but we’ll assume for the moment they’re sufficient</p>
+<ul>
+<li>also cyclic redundancy checks (CRC) – much stronger than checksums</li>
+</ul></li>
+<li><p>A without bar in state machine diagram means “no action taken”</p></li>
+</ul>
+<p>2.1 sender has four states – two for each packet</p>
+<ul>
+<li><p>two sequence numbers is enough because the next packet isn’t sent until the current one has definitely arrived</p></li>
+<li><p>In 3.0 receiver will send ACK0 if it gets packet 1 but it’s corrupted</p></li>
+<li><p>3.0 is called a “stop and wait” protocol</p>
+<ul>
+<li><p>performance is terrible because you don’t send a second packet until a whole round-trip time has happened</p></li>
+<li><p>“stop and wait” protocols are used in wifi, where the round-trip time to the access point is very small</p></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="reliable-data-transfer-cont." class="level2">
+<h2>Reliable Data Transfer (cont.)</h2>
+<ul>
+<li>stop and wait operation used in wifi connections because they’re unreliable, and the round-trip time to the access point is small</li>
+</ul>
+<section id="pipelined-protocol" class="level3">
+<h3>Pipelined Protocol</h3>
+<ul>
+<li>send a bunch of packets</li>
+<li>then receive acks for those</li>
+</ul>
+<p>Two main types:</p>
+<ul>
+<li>go-back-n</li>
+<li>selective repeat [check]</li>
+</ul>
+<p>TCP is a mixture of these two</p>
+<p>Pipelining can improve throughput hugely.</p>
+<section id="go-back-n" class="level4">
+<h4>Go-Back-N</h4>
+<ul>
+<li><p>sender sends up to N packets in the pipeline</p></li>
+<li><p>receiver sends cumulative acks (stops if there’s a gap)</p></li>
+<li><p>sender keeps timer for the oldest unacked packet, and retransmits all unacked packets if the timer expires</p></li>
+<li><p>in practice, acked packets wouldn’t be kept by the sender, just deleted once acked</p></li>
+<li><p>logic is “if one got lost, some or all of the rest probably did as well”</p></li>
+<li><p>inefficient if there are many packets in the pipeline (large window) and an error occurs</p>
+<ul>
+<li>all packets will be retransmitted unnecessarily</li>
+</ul></li>
+</ul>
+</section>
+<section id="selective-repeat" class="level4">
+<h4>Selective Repeat</h4>
+<ul>
+<li><p>sender up to N unacked packets in pipeline</p></li>
+<li><p>receiver acks individual packets</p></li>
+<li><p>sender maintains timer for each unacked packet, resends the packet when its timer expires</p></li>
+<li><p>receiver needs a buffer as packets may arrive out of order</p></li>
+<li><p>in practice wouldn’t keep acked packets, but would mark that they’ve been received and acked</p></li>
+<li><p>receiver’s window needs to be limited because otherwise connections could easily use up all its memory</p></li>
+<li><p>not sure about acking of packets from before base - N</p></li>
+</ul>
+<section id="dilemma" class="level5">
+<h5>Dilemma</h5>
+<ul>
+<li>what minimum sequence number do you need if given the window size?</li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+<section id="tcp" class="level2">
+<h2>TCP</h2>
+<ul>
+<li><p>hasn’t changed much over time (since the 1970s), except for some algorithms for congestion control and some other things</p>
+<ul>
+<li>it has stood the test of time</li>
+</ul></li>
+<li><p>call packets “segments” at the transport layer</p></li>
+</ul>
+<p>Assumes point-to-point – one sender and one receiver. UDP doesn’t assume this.</p>
+<p>Byte stream – no message boundaries. (where segments start and end is irrelevant to the application layer)</p>
+<p>Full duplex – bi-directional data flow in a connection.</p>
+<p>Have to set up a connection before sending any data.</p>
+<p>Flow controlled – sender will not overwhelm receiver.</p>
+<p>Congestion control – ensures sender won’t overwhelm the network.</p>
+<p>Two options for sending segments smaller than the maximum segment size (MSS):</p>
+<ol type="1">
+<li>timeout</li>
+<li>push request from application</li>
+</ol>
+<p>Segments can also be sent when the buffer reaches the MSS.</p>
+<section id="tcp-segment-structure" class="level3">
+<h3>TCP Segment Structure</h3>
+<ul>
+<li><p>source port and destination port used for multiplexing and demultiplexing</p></li>
+<li><p>sequence numbers and ack numbers needed for selective repeat or go-back-n</p>
+<ul>
+<li><p>these count numbers of bytes of data, rather than packets or segments</p></li>
+<li><p>needed because TCP is a stream of data rather than a sequence of messages</p></li>
+</ul></li>
+<li><p>treats application data as a meaningless bunch of bits (encapsulation)</p></li>
+<li><p>need a header length because the options section has variable length</p></li>
+<li><p>note: when looking at headers, important to think about the implications of the sizes of fields</p></li>
+<li><p>we can have 2^32 unique sequence numbers</p>
+<ul>
+<li><p>with a 2.5 Gb/s link sending constantly, you’ll wrap around in 14 seconds, which is a problem</p></li>
+<li><p>TCP solves this using a timestamp in the options section</p></li>
+</ul></li>
+<li><p>protocols tend to start fields on word boundaries because it makes processing easier at the receiving end</p></li>
+</ul>
+<p>Flags:</p>
+<ul>
+<li><p>A marks as ack</p></li>
+<li><p>U means urgent</p>
+<ul>
+<li>not widely used</li>
+</ul></li>
+<li><p>S marks a SYN</p>
+<ul>
+<li>used for establishing connection</li>
+</ul></li>
+</ul>
+</section>
+<section id="tcp-connection-management" class="level3">
+<h3>TCP Connection Management</h3>
+<section id="setup" class="level4">
+<h4>Setup</h4>
+<p>Three-way handshake:</p>
+<ul>
+<li><p>client sends SYN</p>
+<ul>
+<li><p>specifies initial sequence number</p>
+<ul>
+<li>usually picked at random to allow for successive short connections between the same client and server</li>
+</ul></li>
+</ul></li>
+<li><p>server responds with SYNACK</p>
+<ul>
+<li>also allocates buffers and specifies initial server sequence number</li>
+</ul></li>
+<li><p>client sends ACK, which may contain data</p></li>
+</ul>
+</section>
+<section id="closing" class="level4">
+<h4>Closing</h4>
+<ul>
+<li><p>either party sends a FIN message</p></li>
+<li><p>other party receives, sends its own FIN</p></li>
+<li><p>first party receives FIN, sends an ACK, and then waits for a short while before closing the connection (say 1-2 minutes)</p></li>
+</ul>
+</section>
+</section>
+<section id="tcp-sequence-numbers-and-acks" class="level3">
+<h3>TCP Sequence Numbers and ACKs</h3>
+<p>ACKs and data are sent in the same messages.</p>
+<ul>
+<li><p>sequence number refers to the byte stream number of the first byte in the segment’s data</p>
+<ul>
+<li>in an empty message (an ACK with no data), it’s the same as the last number</li>
+</ul></li>
+<li><p>ACK number refers to the next expected byte</p>
+<ul>
+<li>cumulative ACK</li>
+</ul></li>
+</ul>
+</section>
+<section id="tcp-reliable-data-transfer" class="level3">
+<h3>TCP Reliable Data Transfer</h3>
+<ul>
+<li><p>offers pipelining</p></li>
+<li><p>uses cumulative ACKs</p></li>
+<li><p>uses a single transmission timer</p></li>
+<li><p>retransmissions are triggered by:</p>
+<ul>
+<li><p>timeouts</p></li>
+<li><p>duplicate ACKs [need to work this one out]</p></li>
+</ul></li>
+<li><p>[…]</p></li>
+</ul>
+</section>
+<section id="tcp-sender-events" class="level3">
+<h3>TCP Sender Events</h3>
+<p>Note not using FSMs because it’s too complicated.</p>
+<p>When data is received from an application:</p>
+<ul>
+<li><p>create segment with sequence number</p></li>
+<li><p>sequence number is the byte-stream number of the first data byte in the segment</p></li>
+<li><p>start timer if not already running (think of timer as for the oldest unacked segment)</p></li>
+</ul>
+<p>[…]</p>
+<ul>
+<li>pseudocode is simplified: don’t send packets straight away to the network layer (MSS etc.)</li>
+</ul>
+<section id="retransmission-scenarios" class="level4">
+<h4>Retransmission Scenarios</h4>
+<ul>
+<li><p>lost ACK</p></li>
+<li><p>premature timeout</p></li>
+</ul>
+</section>
+</section>
+<section id="tcp-ack-generation-optimisations" class="level3">
+<h3>TCP ACK Generation (Optimisations)</h3>
+<ul>
+<li><p>receiver receives in-order segment with expected sequence number, all data up to expected sequence number already acked</p>
+<ul>
+<li>delay the ACK – wait up to 500 ms for next segment. If no segment, send ACK</li>
+</ul></li>
+<li><p>arrival of in-order segment with expected sequence number. One other segment has an ACK pending.</p>
+<ul>
+<li>Immediately send single cumulative ACK, ACKing both in-order segments.</li>
+</ul></li>
+<li><p>arrival of out-of-order segment with higher than expected sequence number. Gap detected.</p>
+<ul>
+<li><p>immediately send duplicate ACK indicating sequence number of next expected byte.</p></li>
+<li><p>helps sender tell that the link is still good if only one segment doesn’t get through, allows fast retransmit</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="fast-retransmit" class="level3">
+<h3>Fast Retransmit</h3>
+<p>If the sender receives 3 ACKs for the same data, it assumes the segment after the ACKed data was lost.</p>
+<ul>
+<li>made a dramatic improvement to TCP throughput</li>
+</ul>
+<p>[…]</p>
+</section>
+<section id="tcp-selective-acks" class="level3">
+<h3>TCP Selective ACKs</h3>
+<ul>
+<li><p>non-mandatory extension that is widely used</p></li>
+<li><p>receiver can ACK a sequence of bytes in addition to the number of the next expected bytes</p>
+<ul>
+<li>even if there’s a gap, confirms some segments did arrive</li>
+</ul></li>
+<li><p>sender can re-send only packets that haven’t arrived</p></li>
+</ul>
+</section>
+<section id="tcp-round-trip-time-and-timeout" class="level3">
+<h3>TCP Round-trip Time and Timeout</h3>
+<ul>
+<li><p>timeout for stop-and-wait protocol in a wifi access point is pretty deterministic (easy to work out), once you’ve sent your packet</p></li>
+<li><p>note: stop-and-wait in wifi is actually used in the link layer</p></li>
+<li><p>for end-to-end tcp, it’s much harder – have to account for transmission and queueing delays on all routers</p></li>
+</ul>
+<p>Dangers of getting timeout wrong:</p>
+<ul>
+<li><p>under-estimate</p>
+<ul>
+<li>redundant packets transmitted, decreasing throughput (and contributing to congestion)</li>
+</ul></li>
+<li><p>over-estimate</p>
+<ul>
+<li>decrease throughput because lots of waiting</li>
+</ul></li>
+</ul>
+<p>So we want the timeout to be longer than the roundtrip time.</p>
+<p>Sender keeps a running average of the roundtrip times and uses that to set the timeouts. (ignores retransmissions)</p>
+<section id="current-model" class="level4">
+<h4>Current Model</h4>
+<p><code>EstimatedRTT = (1 - a)*EstimatedRTT + a*SampleRTT</code></p>
+<ul>
+<li><p>Exponential weighted moving average</p>
+<ul>
+<li><p>want to balanced between the influence of the average value and of the most recent value</p>
+<ul>
+<li>want to ignore outliers, but don’t want to ignore sudden changes to the network</li>
+</ul></li>
+</ul></li>
+<li><p>influence of past sample decreases exponentially fast</p></li>
+<li><p>typical value: <code>a = 0.125</code></p></li>
+</ul>
+</section>
+<section id="example" class="level4">
+<h4>Example</h4>
+<p>Note: samples jump around mostly due to queueing dynamics</p>
+</section>
+<section id="setting-the-timeout" class="level4">
+<h4>Setting the Timeout</h4>
+<ul>
+<li><p>Look at the variance of the estimate to tell how accurate it is</p>
+<ul>
+<li>use a weighted moving average of the variance</li>
+</ul></li>
+<li><p>add a safety margin to account for that</p>
+<ul>
+<li>through experimentation, it’s been seen that a margin of 4 times the variance average works well</li>
+</ul></li>
+<li><p>if every packet has the same RTT, then the deviation will be 0</p></li>
+</ul>
+</section>
+</section>
+<section id="tcp-flow-control" class="level3">
+<h3>TCP Flow Control</h3>
+<ul>
+<li><p>Without flow control, if the receiver’s buffer fills up, the sender will keep sending and a lot of packets will be discarded.</p></li>
+<li><p>flow control matches the send rate to the receiving application’s drain rate</p></li>
+</ul>
+<section id="how-it-works" class="level4">
+<h4>How It Works</h4>
+<ul>
+<li><p>receiver keeps track of unused buffer space as <code>rwnd</code> (receive window)</p></li>
+<li><p>receiver advertises unused buffer space by including <code>rwnd</code> value in segment headers</p></li>
+<li><p>the sender limits the number of unACKed bytes to <code>rwnd</code></p>
+<ul>
+<li>this guarantees the receiver’s buffer doesn’t overflow</li>
+</ul></li>
+</ul>
+</section>
+<section id="example-1" class="level4">
+<h4>Example</h4>
+<p>Slow receiver:</p>
+<ul>
+<li><p>receiver buffer fills up and window shrinks to 0</p></li>
+<li><p>sender learns of empty window and stops</p></li>
+<li><p>sender buffer fills up with bytes from its application process</p></li>
+<li><p>sender TCP asks OS to block the application process</p></li>
+<li><p>once the receiver catches up, the window opens again, and the sender TCP learns the new window size</p>
+<ul>
+<li><p>how does it learn the window size again? It’s not sending anymore, so there’s nothing for the receiver to ACK</p></li>
+<li><p>uses probing – sends a 1-byte message every now and then to trigger an ACK from the receiver</p>
+<ul>
+<li>chose this over having the receiver send an ACK when the window opens because it doesn’t seem to fit with the philosophy of TCP – normally everything a receiver does is a response to something it was sent</li>
+</ul></li>
+</ul></li>
+<li><p>sender resumes transmission</p></li>
+<li><p>sender buffer frees up</p></li>
+<li><p>sender TCP asks OS to unblock sender process</p></li>
+</ul>
+<p>### TCP Congestion Control</p>
+<ul>
+<li><p>reduce sending rate so as not to lose things in the network buffers between the sender and receiver</p></li>
+<li><p>harder than flow control because there are more buffers, and their occupancy doesn’t just depend on what you send</p></li>
+</ul>
+<p>Goal:</p>
+<ul>
+<li><p>TCP sender should transmit as fast as possible, but without congesting the network</p>
+<ul>
+<li>how do you find a rate just below the congestion level?</li>
+</ul></li>
+<li><p>decentralised: each TCP sender sets its own rate, based on implicit feedback:</p>
+<ul>
+<li><p>ACK: segment received (a good thing!), network not congested, so increase sending rate</p></li>
+<li><p>lost segment: assume loss due to congested network, so decrease sending rate</p>
+<ul>
+<li><p>could be for other reasons (e.g. packet was corrupted), but is almost certainly because of congestion</p></li>
+<li><p>this assumption caused problems in early wireless networks</p>
+<ul>
+<li>no longer a problem because wireless networks now recover lost packets at lower layers</li>
+</ul></li>
+</ul></li>
+<li><p>needs to be decentralised, because of the rapid changing of the network (buffer occupancy, etc.)</p></li>
+<li><p>there are explicit feedback methods, e.g. DECBIT and ECN</p>
+<ul>
+<li>ECN isn’t widely used because it’s complicated (even though it is widely deployed)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="bandwidth-probing" class="level4">
+<h4>Bandwidth Probing</h4>
+<p>By increasing on ACK receipt and decreasing with each loss (with a faster decrease than increase), you get a sawtooth plot.</p>
+</section>
+<section id="congestion-window" class="level4">
+<h4>Congestion Window</h4>
+<p>sender limits rate by limiting number of unACKed bytes in pipeline:</p>
+<pre><code>* last_byte_sent - last_byte_acked &lt;= cwnd
+
+* `cwnd` is the congestion window, only relevant to the sender
+
+* the sender is limited by `min(rwnd, cwnd)`</code></pre>
+</section>
+<section id="more-details" class="level4">
+<h4>More Details</h4>
+<ul>
+<li><p>segment loss event:</p>
+<ul>
+<li><p>timeout – no response</p>
+<ul>
+<li>cut <code>cwnd</code> to 1</li>
+</ul></li>
+<li><p>3 duplicate ACKs – at least some segments getting through (recall fast retransmit)</p>
+<ul>
+<li>cut <code>cwnd</code> in half (less aggressive than on timeout)</li>
+</ul></li>
+</ul></li>
+<li><p>ACK received:</p>
+<ul>
+<li><p>slowstart phase</p>
+<ul>
+<li>increase exponentially fast at connection start or following timeout</li>
+</ul></li>
+<li><p>congestion avoidance</p>
+<ul>
+<li>increase linearly (increase by one every time you get an ACK)</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="tcp-slowstart" class="level3">
+<h3>TCP Slowstart</h3>
+<ul>
+<li><p>start with <code>cwnd = MSS</code></p></li>
+<li><p>available bandwidth may be &gt;&gt; MSS/RTT</p>
+<ul>
+<li>desirable to quickly ramp up to a respectable rate</li>
+</ul></li>
+<li><p>increase rate exponentially until first loss event or when threshold reached</p></li>
+<li><p>increase threshold with each ACK you receive (this gives exponential behaviour), increase by MSS</p></li>
+</ul>
+<p>[…]</p>
+</section>
+<section id="transition-intoout-of-slowstart" class="level3">
+<h3>Transition into/out of Slowstart</h3>
+<p><code>ssthresh</code> – <code>cwnd</code> threshold maintained by TCP</p>
+<ul>
+<li><p>on loss event – set <code>ssthresh</code> to <code>cwnd / 2</code></p>
+<ul>
+<li>remember half of TCP rate when congestion last occurred</li>
+</ul></li>
+<li><p>when <code>cwnd &gt;= ssthresh</code> – transition from slowstart to congestion avoidance phase</p></li>
+</ul>
+</section>
+<section id="tcp-congestion-avoidance" class="level3">
+<h3>TCP Congestion Avoidance</h3>
+<p>AIMD – additive increase, multiplicative decrease</p>
+<ul>
+<li><p>when cwnd &gt; ssthresh grow cwnd linearly</p>
+<ul>
+<li><p>increase it by 1 MSS per RTT</p></li>
+<li><p>approach possible congestion slower than in slowstart</p></li>
+<li><p>implementation […]</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="fast-recovery" class="level3">
+<h3>Fast Recovery</h3>
+<p>3 duplicate ACKs treated differently from full timeout</p>
+</section>
+</section>
+<section id="flavours-of-tcp" class="level2">
+<h2>Flavours of TCP</h2>
+<p>There are many different flavours.</p>
+<p>Reno and Tahoe are the most popular – Reno is the most widely deployed one.</p>
+</section>
+</section>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>SQL</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <style type="text/css">
+div.sourceLine, a.sourceLine { display: inline-block; min-height: 1.25em; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; }
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+div.sourceLine, a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource div.sourceLine, .numberSource a.sourceLine
+  { position: relative; }
+pre.numberSource div.sourceLine::before, .numberSource a.sourceLine::before
+  { content: attr(data-line-number);
+    position: absolute; left: -5em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em; }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; color: #aaaaaa;  padding-left: 4px; }
+pre, code { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; color: initial; }
+}
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.fl { color: #0000cf; } /* Float */
+code span.ch { color: #4e9a06; } /* Char */
+code span.st { color: #4e9a06; } /* String */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.ot { color: #8f5902; } /* Other */
+code span.al { color: #ef2929; } /* Alert */
+code span.fu { color: #000000; } /* Function */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code span.cn { color: #000000; } /* Constant */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.im { } /* Import */
+code span.va { color: #000000; } /* Variable */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.ex { } /* Extension */
+code span.at { color: #c4a000; } /* Attribute */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="sql" class="level1">
+<h1>SQL</h1>
+<p>SQL is a set of commands divided into three groups:</p>
+<ul>
+<li>DDL (Data definition language)
+<ul>
+<li><code>CREATE</code></li>
+<li><code>DROP</code></li>
+<li><code>ALTER</code></li>
+</ul></li>
+<li>DML (Data manipulation language)
+<ul>
+<li><code>SELECT</code></li>
+<li><code>DELETE</code></li>
+<li><code>UPDATE</code></li>
+<li><code>INSERT</code></li>
+</ul></li>
+<li>DCL (Data control language) – for managing permissions/access
+<ul>
+<li><code>GRANT</code></li>
+<li><code>REVOKE</code></li>
+</ul></li>
+</ul>
+<p>DML is the most commonly used, then DDL, then DCL.</p>
+<section id="select-statement" class="level2">
+<h2><code>SELECT</code> Statement</h2>
+<pre class="sourceCode sql" id="cb1"><code class="sourceCode sql"><div class="sourceLine" id="cb1-1" data-line-number="1">  <span class="kw">SELECT</span> [<span class="kw">DISTINCT</span>] ColumnList</div>
+<div class="sourceLine" id="cb1-2" data-line-number="2">  <span class="kw">FROM</span> TableList</div>
+<div class="sourceLine" id="cb1-3" data-line-number="3">  [<span class="kw">WHERE</span> Condition]</div>
+<div class="sourceLine" id="cb1-4" data-line-number="4">  [GOUP <span class="kw">BY</span> ColumnList</div>
+<div class="sourceLine" id="cb1-5" data-line-number="5">  <span class="kw">HAVING</span> […]]</div></code></pre>
+</section>
+<section id="dcl-data-control-language" class="level2">
+<h2>DCL (Data Control Language)</h2>
+<section id="user-account-management" class="level3">
+<h3>User Account Management</h3>
+<ul>
+<li><p>Creating a new user account requires:</p>
+<ul>
+<li><p>a username</p></li>
+<li><p>a password</p></li>
+<li><p>a privilege level</p></li>
+</ul></li>
+</ul>
+<p>You can also add a privilege level to an existing user.</p>
+<pre class="sourceCode sql" id="cb2"><code class="sourceCode sql"><div class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">GRANT</span> <span class="kw">CONNECT</span></div>
+<div class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">TO</span> Black</div>
+<div class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">IDENTIFIED</span> <span class="kw">BY</span> blacks_password;</div>
+<div class="sourceLine" id="cb2-4" data-line-number="4"></div>
+<div class="sourceLine" id="cb2-5" data-line-number="5"><span class="kw">GRANT</span> <span class="kw">RESOURCE</span></div>
+<div class="sourceLine" id="cb2-6" data-line-number="6"><span class="kw">TO</span> Black;</div>
+<div class="sourceLine" id="cb2-7" data-line-number="7"></div>
+<div class="sourceLine" id="cb2-8" data-line-number="8"><span class="kw">REVOKE</span> <span class="kw">RESOURCE</span></div>
+<div class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw">FROM</span> Black;</div></code></pre>
+<p>There are three privilege levels:</p>
+<ul>
+<li><p><code>CONNECT</code></p>
+<ul>
+<li>allows a user to log in to the DBMS</li>
+</ul></li>
+<li><p><code>RESOURCE</code></p>
+<ul>
+<li><code>CONNECT</code> + execute DDL statements</li>
+</ul></li>
+<li><p><code>DBA</code></p>
+<ul>
+<li><code>RESOURCE</code> + <code>GRANT</code>/<code>REVOKE</code> privilege</li>
+</ul></li>
+</ul>
+</section>
+<section id="table-access-management" class="level3">
+<h3>Table Access Management</h3>
+<pre class="sourceCode sql" id="cb3"><code class="sourceCode sql"><div class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">GRANT</span> <span class="kw">SELECT</span></div>
+<div class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw">ON</span> companydb.employee</div>
+<div class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw">TO</span> white;</div></code></pre>
+<p>This gives <code>SELECT</code> permission to white on the employee table of the companydb database.</p>
+<p>You can also use <code>*</code> as a wildcard, either for all tables in a database, or all tables in all databases:</p>
+<pre class="sourceCode sql" id="cb4"><code class="sourceCode sql"><div class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw">GRANT</span> <span class="kw">ALL</span></div>
+<div class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw">ON</span> companydb.*</div>
+<div class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw">TO</span> violet</div>
+<div class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">IDENTIFIED</span> <span class="kw">BY</span> passwdX;</div>
+<div class="sourceLine" id="cb4-5" data-line-number="5"></div>
+<div class="sourceLine" id="cb4-6" data-line-number="6"><span class="kw">GRANT</span> <span class="kw">ALL</span></div>
+<div class="sourceLine" id="cb4-7" data-line-number="7"><span class="kw">ON</span> *.*</div>
+<div class="sourceLine" id="cb4-8" data-line-number="8"><span class="kw">TO</span> violet</div>
+<div class="sourceLine" id="cb4-9" data-line-number="9"><span class="kw">IDENTIFIED</span> <span class="kw">BY</span> passwdX;</div></code></pre>
+<p>You can set whether people are allowed to grant the permissions they’re given to others:</p>
+<pre class="sourceCode sql" id="cb5"><code class="sourceCode sql"><div class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">GRANT</span> <span class="kw">ALL</span></div>
+<div class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw">ON</span> companydb.*</div>
+<div class="sourceLine" id="cb5-3" data-line-number="3"><span class="kw">TO</span> silver</div>
+<div class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw">WITH</span> <span class="kw">GRANT</span> <span class="kw">OPTION</span>;</div></code></pre>
+<p>You can limit permissions to certain columns:</p>
+<pre class="sourceCode sql" id="cb6"><code class="sourceCode sql"><div class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw">GRANT</span> <span class="kw">SELECT</span>, <span class="kw">UPDATE</span> (Salary, SuperSSN)</div>
+<div class="sourceLine" id="cb6-2" data-line-number="2"><span class="kw">ON</span> companydb.employee</div>
+<div class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw">To</span> Ruby, Green, Black;</div></code></pre>
+</section>
+</section>
+</section>
+</body>
+</html>

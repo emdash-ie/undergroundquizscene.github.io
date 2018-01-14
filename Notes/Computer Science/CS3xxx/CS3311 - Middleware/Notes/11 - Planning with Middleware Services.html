@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="" />
+  <title>Planning with Middleware Services</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">Planning with Middleware Services</h1>
+<p class="author"></p>
+<p class="date">Wednesday 1st of November, 2017</p>
+</header>
+<section id="individual-middleware-services" class="level1">
+<h1>Individual Middleware Services</h1>
+<p>These are the services we’ve seen so far:</p>
+<ul>
+<li>Remote execution, server activation</li>
+<li>Discovery (directory or p2p)</li>
+<li>Event notification</li>
+<li>Mobility management</li>
+<li>Content adaptation</li>
+<li>Context-awareness</li>
+</ul>
+<p>We only use services when they’re needed, e.g. only use a discovery service if we’re in a dynamic environment where services are coming and going.</p>
+<p>When a middleware service is required, the next question is “What is the supporting architecture?”. E.g. with content adaptation, adaptation can take place on the device or on the server, but if it’s on the server, the server needs to be provided with information about the clients.</p>
+<p>When designing the architecture that supports a middleware service, it’s important to consider the efficiency.</p>
+<p>The set of protocols implementing the service is also important.</p>
+</section>
+<section id="performance-goals" class="level1">
+<h1>Performance Goals</h1>
+<ul>
+<li>achieve the main functional goal without errors</li>
+<li>minimum execution time / minimum overhead
+<ul>
+<li>middleware services are all simple to aim for this</li>
+<li>they aim for this because all middleware services will be running in conjunction with an application</li>
+</ul></li>
+<li>minimum resource consumption
+<ul>
+<li>especially energy
+<ul>
+<li>only keep the most important parts of the service active all the time</li>
+</ul></li>
+<li>often compromise between this and execution time</li>
+</ul></li>
+<li>robustness
+<ul>
+<li>can’t really measure this</li>
+<li>want the system to withstand changes and still provide the correct result</li>
+</ul></li>
+<li>reliability
+<ul>
+<li>does the service provide the expected result?</li>
+</ul></li>
+<li>scalability
+<ul>
+<li>similar performance results irrespective of the number of clients of the service</li>
+</ul></li>
+</ul>
+</section>
+<section id="use-case-1" class="level1">
+<h1>Use Case 1</h1>
+<p>[…]</p>
+<p>A directory-based solution allows for creation of a federation of directories (one at each site), allowing for service discovery across the networks. It would also allow for logging. Finally, security and service provisioning can be better controlled with a centralised solution. However, the directory-based approach has worse scalability than the p2p approach.</p>
+<section id="protocols" class="level2">
+<h2>Protocols</h2>
+<ol type="1">
+<li>Service discovery</li>
+<li>Service offer registration (in the directory)</li>
+<li>Service offer de-registration</li>
+<li>Directory service lookup</li>
+<li>Remote service use</li>
+<li>Lease allocation and renewal</li>
+<li>Service event notification</li>
+</ol>
+</section>
+<section id="evaluation" class="level2">
+<h2>Evaluation</h2>
+<p>Is the system achieving the functionality? What’s the cost/overhead? Is it robust, reliable, and scalable? (some of this determined by testing)</p>
+</section>
+</section>
+<section id="use-case-2" class="level1">
+<h1>Use Case 2</h1>
+<p>Small organisation with one site that may include mobile devices. As the set of services on offer changes dynamically, middleware for service discovery and remote execution is required.</p>
+<p>P2P looks more appropriate, as it’s more suitable for mobile, short-lived services.</p>
+<p>Server would broadcast its services periodically, and clients can listen to discover the services.</p>
+<p>A useful benefit here is that the broadcasting can be controlled – the offer window can be varied. During this window, servers advertise and clients listen.</p>
+<p>This would also consume less resources – for example, no dedicated directory service which is always running.</p>
+</section>
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>6-Regular Expressions</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="regular-expressions" class="level1">
+<h1>Regular Expressions</h1>
+<hr />
+<p>A regular expression is a description of a pattern that describes a set of possible characters in an input string.</p>
+<section id="upside" class="level2">
+<h2>Upside</h2>
+<p>Useful.</p>
+</section>
+<section id="downside" class="level2">
+<h2>Downside</h2>
+<p>Not consistent from implementation to implementation.</p>
+</section>
+<section id="syntax" class="level2">
+<h2>Syntax</h2>
+<p>The simplest is a single character. <code>c</code> will match one occurance of a c. A <code>.</code> will stand for any character (with some exceptions that I’ve already forgotten).</p>
+<p><code>^</code> specifies the beginning of a line. <code>^The</code> will match any ‘The’ that’s at the beginning of a line.</p>
+<p><code>$</code> specifies the end of a line. <code>well$</code> will match any ‘well’ that’s at the end of a line.</p>
+<p><code>^Bin$</code> specifies a line that only contains ‘Bin’.</p>
+<section id="character-classes" class="level3">
+<h3>Character Classes</h3>
+<p>Square brackets are used to define character classes.</p>
+<p><code>[aeiou]</code> will match any of the characters ‘a’, ‘e’, ‘i’, ‘o’, ‘u’.</p>
+<section id="ranges" class="level4">
+<h4>Ranges</h4>
+<p><code>[0-9]</code> matches 0, 1, 2, 3, 4, 5, 6, 7, 8, or 9. You can’t use a range backwards. If you put in e.g. <code>[e-a]</code>, this will match e, -, or a.</p>
+</section>
+<section id="negation" class="level4">
+<h4>Negation</h4>
+<p>Putting a <code>^</code> at the start of a character class will negate it. <code>[^aeiou]</code> will match any letter except a, e, i, o, or u.</p>
+</section>
+</section>
+<section id="alternation" class="level3">
+<h3>Alternation</h3>
+<p><code>(T|P)</code> will match T or P. <code>At(ten|nine)tion</code> will match ‘Attention’ or ‘Atninetion’.</p>
+</section>
+<section id="quantifiers" class="level3">
+<h3>Quantifiers</h3>
+<section id="optional-items" class="level4">
+<h4>Optional Items</h4>
+<p>A <code>?</code> makes the character or bracketed expression preceeding it optional, it will match things where it’s present and things where it’s not.</p>
+</section>
+<section id="repetition" class="level4">
+<h4>Repetition</h4>
+<p>An <code>*</code> will match 0 or more of the preceeding character or bracketed expression.</p>
+<p>A <code>+</code> will match 1 or more of the preceeding character of bracketed expression.</p>
+</section>
+</section>
+<section id="repetition-ranges" class="level3">
+<h3>Repetition Ranges</h3>
+<p>Look it up.</p>
+</section>
+<section id="backreferences" class="level3">
+<h3>Backreferences</h3>
+<p>Look it up.</p>
+</section>
+</section>
+</section>
+</body>
+</html>

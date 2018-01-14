@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>2015-10-27</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<p>The results from the test will be back to us next week.</p>
+<section id="introduction-to-logic" class="level1">
+<h1>Introduction to Logic</h1>
+<section id="logic" class="level2">
+<h2>Logic</h2>
+<p>Logic is the study of rational argument.</p>
+<p>Given a set of facts, and an argument claiming that a conclusion follows from these facts, how do we decide whether or not the argument is justified?</p>
+<p>To do this we need a precise language in which to talk.</p>
+<p>First studied by the ancient Greeks, e.g. Aristotle.</p>
+<p>Boole published “An Investigation of the Laws of Thought” in 1854.</p>
+</section>
+<section id="why-is-logic-useful" class="level2">
+<h2>Why is logic useful?</h2>
+<ul>
+<li><p>can design circuits with it</p></li>
+<li><p>design programs etc.</p></li>
+<li><p>prove that a security system stops unauthorised access</p></li>
+<li><p>verify that circuit designs do the job they are supposed to do</p></li>
+<li><p>check that databases contain consistent info</p></li>
+<li><p>build systems that understand natural language</p></li>
+<li><p>build artifically intelligent systems</p></li>
+</ul>
+<p>Note: he’s going extremely quickly, hard to take things down</p>
+</section>
+<section id="logic-and-humans" class="level2">
+<h2>Logic and humans</h2>
+<p>We are not good at logic:</p>
+<ul>
+<li><p>we find it difficult to ignore our emotions</p>
+<ul>
+<li>are our emotions never relevant, though?</li>
+</ul></li>
+<li><p>we jump to conclusions based on what we want to happen</p></li>
+<li><p>we find it difficult to follow formal arguments</p></li>
+</ul>
+</section>
+<section id="what-will-we-be-looking-at" class="level2">
+<h2>What will we be looking at?</h2>
+<section id="propositional-logic" class="level3">
+<h3>Propositional logic</h3>
+<p>We consider the logic of simple statements:</p>
+<ul>
+<li><p>how to write them</p></li>
+<li><p>how to build complex statements</p></li>
+<li><p>how to determine whether they are true or false</p></li>
+<li><p>how to construct proofs that they are true</p></li>
+</ul>
+</section>
+<section id="predicate-logic" class="level3">
+<h3>Predicate logic</h3>
+<p>In CS1113 we will move on to more complicated statements which involve <em>variables</em> and collections of objects, and we will do similar things with them.</p>
+</section>
+</section>
+<section id="simple-statements" class="level2">
+<h2>Simple statements</h2>
+<p>An <em>atomic statement</em> or <em>proposition</em> is a phrase or sentence that declares a fact and is either true or false.</p>
+<p>E.g.:</p>
+<ul>
+<li><p>Dublin is the capital of Ireland</p></li>
+<li><p>Homer Simpson lives in Cork</p></li>
+<li><p>7 + 5 = 1</p></li>
+</ul>
+<p>The following are not propositions:</p>
+<ul>
+<li><p>Are we nearly there yet?</p></li>
+<li><p>Look before you leap.</p></li>
+<li><p>x = y + 2</p></li>
+</ul>
+<p>Note that the variables x and y do not have defined values, so the statement cannot be a proposition.</p>
+</section>
+<section id="truth-values" class="level2">
+<h2>Truth Values</h2>
+<p>You can picture a function from the set of all propositions to the set {True, False}. These are often denoted {T, F}.</p>
+</section>
+<section id="compound-statements" class="level2">
+<h2>Compound Statements</h2>
+<p>We can build more complicated statements by combining simple statements:</p>
+<ol type="1">
+<li><p>Dublin is the capital of Ireland <em>or</em> Enda Kenny played soccer for Bohemians. <em>This is true since one of the substatements is true.</em></p></li>
+<li><p>etc</p></li>
+</ol>
+<p>A compound statement is a combination of simple statements combined with connectives.</p>
+</section>
+<section id="a-formal-language" class="level2">
+<h2>A formal language</h2>
+<p>Lowercase letters to represent propositions.</p>
+<p>T, F to represent the truth values true and false</p>
+<p>Connectives:</p>
+<ul>
+<li><p>¬ — not</p></li>
+<li><p>∧ — and</p></li>
+<li><p>∨ — or</p></li>
+<li><p>→ — implies</p></li>
+<li><p>↔ — if and only if (equivalency)</p></li>
+</ul>
+</section>
+<section id="negation-not" class="level2">
+<h2>Negation (not)</h2>
+<p>Switches the truth value of the proposition it is applied to.</p>
+<p>I.e. if it is applied to p:</p>
+<ul>
+<li><p>if p is False, ¬p is True</p></li>
+<li><p>if p is True, ¬p is False</p></li>
+</ul>
+<section id="example" class="level3">
+<h3>Example</h3>
+<p>If p represents the proposition “Dublin is the capital of Ireland”, then ¬p (which has the value F), represents “Dublin is not the capital of Ireland”.</p>
+</section>
+</section>
+<section id="conjunction-and" class="level2">
+<h2>Conjunction (and)</h2>
+<p>The conjunction of two propositions is true if both of the smaller ones are true, otherwise it is false.</p>
+</section>
+</section>
+</body>
+</html>

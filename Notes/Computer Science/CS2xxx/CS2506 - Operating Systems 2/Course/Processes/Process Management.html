@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Process Management</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.line-block{white-space: pre-line;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="/Users/Noel/Developer/Projects/Notes/Build/note-style.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<section id="processes" class="level1">
+<h1>Processes</h1>
+<p>A process is:</p>
+<ul>
+<li>an instance of a running program</li>
+<li>the context associated with a program in execution</li>
+</ul>
+<p>A process consists of:</p>
+<ul>
+<li><p>the executable (the code/instructions)</p></li>
+<li><p>data</p></li>
+<li><p>management info</p></li>
+</ul>
+<p>The data and management info make up the process context.</p>
+<section id="process-context" class="level2">
+<h2>Process Context</h2>
+<p>The context represents state information:</p>
+<ul>
+<li><p>program values/variables, stored in the user space</p></li>
+<li><p>management information (process descriptor), stored in the kernel space</p></li>
+</ul>
+<p>The following things form the process descriptor – the main component of the process context:</p>
+<ul>
+<li>process ID
+<ul>
+<li>a unique integer value</li>
+</ul></li>
+<li>parent process ID</li>
+<li>real user ID
+<ul>
+<li>the id of the user who started this process</li>
+</ul></li>
+<li>effective user ID
+<ul>
+<li>the user whose rights the process carries
+<ul>
+<li>usually the same as the real user</li>
+</ul></li>
+</ul></li>
+<li>current directory
+<ul>
+<li>the start directory for looking up relative pathnames</li>
+</ul></li>
+<li>file descriptor table
+<ul>
+<li>a table with data about all input/output streams opened by the process</li>
+<li>indexed by an integer value called the file descriptor</li>
+</ul></li>
+<li>the environment
+<ul>
+<li>list of strings of format <code>VARIABLE = VALUE</code> used to customise the behaviour of certain programs</li>
+</ul></li>
+<li>code area</li>
+<li>data area</li>
+<li>stack
+<ul>
+<li>for calling programs</li>
+</ul></li>
+<li>heap
+<ul>
+<li>for additional memory space when required</li>
+</ul></li>
+<li>priority</li>
+<li>signal disposition
+<ul>
+<li>masks indicating which signals are awaiting delivery and which are blocked</li>
+</ul></li>
+<li>umask
+<ul>
+<li>mask value used to ensure that specified access permissions are not granted when this process creates a file</li>
+</ul></li>
+</ul>
+</section>
+<section id="basic-process-states" class="level2">
+<h2>Basic Process States</h2>
+<ul>
+<li>Ready
+<ul>
+<li>Can go from this to Running</li>
+<li>Comes here when created</li>
+</ul></li>
+<li>Running
+<ul>
+<li>Can go from here back to ready or to blocked
+<ul>
+<li>E.g. might block itself while waiting for an I/O operation to finish</li>
+</ul></li>
+<li>Can terminate from here</li>
+</ul></li>
+<li>Blocked
+<ul>
+<li>Can go from here back to ready</li>
+</ul></li>
+</ul>
+<p>Nowadays we have much more complex sets of states than this basic example.</p>
+</section>
+<section id="process-management" class="level2">
+<h2>Process Management</h2>
+<ul>
+<li>Create
+<ul>
+<li>The internal representation of the process is created</li>
+<li>Initial resources allocated
+<ul>
+<li>Resources will change over time.</li>
+</ul></li>
+<li>Initialise the program that is to run the process.</li>
+</ul></li>
+<li>Terminate
+<ul>
+<li>Release all resources</li>
+<li>Possibly inform other processes of the end of this one</li>
+</ul></li>
+<li>Change program
+<ul>
+<li>The process replace the code it is executing (by calling exec)</li>
+<li>This is useful when we have multiple processes and we want them to do different things</li>
+<li>We start with a parent process, and then use different children to do different things (multi-threading)</li>
+</ul></li>
+<li>Block
+<ul>
+<li>Wait for an event, e.g. the completion of an I/O operation</li>
+</ul></li>
+<li>Awaken Process (and put in queue)
+<ul>
+<li>After sleeping, the process can run again.</li>
+<li>Waits for its turn once awakened.</li>
+</ul></li>
+<li>Switch process
+<ul>
+<li>process context switching (another process takes control of the CPU)</li>
+</ul></li>
+<li>Schedule process
+<ul>
+<li>Take control of the CPU</li>
+</ul></li>
+<li>Set process parameters
+<ul>
+<li>e.g. priority</li>
+</ul></li>
+<li>Get process parameters
+<ul>
+<li>e.g. CPU time so far</li>
+</ul></li>
+</ul>
+<p>When a process is ready to run, it is sent to a ready-to-run queue, where it competes with other processes.</p>
+</section>
+</section>
+<section id="processes-threads-and-scheduling" class="level1">
+<h1>Processes, Threads, and Scheduling</h1>
+<section id="child-processes" class="level2">
+<h2>Child Processes</h2>
+<p>A process can create a child process identical to it by calling <code>fork()</code> (the UNIX function). As the kernel creates a copy of the caller, two processes will return from this call.</p>
+<p>When fork is called, the process saves its state, then switches control to the kernel process which will create the copy.</p>
+<p>The parent and child will then continue to execute asynchronously, competing for CPU time shares.</p>
+<p>CPU time is allocated to processes in constant-size chunks. Say a user process calls <code>fork()</code> before the end of its time-slice. Then the kernel process for this purpose takes over for the rest of the time-slice. At the boundary of every time-slice, the scheduler (another kernel process) takes control and decides which process (of all competing processes – it’ll be the highest-priority one) takes control for the next time-slice.</p>
+<p>The child and parent will have the same priority, as the child is an identical copy of the process, including the context. They will have different IDs, however, as they are distinct processes.</p>
+<p>Generally, the child is used to compute something different from the parent. The <code>fork()</code> returns the child ID to the parent, while it returns 0 to the child itself. For this reason, <code>fork()</code> is placed inside an if test. The if block will be run by the parent, and the else block will be run by the parent. The two processes work from the same code, but are directed to different sections of it.</p>
+</section>
+<section id="process-genealogy" class="level2">
+<h2>Process Genealogy</h2>
+<p>All processes are descendants of the <code>init</code> process, whose PID is 1. The kernel starts init in the last stage of the boot process.</p>
+<p>The init process then reads system init scripts and executes more programs, completing the boot process.</p>
+<ul>
+<li><p>every process has only 1 parent</p></li>
+<li><p>every process can have 0 or more children</p></li>
+<li><p>processes which share a parent are called siblings</p></li>
+</ul>
+</section>
+<section id="threads" class="level2">
+<h2>Threads</h2>
+<p>Switching process takes a lot of time, because the processes have to save their state, usually to the main memory.</p>
+<p>A thread is known as a lightweight process. Within a process we can have several threads (execution flows) which share the process context, including code.</p>
+<p>The context private to each thread is represented by the registers file and stack, the priority and own id. Generally the thread switch within the process is handled by the thread library, without calling the kernel. It is very fast as the thread context is minimal.</p>
+<p>When a process starts execution […]</p>
+<p>Say we have a process which has a main thread, and 2 new threads (so 3 execution flows). When this process takes control of a time-slice, the threads within the process are executed in turn according to their priority (each thread has its own priority).</p>
+<p>Creating multiple threads makes a lot of sense when we have many CPU cores, to take advantage of parallel processing.</p>
+<section id="advantages-and-disadvantages" class="level3">
+<h3>Advantages and Disadvantages</h3>
+<ul>
+<li>Threads provide concurrency, which can be exploited by many-core computers.
+<ul>
+<li>Concurrency also corresponds to the internal structure of many programs.</li>
+</ul></li>
+<li>If a thread changes directory, all threads in the process see the new current directory.</li>
+<li>If a thread closes a file descriptor, it will be closed in all threads.</li>
+<li>If a thread calls <code>exit()</code>, the whole process, including all its threads, will terminate.</li>
+<li>If a thread is more time consuming than others, all other threads will be starved of CPU.</li>
+</ul>
+</section>
+</section>
+</section>
+</body>
+</html>
